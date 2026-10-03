@@ -18,15 +18,15 @@
 | 冷却 | 記載なし | ヒートパイプとファン | ヒートパイプとファン | ファン | ファン | ファン |
 | 価格の表示 | 300〜500元 | 1048元(券後) | 1199元(券後) | 150〜200ドル | 1000〜1500元 | 1500〜2000元 |
 
-出典は、[RG40XXH](https://zhangjiquan.com/handheld/rg-40xxh)、[RG406V](https://zhangjiquan.com/handheld/rg-406v)、[RG556](https://zhangjiquan.com/handheld/rg-556)、[RP4 Pro](https://zhangjiquan.com/handheld/retroid-pocket-4-pro)、[RP5](https://zhangjiquan.com/handheld/retroid-pocket-5)、[Nova](https://zhangjiquan.com/handheld/retroid-pocket-nova)の各ページです。RG40XXHの冷却欄は空で、RG406VとRG556の1048元と1199元は、掌机圈が載せている購入リンクの到手価格(クーポン適用後)です。
+出典は、[RG40XXH](https://zhangjiquan.com/handheld/rg-40xxh)、[RG406V](https://zhangjiquan.com/handheld/rg-406v)、[RG556](https://zhangjiquan.com/handheld/rg-556)、[RP4 Pro](https://zhangjiquan.com/handheld/retroid-pocket-4-pro)、[RP5](https://zhangjiquan.com/handheld/retroid-pocket-5)、[Nova](https://zhangjiquan.com/handheld/retroid-pocket-nova)の各ページです。RG40XXHの冷却欄は空で、RG406VとRG556の1048元と1199元は、掌机圈が載せている購入リンクの到手価格(クーポン適用後)を示しています。
 
 ## Anbernic RG40XXH
 
-H700を載せた横型の4インチ機です。掌机圈では、サイズが163×79×16mmで、SDカードスロットが2つ、出力はMini HDMIと記載されています。対応するゲームの形式は、PSP、DOS、NDS、N64、PS1、DC、アーケード、GBA、GBC、GB、SFC、FC、MAME、MDなどとされています。
+H700を載せた横型の4インチ機です。掌机圈では、サイズが163×79×16mmで、SDカードスロットが2つ、出力はMini HDMIと記載されています。対応するゲームの形式は、PSP、DOS、NDS、N64、PS1、DC、アーケード、GBA、GBC、GB、SFC、FC、MAME、MDなどです。
 
 ![掌机圈のRG-40XXHのページ](../assets/screenshots/zhangjiquan-rg40xxh.png)
 
-什么值得买の[RG40XXH実測記事](https://post.smzdm.com/p/aqrg0rx2/)は、電池を3200mAh、重さを208gとし、FC、SFC、GBA、GB、PS1は問題なく動くと書いています。PSPとN64は一部が遊べる程度とされています。この記事もAIGCの表示があり、掲載された数値は、上の掌机圈のページと照らして使う必要があります。
+什么值得买の[RG40XXH実測記事](https://post.smzdm.com/p/aqrg0rx2/)は、電池を3200mAh、重さを208gとし、FC、SFC、GBA、GB、PS1は問題なく動くと書いています。PSPとN64は一部が遊べる程度です。この記事もAIGCの表示があり、掲載された数値は、上の掌机圈のページと照らして使う必要があります。
 
 ![什么值得买のRG40XXH記事。AIGCの表示がある](../assets/screenshots/smzdm-rg40xxh-review-aigc.jpg)
 
@@ -56,15 +56,15 @@ Dimensity 1100を載せた4.7インチの横型機です。掌机圈では、重
 
 ## Retroid Pocket 5
 
-Snapdragon 865を載せた5.5インチの横型機です。掌机圈の記載では、サイズが199.2×78.5×15.6mmで、重さは280g、最大輝度は500ニト、出力はUSB-Cです。対応するゲームは、GameCube、Wii、PS2までとされ、一部のSwitchのゲームも動きます。
+Snapdragon 865を載せた5.5インチの横型機です。掌机圈の記載では、サイズが199.2×78.5×15.6mmで、重さは280g、最大輝度は500ニト、出力はUSB-Cとされています。対応するゲームは、GameCube、Wii、PS2までで、一部のSwitchのゲームも動きます。
 
 ![掌机圈のRetroid Pocket 5のページ](../assets/screenshots/zhangjiquan-retroid-pocket-5.png)
 
-この機種は、OSの選択肢でも他の機種より恵まれています。[ROCKNIX](https://rocknix.org/devices/retroid/retroid-pocket-5/)と[Knulli](https://github.com/knulli-cfw/knulli.org/blob/main/docs/devices/goretroid/retroid-pocket-5.md)の両方に対応ページがあります。Knulliのページには、準備したSDカードを挿し、音量上キーを押したまま起動して、表示されるメニューから起動を選ぶ手順が書かれています。
+この機種は、OSの選択肢でも他の機種より有利です。[ROCKNIX](https://rocknix.org/devices/retroid/retroid-pocket-5/)と[Knulli](https://github.com/knulli-cfw/knulli.org/blob/main/docs/devices/goretroid/retroid-pocket-5.md)の両方に対応ページがあります。Knulliのページには、準備したSDカードを挿し、音量上キーを押したまま起動して、表示されるメニューから起動を選ぶ手順が書かれています。
 
 ## Retroid Pocket Nova
 
-2026年7月に発売された新しい機種です。Snapdragon 8 Gen 2を載せ、画面は4.5インチの4:3で、リフレッシュレートが120Hzです。掌机圈では、サイズが169.9×84.1×26.3mm、重さが255gで、WiFi 7とBluetooth 5.3に対応しています。対応するゲームは、一部のSwitchまでとされています。
+2026年7月に発売された新しい機種です。Snapdragon 8 Gen 2を載せ、画面は4.5インチの4:3で、リフレッシュレートが120Hzです。掌机圈では、サイズが169.9×84.1×26.3mm、重さが255gで、WiFi 7とBluetooth 5.3に対応しています。対応するゲームは、一部のSwitchまでです。
 
 ![掌机圈のRetroid Pocket Novaのページ](../assets/screenshots/zhangjiquan-retroid-pocket-nova.jpg)
 

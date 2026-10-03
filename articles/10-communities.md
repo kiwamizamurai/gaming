@@ -4,7 +4,7 @@
 
 ## 中国語の掲示板
 
-中国語の情報は、百度貼吧に最も多く集まっています。[开源掌机吧](https://tieba.baidu.com/f?kw=%E5%BC%80%E6%BA%90%E6%8E%8C%E6%9C%BA)は、ページの表示によると、関注者が7.9万人、投稿が143.1万件で、2014年3月7日に作られました。コミュニティの説明は、「開源掌機とは、システムと内容がオープンソースの掌機」と書き、悪意のある書き込みや、露骨な宣伝を禁じています。
+中国語の情報が最も多く集まるのは、百度貼吧です。[开源掌机吧](https://tieba.baidu.com/f?kw=%E5%BC%80%E6%BA%90%E6%8E%8C%E6%9C%BA)は、ページの表示によると、関注者が7.9万人、投稿が143.1万件で、2014年3月7日に作られました。コミュニティの説明は、「開源掌機とは、システムと内容がオープンソースの掌機」と書き、悪意のある書き込みや、露骨な宣伝を禁じています。
 
 ![开源掌机吧のトップページ](../assets/screenshots/tieba-open-source-handheld-bar.jpg)
 
@@ -22,7 +22,7 @@ RG40XXHの放熱改造のように、写真つきで手順を書いた投稿も�
 
 ## OSとツールの公式の場所
 
-OSの公式の情報は、英語で書かれています。ROCKNIXは[公式Wiki](https://rocknix.org/)と[GitHub](https://github.com/ROCKNIX/distribution)があり、質問の場所として、[Discord](https://discord.gg/seTxckZjJy)のコミュニティがあります。Knulliは[GitHub](https://github.com/knulli-cfw/knulli-linux)の下に[ドキュメントのソース](https://github.com/knulli-cfw/knulli.org)があり、質問は[Discord](https://discord.gg/HXPS3DAeeB)の「questions」チャンネルが案内されています。muOSは[MustardOS](https://github.com/MustardOS)のリポジトリ群です。Pegasusは、[公式サイト](https://pegasus-frontend.org/)と[Discord](https://discord.gg/KTtzP6y)があります。ポケモンの改造は、pretの[ページ](https://pret.github.io/)と、RHHの[Discord](https://discord.gg/6CzjAG6GZk)が案内されています。
+OSの公式の情報は、英語で書かれています。ROCKNIXは[公式Wiki](https://rocknix.org/)と[GitHub](https://github.com/ROCKNIX/distribution)があり、質問の場所として、[Discord](https://discord.gg/seTxckZjJy)のコミュニティがあります。Knulliは[GitHub](https://github.com/knulli-cfw/knulli-linux)の下に[ドキュメントのソース](https://github.com/knulli-cfw/knulli.org)があり、質問先は[Discord](https://discord.gg/HXPS3DAeeB)の「questions」チャンネルです。muOSは[MustardOS](https://github.com/MustardOS)のリポジトリ群です。Pegasusは、[公式サイト](https://pegasus-frontend.org/)と[Discord](https://discord.gg/KTtzP6y)があります。ポケモンの改造は、pretの[ページ](https://pret.github.io/)と、RHHの[Discord](https://discord.gg/6CzjAG6GZk)が案内されています。
 
 RetroidのAndroid機について、英語のコミュニティは、Redditの[r/retroid](https://www.reddit.com/r/retroid)です。検索では、XDA Forumsに、RP4 Proのroot化の手順を共有するスレッドも見つかりました([検索結果](https://www.bing.com/search?q=Retroid+Pocket+4+Pro+custom+ROM+LineageOS+bootloader+unlock+reddit))。Retroidの中国の公式サイトにも、公式のコミュニティと、使い方のガイド、ダウンロードセンターのページがあります([retroid.cn](https://www.retroid.cn/))。
 

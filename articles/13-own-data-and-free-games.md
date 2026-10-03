@@ -21,7 +21,7 @@ libretroの[BIOSの説明](https://github.com/libretro/docs/blob/master/docs/gui
 
 GBxCart RWの公式ページには、バックアップ、セーブの退避と復元、フラッシュカートの書き込みに使えると書かれています。Windowsでは、CH340/CH341のドライバーが必要です。Joey Jrのページによると、ソフトやドライバーは要らず、外付けのハードディスクのように使えます。ROMとセーブは、ドラッグで取り出せます。USB-Cケーブルは付属しません。Macでは隠しファイルがセーブを壊すおそれがあるため、FlashGBXの利用が勧められています。ファームウェアは、そのページのもの以外で更新しないよう強調されています。同じ店では、JoeyN64が55ドルで売られていました。
 
-ほかに、GBFlashがあります。[GBFlash](https://github.com/simonkwng/GBFlash)は、GB/GBAのカードを高速に書き込む機器で、32ビットのARMプロセッサを積んでいます。READMEによると、最速で毎秒550キロバイトを超えます。FlashGBXも公式に対応済みです。価格のページは、この調査では確認できませんでした。Game Bubは、公式サイトで「オープンソースのFPGAレトロエミュレーション携帯機」と紹介されていますが、価格はトップページにありません。
+ほかに、GBFlashがあります。[GBFlash](https://github.com/simonkwng/GBFlash)は、32ビットのARMプロセッサを積んだ、GB/GBAのカードを高速に書き込む機器です。READMEによると、最速で毎秒550キロバイトを超えます。FlashGBXも公式に対応済みです。価格のページは、この調査では確認できませんでした。Game Bubは、公式サイトで「オープンソースのFPGAレトロエミュレーション携帯機」と紹介されていますが、価格はトップページにありません。
 
 ## オープンソースの選択肢
 
@@ -35,11 +35,11 @@ DuckStationは、PS1のBIOSが必要で、手元のゲーム機から取り出�
 
 ## 権利のないゲームを遊ぶ
 
-ホームブリューは、個人やチームが作って、自由に配布しているゲームです。[Homebrew Hub](https://hh.gbdev.io/)は、ゲームボーイ、ゲームボーイアドバンス、ファミコン用のホームブリュー、デモ、音楽カートリッジ、ツールを集めたデータベースです。トップページの表示では、登録数は1629件で、ブラウザ上で動くエミュレーターも付いています。データは、ゲームボーイ用が[gbdev/database](https://github.com/gbdev/database)、ゲームボーイアドバンス用が[gbadev-org/games](https://github.com/gbadev-org/games)、ファミコン用が[nesdev-org/homebrew-db](https://github.com/nesdev-org/homebrew-db)という公開リポジトリで管理されています。
+ホームブリューは、個人やチームが作って、自由に配布しているゲームを指します。[Homebrew Hub](https://hh.gbdev.io/)は、ゲームボーイ、ゲームボーイアドバンス、ファミコン用のホームブリュー、デモ、音楽カートリッジ、ツールを集めたデータベースです。トップページの表示では、登録数は1629件で、ブラウザ上で動くエミュレーターも付属です。データは、ゲームボーイ用が[gbdev/database](https://github.com/gbdev/database)、ゲームボーイアドバンス用が[gbadev-org/games](https://github.com/gbadev-org/games)、ファミコン用が[nesdev-org/homebrew-db](https://github.com/nesdev-org/homebrew-db)という公開リポジトリで管理されています。
 
 ![Homebrew Hubのトップページ](../assets/screenshots/homebrew-hub-home.jpg)
 
-トップページには、2026年6月13日から9月14日に開かれたGBA Jam 2026など、ゲーム制作のイベントの告知もあります。作者や権利の扱いは、ゲームごとのページに書かれています。削除の依頼の扱いは、サイトの「disclaimer/DMCA」のページで確認できます。遊ぶ前に各ゲームのライセンス表記を見る習慣をつけると、安全です。
+トップページには、2026年6月13日から9月14日に開かれたGBA Jam 2026など、ゲーム制作のイベントの告知もあります。ゲームごとのページが、作者や権利の扱いの記載先です。削除の依頼の扱いは、サイトの「disclaimer/DMCA」のページが確認先です。遊ぶ前に各ゲームのライセンス表記を見る習慣をつけると、安全に遊べます。
 
 Linux系のOSには、PortMasterがあります。[PortMasterの公式サイト](https://portmaster.games/)によると、これは、携帯機のLinux向けにポート(PC向けゲームの移植版)を入れて、更新と削除を管理するプログラムです。ダウンロード量は8MBで、ジャンルやランタイムで絞り込めます。2023年11月5日に、新しい版が告知されました。[導入のページ](https://portmaster.games/installation.html)は、Install.PortMaster.shを入手し、OSごとの決まったフォルダに置いて実行する手順を書いています。置き場所は、ROCKNIXが `/roms/ports/`、muOSが `/mnt/mmc/ROMS/Ports/`、Knulliが `/userdata/roms/ports`、ArkOSが `/roms/tools/` です。全部入りの版は、オフラインの機器に向くと説明されています。
 

@@ -4,7 +4,7 @@
 
 ## プロジェクトの説明
 
-[About Knulli](https://github.com/knulli-cfw/knulli.org/blob/main/docs/about-knulli.md)は、Knulliを、Batoceraをフォークしたカスタムファームウェアと説明しています。標準のLinuxカーネルと互換性がない携帯機や、特別な対応が必要な機種向けに合わせたものです。エミュレーターの設定を、各エミュレーターの画面ではなく、EmulationStationで、機種ごとまたはゲームごとに行うのが特徴です。RetroArchの画面は使わないよう勧めています。必要な人向けには、オーバーライドとリマップのファイルを、機種ごとまたはゲームごとに使う方法が用意されています。フォルダの構造は厳格で、大文字と小文字を区別します。
+[About Knulli](https://github.com/knulli-cfw/knulli.org/blob/main/docs/about-knulli.md)は、Knulliを、Batoceraをフォークしたカスタムファームウェアと説明しています。標準のLinuxカーネルと互換性がない携帯機や、特別な対応が必要な機種向けに合わせたものです。エミュレーターの設定を、各エミュレーターの画面ではなく、EmulationStationで、機種ごとまたはゲームごとに行うのが特徴です。RetroArchの画面は使わないよう勧めています。必要な人向けの方法は、オーバーライドとリマップのファイルを、機種ごとまたはゲームごとに使うことです。フォルダの構造は厳格で、大文字と小文字を区別します。
 
 内蔵の機能は、エミュレーターとポート(PortMasterを含む)、PICO-8のネイティブ版への対応、ScreenScraper、TheGamesDB、ArcadeDBからの情報取得、RetroAchievements、Bluetooth、HDMI出力、SMBによる無線のファイル追加、画面の枠(ベゼル)、テーマ、動的なコレクションと手作りのコレクション、Syncthing、RGB LED、SSH、クラムシェル型の機種での蓋を閉じたときの動作です。
 
@@ -22,4 +22,4 @@
 
 [RG40XX H](https://github.com/knulli-cfw/knulli.org/blob/main/docs/devices/anbernic/rg40xx-h.md)は、Allwinner H700、カーネルはAllwinner BSP 4.9.170、GPUはMali G31です。機能は、Wi-Fi、Bluetooth、サスペンド(電源ボタンの短押し)、HDMI、互換のUSB Wi-Fiドングルです。[Retroid Pocket 5](https://github.com/knulli-cfw/knulli.org/blob/main/docs/devices/goretroid/retroid-pocket-5.md)は、SDカードから起動する手順を書いています。
 
-[BIOSの説明](https://github.com/knulli-cfw/knulli.org/blob/main/docs/play/bioses.md)は、BIOSに著作権があるため、Knulliには付属しないと書いています。必要なBIOSの確認は、ゲーム設定の「Missing BIOS check」で行います。
+[BIOSの説明](https://github.com/knulli-cfw/knulli.org/blob/main/docs/play/bioses.md)は、BIOSに著作権があるため、Knulliには付属しないと書いています。必要なBIOSは、ゲーム設定の「Missing BIOS check」で確認する形です。

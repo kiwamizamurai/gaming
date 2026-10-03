@@ -14,8 +14,8 @@
 
 ## muOS
 
-[MustardOS](https://github.com/MustardOS)の組織には、フロントエンド(`frontend`)、内部(`internal`)、アセット(`asset`)、テーマ(`theme`)、ウェブサイト(`mustardos.github.io`)、ツール(`tool`)、言語(`language`)、追加機能(`extra`)、ターミナル(`terminal`)、ファイルマネージャー(`vtree`)などのリポジトリがあります。ウェブサイトのリポジトリには、対応機種のデータ(RG28XX-H、RG34XX-H、RG34XX-SP、RG35XX 2024、H、Plus、Pro、SP、RG40XX-H、V、RG CubeXX-H、TrimUIのBrickとSpoon)と、各機能の説明があります。公式サイトのmuos.devは、この調査のブラウザでは読み取れませんでした。
+[MustardOS](https://github.com/MustardOS)の組織のリポジトリは、フロントエンド(`frontend`)、内部(`internal`)、アセット(`asset`)、テーマ(`theme`)、ウェブサイト(`mustardos.github.io`)、ツール(`tool`)、言語(`language`)、追加機能(`extra`)、ターミナル(`terminal`)、ファイルマネージャー(`vtree`)などです。ウェブサイトのリポジトリには、対応機種のデータ(RG28XX-H、RG34XX-H、RG34XX-SP、RG35XX 2024、H、Plus、Pro、SP、RG40XX-H、V、RG CubeXX-H、TrimUIのBrickとSpoon)と、各機能の説明があります。公式サイトのmuos.devは、この調査のブラウザでは読み取れませんでした。
 
 ## LineageOS
 
-[LineageOSの公式Wiki](https://wiki.lineageos.org/devices/RPN)に、Retroid Pocket Novaのページがあります。コードネームは「RPN」、SoCは「Qualcomm Dragonwing QCS8550」、RAMは8または12GB LPDDR5、CPUはKryoの1×3.2GHz、4×2.8GHz、3×2.0GHz、GPUはAdreno 740、発売は2026年7月と表示されています。ページには、導入の手順、自分でのビルド、更新、特別な起動モード(音量下と電源の同時押しでリカバリーモードとブートローダーに入る)、既知の問題(デバイスの整合性)へのリンクがあります。
+[LineageOSの公式Wiki](https://wiki.lineageos.org/devices/RPN)に、Retroid Pocket Novaのページがあります。コードネームは「RPN」、SoCは「Qualcomm Dragonwing QCS8550」、RAMは8または12GB LPDDR5、CPUはKryoの1×3.2GHz、4×2.8GHz、3×2.0GHz、GPUはAdreno 740、発売は2026年7月と表示されています。ページのリンク先は、導入の手順、自分でのビルド、更新、特別な起動モード(音量下と電源の同時押しでリカバリーモードとブートローダーに入る)、既知の問題(デバイスの整合性)です。

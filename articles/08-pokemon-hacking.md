@@ -4,15 +4,15 @@
 
 ## 作り方の分類
 
-作り方は、大きく3つに分けられます。1つ目は、作者が公開した差分のパッチを、元のROMに適用して遊ぶ方法です。2つ目は、HexManiacAdvanceのような専用のエディタで、ROMのデータを直接書き換える方法です。3つ目は、ゲームのソースコードを逆アセンブルまたは逆コンパイルして作られたプロジェクトを、ビルドして作る方法です。
+作り方は、大きく3つの分類です。1つ目は、作者が公開した差分のパッチを、元のROMに適用して遊ぶ方法です。2つ目は、HexManiacAdvanceのような専用のエディタで、ROMのデータを直接書き換える方法になります。3つ目は、ゲームのソースコードを逆アセンブルまたは逆コンパイルして作ったプロジェクトを、ビルドする方法です。
 
 ## ソースからビルドする
 
 [pret](https://pret.github.io/)は、ポケモンの逆アセンブルと逆コンパイルのプロジェクトを公開している団体です。[pokered](https://github.com/pret/pokered)は赤と青、[pokecrystal](https://github.com/pret/pokecrystal)はクリスタルの逆アセンブルで、いずれもアセンブリ言語で書かれています。[pokeemerald](https://github.com/pret/pokeemerald)はエメラルド、[pokefirered](https://github.com/pret/pokefirered)はファイアレッドとリーフグリーンの逆コンパイルで、C言語です。READMEには、ビルドして得られるROMの種類と、それぞれのSHA1の値が書かれています。たとえば、pokeemeraldが作る `pokeemerald.gba` のSHA1は `f3ae088181bf583e55daf962a92bb46f4f1d07b7` です。
 
-ビルド環境の作り方は、[pokeemeraldのINSTALL.md](https://github.com/pret/pokeemerald/blob/HEAD/INSTALL.md)が説明しています。Windows 10と11では、WSL1が最も速く、強く推奨されています。msys2はWSL1の約2倍、Cygwinは約5〜6倍遅いとされています。WSL2は、ファイルをWSL2側に置けば、WSL1より速い場合があります。ただし、Qt 5.15.2より前のバージョンを使うPorymapのようなツールは、WSL2のネットワークドライブのパスを読めないことがあります。必要なパッケージは、Ubuntuでは `build-essential`、`binutils-arm-none-eabi`、`git`、`libpng-dev` の4つです。
+ビルド環境の作り方は、[pokeemeraldのINSTALL.md](https://github.com/pret/pokeemerald/blob/HEAD/INSTALL.md)が説明しています。Windows 10と11では、WSL1が最も速く、強い推奨があります。遅さの目安は、msys2がWSL1の約2倍、Cygwinが約5〜6倍だそうです。WSL2は、ファイルをWSL2側に置けば、WSL1より速い場合もあります。ただし、Qt 5.15.2より前のバージョンを使うPorymapのようなツールは、WSL2のネットワークドライブのパスを読めないことがあります。必要なパッケージは、Ubuntuでは `build-essential`、`binutils-arm-none-eabi`、`git`、`libpng-dev` の4つです。
 
-エメラルドをもとにした改造の元になるプロジェクトとして、[pokeemerald-expansion](https://github.com/rh-hideout/pokeemerald-expansion)があります。READMEによると、pretのpokeemeraldの上に作られた、ROM hackの基盤です。これ自体は遊べるゲームではありません。ポケモンのシリーズに登場した何百もの機能と、遊びやすさを上げる機能を備えています。使うときは、RHH(Rom Hacking Hideout)をクレジットとして書くよう求められます。公式のポケモンのゲームとは通信できず、公式のゲームとの互換性が必要なら、pret側のpokeemeraldを使うよう説明されています。READMEには、GitHubの「Download Zip」を使うと、コミット履歴が含まれず、更新やブランチの統合ができないため、使わないようにという注意もあります。
+エメラルドをもとにした改造の元になるプロジェクトとして、[pokeemerald-expansion](https://github.com/rh-hideout/pokeemerald-expansion)があります。READMEによると、pretのpokeemeraldの上に作られた、ROM hackの基盤です。これ自体は遊べるゲームではありません。ポケモンのシリーズに登場した何百もの機能と、遊びやすさを上げる機能を備えています。使うときは、RHH(Rom Hacking Hideout)をクレジットとして書くよう求められます。公式のポケモンのゲームとは通信できません。公式のゲームとの互換性が必要なら、pret側のpokeemeraldを使うよう説明があります。READMEには、GitHubの「Download Zip」を使うと、コミット履歴が含まれず、更新やブランチの統合ができないため、使わないようにという注意もあります。
 
 ## 地図とデータを編集する
 
@@ -38,4 +38,4 @@
 
 ## 注意点
 
-配布サイトの中には、パッチを当て済みのROMを配るものがあります。原作のROMの再配布にあたり、権利の面で問題があります。パッチ(差分のファイル)だけを入手し、自分で用意した原作のROMに適用するのが安全です。この調査では、ROMとパッチの配布先のリンクは記録していません。
+パッチを当て済みのROMを配る配布サイトも存在するようです。原作のROMの再配布にあたり、権利の面で問題があります。パッチ(差分のファイル)だけを入手し、自分で用意した原作のROMに適用するのが安全です。この調査では、ROMとパッチの配布先のリンクは記録していません。

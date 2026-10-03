@@ -8,21 +8,21 @@ Knulliの[BIOSの説明](https://github.com/knulli-cfw/knulli.org/blob/main/docs
 
 ## 置き場所と名前
 
-ROCKNIXでは、ゲームを `roms` フォルダに入れ、BIOSは `roms/bios` の下に置きます。たとえば、[Retroid Pocket 5のページ](https://rocknix.org/devices/retroid/retroid-pocket-5/)は、PS2のエミュレーターに必要なBIOSのファイル名と置き場所を `/roms/bios/aethersx2/bios`、XboxのxemuのBIOSを `/roms/bios/xemu/bios`、PS1のDuckStationのBIOSを `/roms/bios` とのことです。ファイル名は決まっています。Knulliは、エミュレーターがBIOSのファイルを、非常に決まった名前で、ときには決まったサブフォルダの中に期待すると説明しています。Knulliは大文字と小文字を区別するため、名前の大文字と小文字も合わせる必要があります。
+ROCKNIXでは、ゲームを `roms` フォルダに入れ、BIOSは `roms/bios` の下に置きます。たとえば、[Retroid Pocket 5のページ](https://rocknix.org/devices/retroid/retroid-pocket-5/)は、PS2のエミュレーターに必要なBIOSのファイル名と置き場所を `/roms/bios/aethersx2/bios`、XboxのxemuのBIOSを `/roms/bios/xemu/bios`、PS1のDuckStationのBIOSを `/roms/bios` とのことです。ファイル名は決まっています。Knulliは、エミュレーターがBIOSのファイルを、非常に決まった名前で、ときには決まったサブフォルダの中に期待すると説明しています。Knulliは大文字と小文字を区別するため、名前の大文字と小文字も合わせることが必要です。
 
-Knulliには、BIOSが足りているかを調べる機能があります。STARTボタンのメニューから、ゲーム設定の「Missing BIOS check」を開くと、足りないBIOSと、チェックサムが合わないBIOSが分かります。チェックサムが合わなくても、実際には動く場合があるため、置き場所が正しければ、ゲームを起動して試すよう案内されています。Windowsでは、ファイルの拡張子を表示させておくと、`.bin.bin` のような二重の拡張子や、`.bin.zip` のような間違いを防げます。ゲームを起動するときに、BIOSの不足を警告する機能もあり、設定で切れます。
+Knulliには、BIOSが足りているかを調べる機能があります。STARTボタンのメニューから、ゲーム設定の「Missing BIOS check」を開くと、足りないBIOSと、チェックサムが合わないBIOSが分かります。チェックサムが合わなくても、実際には動く場合があるため、置き場所が正しければ、ゲームを起動して試すこと、という案内です。Windowsでは、ファイルの拡張子を表示させておくと、`.bin.bin` のような二重の拡張子や、`.bin.zip` のような間違いを防げます。ゲームを起動するときに、BIOSの不足を警告する機能もあり、設定で切ることも可能です。
 
 ## ゲームの管理とメタデータ
 
-ROMを増やすと、一覧の見た目を整える作業が必要になります。Knulliは、ScreenScraper、TheGamesDB、ArcadeDBから、カバー画像や説明を自動で取得する機能を持っています。ROCKNIXにも、同じ目的のスクレイパーがあります。Pegasusは、ゲームごとの情報を `metadata.pegasus.txt` に書き、カバーや動画を、`media/<ゲーム名>/` の決まった名前のファイルで探します([Pegasusのメタデータ](https://github.com/mmatyas/pegasus-docs/blob/master/docs/user-guide/meta-files.md))。仕組みは [フロントエンドと天馬G](05-frontend-tianma-g.md) に書きました。
+ROMを増やすと、一覧の見た目を整える作業が必要になります。Knulliは、ScreenScraper、TheGamesDB、ArcadeDBから、カバー画像や説明を自動で取得する機能付きです。ROCKNIXにも、同じ目的のスクレイパーがあります。Pegasusは、ゲームごとの情報を `metadata.pegasus.txt` に書き、カバーや動画を、`media/<ゲーム名>/` の決まった名前のファイルで探します([Pegasusのメタデータ](https://github.com/mmatyas/pegasus-docs/blob/master/docs/user-guide/meta-files.md))。仕組みは [フロントエンドと天馬G](05-frontend-tianma-g.md) に書きました。
 
 ## 正しいデータかを確かめる
 
-ROMの内容が正しいかは、チェックサムで確かめられます。pretの[pokeemerald](https://github.com/pret/pokeemerald)のREADMEには、ビルドで作れるROMのSHA1の値が載っています。それぞれに、ROMのデータベース「No-Intro」の記録へのリンクが添えられています。ビルドしたROMのSHA1がこの値と同じなら、期待どおりのデータだと確認できます。
+ROMの内容が正しいかは、チェックサムで確かめられます。pretの[pokeemerald](https://github.com/pret/pokeemerald)のREADMEには、ビルドで作れるROMのSHA1の値が載っています。それぞれに、ROMのデータベース「No-Intro」の記録へのリンク付きです。ビルドしたROMのSHA1がこの値と同じなら、期待どおりのデータだと確認できます。
 
 ## 改造とパッチ
 
-ゲームの改造では、元のROMを書き換えた完成品ではなく、差分のパッチを使う方法があります。[HexManiacAdvance](https://github.com/haven1433/HexManiacAdvance)は、IPSとUPSのパッチを作って適用できます。パッチだけを共有し、利用者が自分のROMに当てる形なら、原作のデータそのものの再配布を避けられます。詳細は [ポケモンのROM hack](08-pokemon-hacking.md) に書きました。
+ゲームの改造では、元のROMを書き換えた完成品を配る代わりに、差分のパッチを使う方法があります。[HexManiacAdvance](https://github.com/haven1433/HexManiacAdvance)は、IPSとUPSのパッチの作成と適用が可能です。パッチだけを共有し、利用者が自分のROMに当てる形なら、原作のデータそのものの再配布を避けられます。詳細は [ポケモンのROM hack](08-pokemon-hacking.md) に書きました。
 
 ## 権利の考え方
 

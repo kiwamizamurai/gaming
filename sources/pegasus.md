@@ -8,12 +8,12 @@ Pegasusを、ゲームのライブラリを閲覧して、さまざまなエミ�
 
 ## メタデータファイル
 
-[meta-files.md](https://github.com/mmatyas/pegasus-docs/blob/master/docs/user-guide/meta-files.md)は、`metadata.pegasus.txt`(または `metadata.txt`)の書式を説明しています。ファイルは `名前: 値` の並びで、複数行の値は、2行目以降を空白かタブで始めます。`#` で始まる行はコメントです。コレクション(機種などの分類)には、`collection`(必須)、`launch`(共通の起動コマンド)、`workdir`、`extension`、`file`、`regex`、`directory`、`ignore-extension`、`ignore-file`、`ignore-regex`、`shortname`、`sort-by`、`summary`、`description` を使えます。ゲームには、`game`(必須)、`file`、`developer`、`publisher`、`genre`、`tag`、`summary`、`description`、`slug`、`players`、`release`、`rating`、`launch`、`workdir` を使えます。`x-` で始まる名前は、スクレイパーなどのソフトウェアが、独自のデータを書き込むために使えます。
+[meta-files.md](https://github.com/mmatyas/pegasus-docs/blob/master/docs/user-guide/meta-files.md)は、`metadata.pegasus.txt`(または `metadata.txt`)の書式を説明しています。ファイルは `名前: 値` の並びで、複数行の値は、2行目以降を空白かタブで始めます。`#` で始まる行はコメントです。コレクション(機種などの分類)には、`collection`(必須)、`launch`(共通の起動コマンド)、`workdir`、`extension`、`file`、`regex`、`directory`、`ignore-extension`、`ignore-file`、`ignore-regex`、`shortname`、`sort-by`、`summary`、`description` を使えます。ゲームには、`game`(必須)、`file`、`developer`、`publisher`、`genre`、`tag`、`summary`、`description`、`slug`、`players`、`release`、`rating`、`launch`、`workdir` を使えます。`x-` で始まる名前は、スクレイパーなどのソフトウェアが、独自のデータを書き込むための名前です。
 
 起動コマンドで使える変数は、`{file.path}`、`{file.uri}`、`{file.name}`、`{file.basename}`、`{file.dir}`、`{env.変数名}` です。Androidでは、アプリによって直接のファイルパスを求めるものと、content URIを求めるものがあるため、`{file.path}` と `{file.uri}` を使い分けます。Android 11以降は、アプリのファイルアクセスが制限され、ディレクトリごとの権限が必要になることがあります。
 
 ## アセットとAndroid
 
-[meta-assets.md](https://github.com/mmatyas/pegasus-docs/blob/master/docs/user-guide/meta-assets.md)は、カバーやロゴ、動画などの探し方を説明しています。優先順位は、メタデータファイルでゲームごとに指定したもの、コレクションの既定として指定したもの、`<フォルダ>/media/<ゲーム名>/` の中の決まった名前のファイル、第三者のデータソースの順です。大量のゲームには、Universal XML Scraper、Steven Selph's Scraper、Skraper.net、Skyscraperなどのスクレイパーを使えると紹介されています。
+[meta-assets.md](https://github.com/mmatyas/pegasus-docs/blob/master/docs/user-guide/meta-assets.md)は、カバーやロゴ、動画などの探し方を説明した文書です。優先順位は、メタデータファイルでゲームごとに指定したもの、コレクションの既定として指定したもの、`<フォルダ>/media/<ゲーム名>/` の中の決まった名前のファイル、第三者のデータソースの順です。大量のゲームには、Universal XML Scraper、Steven Selph's Scraper、Skraper.net、Skyscraperなどのスクレイパーを使えると紹介されています。
 
-[platform-android.md](https://github.com/mmatyas/pegasus-docs/blob/master/docs/user-guide/platform-android.md)は、Android 5.0以降で動くこと、APKとして配布されること、設定のフォルダが `<ストレージ>/pegasus-frontend` であることを書いています。ランチャーの既定にできます。ほかのアプリを起動するときは、Activity Managerの `am start` を使い、`android.intent.action.VIEW` でファイルを開く例が載っています。
+[platform-android.md](https://github.com/mmatyas/pegasus-docs/blob/master/docs/user-guide/platform-android.md)は、Android 5.0以降で動くこと、APKとして配布されること、設定のフォルダが `<ストレージ>/pegasus-frontend` であることを記した文書です。ランチャーの既定への設定も可能です。ほかのアプリを起動するときは、Activity Managerの `am start` を使い、`android.intent.action.VIEW` でファイルを開く例が載っています。

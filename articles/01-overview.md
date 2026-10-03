@@ -8,7 +8,7 @@
 
 ## ブランドと愛称
 
-製品を作っているブランドは、OSの対応機種一覧から確認できます。[ROCKNIXの対応機種一覧](https://rocknix.org/devices/)には、Anbernic、AYANEO、AYN、GameForce、Hardkernel、MagicX、Mangmi、Powkiddy、Retroidが載っています。[Knulliの対応機種一覧](https://github.com/knulli-cfw/knulli.org/blob/main/docs/devices/index.md)には、これらに加えて、MiyooとTrimUIがあります。
+製品を作っているブランドは、OSの対応機種一覧が手がかりです。[ROCKNIXの対応機種一覧](https://rocknix.org/devices/)には、Anbernic、AYANEO、AYN、GameForce、Hardkernel、MagicX、Mangmi、Powkiddy、Retroidが載っています。[Knulliの対応機種一覧](https://github.com/knulli-cfw/knulli.org/blob/main/docs/devices/index.md)には、これらに加えて、MiyooとTrimUIも載っているのが違いです。
 
 中国語の掲示板では、ブランドに愛称が付いています。機種のデータベースの[掌机圈](https://zhangjiquan.com/handhelds)は、Anbernicの[RG-406V](https://zhangjiquan.com/handheld/rg-406v)と[RG-556](https://zhangjiquan.com/handheld/rg-556)を、それぞれ「周哥RG-406V」「周哥RG556」という別名で載せています。「周哥」がAnbernicの愛称です。Retroidは「沙雕」と呼ばれ、掌机圈には[Retroid Pocket 5](https://zhangjiquan.com/handheld/retroid-pocket-5)の別名として「沙雕5,RP 5」、[Retroid Pocket 4 Pro](https://zhangjiquan.com/handheld/retroid-pocket-4-pro)の別名として「沙雕4 Pro,RP4 Pro」、[Retroid Pocket Nova](https://zhangjiquan.com/handheld/retroid-pocket-nova)の別名として「沙雕 Nova」が載っています。隠語の詳細は [中国語の語彙と隠語](11-chinese.md) にまとめました。
 
@@ -29,7 +29,7 @@
 | Snapdragon 865 | Retroid Pocket 5 | [掌机圈 RP5](https://zhangjiquan.com/handheld/retroid-pocket-5) |
 | Snapdragon 8 Gen 2 | Retroid Pocket Nova、AYN Odin 2 | [掌机圈 Nova](https://zhangjiquan.com/handheld/retroid-pocket-nova)、[ROCKNIX Odin 2](https://rocknix.org/devices/ayn/odin2/) |
 
-R36Sは、ROCKNIXのページによると、Cortex-A35の4コア1.3GHz、Mali G31、1GBのDDR3、3.5インチ640×480の画面を持ちます。H700は、掌机圈のRG-40XXHのページでCortex-A53の4コア1.5GHz、Mali-G31 MP2、1GBのLPDDR4とされています。ROCKNIXのRG40XX Hのページは、同じH700について、標準で1.4GHzで動作し、設定でオーバークロックすると1.5GHzになると書いています([ROCKNIX RG40XX H](https://rocknix.org/devices/anbernic/rg40xx-h/))。
+R36Sは、ROCKNIXのページによると、Cortex-A35の4コア1.3GHz、Mali G31、1GBのDDR3、3.5インチ640×480の画面という構成です。H700は、掌机圈のRG-40XXHのページでCortex-A53の4コア1.5GHz、Mali-G31 MP2、1GBのLPDDR4とされています。ROCKNIXのRG40XX Hのページは、同じH700について、標準で1.4GHzで動作し、設定でオーバークロックすると1.5GHzになると書いています([ROCKNIX RG40XX H](https://rocknix.org/devices/anbernic/rg40xx-h/))。
 
 T820は、掌机圈のRG-406VとRG-556のページで、Cortex-A76とCortex-A55の8コア(2.1〜2.7GHz)、GPUがMali-G57 MP4(850MHz)と記載されています。同じページは、このSoCのPassMark多コアスコアを5577としています。
 
@@ -41,4 +41,4 @@ Dimensity 1100とSnapdragon 865は、掌机圈によると、前者がCortex-A78
 
 掌机圈が示す価格帯は、RG-40XXHが300〜500元、Retroid Pocket 5が1000〜1500元、Retroid Pocket Novaが1500〜2000元です。RG-556とRetroid Pocket 4 Proは150〜200ドルと表示されています。
 
-どの価格帯を選ぶかは、遊びたいゲームの機種で決まります。何が動くかは [何が動くか](06-emulation.md) で扱います。
+どの価格帯を選ぶかは、遊びたいゲームの機種で決まります。何が動くかは [何が動くか](06-emulation.md) にまとめました。
