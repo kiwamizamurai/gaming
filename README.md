@@ -13,10 +13,18 @@
 | 場所 | 内容 |
 |---|---|
 | [docs/learning-roadmap.md](docs/learning-roadmap.md) | 何が学べるか。ハードウェア、OS、ソフトウェア、ネットワーク、中国語の学習テーマ一覧 |
-| [docs/devices.md](docs/devices.md) | 端末ごとのスペックと価格の比較(出典と確認状況つき) |
+| [docs/devices.md](docs/devices.md) | 主要5機種(RG40XXH、RG406V、RG556、RP4 Pro、RP5)のスペックと価格の比較 |
+| [docs/device-families.md](docs/device-families.md) | ブランド、機種、SoC、価格帯のカタログ |
 | [docs/os-and-software.md](docs/os-and-software.md) | Android機とLinux系OS、フロントエンド、エミュレーター、天馬Gの構造 |
-| [docs/shopping-notes.md](docs/shopping-notes.md) | 淘宝、閑魚、代行サービスでの探し方と、実際に見た出品のメモ |
-| [docs/forums-and-sources.md](docs/forums-and-sources.md) | 中国語の掲示板、記事サイト、英語圏のコミュニティ |
+| [docs/custom-firmware.md](docs/custom-firmware.md) | CFW(muOS、Knulli、ROCKNIX、ArkOSなど)の比較と更新の手順 |
+| [docs/rocknix-guide.md](docs/rocknix-guide.md) | ROCKNIXの対応機種、インストール、ゲーム追加、更新の手順 |
+| [docs/tianma-g-howto.md](docs/tianma-g-howto.md) | 天馬Gのゲーム追加、機種追加、muOSなどの導入手順 |
+| [docs/mods.md](docs/mods.md) | ソフト、ハードの改造できること |
+| [docs/pokemon-hacking.md](docs/pokemon-hacking.md) | ポケモンのROM hack(改版)のツール、方法、コミュニティ |
+| [docs/shopping-notes.md](docs/shopping-notes.md) | 淘宝、閑魚、CNFansでの探し方と、実際に見た出品のメモ |
+| [docs/buying-agents.md](docs/buying-agents.md) | 代行購入、転送サービスの比較 |
+| [docs/communities.md](docs/communities.md) | 分野別のコミュニティ一覧 |
+| [docs/forums-and-sources.md](docs/forums-and-sources.md) | 中国語、英語の掲示板、記事サイトと、情報の信頼性 |
 | [docs/links.md](docs/links.md) | 参照した記事と公式資料へのリンク集 |
 | [chinese/vocabulary.md](chinese/vocabulary.md) | 語彙表(ピンイン、意味、出てきた場所) |
 | [chinese/slang.md](chinese/slang.md) | 掲示板や出品で見かけた隠語、俗称 |
@@ -34,11 +42,3 @@
 ## 著作権について
 
 ゲームのROM、BIOS、それらを大量に収録した「整合包」の配布物は、権利面で問題がある場合が多い。このリポジトリでは、ROMやBIOSの入手先、配布リンク、ダウンロード手順は記録しない。仕組みの学習と、自分で正規に用意したデータを使う前提で書く。
-
-## 現在の調査状況(2026-10-03)
-
-- 比較した端末: RG40XXH、RG406V、Retroid Pocket 4 Pro、Retroid Pocket 5
-- PS2やGTAまで遊ぶ候補としては、Snapdragon 865のRetroid Pocket 5を軸に整理した
-- OSの自由度は、公式にROCKNIXが対応するRetroid Pocket 5が有利と整理した
-- 天馬Gは、Pegasusを中国語化したフロントエンドと、そのパックの総称だと整理した
-- ゲームが入ったカードの具体的な収録タイトルは、出品ページからは確認できていない

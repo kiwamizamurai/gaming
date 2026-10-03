@@ -4,17 +4,23 @@
 
 ## スペック
 
-| 項目 | RG40XXH | RG406V | Retroid Pocket 4 Pro | Retroid Pocket 5 |
-|---|---|---|---|---|
-| メーカー | Anbernic | Anbernic | Retroid | Retroid |
-| SoC | Allwinner H700 (確認: 出品画像にH700、Cortex-A53) | Unisoc T820 / 虎贲T820 (確認: 出品画像) | MediaTek Dimensity 1100 (記事) | Snapdragon 865 (確認: 出品名、公式サイト) |
-| 画面 | 未確認 | 4インチ IPS、4:3、960x720 (記事) | 4.7インチ (記事) | 5.5インチ OLED、1080p (記事) |
-| メモリ・ストレージ | 未確認 | 8GB + 128GB (確認: 出品オプション) | 8GB LPDDR4x + 128GB UFS 3.1 (記事) | 8GB + 128GB (確認: 公式サイト) |
-| OS | Linux系(ROCKNIX対応 確認) | Android 13 (記事) | Android 11で発売 (記事) | Android 13 (確認: 出品名) |
-| 電池 | 3200mAhはRG40XXVの数値(記事)。RG40XXHは未確認 | 5500mAh (記事) | 5000mAh (記事) | 未確認 |
-| 冷却 | 未確認 | アクティブ冷却ファン + ヒートパイプ (記事) | アクティブ冷却 (記事) | ファン制御あり (確認: ROCKNIXページ) |
-| スティック | 未確認 | 未確認 | ホール効果 (記事) | ホール効果、交換式ボタン (記事) |
-| 形状 | 横型 | 縦型 | 横型 | 横型 |
+| 項目 | RG40XXH | RG406V | RG556 | Retroid Pocket 4 Pro | Retroid Pocket 5 |
+|---|---|---|---|---|---|
+| メーカー | Anbernic | Anbernic | Anbernic | Retroid | Retroid |
+| SoC | Allwinner H700(Cortex-A53 4コア 1.5GHz、GPU Mali G31 MP2) | Unisoc T820(6nm、8コア。大コア1.0GHz級は1×A76 2.7GHz + 3×A76 2.3GHz + 4×A55 2.1GHz、GPU Mali-G57 4コア 850MHz。RG406Hの記事の記述) | Unisoc T820 | MediaTek Dimensity 1100(4×A78 2.6GHz + 4×A55 2.0GHz、GPU Mali-G77 MC9 836MHz) | Snapdragon 865 |
+| 画面 | 4インチ IPS 640x480、OCA全貼合 | 4インチ IPS 4:3 960x720(720p) | 5.48インチ AMOLED 1920x1080 | 4.7インチ LCD 750x1334。sRGB 97%、DCI-P3 90%、最大輝度695.6nit、コントラスト1500:1 | 5.5インチ OLED 1920x1080 |
+| メモリ・ストレージ | 1GB LPDDR4X | 8GB + 128GB | 8GB LPDDR4x(+128GB) | 8GB LPDDR4x + 128GB UFS 3.1、microSD | 8GB LPDDR4x + 128GB UFS 3.1、microSD |
+| OS | 64ビットLinux(ROCKNIX、Knulli、muOS対応) | Android 13 | Android 13 | Android 11で発売 | Android(発売時の記事はAndroid 10、他の記事は13)、Linux可 |
+| 電池 | 3200mAh | 5500mAh(公称8時間、PS2で6〜7時間の実測記述) | 5500mAh(公称約8時間) | 5000mAh | 5000mAh、27W急速充電(軽いレトロゲームは1時間で約9%、約11時間。PS2の重い作品で3〜6時間、Switchで2時間以上の記述) |
+| 冷却 | なし(ROCKNIXはオーバークロック可) | アクティブファン + ヒートパイプ | アクティブ冷却 | アクティブ冷却 | アクティブ冷却 |
+| スティック | 2本。氛围灯つき | ホール効果(大角度3Dホールスティック) | ホール効果 | ホール効果 | ホール効果、交換式ボタン |
+| 無線 | 5GHz Wi-Fi、Bluetooth 4.2 | 5GHz Wi-Fi、Bluetooth 5.0。Type-CからDisplayPort 1080p出力 | Wi-Fi | Wi-Fi 6、Bluetooth 5.2(什么值得买の比較記事、AIGCの可能性) | Wi-Fi 6、Bluetooth 5.1 |
+| サイズ・重量 | 163x79x16mm、208g | 約288.5g | 223x90x15mm、331g | 184.8x82.6x15.8mm、261g | 199.2x78.5x15.6mm、280g |
+| 形状 | 横型 | 縦型 | 横型 | 横型 | 横型 |
+| 発売時の価格 | 398元 | 968元 | 174.99ドル(約1260元) | 1348元または1398元(出典で食い違い) | 1398元(予約価格) |
+| ベンチマーク | 未確認 | 約43万(AnTuTu、記事) | 未確認 | 約67.3万(AnTuTu、Retroid公式の記事) | 未確認 |
+
+出典: RG40XXH(ROCKNIX公式Wiki、什么值得买、微博のANBERNIC公式)、RG406V(出品画像、百度知道、什么值得买)、RG556(IT之家、凤凰网、bilibili)、RP4 Pro(超能网、微博)、RP5(retroid.cn、快科技、什么值得买、百度知道)。各数字は検索結果の抜粋で、実機で検証していない。RG40XXHの充電端子は、記事に「Micro USB」とあるが、他の確認ができていない。
 
 ## 価格(中国国内、公式・正規店・記事)
 
