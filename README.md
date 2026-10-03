@@ -6,7 +6,7 @@
 
 ## 記事
 
-読む順番は、全体像、機種、OS、導入、フロントエンド、動作、改造、ポケモン、買い方、コミュニティ、中国語、ROMとBIOS、自分で用意するデータです。
+読む順番は、全体像、機種、OS、導入、フロントエンド、動作、改造、ポケモン、買い方、コミュニティ、中国語、ROMとBIOS、自分で用意するデータ、自作ゲームの作り方です。
 
 1. [中華ゲーム機の全体像](articles/01-overview.md)では、ブランドと愛称、SoCの違い、価格帯を扱います。
 2. [主要機種の違い](articles/02-devices.md)では、RG40XXH、RG406V、RG556、Retroid Pocket 4 Pro、5、Novaを比べます。
@@ -21,6 +21,7 @@
 11. [中国語の学び方](articles/11-chinese.md)
 12. [ROMとBIOSの扱い方](articles/12-roms-and-bios.md)では、置き場所、確認の方法、権利の考え方を整理します。
 13. [自分で用意するデータと権利のないゲーム](articles/13-own-data-and-free-games.md)では、吸い出しの機器と価格、ホームブリュー、代替BIOS、オープンソースのツールを扱います。
+14. [自作ゲームを作る方法](articles/14-making-games.md)では、GB Studio、GBDK、GBAのツール、PortMasterでの移植を整理します。
 
 中国語の資料は、[語彙表](chinese/vocabulary.md)、[隠語集](chinese/slang.md)、[検索キーワード](chinese/search-keywords.md)です。引用元の要約は [sources](sources/README.md) にあります。リンクだけを一覧で見たいときは、各記事の本文から辿れます。
 

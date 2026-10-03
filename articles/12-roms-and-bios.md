@@ -4,11 +4,11 @@
 
 ## BIOSとは何か
 
-Knulliの[BIOSの説明](https://github.com/knulli-cfw/knulli.org/blob/main/docs/play/bioses.md)は、BIOSを、コンピューターのハードウェアに低水準でアクセスする基本的なソフトウェアと説明しています。一部のゲーム機にもBIOSがあり、エミュレーションでは、BIOSが必要になることがあります。同じ文書は、BIOSもゲームと同じく著作権で保護されているため、KNULLIにはBIOSが付属せず、利用者が自分で用意する必要があると書いています。
+Knulliの[BIOSの説明](https://github.com/knulli-cfw/knulli.org/blob/main/docs/play/bioses.md)では、BIOSはコンピューターのハードウェアに低水準でアクセスする基本的なソフトウェアです。一部のゲーム機にもBIOSがあり、エミュレーションで必要になる場合があります。BIOSもゲームと同じく著作権で保護されるため、KNULLIには付属しません。利用者が自分で用意する決まりだと、同じ文書は説明しています。
 
 ## 置き場所と名前
 
-ROCKNIXでは、ゲームを `roms` フォルダに入れ、BIOSは `roms/bios` の下に置きます。たとえば、[Retroid Pocket 5のページ](https://rocknix.org/devices/retroid/retroid-pocket-5/)は、PS2のエミュレーターに必要なBIOSのファイル名と置き場所を `/roms/bios/aethersx2/bios`、XboxのxemuのBIOSを `/roms/bios/xemu/bios`、PS1のDuckStationのBIOSを `/roms/bios` と書いています。ファイル名は決まっています。Knulliは、エミュレーターがBIOSのファイルを、非常に決まった名前で、ときには決まったサブフォルダの中に期待すると説明しています。Knulliは大文字と小文字を区別するため、名前の大文字と小文字も合わせる必要があります。
+ROCKNIXでは、ゲームを `roms` フォルダに入れ、BIOSは `roms/bios` の下に置きます。たとえば、[Retroid Pocket 5のページ](https://rocknix.org/devices/retroid/retroid-pocket-5/)は、PS2のエミュレーターに必要なBIOSのファイル名と置き場所を `/roms/bios/aethersx2/bios`、XboxのxemuのBIOSを `/roms/bios/xemu/bios`、PS1のDuckStationのBIOSを `/roms/bios` とのことです。ファイル名は決まっています。Knulliは、エミュレーターがBIOSのファイルを、非常に決まった名前で、ときには決まったサブフォルダの中に期待すると説明しています。Knulliは大文字と小文字を区別するため、名前の大文字と小文字も合わせる必要があります。
 
 Knulliには、BIOSが足りているかを調べる機能があります。STARTボタンのメニューから、ゲーム設定の「Missing BIOS check」を開くと、足りないBIOSと、チェックサムが合わないBIOSが分かります。チェックサムが合わなくても、実際には動く場合があるため、置き場所が正しければ、ゲームを起動して試すよう案内されています。Windowsでは、ファイルの拡張子を表示させておくと、`.bin.bin` のような二重の拡張子や、`.bin.zip` のような間違いを防げます。ゲームを起動するときに、BIOSの不足を警告する機能もあり、設定で切れます。
 
@@ -18,7 +18,7 @@ ROMを増やすと、一覧の見た目を整える作業が必要になりま�
 
 ## 正しいデータかを確かめる
 
-ROMの内容が正しいかを、チェックサムで確かめる方法があります。pretの[pokeemerald](https://github.com/pret/pokeemerald)のREADMEは、ビルドして作れるROMのSHA1の値を載せ、それぞれに、ROMのデータベース「No-Intro」の記録へのリンクを付けています。ビルドしたROMのSHA1が、この値と同じなら、期待どおりのデータだと確かめられます。
+ROMの内容が正しいかは、チェックサムで確かめられます。pretの[pokeemerald](https://github.com/pret/pokeemerald)のREADMEには、ビルドで作れるROMのSHA1の値が載っています。それぞれに、ROMのデータベース「No-Intro」の記録へのリンクが添えられています。ビルドしたROMのSHA1がこの値と同じなら、期待どおりのデータだと確認できます。
 
 ## 改造とパッチ
 
