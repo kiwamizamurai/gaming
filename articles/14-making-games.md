@@ -282,9 +282,187 @@ mgba coin.gb
 
 確認はPCのエミュレーター上で終えています。実機のフラッシュカートへ書き込むには、[吸い出しの記事](13-own-data-and-free-games.md)のFlashGBXと、対応するカートが必要です。携帯機のエミュレーターで遊ぶなら、ROMを、そのOSのゲームボーイ用ROMフォルダに置いてください。フォルダの名前は、OSごとの文書で確認する必要があります。
 
-### 次の一歩
+### 少し広げる(絵、効果音、壁、最高点の保存)
 
-LÖVEのコードの発展先は、敵の追加、効果音、ステージの拡張などです。GBDKのコードなら、背景のタイルで地面を描く、複数のコインを置く、音を鳴らす、といった進め方があります。前の章で挙げた公式のチュートリアルやサンプルを、そのまま教材にできます。
+最小のゲームは、四角を動かすだけでした。ここから、絵、効果音、壁のあるマップ、最高点の保存を足します。足したものは、同じ「コイン集め」の発展版として、`examples/love2d-coin-plus`と`examples/gbdk-coin-plus`に置きました。どちらも、素材は外から持ってきていません。絵は文字で書いたドット絵を、Pythonの`make_assets.py`と`make_tiles.py`が画像に変換します。LÖVE版の効果音も、`make_assets.py`が波形を計算して、`coin.wav`に書き出します。素材の権利を気にせず、そのまま配れる形です。
+
+![LÖVE版の発展形。壁、タイル、最高点](../assets/screenshots/love2d-coin-plus.png)
+
+#### LÖVE版
+
+画面は、32ピクセルのタイルで組む方式です。壁と床、プレイヤー、コインの4枚は、1枚の画像`tiles.png`に横に並べてあり、必要な部分だけを切り出して描きます。切り出しにはQuadを使います。公式ウィキの[love.graphics.newQuad](https://love2d.org/wiki/love.graphics.newQuad)では、Quadはテクスチャの一部で描くための仕組みで、スプライトシートに向くと説明されています。同じページの注意は、`love.update`や`love.draw`から繰り返し呼ぶと遅くなるので、一度だけ作って使い回すこと。コードも、`love.load`の中で一度だけ作る形です。
+
+```lua
+function love.load()
+  love.graphics.setDefaultFilter("nearest", "nearest")
+  sheet = love.graphics.newImage("tiles.png")
+  quads = {}
+  for i, name in ipairs({ "grass", "rock", "player", "coin" }) do
+    quads[name] = love.graphics.newQuad((i - 1) * TILE, 0, TILE, TILE, sheet:getDimensions())
+  end
+  pickup = love.audio.newSource("coin.wav", "static")
+  best = loadBest()
+  reset()
+end
+```
+
+`setDefaultFilter("nearest", "nearest")`は、絵を拡大するときの補間をやめて、ドットをそのまま見せるための指定です。この指定について、公式ウィキの説明は、この調査では確認していません。
+
+壁は、文字の並びで書いた地図で表します。`#`が壁、`.`が床です。`map.lua`は、座標がどのタイルに当たるかを計算して、壁かどうかを調べます。
+
+```lua
+function M.isSolid(col, row)
+  if col < 0 or row < 0 or col >= M.cols or row >= M.rows then
+    return true
+  end
+  return rows[row + 1]:sub(col + 1, col + 1) == "#"
+end
+
+function M.hitsWall(x, y, w, h)
+  local c1 = math.floor(x / M.TILE)
+  local c2 = math.floor((x + w - 1) / M.TILE)
+  local r1 = math.floor(y / M.TILE)
+  local r2 = math.floor((y + h - 1) / M.TILE)
+  for r = r1, r2 do
+    for c = c1, c2 do
+      if M.isSolid(c, r) then
+        return true
+      end
+    end
+  end
+  return false
+end
+```
+
+四角の四隅が、どれか壁のタイルに入るかを調べるだけの、単純な当たり判定です。移動は、横と縦を別々に判定します。横に動けなくても縦には動ける形で、壁に沿って滑るように動きます。
+
+最高点は、保存用のフォルダへ、文字として書き出す方式です。[love.filesystem.write](https://love2d.org/wiki/love.filesystem.write)の公式ウィキでは、この関数は保存用ディレクトリにファイルを書き、既存のファイルは完全に置き換えると説明されています。戻り値は、成功したかどうかと、失敗時のメッセージです。保存先は、`conf.lua`の`identity`で決まるフォルダです。このゲームの`identity`は`coin-catcher-plus`で、macOSでは`~/Library/Application Support/LOVE/coin-catcher-plus`に`highscore.txt`ができました。
+
+```lua
+local function loadBest()
+  if love.filesystem.getInfo(SAVE_FILE) then
+    local text = love.filesystem.read(SAVE_FILE)
+    return tonumber(text) or 0
+  end
+  return 0
+end
+
+local function finish()
+  if score > best then
+    best = score
+    local ok, message = love.filesystem.write(SAVE_FILE, tostring(best))
+    if not ok then
+      print("save failed: " .. message)
+    end
+  end
+end
+```
+
+動作は、前と同じ方法で検証しました。0.1秒右へ押すと24ピクセル進み、左へ押し続けると壁の手前の36ピクセルで止まります。コインの位置に動くと得点が1増え、制限時間が切れると、得点5が`highscore.txt`に書かれました。次に起動すると、最高点が5と表示されました。効果音の再生は、ファイルの読み込みに成功したことまでを確認しています。音を聞いての確認は、していません。
+
+#### GBDK版
+
+![GBDK版の発展形。タイルの壁と床](../assets/screenshots/gbdk-coin-plus.png)
+
+ゲームボーイ版でも、壁と床を、背景のタイルで描きます。地図は、LÖVE版と同じく文字の並びです。
+
+```c
+static const char *const rows[ROWS] = {
+    "####################",
+    "#..................#",
+    "#..................#",
+    "#...##........##...#",
+    "#...##........##...#",
+    "#..................#",
+    "#..................#",
+    "#........##........#",
+    "#........##........#",
+    "#........##........#",
+    "#..................#",
+    "#..................#",
+    "#...##........##...#",
+    "#...##........##...#",
+    "#..................#",
+    "#..................#",
+    "#..................#",
+    "####################",
+};
+```
+
+壁の判定は、地図の文字を直接見ます。
+
+```c
+static uint8_t solid(uint8_t col, uint8_t row) {
+    if (col >= COLS || row >= ROWS) {
+        return 1;
+    }
+    return rows[row][col] == '#';
+}
+
+static uint8_t hits_wall(uint8_t x, uint8_t y) {
+    return solid((x + 1) >> 3, (y + 1) >> 3)
+        || solid((x + 6) >> 3, (y + 1) >> 3)
+        || solid((x + 1) >> 3, (y + 6) >> 3)
+        || solid((x + 6) >> 3, (y + 6) >> 3);
+}
+```
+
+絵は、`tiles.png`に4枚のタイルを描き、GBDK付属の`png2asset`でCのデータに変えました。コマンドは`png2asset tiles.png -spr8x8 -tiles_only -o tiles.c`です。生成された`tiles.c`には、4枚分で64バイトのデータが入っています。背景のタイルは128番から読み込みます。128番からの領域は背景とスプライトで共有されるので、プレイヤーとコインも、130番と131番で指定できる形です。共有については、[Pan Docs](https://gbdev.io/pandocs/Tile_Data.html)のタイルデータの表に記載があります。
+
+最高点の保存には、カートリッジの中のバッテリー付きRAMを使います。[MBC5のPan Docs](https://gbdev.io/pandocs/MBC5.html)によると、RAMは`A000`から`BFFF`の範囲に現れ、`0000`から`1FFF`に`0A`を書くと、読み書きが有効になります。コードは、この手順のとおり、RAMを有効にして値を書き、最後に閉じます。
+
+```c
+static void load_best(void) {
+    SWITCH_RAM(0);
+    ENABLE_RAM;
+    best = (*(uint8_t *)0xA000 == SAVE_MAGIC) ? *(uint8_t *)0xA001 : 0;
+    DISABLE_RAM;
+}
+
+static void save_best(void) {
+    SWITCH_RAM(0);
+    ENABLE_RAM;
+    *(uint8_t *)0xA000 = SAVE_MAGIC;
+    *(uint8_t *)0xA001 = best;
+    DISABLE_RAM;
+}
+
+static void beep(void) {
+    NR52_REG = 0x80;
+    NR51_REG = 0x11;
+    NR50_REG = 0x77;
+    NR10_REG = 0x16;
+    NR11_REG = 0x40;
+    NR12_REG = 0x73;
+    NR13_REG = 0x00;
+    NR14_REG = 0xC3;
+}
+```
+
+ROMのヘッダーでRAM付きのカートリッジだと名乗るために、ビルドのときに`-Wm-yt0x1B -Wm-ya1`を付けます。できたROMを`file`コマンドで見ると、`MBC5+RAM+BATT`、RAM 64Kbitと表示されました。
+
+効果音は、音のレジスタを直接書いて鳴らします。[Audio RegistersのPan Docs](https://gbdev.io/pandocs/Audio_Registers.html)によると、`NR52`の最上位ビットが音声の電源、`NR51`が左右の割り当て、`NR50`が全体の音量です。チャンネル1は、`NR12`で初期音量と減衰を、`NR13`と`NR14`の下位3ビットで11ビットの周期を決めます。`NR14`の最上位ビットを立てて書くと、音が鳴り始めます。周波数は、`131072 ÷ (2048 − 周期の値)`ヘルツです。コードの周期は`0x300`なので、始まりの音程は計算上は約102ヘルツで、`NR10`のスイープで変化します。この音は、実機でも、エミュレーターの音としても、耳では確認していません。
+
+動作は、PyBoyで確かめました。STARTで始まり、右ボタンを10フレーム押すとX座標が20進みます。左と上へ押し続けると、壁の手前の8で止まりました。コインの位置に重ねると得点が1になり、コインは別の場所へ移っています。時間切れで最高点が更新され、エミュレーターを閉じると、8192バイトのセーブファイルが生成されました。もう一度起動すると、最高点が復元されています。時間切れのあと、STARTで再開するのは、ボタンを離した時点です。コードの`waitpadup`が、離すまで待つためです。
+
+#### 次に作れるもの
+
+この2本のコードに、次の要素を足していくと、遊べる形に近づきます。LÖVEでは、敵を動かす、複数のステージを切り替える、`love.graphics.newImage`で背景を描く、といった方向があります。GBDKでは、メタスプライトで大きなキャラクターを作る、BGMのドライバーを入れる、といった方向です。[gbdev.ioの資料集](https://gbdev.io/resources.html)に、GBDK向けのチュートリアルと、音楽ツールが並んでいます。
+
+## この記事で出てくる中国語
+
+この記事の話題は、英語の公式文書が中心です。中国語は、この調査で出典を確認できた、基本の語だけを載せます。中国語で自作ゲームの情報を探すときの足がかりに使ってください。
+
+| 中国語 | ピンイン | 日本語の意味 | 出典 |
+|---|---|---|---|
+| 开源 | kāiyuán | オープンソース | [开源掌机吧](https://tieba.baidu.com/f?kw=%E5%BC%80%E6%BA%90%E6%8E%8C%E6%9C%BA) |
+| 掌机 | zhǎngjī | 携帯ゲーム機 | [掌机圈](https://zhangjiquan.com/handhelds) |
+| 游戏 | yóuxì | ゲーム | CNFansの出品ページ |
+| 模拟器 | mónǐqì | エミュレーター | [天马G前端的使用](https://blog.csdn.net/fanged/article/details/152960565) |
+| 屏幕分辨率 | píngmù fēnbiànlǜ | 画面の解像度 | [RG-406V](https://zhangjiquan.com/handheld/rg-406v) |
+| 操作系统 | cāozuò xìtǒng | OS | [RG-556](https://zhangjiquan.com/handheld/rg-556) |
+
+LÖVEやGBDKの用語を、中国語の資料で調べたい場合は、まず「开源」と「掌机」を、[検索キーワード](../chinese/search-keywords.md)の組み合わせに足して検索すると、貼吧や知乎の記事が見つかります。この検索の結果は、この調査では確認していません。
 
 ## 学べること
 

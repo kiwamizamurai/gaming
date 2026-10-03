@@ -47,6 +47,32 @@ Linux系のOSには、PortMasterがあります。[PortMasterの公式サイト]
 
 ほかに、権利の面で確認しやすいゲームもあります。[Freedoom](https://github.com/freedoom/freedoom)は、Doomのエンジンで遊べる、自由な内容のFPSです。ステージ、絵、効果音、音楽までそろっていますが、動かすには別にエンジンが要ります。[ScummVM](https://github.com/scummvm/scummvm)は、アドベンチャーゲームを動かす仕組みで、ゲームのデータファイルは利用者が用意する前提です。無料で配布されているゲームがどれかは、ScummVMの文書からは確認できませんでした。
 
+### Homebrew Hubの見方
+
+Homebrew Hubの[免責のページ](https://hh.gbdev.io/disclaimer)には、サイトの方針が書かれています。掲載されているROM、遊べるゲーム、ホームブリュー、ツールは、いずれも自由なソフトウェアで、ライセンスはそれぞれ違うという説明です。市販の著作物は、運営の知る限り含まれていないとも書かれています。万一、許可のない内容が載ったときは、連絡を受けて取り下げる方針です。開発者本人には、理由を問わず、エントリーの削除、ROMの削除、ブラウザ上での再生の禁止、表示内容の編集という権利があります。
+
+個別のゲームのページには、ライセンスと開発環境の情報が並びます。たとえば「Tobu Tobu Girl」のページには、対応機種がゲームボーイ、種類がゲーム、タグが「OPEN SOURCE」と「ACTION」と表示されます。開発者はTangram Games、ライセンスはMIT、公開日は2017年12月1日です。開発環境の欄には、音楽のMMLGBと、ツールチェーンのGBDK 2.9.5-2020.3.1.0とあります。ページの左側は、ブラウザで遊べるエミュレーターと、キーボードの操作表です。右側の情報の下には、ROMのダウンロードのボタンと、ソースコードへのリンクが並びます。キーボードの操作は、AボタンがXキー、BボタンがZキーでした。
+
+![Homebrew HubのTobu Tobu Girlのページ](../assets/screenshots/homebrew-hub-tobutobugirl-license.png)
+
+このページの見方を覚えておくと、遊ぶ前に、ライセンスと配布の条件を確認できます。ソースコードが公開されたゲームは、[自作ゲームの記事](14-making-games.md)で使ったGBDKの実例としても読めます。
+
+### ScummVMが公式に配布する無料のゲーム
+
+ScummVMは、アドベンチャーゲームを動かす仕組みです。READMEによると、動かすにはゲームのデータファイルが必要で、複数のゲームを一度に追加する「Mass Add」もあります。ScummVMの公式サイトには、[無料のゲームのダウンロードページ](https://www.scummvm.org/games/)があります。2026年10月3日に開いたとき、ページの見出しは「Game downloads for ScummVM version 2026.3.0」でした。
+
+ページの説明は、現在は11本の無料のゲームを置いていると書いています。Beneath a Steel Sky、Broken Sword 2.5、DreamWeb、Flight of the Amazon Queen、Lure of the Temptress、Drascula: The Vampire Strikes Back、Soltys、Sfinx、The Griffon Legend、Nippon Safes, Inc.、Mystery Houseです。ほかに、God of Thunder、SLUDGEエンジンで作られた多くの作品、WAGEの作品集、Helga Deep In Troubleも並んでいます。Mystery Houseは、Apple II版のパブリックドメインの版と表示されています。
+
+サイズの差が大きい点にも注目してください。Beneath a Steel Skyは、フロッピー版が7.3 MiB、CD版が66.2 MiBでした。Flight of the Amazon Queenのフロッピー版は6.8 MiBで、元のままのCD版は107.4 MiBです。Broken Sword 2.5は、859.7 MiBと大きなデータでした。各ファイルには更新日が付き、SHA-256を確認するリンクも並びます。携帯機のOSでScummVMを動かせるかは、この調査では確認できていません。
+
+### libretroで取り込む流れ
+
+RetroArchを使う場合の、データの取り込みは、libretroの[取り込みのガイド](https://github.com/libretro/docs/blob/master/docs/guides/import-content.md)に手順があります。ガイドの冒頭には、内容を合法的に入手済みであることが前提だと書かれています。
+
+最初の作業は、メインメニューの「Online Updater」から「Update Databases」を選ぶことです。データベースと、コア情報のファイルを更新します。次に「Import Content」で、フォルダを走査します。走査は再帰的なので、サブフォルダに整理したままで構いません。既定の自動走査は「strict」で、内容のCRCチェックサム、またはディスクのシリアルが、データベースと一致する必要があります。一致しないものも加える「loose」の走査も選べます。最後に、必要なら「Playlist Thumbnails Updater」で、箱絵などのサムネイルを取得する手順です。手動で走査した内容にサムネイルを付けるには、プレイリストの名前と項目の名前が、サムネイルのサイトのものと一致する必要があります。
+
+コアは、「Online Updater」の「Core Downloader」から入れます。この項目が見えないときは、「Settings」の「User Interface」の「Menu Item Visibility」で、「Show Core Downloader」を有効にします。パッケージ管理ソフトで入れたRetroArchでは、この項目が出ないことがあり、その場合の手順は[コアの入れ方のガイド](https://github.com/libretro/docs/blob/master/docs/guides/download-cores.md)にあります。BIOSの置き場所は、通常はRetroArchの「system」ディレクトリです。
+
 ## BIOSの代わりになる実装
 
 エミュレーターによっては、BIOSなしで動かせます。libretroの文書には、HLEという方式の説明があります。元の動作そのものを再現せず、出力だけを再現する方式で、不具合が起きやすいとのことです。
@@ -56,6 +82,25 @@ Linux系のOSには、PortMasterがあります。[PortMasterの公式サイト]
 PS1には、[PCSX-Redux](https://github.com/grumpycoders/pcsx-redux)のOpenBIOSがあります。READMEによると、市販のBIOSなしでPS1のゲームを起動できる、MIPS R3000A向けのBIOS実装です。市販のBIOSは著作権で保護されているため、その代替になるとも書かれています。ビルドには、MIPSのツールチェーンが必要です。
 
 PS2は事情が違います。この調査で読んだPCSX2の公式文書は、BIOSを手元のゲーム機から取り出す方法だけを案内していて、オープンソースの代替には触れていません。
+
+## この記事で出てくる中国語
+
+この記事は、英語の公式文書が中心です。中国語は、CNFansの出品ページで確認した、ゲーム入りのカードを売る商品の説明に出る語を載せます。出品ページの内容は、[CNFansの出典ノート](../sources/cnfans.md)にあります。
+
+| 中国語 | ピンイン | 日本語の意味 | 出典 |
+|---|---|---|---|
+| 开源 | kāiyuán | オープンソース | [开源掌机吧](https://tieba.baidu.com/f?kw=%E5%BC%80%E6%BA%90%E6%8E%8C%E6%9C%BA) |
+| 掌机 | zhǎngjī | 携帯ゲーム機 | [掌机圈](https://zhangjiquan.com/handhelds) |
+| 游戏 | yóuxì | ゲーム | CNFansの出品ページ |
+| 模拟器 | mónǐqì | エミュレーター | [天马G前端的使用](https://blog.csdn.net/fanged/article/details/152960565) |
+| 预装 | yùzhuāng | あらかじめ入れてある | CNFansの出品ページ |
+| 内存卡 | nèicún kǎ | メモリーカード | CNFansの出品ページ |
+| 专用 | zhuānyòng | 専用 | CNFansの出品ページ |
+| 机器 | jīqì | 機械、ここでは本体 | CNFansの出品ページ |
+| 玩家 | wánjiā | プレイヤー、遊ぶ人 | CNFansの出品ページ |
+| 备注 | bèizhù | 備考、注文のときのメモ | CNFansの出品ページ |
+
+「预装」は、「预装RP5天马G专用内存卡」のような題名に出ます。ゲームやエミュレーターを入れた状態で売る、という意味です。この種の商品は、権利の面で問題のある中身を含む場合があります。先に[ROMとBIOSの記事](12-roms-and-bios.md)の考え方を読んでおくと安心です。
 
 ## 学べること
 
