@@ -1,31 +1,101 @@
 # コミュニティと情報源
 
-調べ物をするときに頼れる場所を、種類別に整理します。確認できた事実は、ページの表示と、実際に開いたときの内容に限ります。
+調べ物をするときに頼れる場所を、種類別に整理します。確認できた事実は、ページの表示と、実際に開いたときの内容に限ります。調査日は、特に断らない限り2026年10月3日です。
+
+情報源は、大きく五つに分かれます。中国語の掲示板、機種のデータベース、記事と動画、OSやツールの公式の場所、メーカーのコミュニティです。同じ話題でも、場所によって書き手の立場が違うため、どこで読んだ情報かを意識すると、判断しやすくなります。
 
 ## 中国語の掲示板
 
-中国語の情報が最も多く集まるのは、百度貼吧です。[开源掌机吧](https://tieba.baidu.com/f?kw=%E5%BC%80%E6%BA%90%E6%8E%8C%E6%9C%BA)は、ページの表示によると、関注者が7.9万人、投稿が143.1万件で、2014年3月7日に作られました。コミュニティの説明は、「開源掌機とは、システムと内容がオープンソースの掌機」と書き、悪意のある書き込みや、露骨な宣伝を禁じています。
+中国語の情報が最も多く集まるのは、百度貼吧です。[开源掌机吧](https://tieba.baidu.com/f?kw=%E5%BC%80%E6%BA%90%E6%8E%8C%E6%9C%BA)は、ページの表示によると、関注者が7.9万人、投稿が143.1万件で、2014年3月7日に作られました。コミュニティの説明は、「開源掌機とは、システムと内容がオープンソースの掌机」と書き、悪意のある書き込みや、露骨な宣伝を禁じています。トップページのタブは、人気、最新、仲間の助け合い、ハードウェアの議論、ソフトの交流、質問と回答などに分かれています。
 
 ![开源掌机吧のトップページ](../assets/screenshots/tieba-open-source-handheld-bar.jpg)
 
-RG40XXHの放熱改造のように、写真つきで手順を書いた投稿もあります([给RG40XXH改造散热](https://tieba.baidu.com/p/10191425150))。内容は [改造できること](07-mods.md) に書きました。ポケモンの改造には、専用の2つの掲示板があります。詳細は [ポケモンのROM hack](08-pokemon-hacking.md) を参照してください。
+ログインなしで見られるのは、掲示板のトップと、個別の投稿です。今回、トップページの本文として読み取れたのは、掲示板の名前と、関注者と投稿の数、「关注」と「发贴」のボタンまででした。投稿の一覧はスクリーンショットで確認しました。書き込みの条件は、ログインしなかったため、確認できていません。
+
+スクリーンショットを撮った時点の人気の投稿は、2件ありました。1件は、Anbernicが次々に新機種を出すことを揶揄する内容です。もう1件は、LinuxをもとにしたSteamOS風のシステムを、AYNとRetroidの機種に合わせたという、開発者の投稿でした。この2件のように、掲示板の投稿は、皮肉や愛称を交えて書かれることがあるため、冗談と事実を区別して読む必要があります。
+
+RG40XXHの放熱改造のように、写真つきで手順を書いた投稿もあります([给RG40XXH改造散热](https://tieba.baidu.com/p/10191425150))。内容は [改造できること](07-mods.md) に書きました。
+
+ポケモンの改造には、専用の2つの掲示板があります。[口袋妖怪改版吧](https://tieba.baidu.com/f?kw=%E5%8F%A3%E8%A2%8B%E5%A6%96%E6%80%AA%E6%94%B9%E7%89%88)は、関注者が4.9万人、投稿が12.7万件で、2012年3月29日に作られました。タブには、NDSとGBAの教程、資源ダウンロード、動画があります。[口袋改版资源吧](https://tieba.baidu.com/f?kw=%E5%8F%A3%E8%A2%8B%E6%94%B9%E7%89%88%E8%B5%84%E6%BA%90)は、関注者が26.1万人、投稿が164.5万件で、固定の投稿に、掲示板内の資源の目次があります。タブは、汉化の発布、改版の発布、改版の教程の順です。
+
+資源の掲示板では、ファイルの共有が日常的に行われています。ROMやBIOSの入手先は、この記事では紹介しません。理由は、ゲームのデータの多くが、権利者の許可を得ていない形で出回っているためです。権利の考え方は、[ROMとBIOSの扱い方](12-roms-and-bios.md)に書きました。ポケモンの改造そのものについては、[ポケモンのROM hack](08-pokemon-hacking.md) を参照してください。
+
+## 動画サイトのBilibili
+
+動画の情報源は、Bilibili(哔哩哔哩)です。「开源掌机」で検索すると、ログインなしで、動画の一覧が表示されました([検索結果](https://search.bilibili.com/all?keyword=%E5%BC%80%E6%BA%90%E6%8E%8C%E6%9C%BA))。検索のタブは、動画が99件以上、专栏(コラム記事)が99件以上、ユーザーが5件という表示でした。並べ替えは、综合排序、最多播放、最新发布などから選べます。
+
+一覧の題名から、動画の種類が分かります。価格帯ごとのおすすめ(「2026年上半年,性价比最高的开源/安卓掌机大推荐」)、新機種の評測(「RP Duo Lite全面评测」)、200元以内の機種をまとめて開ける開箱の動画、「GammaOS系统刷机和配置教程」のような導入の解説、移植ゲーム(ports)を動かす動画などがありました。2026年10月3日の時点で、再生数が20万回を超える動画も、一覧に出ていました。
+
+動画は、画面の動きや、実機の大きさ、音や発熱の様子が分かる点が便利です。一方で、紹介料や、機材の提供を受けているかどうかは、動画ごとに違い、一覧からは分かりません。数字や評価は、機種のデータベースや公式の資料で、あとから確かめるのが安全です。
 
 ## 機種のデータベース
 
 [掌机圈](https://zhangjiquan.com/)は、携帯ゲーム機の専門のサイトです。上部のメニューは、ニュース、写真、発売前の機種の一覧、機種の一覧、ユーザーが投稿する貼り絵(貼图)に分かれています。機種のページには、仕様の表、ユーザーが撮った写真、評価とコメント、購入リンクがあり、2機種を並べた比較のページも用意されています(例は[RG-40XXHとRG-406V](https://zhangjiquan.com/compare/rg-40xxh-vs-rg-406v))。仕様は、ユーザーが訂正を申請できる形式です。
 
-## 記事と動画
+このデータベースは、ユーザーの投稿をもとにしているため、公式の仕様表ではありません。ページの価格は、購入リンクの日付が書かれていないため、現在の価格とは限りません。買い方の詳細は、[中国の機種を買う方法](09-buying.md)にまとめました。
+
+## 記事
 
 什么值得买、知乎、CSDN、bilibiliの記事が、導入の手順や機種のレビューを載せています。什么值得买の記事の中には、ページの上部に「AIGC文章詳細」と表示されるAI生成の記事があります。この調査で読んだ2本、[2026开源掌机红黑榜](https://post.smzdm.com/p/aww5ev54/)と[RG40XXH実測](https://post.smzdm.com/p/aqrg0rx2/)は、どちらもそうでした。記事の末尾に、「内容由AI生成」と、参考にした元の記事の一覧が付いています。この種類の記事は、数値や評価を引用する前に、元の記事か、仕様のデータベースで確かめる必要があります。
 
-知乎と、CSDNの記事は、個人が書いたものです。[天马G前端的使用](https://blog.csdn.net/fanged/article/details/152960565)のように、筆者が自分の環境で試した手順と、ソースコードの断片まで書かれている記事は、再現しやすい資料です。
+知乎と、CSDNの記事は、個人が書いたものです。[天马G前端的使用](https://blog.csdn.net/fanged/article/details/152960565)のように、筆者が自分の環境で試した手順と、ソースコードの断片まで書かれている記事は、再現しやすい資料です。ただし、書かれた時点のOSやアプリの版に依存するため、日付を確認してください。
+
+## 英語圏のレビューとガイド
+
+英語圏では、[Retro Game Corps](https://retrogamecorps.com/)が、導入のガイドをまとめています。2026年10月3日のトップページに並んでいた最近の記事は、ROCKNIXのガイド(Android機にLinuxを入れる)、PortMasterの入門、Anbernic RG35XXシリーズの入門、MinUIの入門、Syncthingとシェーダーとオーバーレイのガイドなどです。サイトは、Amazon、eBay、Humble、AliExpressなどへのリンクに、紹介のコードが付く場合があると、トップページに明記しています。
 
 ## OSとツールの公式の場所
 
-OSの公式の情報は、英語で書かれています。ROCKNIXは[公式Wiki](https://rocknix.org/)と[GitHub](https://github.com/ROCKNIX/distribution)があり、質問の場所として、[Discord](https://discord.gg/seTxckZjJy)のコミュニティがあります。Knulliは[GitHub](https://github.com/knulli-cfw/knulli-linux)の下に[ドキュメントのソース](https://github.com/knulli-cfw/knulli.org)があり、質問先は[Discord](https://discord.gg/HXPS3DAeeB)の「questions」チャンネルです。muOSは[MustardOS](https://github.com/MustardOS)のリポジトリ群です。Pegasusは、[公式サイト](https://pegasus-frontend.org/)と[Discord](https://discord.gg/KTtzP6y)があります。ポケモンの改造は、pretの[ページ](https://pret.github.io/)と、RHHの[Discord](https://discord.gg/6CzjAG6GZk)が案内されています。
+OSの公式の情報は、英語で書かれています。ROCKNIXの情報源は、[公式Wiki](https://rocknix.org/)と[GitHub](https://github.com/ROCKNIX/distribution)で、質問の場所は[Discord](https://discord.gg/seTxckZjJy)のコミュニティです。Knulliの本体は[GitHub](https://github.com/knulli-cfw/knulli-linux)の下に[ドキュメントのソース](https://github.com/knulli-cfw/knulli.org)があり、質問先は[Discord](https://discord.gg/HXPS3DAeeB)の「questions」チャンネルです。muOSの本体は、[MustardOS](https://github.com/MustardOS)のリポジトリ群にあります。Pegasusには、[公式サイト](https://pegasus-frontend.org/)と[Discord](https://discord.gg/KTtzP6y)が用意されています。ポケモンの改造は、pretの[ページ](https://pret.github.io/)と、RHHの[Discord](https://discord.gg/6CzjAG6GZk)が入口です。
 
-RetroidのAndroid機について、英語のコミュニティは、Redditの[r/retroid](https://www.reddit.com/r/retroid)です。検索では、XDA Forumsに、RP4 Proのroot化の手順を共有するスレッドも見つかりました([検索結果](https://www.bing.com/search?q=Retroid+Pocket+4+Pro+custom+ROM+LineageOS+bootloader+unlock+reddit))。Retroidの中国の公式サイトにも、公式のコミュニティと、使い方のガイド、ダウンロードセンターのページがあります([retroid.cn](https://www.retroid.cn/))。
+PortMasterは、Linux機にゲームのポートを入れるプログラムです。[公式サイト](https://portmaster.games/)には、機能の紹介とWikiへの案内が載っています。2023年11月の紹介記事は、専用のDiscordコミュニティを案内し、翻訳の協力をCrowdinで受け付けていると書いていました。表示言語として挙がっていたのは、英語、イタリア語、フランス語、ドイツ語、ポーランド語です。日本語は、その記事の一覧には入っていませんでした。
 
-## 読めなかったサイト
+RetroidのAndroid機について、英語のコミュニティは、Redditの[r/retroid](https://www.reddit.com/r/retroid)です。検索では、XDA Forumsに、RP4 Proのroot化の手順を共有するスレッドも見つかりました([検索結果](https://www.bing.com/search?q=Retroid+Pocket+4+Pro+custom+ROM+LineageOS+bootloader+unlock+reddit))。AndroidのOSを入れ替える場合は、[LineageOSの公式Wiki](https://wiki.lineageos.org/devices/RPN)にRetroid Pocket Novaのページがあり、導入の手順と既知の問題が載っています。
 
-この調査で使ったブラウザの権限の設定で、ページ内容を読めなかったサイトがあります。knulli.org(Knulliの公式サイト)、muos.dev(muOSの公式サイト)、github.com、pegasus-frontend.orgです。GitHubのリポジトリの内容は、`gh` コマンドで読みました。Knulliのドキュメントは、`knulli-cfw/knulli.org` のGitHubリポジトリから、Pegasusのドキュメントは、`mmatyas/pegasus-docs` のGitHubリポジトリから読んでいます。muOSの公式サイトの内容は、読めていません。
+## メーカーのコミュニティと公式アカウント
+
+Retroidの中国の公式サイトは、上部に「社区」(コミュニティ)のメニューと、「去发布帖子」(投稿する)のボタンを置いています。ページの下部は、官网社区、使用指南、下载中心、视频、服务中心への入口です。ログインと注册(登録)のリンクもあります。サイトには、抖音(中国版のTikTok)の公式アカウントと、微信公众号(WeChatの公式アカウント)の入口もありました([retroid.cn](https://www.retroid.cn/))。官网社区のリンクを押しても、今回は、ページの移動を確認できなかったため、掲示の内容は見ていません。
+
+Anbernicの[公式サイト](https://anbernic.com/)は、ニュースの記事を載せています。2026年9月10日と9日の記事には、RG DS Plusの紹介や、RG DSとの違いの解説、RG 55G1のGPUドライバーの切り替えガイドがありました。サポートは、メールかチケットで、トップページには、平均の返信時間が24〜48時間と書かれています。メーカーの記事は、製品の特長を、メーカー自身が説明したものです。
+
+## 確認できなかった場所
+
+Redditは、この調査のブラウザで、安全上の制限により、ページを開けませんでした。r/retroidの内容は、確認できていません。DiscordのROCKNIXの招待のリンクは、開いても何も表示されず、サーバーの内容や、規則を見られませんでした。淘宝は、検索のページでログインを求められたため、ショップのレビューや、問い合わせの内容も、見ていません。
+
+この調査で使ったブラウザの権限の設定で、ページ内容を読めなかったサイトもあります。knulli.org(Knulliの公式サイト)、muos.dev(muOSの公式サイト)、github.com、pegasus-frontend.orgです。GitHubのリポジトリの内容は、`gh` コマンドで読みました。Knulliのドキュメントは、`knulli-cfw/knulli.org` のGitHubリポジトリから、Pegasusのドキュメントは、`mmatyas/pegasus-docs` のGitHubリポジトリから読んでいます。muOSの公式サイトの内容は、読めていません。
+
+## ユーザーの声の読み方
+
+[掌机圈](https://zhangjiquan.com/handheld/retroid-pocket-5)の機種ページには、ユーザーのコメントが載っています。たとえばRetroid Pocket 5には、2025年7月付けの「性价比超神」という短い評価があり、RP4 Proには、2026年3月付けで、発売時の価格を高いと感じ、中古を勧める趣旨のコメントがありました。Novaには、2026年9月付けで、PS3やPCのエミュレーターまで遊べると褒めるコメントがあります。
+
+こうしたコメントは、短くて分かりやすい反面、どの設定で、どのゲームを遊んだ結果なのかが書かれていません。一つの機種に、高く評価する声と、価格に不満を言う声が並ぶことも、同じページで確認できます。参考にするなら、具体的なゲーム名や、設定の書かれた投稿を選ぶとよいでしょう。貼吧の放熱改造の投稿のように、写真と手順がそろったものは、再現しやすい資料です。
+
+## 質問するときの心がまえ
+
+OSの質問は、Wikiの導入ページと、よくある質問を読んでから行うのが基本です。ROCKNIXのWikiは、対応機種ごとのページで、手順と注意点を載せています。KnulliのDiscordは、質問用のチャンネルが分かれているため、そこを使う指定がありました。機種の名前、OSの版、SDカードの種類、試した手順を書くと、答えを得やすくなります。
+
+中国語の掲示板に質問する場合は、機種の通称を知っておくと役立ちます。Retroid Pocketの別名「沙雕」は、掌机圈の機種ページに載っているほか、开源掌机吧の投稿にも出てくる語です。掲示板では、公式の名前とは別の呼び名が通用します。
+
+## この記事で出てくる中国語
+
+本文に出てきた掲示板と動画サイトの中国語を、実際のページで確認できたものに限って並べます。
+
+| 中国語(簡体字) | ピンイン | 日本語の意味 | 出典 |
+|---|---|---|---|
+| 贴吧 | tiēbā | 百度の掲示板サービス | [开源掌机吧](https://tieba.baidu.com/f?kw=%E5%BC%80%E6%BA%90%E6%8E%8C%E6%9C%BA) |
+| 关注 | guānzhù | フォロー | [开源掌机吧](https://tieba.baidu.com/f?kw=%E5%BC%80%E6%BA%90%E6%8E%8C%E6%9C%BA) |
+| 发贴 | fātiē | 投稿する | [开源掌机吧](https://tieba.baidu.com/f?kw=%E5%BC%80%E6%BA%90%E6%8E%8C%E6%9C%BA) |
+| 开源掌机 | kāiyuán zhǎngjī | オープンソースの携帯機 | [开源掌机吧](https://tieba.baidu.com/f?kw=%E5%BC%80%E6%BA%90%E6%8E%8C%E6%9C%BA) |
+| 改版 | gǎibǎn | 改造版 | [口袋妖怪改版吧](https://tieba.baidu.com/f?kw=%E5%8F%A3%E8%A2%8B%E5%A6%96%E6%80%AA%E6%94%B9%E7%89%88) |
+| 汉化 | hànhuà | 中国語化 | [口袋改版资源吧](https://tieba.baidu.com/f?kw=%E5%8F%A3%E8%A2%8B%E6%94%B9%E7%89%88%E8%B5%84%E6%BA%90) |
+| 资源 | zīyuán | 資源、ファイルなど | [口袋改版资源吧](https://tieba.baidu.com/f?kw=%E5%8F%A3%E8%A2%8B%E6%94%B9%E7%89%88%E8%B5%84%E6%BA%90) |
+| 教程 | jiàochéng | 手順の解説 | [口袋妖怪改版吧](https://tieba.baidu.com/f?kw=%E5%8F%A3%E8%A2%8B%E5%A6%96%E6%80%AA%E6%94%B9%E7%89%88) |
+| 社区 | shèqū | コミュニティ | [retroid.cn](https://www.retroid.cn/) |
+| 去发布帖子 | qù fābù tiězi | 投稿しに行く | [retroid.cn](https://www.retroid.cn/) |
+| 注册 | zhùcè | 登録 | [retroid.cn](https://www.retroid.cn/) |
+| 视频 | shìpín | 動画 | [retroid.cn](https://www.retroid.cn/) |
+| 搜索 | sōusuǒ | 検索 | [Bilibili](https://search.bilibili.com/all?keyword=%E5%BC%80%E6%BA%90%E6%8E%8C%E6%9C%BA) |
+| 评测 | píngcè | 製品のレビュー | [Bilibili](https://search.bilibili.com/all?keyword=%E5%BC%80%E6%BA%90%E6%8E%8C%E6%9C%BA) |
+| 开箱 | kāixiāng | 開封の紹介 | [Bilibili](https://search.bilibili.com/all?keyword=%E5%BC%80%E6%BA%90%E6%8E%8C%E6%9C%BA) |
+| 最多播放 | zuì duō bōfàng | 再生数が多い順 | [Bilibili](https://search.bilibili.com/all?keyword=%E5%BC%80%E6%BA%90%E6%8E%8C%E6%9C%BA) |
+| 抖音 | dǒuyīn | 動画アプリ、中国版TikTok | [retroid.cn](https://www.retroid.cn/) |
