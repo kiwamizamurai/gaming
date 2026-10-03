@@ -23,6 +23,8 @@
 13. [自分で用意するデータと権利のないゲーム](articles/13-own-data-and-free-games.md)では、吸い出しの機器と価格、ホームブリュー、代替BIOS、オープンソースのツールを扱います。
 14. [自作ゲームを作る方法](articles/14-making-games.md)では、GB Studio、GBDK、GBAのツール、PortMasterでの移植を整理します。
 
+動かせる最小のゲームのコードは、[examples](examples/README.md)に置きました。
+
 中国語の資料は、[語彙表](chinese/vocabulary.md)、[隠語集](chinese/slang.md)、[検索キーワード](chinese/search-keywords.md)です。引用元の要約は [sources](sources/README.md) にあります。リンクだけを一覧で見たいときは、各記事の本文から辿れます。
 
 ## 画像
