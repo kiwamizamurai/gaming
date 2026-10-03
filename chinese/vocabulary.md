@@ -1,117 +1,123 @@
 # 語彙表
 
-商品ページ、記事、掲示板に出てきた語。簡体字、ピンイン、日本語の意味、出てきた場所の順。ピンインは私の知識による。誤りがあれば直す。
+実際に開いたページで確認できた語だけを集めました。ピンインは自分の知識で付けたため、間違いがあれば直してください。出典の列から、その語が出てきたページを開けます。
 
-## 機器、ハード
+## 仕様表の項目と値
 
-| 簡体字 | ピンイン | 日本語 | 出てきた場所 |
+| 簡体字 | ピンイン | 日本語 | 出典 |
 |---|---|---|---|
-| 掌机 | zhǎngjī | 携帯ゲーム機 | 商品名 |
-| 游戏机 | yóuxìjī | ゲーム機 | 商品名 |
-| 开源掌机 | kāiyuán zhǎngjī | オープンソース系の携帯機(Linux系OSを載せた機種の通称) | 商品名、記事 |
-| 安伯尼克 | Ānbóníkè | Anbernic | 商品名 |
-| 处理器 | chǔlǐqì | プロセッサー | 仕様欄 |
-| 骁龙 | Xiāolóng | Snapdragon | 商品名 |
-| 天玑 | Tiānjī | Dimensity | 記事 |
-| 虎贲 | Hǔbēn | Unisoc T820などの中国名 | 商品画像 |
-| 内存 | nèicún | RAM | 仕様欄 |
-| 存储 | cúnchǔ | ストレージ | 仕様欄 |
-| 内存卡 | nèicúnkǎ | メモリーカード | 商品名 |
-| TF卡 | TF kǎ | microSDカード | 記事 |
-| 屏幕 | píngmù | 画面 | 記事 |
-| 触控屏 | chùkòngpíng | タッチパネル | 商品画像 |
-| 电池 | diànchí | 電池 | 記事 |
-| 散热 | sànrè | 放熱 | 記事 |
-| 风扇 | fēngshàn | ファン | 記事 |
-| 摇杆 | yáogǎn | スティック | 商品名 |
-| 霍尔摇杆 | Huò'ěr yáogǎn | ホール効果スティック | 商品名 |
-| 竖版 | shùbǎn | 縦型 | 商品名 |
-| 横版 | héngbǎn | 横型 | 商品名 |
-| 收纳包 | shōunàbāo | 収納ポーチ | 商品名 |
-| 钢化膜 | gānghuàmó | 強化ガラスフィルム | 商品名 |
+| 掌机 | zhǎngjī | 携帯ゲーム機 | [掌机圈](https://zhangjiquan.com/handhelds) |
+| 参数 | cānshù | 仕様、パラメータ | [RG-406V](https://zhangjiquan.com/handheld/rg-406v) |
+| 别名 | biémíng | 別名 | [RG-406V](https://zhangjiquan.com/handheld/rg-406v) |
+| 发布时间 | fābù shíjiān | 発売時期 | [RG-406V](https://zhangjiquan.com/handheld/rg-406v) |
+| 机身颜色 | jīshēn yánsè | 本体の色 | [RG-556](https://zhangjiquan.com/handheld/rg-556) |
+| 操作系统 | cāozuò xìtǒng | OS | [RG-556](https://zhangjiquan.com/handheld/rg-556) |
+| 外观尺寸 | wàiguān chǐcùn | 外形寸法 | [RG-406V](https://zhangjiquan.com/handheld/rg-406v) |
+| 外壳材质 | wàiké cáizhì | 外装の素材 | [RG-406V](https://zhangjiquan.com/handheld/rg-406v) |
+| 屏幕尺寸 | píngmù chǐcùn | 画面サイズ | [RG-406V](https://zhangjiquan.com/handheld/rg-406v) |
+| 屏幕分辨率 | píngmù fēnbiànlǜ | 画面の解像度 | [RG-406V](https://zhangjiquan.com/handheld/rg-406v) |
+| 屏幕比例 | píngmù bǐlì | アスペクト比 | [RG-406V](https://zhangjiquan.com/handheld/rg-406v) |
+| 屏幕刷新率 | píngmù shuāxīnlǜ | リフレッシュレート | [Nova](https://zhangjiquan.com/handheld/retroid-pocket-nova) |
+| 处理器 | chǔlǐqì | プロセッサー(SoC) | [RG-406V](https://zhangjiquan.com/handheld/rg-406v) |
+| 散热管 | sànrèguǎn | ヒートパイプ | [RG-406V](https://zhangjiquan.com/handheld/rg-406v) |
+| 散热风扇 | sànrè fēngshàn | 冷却ファン | [RP5](https://zhangjiquan.com/handheld/retroid-pocket-5) |
+| 连接性 | liánjiēxìng | 接続性(無線など) | [RP4 Pro](https://zhangjiquan.com/handheld/retroid-pocket-4-pro) |
+| 视频输出 | shìpín shūchū | 映像出力 | [RG-40XXH](https://zhangjiquan.com/handheld/rg-40xxh) |
+| 音频输出 | yīnpín shūchū | 音声出力 | [RG-40XXH](https://zhangjiquan.com/handheld/rg-40xxh) |
+| 扬声器 | yángshēngqì | スピーカー | [RG-40XXH](https://zhangjiquan.com/handheld/rg-40xxh) |
+| 双立体声 | shuāng lìtǐshēng | ステレオ(2つのスピーカー) | [RG-40XXH](https://zhangjiquan.com/handheld/rg-40xxh) |
+| 陀螺仪 | tuóluóyí | ジャイロセンサー | [RG-406V](https://zhangjiquan.com/handheld/rg-406v) |
+| 霍尔摇杆 | Huò'ěr yáogǎn | ホール効果のスティック | [RG-406V](https://zhangjiquan.com/handheld/rg-406v) |
+| 霍尔扳机 | Huò'ěr bānjī | ホール効果のトリガー | [RG-556](https://zhangjiquan.com/handheld/rg-556) |
+| 模拟器支持 | mónǐqì zhīchí | エミュレーターの対応状況 | [RG-556](https://zhangjiquan.com/handheld/rg-556) |
+| 起售价格 | qǐshòu jiàgé | 販売開始時の価格 | [RG-406V](https://zhangjiquan.com/handheld/rg-406v) |
+| 价格区间 | jiàgé qūjiān | 価格帯 | [RG-40XXH](https://zhangjiquan.com/handheld/rg-40xxh) |
+| 到手价 | dàoshǒujià | クーポンなどを引いた実際の価格 | [RG-406V](https://zhangjiquan.com/handheld/rg-406v) |
+| 券面额 | quànmiàn'é | クーポンの額 | [RG-406V](https://zhangjiquan.com/handheld/rg-406v) |
+| 下单链接 | xiàdān liànjiē | 注文のリンク | [RG-406V](https://zhangjiquan.com/handheld/rg-406v) |
+| 优惠购机 | yōuhuì gòujī | お得な購入 | [RG-406V](https://zhangjiquan.com/handheld/rg-406v) |
+| 玩家实拍图 | wánjiā shípāitú | ユーザーが撮った実機写真 | [RG-406V](https://zhangjiquan.com/handheld/rg-406v) |
+| 信息补充或纠错 | xìnxī bǔchōng huò jiūcuò | 情報の補足や訂正 | [RG-406V](https://zhangjiquan.com/handheld/rg-406v) |
 
-## ソフト、OS
+## 出品に出てくる語
 
-| 簡体字 | ピンイン | 日本語 | 出てきた場所 |
+| 簡体字 | ピンイン | 日本語 | 出典 |
 |---|---|---|---|
-| 系统 | xìtǒng | システム、OS | 商品名 |
-| 安卓 | Ānzhuó | Android | 商品名 |
-| 固件 | gùjiàn | ファームウェア | 記事 |
-| 刷机 | shuājī | ファームウェアの書き換え | 記事 |
-| 解锁 | jiěsuǒ | ロック解除(BLなど) | 記事 |
-| 模拟器 | mónǐqì | エミュレーター | 記事 |
-| 前端 | qiánduān | フロントエンド(ランチャー) | 商品名、記事 |
-| 预装 | yùzhuāng | プリインストール | 商品名 |
-| 整合包 | zhěnghébāo | まとめパック | 記事 |
-| 精简包 | jīngjiǎnbāo | 軽量版パック | 記事 |
-| 主题 | zhǔtí | テーマ | 記事 |
-| 封面 | fēngmiàn | カバー画像 | 記事 |
-| 元数据 | yuánshùjù | メタデータ | 記事 |
-| 存档 | cúndàng | セーブデータ | 記事 |
-| 金手指 | jīnshǒuzhǐ | チートコード | 記事 |
-| 汉化 | hànhuà | 中国語化 | 記事 |
-| 魔改 | mógǎi | 大幅な改造 | 商品名 |
-| 云游戏 | yúnyóuxì | クラウドゲーム | 商品名 |
-| 串流 | chuànliú | ストリーミング | 商品名 |
-| 教程 | jiàochéng | 手順書、チュートリアル | 記事 |
+| 预装 | yùzhuāng | あらかじめ入れてある | [CNFansの検索結果](https://cnfans.com/search?keywords=RP5%E9%A2%84%E8%A3%85%E5%A4%A9%E9%A9%AC&searchType=keywords) |
+| 专用 | zhuānyòng | 専用 | 同上 |
+| 内存卡 | nèicúnkǎ | メモリーカード | 同上 |
+| 此链接不包含机器 | cǐ liànjiē bù bāohán jīqì | このリンクには本体を含まない | 同上 |
+| 备注 | bèizhù | 備考 | 同上 |
+| 教程 | jiàochéng | 手順書、チュートリアル | 同上 |
+| 傻瓜式操作 | shǎguāshì cāozuò | 誰でもできる簡単な操作 | 同上 |
+| 顺丰包邮 | Shùnfēng bāoyóu | 順豊(配送会社)で送料無料 | 同上 |
+| 现货 | xiànhuò | 在庫あり | 同上 |
+| 天马G | Tiānmǎ G | Pegasusを中国語化したフロントエンド | [模拟器游戏 篇四](https://zhuanlan.zhihu.com/p/703325151) |
 
-## 商品、購買
+## ソフトウェアの語彙
 
-| 簡体字 | ピンイン | 日本語 | 出てきた場所 |
+| 簡体字 | ピンイン | 日本語 | 出典 |
 |---|---|---|---|
-| 标配 | biāopèi | 標準構成 | 商品オプション |
-| 全新 | quánxīn | 新品 | 商品名 |
-| 二手 | èrshǒu | 中古 | 検索語 |
-| 未拆封 | wèi chāifēng | 未開封 | オプション名 |
-| 现货 | xiànhuò | 在庫あり | 商品画像 |
-| 顺丰 | Shùnfēng | SF Express(配送会社) | 商品画像 |
-| 包邮 | bāoyóu | 送料無料 | 商品画像 |
-| 到手价 | dàoshǒujià | 実質価格(クーポン適用後) | 記事 |
-| 优惠券 | yōuhuìquàn | クーポン | 記事 |
-| 官方旗舰店 | guānfāng qíjiàndiàn | 公式旗艦店 | 検索結果 |
-| 正品 | zhèngpǐn | 正規品 | 商品名 |
-| 保修 | bǎoxiū | 保証 | 掲示板 |
-| 售后 | shòuhòu | アフターサービス | 商品ページ |
-| 客服 | kèfú | カスタマーサポート | 商品ページ |
-| 备注 | bèizhù | 備考(注文時のメッセージ欄) | 商品画像 |
-| 链接 | liànjiē | リンク | 商品画像 |
-| 不包含机器 | bù bāohán jīqì | 本体は含まない | 商品画像 |
-| 专用 | zhuānyòng | 専用 | 商品画像 |
-| 侵权 | qīnquán | 権利侵害 | CNFansの表示(英語では infringement) |
-| 国行 | guóháng | 中国国内正規版 | 記事 |
-| 大陆版 | dàlùbǎn | 中国大陆版 | 仕様欄 |
+| 开源 | kāiyuán | オープンソース | [开源掌机吧](https://tieba.baidu.com/f?kw=%E5%BC%80%E6%BA%90%E6%8E%8C%E6%9C%BA) |
+| 模拟器 | mónǐqì | エミュレーター | [模拟器游戏 篇四](https://zhuanlan.zhihu.com/p/703325151) |
+| 前端 | qiánduān | フロントエンド | 同上 |
+| 整合包 | zhěnghébāo | まとめパック | 同上 |
+| 精简 | jīngjiǎn | 軽量化した | 同上 |
+| 懒人包 | lǎnrénbāo | 手間のかからない簡易パック | 同上 |
+| 汉化 | hànhuà | 中国語化 | 同上 |
+| 封面 | fēngmiàn | カバー画像 | 同上 |
+| 信息差 | xìnxīchā | 情報の差 | 同上 |
+| 万合一 | wànhéyī | 何でも1つにまとめた | 同上 |
+| 跳坑者联盟 | Tiàokēngzhě Liánméng | 天馬Gのパックを作るコミュニティの名称 | 同上 |
+| 安装包 | ānzhuāngbāo | インストール用のパッケージ | 同上 |
+| 解压 | jiěyā | 解凍する | 同上 |
+| 根目录 | gēnmùlù | ルートフォルダ | 同上 |
+| 闪退 | shǎntuì | アプリが突然落ちること | 同上 |
+| 驱动 | qūdòng | ドライバ | 同上 |
+| 配置 | pèizhì | 設定 | [天马G前端的使用](https://blog.csdn.net/fanged/article/details/152960565) |
+| 主题包 | zhǔtíbāo | テーマのパック | 同上 |
+| 权限 | quánxiàn | 権限 | 同上 |
 
-## サイト、サービス
+## ハードウェアの改造の語彙
 
-| 簡体字 | ピンイン | 日本語 | 備考 |
+| 簡体字 | ピンイン | 日本語 | 出典 |
 |---|---|---|---|
-| 淘宝 | Táobǎo | Taobao | |
-| 天猫 | Tiānmāo | Tmall | 淘宝系の公式店舗モール |
-| 京东 | Jīngdōng | JD.com | |
-| 闲鱼 | Xiányú | Xianyu(Goofish) | 中古のフリマ |
-| 拼多多 | Pīnduōduō | Pinduoduo | |
-| 转转 | Zhuǎnzhuǎn | Zhuanzhuan | 中古のフリマ |
-| 哔哩哔哩 | Bìlibìli | bilibili | 動画サイト |
-| 百度贴吧 | Bǎidù tiēba | 百度の掲示板 | |
-| 什么值得买 | Shénme zhídé mǎi | SMZDM | 価格と購買の情報サイト |
-| 知乎 | Zhīhū | Zhihu | Q&A、記事 |
+| 发热 | fārè | 発熱 | [给RG40XXH改造散热](https://tieba.baidu.com/p/10191425150) |
+| 散热 | sànrè | 放熱 | 同上 |
+| 导热垫 | dǎorèdiàn | 熱伝導パッド | 同上 |
+| 泡棉 | pàomián | 発泡材 | 同上 |
+| 铜箔 | tóngbó | 銅箔 | 同上 |
+| 满载 | mǎnzài | 全力で動かすこと | 同上 |
+| 串键 | chuànjiàn | キーの誤入力 | 同上 |
+| 后盖 | hòugài | 背面のカバー | 同上 |
+| 青稞纸 | qīngkēzhǐ | 絶縁用の紙 | 同上 |
+| 机顶盒 | jīdǐnghé | セットトップボックス | 同上 |
 
-## 掲示板で使う表現
+## 掲示板とサイトの画面の語
 
-| 簡体字 | ピンイン | 日本語 | 出てきた場所 |
+| 簡体字 | ピンイン | 日本語 | 出典 |
 |---|---|---|---|
-| 评测 | píngcè | レビュー | 検索結果 |
-| 实测 | shícè | 実測 | 検索結果 |
-| 爆料 | bàoliào | 情報提供(特に値下げ情報) | 什么值得买 |
-| 避坑 | bìkēng | 失敗の回避(落とし穴を避ける) | 検索語 |
-| 踩坑 | cǎikēng | 失敗した(落とし穴にはまる) | 一般語。出処は未確認 |
-| 红黑榜 | hóng-hēi bǎng | おすすめと非おすすめのランキング | 記事 |
-| 傻瓜式操作 | shǎguāshì cāozuò | 誰でもできる操作 | 商品ページ |
-| 懒人包 | lǎnrénbāo | お手軽パック | 記事 |
+| 关注 | guānzhù | フォロー、フォロワー | [开源掌机吧](https://tieba.baidu.com/f?kw=%E5%BC%80%E6%BA%90%E6%8E%8C%E6%9C%BA) |
+| 贴子 | tiēzi | 投稿 | 同上 |
+| 精华 | jīnghuá | 選りすぐりの投稿 | [口袋改版资源吧](https://tieba.baidu.com/f?kw=%E5%8F%A3%E8%A2%8B%E6%94%B9%E7%89%88%E8%B5%84%E6%BA%90) |
+| 热门 | rèmén | 人気 | 同上 |
+| 吧友互助 | bāyǒu hùzhù | 掲示板の仲間による助け合い | 同上 |
+| 图文攻略 | túwén gōnglüè | 画像と文章の攻略 | 同上 |
+| 汉化发布 | hànhuà fābù | 中国語化したものの公開 | 同上 |
+| 改版发布 | gǎibǎn fābù | 改造版の公開 | 同上 |
+| 改版教程 | gǎibǎn jiàochéng | 改造の手順書 | 同上 |
+| 资源导航 | zīyuán dǎoháng | 資源の目次 | 同上 |
+| 口袋妖怪 | kǒudài yāoguài | ポケモン | [口袋妖怪改版吧](https://tieba.baidu.com/f?kw=%E5%8F%A3%E8%A2%8B%E5%A6%96%E6%80%AA%E6%94%B9%E7%89%88) |
+| 改版 | gǎibǎn | 改造版 | 同上 |
+| 官网 | guānwǎng | 公式サイト | [retroid.cn](https://www.retroid.cn/) |
+| 商城 | shāngchéng | ショップ | 同上 |
+| 社区 | shèqū | コミュニティ | 同上 |
+| 服务与支持 | fúwù yǔ zhīchí | サービスとサポート | 同上 |
+| 使用指南 | shǐyòng zhǐnán | 使い方のガイド | 同上 |
+| 下载中心 | xiàzài zhōngxīn | ダウンロードセンター | 同上 |
+| 在线客服 | zàixiàn kèfú | オンラインのサポート | 同上 |
+| 预售 | yùshòu | 予約販売 | 同上 |
+| 天猫旗舰店 | Tiānmāo qíjiàndiàn | 天猫の公式店舗 | 同上 |
+| 淘宝企业店 | Táobǎo qǐyèdiàn | 淘宝の企業店 | 同上 |
 
-## 質問の例文
-
-- 收录游戏列表能发我吗 (Shōulù yóuxì lièbiǎo néng fā wǒ ma) 収録ゲームのリストを送れますか
-- 内存卡保修多久 (Nèicúnkǎ bǎoxiū duō jiǔ) メモリカードの保証はどのくらいですか
-- 有没有未拆封的 (Yǒu méiyǒu wèi chāifēng de) 未開封のものはありますか
-- 可以发顺丰吗 (Kěyǐ fā Shùnfēng ma) 順豊で送れますか
+隠語は [隠語集](slang.md) にまとめています。

@@ -1,44 +1,31 @@
 # gaming
 
-中華製のハンドヘルドゲーム機を教材にして、コンピュータ・ゲーム・ソフトウェア・ハードウェアを学び、あわせて中国語も勉強するための学習リポジトリ。
+中華製の携帯ゲーム機を教材にして、コンピュータとゲーム、ソフトウェアとハードウェアを学び、あわせて中国語も勉強するためのリポジトリです。購入の検討から始めた調査を、順に読める記事としてまとめ直しました。
 
-実機の購入検討から始めたリサーチのメモを起点に、次の3つを同じ場所で積み上げる。
+本文は、主張のすぐ後ろに、出典のリンクを置いています。公式の文書、仕様のデータベース、個人の記事、掲示板の投稿の順に、信頼度が違うため、出典の種類は [出典ノート](sources/README.md) に書きました。記事の中の数値や引用は、実際に開いたページで確認できたものに限っています。確認できなかったことは、確認できなかったと本文に書きました。
 
-1. 端末(SoC、画面、冷却、OS)の違いを調べて比較する
-2. エミュレーション、フロントエンド、OS、ブートローダなどの仕組みを学ぶ
-3. 中国のECサイト、掲示板、記事を読みながら中国語の語彙を増やす
+## 記事
 
-## 目次
+読む順番は、全体像、機種、OS、導入、フロントエンド、動作、改造、ポケモン、買い方、コミュニティ、中国語です。
 
-| 場所 | 内容 |
-|---|---|
-| [docs/learning-roadmap.md](docs/learning-roadmap.md) | 何が学べるか。ハードウェア、OS、ソフトウェア、ネットワーク、中国語の学習テーマ一覧 |
-| [docs/devices.md](docs/devices.md) | 主要5機種(RG40XXH、RG406V、RG556、RP4 Pro、RP5)のスペックと価格の比較 |
-| [docs/device-families.md](docs/device-families.md) | ブランド、機種、SoC、価格帯のカタログ |
-| [docs/os-and-software.md](docs/os-and-software.md) | Android機とLinux系OS、フロントエンド、エミュレーター、天馬Gの構造 |
-| [docs/custom-firmware.md](docs/custom-firmware.md) | CFW(muOS、Knulli、ROCKNIX、ArkOSなど)の比較と更新の手順 |
-| [docs/rocknix-guide.md](docs/rocknix-guide.md) | ROCKNIXの対応機種、インストール、ゲーム追加、更新の手順 |
-| [docs/tianma-g-howto.md](docs/tianma-g-howto.md) | 天馬Gのゲーム追加、機種追加、muOSなどの導入手順 |
-| [docs/mods.md](docs/mods.md) | ソフト、ハードの改造できること |
-| [docs/pokemon-hacking.md](docs/pokemon-hacking.md) | ポケモンのROM hack(改版)のツール、方法、コミュニティ |
-| [docs/shopping-notes.md](docs/shopping-notes.md) | 淘宝、閑魚、CNFansでの探し方と、実際に見た出品のメモ |
-| [docs/buying-agents.md](docs/buying-agents.md) | 代行購入、転送サービスの比較 |
-| [docs/communities.md](docs/communities.md) | 分野別のコミュニティ一覧 |
-| [docs/forums-and-sources.md](docs/forums-and-sources.md) | 中国語、英語の掲示板、記事サイトと、情報の信頼性 |
-| [docs/links.md](docs/links.md) | 参照した記事と公式資料へのリンク集 |
-| [chinese/vocabulary.md](chinese/vocabulary.md) | 語彙表(ピンイン、意味、出てきた場所) |
-| [chinese/slang.md](chinese/slang.md) | 掲示板や出品で見かけた隠語、俗称 |
-| [chinese/search-keywords.md](chinese/search-keywords.md) | 検索に使った中国語キーワード |
-| [assets/screenshots](assets/screenshots) | 調査時のスクリーンショット |
+1. [中華ゲーム機の全体像](articles/01-overview.md)では、ブランドと愛称、SoCの違い、価格帯を扱います。
+2. [主要機種の違い](articles/02-devices.md)では、RG40XXH、RG406V、RG556、Retroid Pocket 4 Pro、5、Novaを比べます。
+3. [OSの選択肢](articles/03-os.md)では、AndroidとLinuxの違いと、ROCKNIX、Knulli、muOSなどを整理します。
+4. [CFWを入れる手順](articles/04-install-cfw.md)は、ROCKNIXとKnulliの導入手順です。
+5. [フロントエンドと天馬G](articles/05-frontend-tianma-g.md)では、Pegasusのメタデータと、天馬Gの構造を説明します。
+6. [何が動くか](articles/06-emulation.md)では、機種ごとの対応状況を整理します。
+7. [改造できること](articles/07-mods.md)では、ソフトの設定から放熱の改造までを扱います。
+8. [ポケモンのROM hack](articles/08-pokemon-hacking.md)では、作り方、ツール、中国語のコミュニティを紹介します。
+9. [中国の機種を買う方法](articles/09-buying.md)では、公式の販売経路と代行購入サービスを扱います。
+10. [コミュニティと情報源](articles/10-communities.md)
+11. [中国語の学び方](articles/11-chinese.md)
 
-## 記録のルール
+中国語の資料は、[語彙表](chinese/vocabulary.md)、[隠語集](chinese/slang.md)、[検索キーワード](chinese/search-keywords.md)です。引用元の要約は [sources](sources/README.md) にあります。リンクだけを一覧で見たいときは、各記事の本文から辿れます。
 
-- 出典のあるものは、URLか記事タイトルを添える。
-- 自分で確認できていないものは「未確認」と書く。推測は推測として書き分ける。
-- 価格は日付つきで書く。USD表記はCNFansの表示価格で、国際送料と手数料は含まない。
-- 語彙は見つけた文脈(商品名、記事、掲示板)を併記する。
-- スクリーンショットは `assets/screenshots` に置き、該当するmdから相対パスで貼る。
+## 画像
+
+本文の画像は、`assets/screenshots` に置いたスクリーンショットと、ROCKNIXやPorymap、Pegasusのリポジトリが公開している画像へのリンクです。スクリーンショットは、調査で開いたページを撮ったもので、学習のために置いています。
 
 ## 著作権について
 
-ゲームのROM、BIOS、それらを大量に収録した「整合包」の配布物は、権利面で問題がある場合が多い。このリポジトリでは、ROMやBIOSの入手先、配布リンク、ダウンロード手順は記録しない。仕組みの学習と、自分で正規に用意したデータを使う前提で書く。
+ゲームのROMとBIOS、それらを大量に収録したパックの配布物は、権利の面で問題がある場合が多くあります。このリポジトリは、ROMとBIOSの入手先、配布のリンク、ダウンロードの手順を記録しません。仕組みの学習と、自分で正規に用意したデータを使うことを前提に書いています。
