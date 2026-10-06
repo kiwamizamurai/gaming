@@ -34,6 +34,10 @@ DTBのファイル名は、機種ごとに決まっています。たとえば�
 
 2種類あるのは、RG35XX 2024、H、Plusです。それぞれに、末尾が `-rev6-panel` のファイルがあります。SPは、v2用の `sun50i-h700-anbernic-rg35xx-sp-v2-panel.dtb` が別にあります([導入ガイド](https://rocknix.org/configure/h700-installation/))。
 
+ROCKNIXのソースコード(コミット `ae41127`)では、2種類あるDTBが、この導入ガイドの一覧よりも増えています。[config.xml](https://github.com/ROCKNIX/distribution/blob/ae41127cee7e3e81b1ab3b17b676d91be5165e61/projects/ROCKNIX/config.xml)のH700の一覧には、`sun50i-h700-anbernic-rg40xx-h-v2-panel`、`sun50i-h700-anbernic-rg40xx-v-v2-panel`、`sun50i-h700-anbernic-rg34xx-sp-v2-panel` もあります。RG40XX H用の[v2-panelのDTS](https://github.com/ROCKNIX/distribution/blob/ae41127cee7e3e81b1ab3b17b676d91be5165e61/projects/ROCKNIX/devices/H700/linux/dts/allwinner/sun50i-h700-anbernic-rg40xx-h-v2-panel.dts)は、通常のRG40XX H用のDTSを読み込み、画面の部品の指定を `anbernic,rg40xx-v2-panel` に変えているだけです。2つの違いは画面の部品だけなので、RG40XX Hでも、画面が乱れたらもう一方のDTBを試すことになると考えられます。実機では、まだ確かめていません。
+
+同じソースでは、H700向けのイメージが、DDR3版とDDR4版の2種類に分かれています(config.xml)。違いは、起動の最初にメモリを使える状態にするU-Bootの部分です。RG40XXHのメモリは、掌机圈ではLPDDR4と記載されているため([主要機種の違い](02-devices.md))、DDR4版が合うはずです。ダウンロードの前に、ROCKNIXの機種のページで確かめてください。DTBとDDR3版、DDR4版の仕組みは、[電源を入れてから](19-boot.md)で詳しく扱っています。
+
 ## Retroid Pocket 5へのROCKNIX導入
 
 Retroid Pocket 5は、Androidの内蔵ストレージを残したまま、SDカードからROCKNIXを起動できます。[公式ページ](https://rocknix.org/devices/retroid/retroid-pocket-5/)の手順は次のとおりです。
