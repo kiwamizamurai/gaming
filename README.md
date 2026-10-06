@@ -6,7 +6,7 @@
 
 ## 記事
 
-読む順番は、全体像、機種、OS、導入、フロントエンド、動作、改造、ポケモン、買い方、コミュニティ、中国語、ROMとBIOS、自分で用意するデータ、自作ゲームの作り方、コンピュータの仕組みです。
+読む順番は、全体像、機種、OS、導入、フロントエンド、動作、改造、ポケモン、買い方、コミュニティ、中国語、ROMとBIOS、自分で用意するデータ、自作ゲームの作り方です。15から20は、RG40XXHを教材にコンピュータの仕組みをたどる連載です。
 
 1. [中華ゲーム機の全体像](articles/01-overview.md)では、ブランドと愛称、SoCの違い、価格帯を扱います。
 2. [主要機種の違い](articles/02-devices.md)では、RG40XXH、RG406V、RG556、Retroid Pocket 4 Pro、5、Novaを比べます。
@@ -22,7 +22,12 @@
 12. [ROMとBIOSの扱い方](articles/12-roms-and-bios.md)では、置き場所、確認の方法、権利の考え方を整理します。
 13. [自分で用意するデータと権利のないゲーム](articles/13-own-data-and-free-games.md)では、吸い出しの機器と価格、ホームブリュー、代替BIOS、オープンソースのツールを扱います。
 14. [自作ゲームを作る方法](articles/14-making-games.md)では、GB Studio、GBDK、GBAのツール、PortMasterでの移植を整理します。
-15. [RG40XXHで学ぶコンピュータの仕組み](articles/15-how-it-works.md)では、メニュー、エミュレーター、セーブ、OS、起動、CPUの命令を、ROCKNIXのソースをもとに順にたどります。
+15. [RG40XXHの全体像](articles/15-rg40xxh-big-picture.md)では、本体、OS、アプリの三つの層と、ファイル、SDカードの中身を扱います。
+16. [エミュレーターとメニュー](articles/16-emulator-and-menu.md)では、メニューがゲームを見つけてエミュレーターに渡す流れを、ROCKNIXの設定ファイルで追います。
+17. [セーブの仕組み](articles/17-save-data.md)では、カートリッジのセーブ用の記憶、`.srm` のファイル、ステートセーブ、セーブの中身を扱います。
+18. [OSの仕組み](articles/18-os.md)では、メニューを起動するsystemd、読み取り専用のOS本体と `/storage` の分け方、書き込みの溜め方を扱います。
+19. [電源を入れてから](articles/19-boot.md)では、BootROMからカーネルまでの起動の順番、SDカードの見えない場所、DTBを扱います。
+20. [CPUと機械語](articles/20-cpu.md)では、命令の中身、ELFとMach-Oの違い、エミュレーターの通訳、最初のポケモンが決まる命令を読みます。
 
 動かせる最小のゲームのコードは、[examples](examples/README.md)に置きました。
 
