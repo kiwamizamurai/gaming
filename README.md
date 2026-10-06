@@ -6,7 +6,7 @@
 
 ## 記事
 
-読む順番は、全体像、機種、OS、導入、フロントエンド、動作、改造、ポケモン、買い方、コミュニティ、中国語、ROMとBIOS、自分で用意するデータ、自作ゲームの作り方です。
+読む順番は、全体像、機種、OS、導入、フロントエンド、動作、改造、ポケモン、買い方、コミュニティ、中国語、ROMとBIOS、自分で用意するデータ、自作ゲームの作り方、コンピュータの仕組みです。
 
 1. [中華ゲーム機の全体像](articles/01-overview.md)では、ブランドと愛称、SoCの違い、価格帯を扱います。
 2. [主要機種の違い](articles/02-devices.md)では、RG40XXH、RG406V、RG556、Retroid Pocket 4 Pro、5、Novaを比べます。
@@ -22,6 +22,7 @@
 12. [ROMとBIOSの扱い方](articles/12-roms-and-bios.md)では、置き場所、確認の方法、権利の考え方を整理します。
 13. [自分で用意するデータと権利のないゲーム](articles/13-own-data-and-free-games.md)では、吸い出しの機器と価格、ホームブリュー、代替BIOS、オープンソースのツールを扱います。
 14. [自作ゲームを作る方法](articles/14-making-games.md)では、GB Studio、GBDK、GBAのツール、PortMasterでの移植を整理します。
+15. [RG40XXHで学ぶコンピュータの仕組み](articles/15-how-it-works.md)では、メニュー、エミュレーター、セーブ、OS、起動、CPUの命令を、ROCKNIXのソースをもとに順にたどります。
 
 動かせる最小のゲームのコードは、[examples](examples/README.md)に置きました。
 
