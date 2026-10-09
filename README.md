@@ -29,6 +29,9 @@
 19. [電源を入れてから](articles/19-boot.md)では、BootROMからカーネルまでの起動の順番、SDカードの見えない場所、DTBを扱います。
 20. [CPUと機械語](articles/20-cpu.md)では、命令の中身、ELFとMach-Oの違い、エミュレーターの通訳、最初のポケモンが決まる命令を読みます。
 21. [チートとパススルー](articles/21-cheats-and-passthrough.md)では、動いているゲームのメモリを読み書きするチートと、2つのゲームをつなぐパススルーの改造を、エメラルドとRetroArchのソースで確かめます。
+22. [REAでリバースエンジニアリングを体験する](articles/22-rea-hands-on.md)では、SDカードのイメージの分解、動きの記録と比較、.NETとJavaScriptの版の比較を、REAで試します。
+23. [REAとGhidraで機械語を読む](articles/23-rea-and-ghidra.md)では、文字列から関数をたどり、疑似コードに戻して、1バイトの書き換えまで行います。
+24. [Novaで学ぶAndroid](articles/24-android-nova.md)では、AndroidのAPKを分解して読み、RG40XXHのLinuxと比べる学習計画を立てます。
 
 動かせる最小のゲームのコードは、[examples](examples/README.md)に置きました。
 
