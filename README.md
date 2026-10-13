@@ -32,6 +32,7 @@
 22. [REAでリバースエンジニアリングを体験する](articles/22-rea-hands-on.md)では、SDカードのイメージの分解、動きの記録と比較、.NETとJavaScriptの版の比較を、REAで試します。
 23. [REAとGhidraで機械語を読む](articles/23-rea-and-ghidra.md)では、文字列から関数をたどり、疑似コードに戻して、1バイトの書き換えまで行います。
 24. [Novaで学ぶAndroid](articles/24-android-nova.md)では、AndroidのAPKを分解して読み、RG40XXHのLinuxと比べる学習計画を立てます。
+25. [初代Switchを、自分のホームブリュー開発機にする](articles/25-switch-cfw.md)では、fusée gelée脆弱性の見分け方、RCM治具とペイロード注入、emuMMC、自作アプリ開発と既存ゲームのMODを、出典つきで整理します。
 
 動かせる最小のゲームのコードは、[examples](examples/README.md)に置きました。
 
