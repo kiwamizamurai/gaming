@@ -52,7 +52,7 @@ flowchart TD
 | RCM治具 | RCMモードに入るための、電気的な橋渡し | 次の節で詳しく説明する |
 | Mac(またはWindows PC) | ペイロードを送る | どちらでも行ける。詳細は「4. ペイロードを送る」 |
 | USB Type-Cケーブル | SwitchとMacを繋ぐ | |
-| microSDカード(64GB以上) | hekate、Atmosphère、ホームブリューの保存先 | FAT32推奨。32GB以下は、完全な構成には不向き([複数のガイド](https://switch.hacks.guide/user_guide/all/sd_preparation)) |
+| microSDカード(推奨128GB) | hekate、Atmosphère、ホームブリューの保存先 | FAT32推奨。32GB以下はホームブリューには使えるが、NANDの完全なバックアップやemuMMCを置けないため非推奨([Switch GuideのFAQ](https://switch.hacks.guide/faq)) |
 
 ### RCM治具とは何か
 
@@ -60,15 +60,15 @@ Switchには、物理的な「ホームボタン」がありません。RCM(Reco
 
 #### 仕組み
 
-本体の右側のJoy-Conを差し込むレール(接点の並び)には、10番ピンをGND(グラウンド、電気的な基準点)に接続すると、ホームボタンを押したのと同じ信号になるという性質があります。RCM治具は、この10番ピンと、近くのGNDピンだけを、確実につなぐための部品です([Switch Guideの解説](https://switch.hacks.guide/user_guide/rcm/entering_rcm))。
+RCM治具は、本体の右側のJoy-Conを差し込むレール(接点の並び)のうち、10番ピンとGND(グラウンド、電気的な基準点)のピンを、確実に短絡させるための部品です。治具が線材を固定するので、正しいピンの組み合わせを安定してつなげます([Switch Guideの解説](https://switch.hacks.guide/user_guide/rcm/entering_rcm))。
 
 #### 絶対に避けるべきピン
 
-同じレールの**4番ピンには、Joy-Conへ送る5Vの電源**が来ています。このピンを誤って別のピンと接触させると、**レールや本体が修復不可能なレベルで壊れる**と、複数のガイドが明確に警告しています([Switch Guide](https://switch.hacks.guide/user_guide/rcm/entering_rcm))。安全に進めるには、次の点に注意してください。
+同じレールの**4番ピンには、Joy-Conへ送る5Vの電源**が来ています。Switch Guideは、自作の治具が4番ピンに決して触れないようにすること、ショートさせると**レールや本体を恒久的に壊すおそれがある**ことを警告しています([Switch Guide](https://switch.hacks.guide/user_guide/rcm/entering_rcm))。安全に進めるには、次の点に注意してください。
 
-- 市販の専用治具を使うことが、もっとも安全です。ピンの間隔に合わせて作られているため、狙った2本以外には触れません
-- **クリップやペーパークリップでの自作は、避けるべきとされています。** 硬くて先が尖っているため、レール内部の接点(パッド)を傷つけやすいと、ガイドは指摘しています([Switch Guide](https://switch.hacks.guide/user_guide/all/sd_preparation)の関連ページ)
-- 細い金属線(32ゲージ程度)で自作する例もありますが、正確なピン配置を、信頼できる一次情報(Switchbrewや、switch.hacks.guideのような、技術的に詳しいガイド)で確認したうえで、慎重に行ってください
+- 市販の専用治具を使うことが、もっとも安全です。Switch Guideは、治具を使う方法を、もっとも手軽で、多くの場合ペーパークリップ方式より確実で安全な方法と位置づけています
+- **ペーパークリップやアルミホイルで代用してはいけません。** Switch Guideは「本体を壊すおそれがある」として明確に禁じており、ペーパークリップを使う設計の治具も同じリスクがあるとしています([Switch Guide](https://switch.hacks.guide/user_guide/rcm/entering_rcm))
+- 治具を自作する場合は、Switch Guideに掲載されているパッドの番号図で、ピン配置を必ず確認してください
 
 #### 入手方法
 
@@ -112,7 +112,9 @@ RCMモードへの切り替えは電気的な機能なので、Patched個体で�
 2. 治具を、右Joy-Conのレールに差し込む
 3. 音量+ボタンを押しながら、電源ボタンを押す
 
-成功していれば、画面は真っ黒のまま、バックライトも点灯しません。 ニンテンドーのロゴが出たり、すぐ電源が切れたりした場合は、RCMモードに入れていません([Switch Guide](https://switch.hacks.guide/switch-guide/user_guide/emummc/entering_rcm/))。
+成功していれば、画面は真っ黒のままです(電源ボタンをもう一度押しても黒いまま)。ニンテンドーのロゴが出て通常起動した場合や、点いていた画面が黒くなった場合は、RCMモードに入れていません。RCMに入れたことを確認したら、治具は抜いてかまいません([Switch Guide](https://switch.hacks.guide/user_guide/rcm/entering_rcm))。
+
+なお、対策済み(Patched)の個体でもRCMモードには入れます。ペイロードを送れないだけです([Switch Guide](https://switch.hacks.guide/user_guide/rcm/entering_rcm))。
 
 ## 4. ペイロードを送る
 
@@ -207,7 +209,7 @@ iOS向けの同等アプリは見つかりませんでした。iOSのUSBホス�
 
 ここまでの方法はいずれも、電源を入れるたびに、何らかの機器からペイロードを送る必要があります。これを完全になくすには、**ハードウェアのmodchip(改造チップ)を基板にハンダ付けする**しかありません。SDカードから直接CFWを読み込んで起動するため、外部機器が毎回不要になります。
 
-コミュニティガイドが「もっとも一般的で入手しやすい」と位置づけているのは、オープン設計の **Picofly**(RP2040ベース)です。SX Core・hwflyのような商用チップについては、ガイド自身が「出自が不明瞭」として、入手・取り付けの支援を行わないと明言しています([Switch Guideのmodchipページ](https://switch.hacks.guide/user_guide/modchip/))。ハンダ付けを要するハードウェア改造であり、この記事で扱う非破壊的な手順の範囲を超えるため、ここで紹介するのは名称だけです。
+Switch Guideがサポート対象とするのは、ファームウェアからマイコン(RP2040)まで完全にオープンソースの **Picofly** だけです。hwfly・SX Core/Liteのような商用チップについては、「出自が不明瞭」として、入手・取り付けの支援を行わないと明言しています(すでに取り付け済みのチップへのファームウェア書き込みに限っては手伝う、としています)([Switch Guideのmodchipページ](https://switch.hacks.guide/user_guide/modchip/))。ハンダ付けを要するハードウェア改造であり、この記事で扱う非破壊的な手順の範囲を超えるため、ここで紹介するのは名称だけです。
 
 ## 5. SDカードの準備とhekateからの起動
 
@@ -238,7 +240,7 @@ hekateのメニューから、次のいずれかを選べます。
 | 置き場所 | 本体の内蔵ストレージ | SDカード上 |
 | 本体とのネットワーク接続 | 任天堂のサービスに繋がる | 完全に分離される |
 | オンライン利用 | 純正の状態を保てば可能 | 基本的にオフライン向け |
-| 必要な容量 | — | 64GB以上のSDカードを推奨 |
+| 必要な容量 | — | SDカード上に32GB(有機ELモデルは64GB)が確保される。快適に使うには128GB以上が必要([Switch Guide](https://switch.hacks.guide/user_guide/all/cfw_environment)) |
 
 Atmosphèreは、本体に恒久的にインストールされるものではありません。電源を切るたびに、脆弱性を使って再度起動し直す必要があります(ハードウェア改造[modchip]を追加しない限り)。
 
@@ -248,9 +250,13 @@ hekateのホーム画面で、**emuMMC**のボタンを開くと、現在の状�
 
 ### SDカードに、emuMMC用の区画を作る
 
+**区画を作ると、SDカードのデータはすべて消えます。** 先に、hekateの **Tools → USB Tools → SD Card** でSwitchをPCにUSB接続し、カードの中身をPCにバックアップしておきます([Switch Guide](https://switch.hacks.guide/user_guide/all/partitioning_sd))。hekateが自動でバックアップするのは、カード内のデータが1GB未満のときだけです([参考ガイド](https://gist.github.com/nicholemattera/47174b4cfd583820e312039927a304be))。
+
 1. hekateのホームから **Tools → Partition SD card** を開く
-2. 「emuMMC (RAW)」のスライダーを調整する。目安は、無印/有機ELでない機種で**29GB**、有機ELモデルでは**58GB**([参考ガイド](https://gist.github.com/nicholemattera/47174b4cfd583820e312039927a304be))
-3. **先にSDカードのデータをバックアップしておく。** hekateは、カード内のデータが1GB未満のときしか、自動でバックアップしません。それ以上のデータがある場合は、事前に手動でバックアップする必要があります([参考ガイド](https://gist.github.com/nicholemattera/47174b4cfd583820e312039927a304be))
+2. 「emuMMC (RAW)」のスライダーを、バーの中央にある **29 FULL** に合わせる。有機ELモデルでは **58 FULL**
+3. 右下の **Next Step** を選び、表示されたメニューで **Start** を選ぶ
+
+([Switch Guide](https://switch.hacks.guide/user_guide/all/partitioning_sd))
 
 ### emuMMCを作成する
 
@@ -261,13 +267,15 @@ hekateのホーム画面で、**emuMMC**のボタンを開くと、現在の状�
 | **SD Partition(パーティション方式)** | emuMMC → Create emuMMC → SD Partition | 専用の区画に直接書き込む。安定性が高いとされる([ConsoleMods Wiki](https://consolemods.org/wiki/Switch:Creating_and_Using_EmuNAND)) |
 | **SD File(ファイル方式)** | emuMMC → Create emuMMC → SD File | 通常のFAT32の区画内に、1つのファイルとして作る。復旧や取り回しはしやすいが、安定性はパーティション方式に劣るとされる |
 
-1. hekateのホームから、**emuMMC → Create emuMMC** を選ぶ
-2. 先ほど確保した区画(灰色になっていない選択肢)を選んで作成する
-3. 作成後、**Change emuMMC → SD RAW X**(Xは作成した番号)で、使うemuMMCを選択する
+1. hekateのホームから、**emuMMC → Create emuMMC → SD Partition → Part X**(Xは灰色になっていない選択肢)を選び、作成が終わるまで待つ
+2. **Close** で作成メニューを閉じ、**Change emuMMC → SD RAW X**(同じく灰色でない選択肢)で、使うemuMMCを選択する
+3. 右上の **Close** を2回押して、hekateのホームに戻る
+
+([Switch Guide](https://switch.hacks.guide/user_guide/all/partitioning_sd))
 
 ### Windowsでの注意
 
-作成後、WindowsにSDカードを挿すと、「カードが読めません。フォーマットしますか」という警告が出ることがあります。**これは、emuMMC用の区画が、Windowsから見て未知の形式に見えているだけです。フォーマットしないでください。** フォーマットすると、作成したemuMMCのデータが消えます([参考ガイド](https://gist.github.com/nicholemattera/47174b4cfd583820e312039927a304be))。
+作成後、WindowsにSDカードをつなぐと、「カードが読めません。フォーマットしますか」という警告が出ることがあります。**フォーマットしないでください。** これはemuMMC用の区画です。区画を作った後のカードは、PCから2つのドライブとして見えるので、`SWITCH SD` という名前の、読み書きできるほうを使います([Switch Guide](https://switch.hacks.guide/user_guide/all/partitioning_sd))。
 
 ### バックアップと復元
 
@@ -278,7 +286,9 @@ NANDのバックアップ・復元を行う際は、**「SD EmuMMC Raw Partition
 
 ### 試せていないこと(この章)
 
-メニューの名称や、スライダーの具体的な数値は、hekateの版によって変わることがあります。**実機での作成手順は、この記事ではまだ確認していません。** 作業前に、[switch.hacks.guideの該当ページ](https://switch.hacks.guide/user_guide/all/partitioning_sd)で、現在の手順を必ず確認してください。
+区画作成とemuMMC作成のメニュー名・スライダーの値は、[switch.hacks.guideの該当ページ](https://switch.hacks.guide/user_guide/all/partitioning_sd)の原文(2026年10月時点)と照合済みです。ただし、**実機での作成手順は、この記事ではまだ確認していません。** メニューの名称は、hekateの版によって変わることがあります。作業前に、同じページで現在の手順を必ず確認してください。
+
+hekateのemuMMC画面の「Type」欄の表示と、SD Partition方式・SD File方式の安定性の比較は、ConsoleMods Wikiを出典としていますが、原文との照合は済んでいません。
 
 ## 7. ホームブリューを動かす(hbmenu)
 
@@ -341,18 +351,70 @@ MODを入れる前に必要なのは、対象ゲームのタイトルIDの確認
 ### 導入時によくある問題
 
 - ファイルマネージャー上で、`romfs` や `exefs` が「フォルダ」ではなく「ファイル」として表示される場合、正しく展開されていません。手動でフォルダを作り直す必要があります([ConsoleMods Wiki](https://consolemods.org/wiki/Switch:Mods))
-- MODによっては、LayeredFSだけでは動かず、追加のローダーが必要です。たとえば大乱闘スマッシュブラザーズのキャラクターMODの多くは、[ARCropolis](https://github.com/ARCropolis/arcropolis)(skylineというコード注入フレームワークの上で動く)を必要とします
+- MODによっては、LayeredFSだけでは動かず、追加のローダーが必要です。たとえば大乱闘スマッシュブラザーズ SPECIALのMODの多くは、[ARCropolis](https://github.com/Raytwo/ARCropolis)(Skylineというフレームワークの上で動く)を必要とします。詳しくは、後述の「MODの具体例」で説明します
 - 一部のMOD(例:ブレス オブ ザ ワイルドのLuminescent系MOD)は、`romfs`・`exefs` に加えて、別の `exefs_patches` フォルダも使う構成になっています
 
 ### MODが反映されているかの確認
 
-Atmosphèreには、「MODが有効になっています」という画面上の表示はありません。ゲームを普通に起動して、見た目や挙動の変化を、自分の目で確認する以外の方法がない、という仕組みです([switch.hacks.guide](https://switch.hacks.guide/homebrew/edizon))。
+Atmosphèreの公式ドキュメント([loader.md](https://github.com/Atmosphere-NX/Atmosphere/blob/master/docs/components/modules/loader.md))には、MODの適用状態を画面に表示する機能の記載はありません。基本的には、ゲームを普通に起動して、見た目や挙動の変化を、自分の目で確認することになります。MODローダーによっては、独自の確認方法を持つものもあります(たとえばARCropolisは、タイトル画面に自身のバージョンを表示します。後述)。
 
 反映されない場合によくある原因は、次の通りです。
 
 - ゲームを完全に終了してから、起動し直していない場合があります。LayeredFSは、プロセスの起動時にだけ適用されるため、スリープ状態からの復帰や、ホームボタンでの中断からの再開では反映されません
 - タイトルIDのフォルダが、本体のものと一致していない場合があります(アップデート版のIDではなく、ベースゲームのIDを使う必要があります)
 - MODの対応バージョンと、実際にインストールされているゲームの版がずれている場合があります。ファイルの配置先が、その版のromfs構成と合っていないと、無反応、または不安定な動作になります
+
+### MODの具体例(大乱闘スマッシュブラザーズ SPECIAL)
+
+具体例として、MODの仕組みが公式ドキュメントで詳しく公開されている、大乱闘スマッシュブラザーズ SPECIAL(以下スマブラSP、タイトルID `01006A800016E000`)を取り上げます。Switch Guideも、emuMMCの代表的な用途の一つに「あらゆるゲームでのMOD・チート」を挙げています([Switch Guide](https://switch.hacks.guide/user_guide/all/cfw_environment))。
+
+#### 土台になるARCropolis
+
+スマブラSPのMODの多くは、[ARCropolis](https://github.com/Raytwo/ARCropolis)というMODフレームワークを前提にしています。[Skyline](https://github.com/skyline-dev/skyline)の上で動く、スマブラSP専用のMODローダー兼マネージャーです。動作の前提は、最新のAtmosphère(他のCFWは非対応)と、最新版に更新したスマブラSP(カートリッジ版・ダウンロード版のどちらでもよい)です([ARCropolis Wiki:Setup](https://github.com/Raytwo/ARCropolis/wiki/Setup-(Getting-Started)))。
+
+導入後のファイル配置は、次の通りです([同上](https://github.com/Raytwo/ARCropolis/wiki/Setup-(Getting-Started)))。
+
+```
+sdカード/
+  atmosphere/
+    contents/
+      01006A800016E000/
+        exefs/
+          subsdk9                      # Skyline本体(skyline.zipから)
+        romfs/
+          skyline/
+            plugins/
+              libarcropolis.nro        # ARCropolis(release.zipから)
+  ultimate/
+    mods/
+      <MODごとのフォルダ>/            # 個々のMODを置く場所
+```
+
+Skylineの `subsdk9` は、[LayeredFSの仕組み](#仕組みとフォルダ構成)のうち、`exefs` による実行コードの差し替えで読み込まれます。Atmosphèreのloaderは、プロセスを作るときに `rtld`・`main`・`subsdk0`〜`subsdk9`・`sdk` という名前のファイルを探し、SDカード上に同名のファイルがあればそちらを使います([Atmosphère公式ドキュメント:loader.md](https://github.com/Atmosphere-NX/Atmosphere/blob/master/docs/components/modules/loader.md))。
+
+ARCropolisが動いているかは、ゲームのタイトル画面で確認できます。正しく導入できていれば、ARCropolisのバージョンが表示されます([ARCropolis Wiki:Setup](https://github.com/Raytwo/ARCropolis/wiki/Setup-(Getting-Started)))。
+
+個々のMODは、`sd:/ultimate/mods/` の下に、MODごとのフォルダとして置きます。ゲーム内のメニュー(メインメニューのeショップボタンの位置)から、MODごとにオン・オフを切り替えられます。ARCropolis 3.0.0以降では、2つのMODが同じファイルを置き換えようとすると、起動時に「ファイルの競合」として知らせてくれます。競合しているファイルの一覧は、`sd:/ultimate/arcropolis/conflicts.json` で確認できます([ARCropolis Wiki:Usage](https://github.com/Raytwo/ARCropolis/wiki/Usage-(Getting-Started))、[FAQ](https://github.com/Raytwo/ARCropolis/wiki/FAQ-(Troubleshooting)))。
+
+#### 分類1:見た目の差し替え(スキン)
+
+もっとも多いのが、ファイターの見た目(モデル・テクスチャ)を差し替えるスキンMODです。スマブラSPでは、各ファイターのカラーバリエーション(スロット)ごとにファイルが分かれていますが、一部のファイルはスロット間で共有されています。そのため、古い環境では、あるスロットのスキンを入れると、ほかのスロットの見た目まで崩れることがありました。ARCropolis 2.0.0以降は、1つのスロットだけに効くスキンMOD・ボイスMODに対応しています([ARCropolis Wiki:FAQ](https://github.com/Raytwo/ARCropolis/wiki/FAQ-(Troubleshooting))、[よくある問題](https://github.com/Raytwo/ARCropolis/wiki/Common-Issues-and-How-To-Fix-Them-(Troubleshooting)))。
+
+**「他のゲームのキャラクターで遊べる」と紹介されるMODも、この分類に入ります。** スキンMODは、既存のファイターのスロットの見た目を置き換えるもので、技・AIを含めた新しいファイターを追加するものではありません。技の性能や動きのデータは、`param`(パラメータ)や `motion_list` といった別のファイルにあり、これらを書き換えるのは、次の分類2のような、ゲームプレイを変えるMODです([ARCropolis Wiki:Param Patching](https://github.com/Raytwo/ARCropolis/wiki/Param-Patching-(Features))、[MotionList Patching](https://github.com/Raytwo/ARCropolis/wiki/MotionList-Patching-(Features)))。
+
+スキン系の一例として、[Smash Minecraft Skins](https://github.com/jam1garner/smash-minecraft-skins)というSkylineプラグインがあります。Minecraftのユーザー名を入力すると、そのスキンを取得してゲーム内で使えるようにするものです。PNG形式のスキンを `sd:/atmosphere/contents/01006A800016E000/romfs/minecraft_skins/` に置いて使うこともできます。動作には、SkylineとARCropolis 0.9.3以降が必要です([READMEで確認](https://github.com/jam1garner/smash-minecraft-skins))。
+
+#### 分類2:コンテンツの追加・ゲームプレイの変更
+
+見た目だけでなく、ゲームの中身そのものを変えるMODもあります。ARCropolisのREADMEが代表例として挙げている[HewDraw Remix(HDR)](https://github.com/HDR-Development/HDR-Releases)は、ゲームプレイの大規模な作り直しに加えて、選び抜いたスキン、独自のメニュー、新しい音楽などを含むMODです([ARCropolisのREADME](https://github.com/Raytwo/ARCropolis))。HDRの公式READMEによると、導入は配布されている `switch-release.zip` をSDカードに展開するだけで、アンインストールは `/ultimate/mods` にある `hdr` で始まるフォルダを削除します([HDR-ReleasesのREADME](https://github.com/HDR-Development/HDR-Releases))。
+
+この種のMODについて、ARCropolisのFAQは、オンラインで有利になるファイル(パラメータの調整や技の変更など)を改造しないことを、コミュニティの一般的な合意として挙げています([ARCropolis Wiki:FAQ](https://github.com/Raytwo/ARCropolis/wiki/FAQ-(Troubleshooting)))。ARCropolis 3.2.0以降の「ワークスペース」機能を使うと、MODの組み合わせをプリセットとして保存し、たとえば「スキンだけのオンライン向け構成」と「ゲームプレイを変える構成」を、ゲーム内のメニューから切り替えられます([ARCropolis Wiki:Workspaces](https://github.com/Raytwo/ARCropolis/wiki/Workspaces-and-Workspace-Selector-(Features)))。
+
+#### 分類3:チートとの併用
+
+ARCropolisのMODと、Atmosphèreのチートは、置き場所が別です。ARCropolis関連のファイルは `exefs`・`romfs` と `sd:/ultimate/` に、チートは同じタイトルIDフォルダの `cheats` に置かれます(チートの置き場所は、次の「チートコード」節を参照)。ファイルの置き場所としては共存できますが、ARCropolisの公式ドキュメントには、Atmosphèreのチートと同時に使った場合の動作についての記載は見当たりません。両者を同時に有効にした場合の動作は未確認です。
+
+一時的にすべて止めたいときは、ゲーム起動時に**Lボタン**を押し続けます。HDRのREADMEも、Lボタンを押しながら起動すれば、メニューの設定にかかわらず、すべてのMODが一時的に無効になると説明しています([HDR-ReleasesのREADME](https://github.com/HDR-Development/HDR-Releases))。
 
 ### チートコード
 
@@ -395,9 +457,9 @@ Atmosphèreのチートは、「どの命令(コードタイプ)を、どんな�
 
 `.txt` ファイル内のチートは、そのままではすべてが同時に有効になります。これは、`system_settings.ini` の `[atmosphere]` セクションにある `dmnt_cheats_enabled_by_default`(既定値は `u8!0x1`)という設定によるもので、`u8!0x0` にすると、すべて無効の状態から起動するようになります([Atmosphère公式ドキュメント](https://github.com/Atmosphere-NX/Atmosphere/blob/master/docs/features/cheats.md))。個別にオン・オフしたい場合は、Atmosphère自体ではなく、別のホームブリュー(オーバーレイ)アプリを使います。
 
-- Switchのホームブリュー向けオーバーレイ基盤である**Tesla Menu**の上で動く、**EdiZon-Overlay**や**Zing**といったアプリが、チートの一覧をチェックボックス形式で表示し、ゲームをプレイしたまま切り替えられます([ConsoleMods Wiki](https://consolemods.org/wiki/Switch:Overlay_Apps))
-- オリジナルのEdiZonオーバーレイは、メンテナンスが止まっており、新しい本体バージョンでAtmosphère自体をクラッシュさせることが報告されています。EdiZon-OverlayかZingを使ってください([GBAtemp](https://gbatemp.net/threads/how-i-invoke-the-edizon-cheat-overleay.621149/))
-- オーバーレイを呼び出すボタンの組み合わせは、初期設定では**L+十字キー下+右スティック押し込み**です(libtesla公式ソースコードの[tesla.hpp](https://github.com/WerWolv/libtesla/blob/master/include/tesla.hpp)で確認。古い情報源では別の組み合わせが書かれていることもありますが、変更後の値である可能性があります)。`sd:/config/tesla/config.ini` で自由に変更できます
+- Switchのホームブリュー向けオーバーレイ基盤である**Tesla Menu**の上で動く、**EdiZon-Overlay**や**Zing**といったアプリが、チートの一覧をチェックボックス形式で表示し、ゲームをプレイしたまま切り替えられます([ConsoleMods Wiki](https://consolemods.org/wiki/Switch:Overlay_Apps))。Switch Guideも、Tesla Menuの用途の一つに「チートの切り替え」を挙げています([Switch GuideのTesla Menuページ](https://switch.hacks.guide/homebrew/tesla-menu))
+- 公式のEdiZonオーバーレイはメンテナンスが止まっており、本体バージョン16.0.0以降で使おうとすると、Atmosphère自体がクラッシュします。メンテナンスが続いているオーバーレイとして、[EdiZon-Overlay](https://github.com/proferabg/EdiZon-Overlay)が案内されています([Switch GuideのEdiZonページ](https://switch.hacks.guide/homebrew/edizon))
+- オーバーレイを呼び出すボタンの組み合わせは、初期設定では**L+十字キー下+右スティック押し込み**です(libtesla公式ソースコードの[tesla.hpp](https://github.com/WerWolv/libtesla/blob/master/include/tesla.hpp)と、[Switch GuideのTesla Menuページ](https://switch.hacks.guide/homebrew/tesla-menu)で確認)。`sd:/config/tesla/config.ini` の `key_combo` で変更できます
 
 チートコードの文法が正しいかどうかを、画面上で確認する標準的な方法はありません。実際には、**期待通りの効果(体力無限、アイテム解放など)が出るかどうかを、目で見て確認する**のが一般的なやり方です。
 
@@ -439,7 +501,13 @@ MODやチートとは別の話として、「自分で買ったカートリッ�
 
 ### 試せていないこと(この章)
 
-この環境には、改造可能な実機カートリッジがないため、LayeredFSによる差し替えや、チート・exefs_patchesの実際の動作は確認していません。導入前には、使いたいMOD・チートの配布元が示す、個別の手順を必ず確認してください。
+この環境には、改造可能な実機カートリッジがないため、LayeredFSによる差し替えや、チート・exefs_patchesの実際の動作は確認していません。ARCropolis・HDR・Smash Minecraft Skinsについては、公式リポジトリとWikiの記載を確認しましたが、実機での導入と動作は未確認です。導入前には、使いたいMOD・チートの配布元が示す、個別の手順を必ず確認してください。
+
+次の記述・事例は、出典の原文との照合が済んでいないため、この記事では扱いを保留しています。
+
+- ConsoleMods Wikiを出典とする、`romfs`・`exefs` がファイルとして表示される問題と、オーバーレイアプリの説明
+- スマブラSPの、特定の他作品キャラクターのスキンMODの事例(TechRaptor・TheGamerの記事)
+- マリオカート8 デラックスのカスタムコースMOD「CTGP Deluxe」の版・対応するゲームのバージョン・emuMMC推奨の有無(GameBrewの記事)
 
 ## 試せていないこと
 
@@ -451,6 +519,15 @@ MODやチートとは別の話として、「自分で買ったカートリッ�
 - libnxでの、自作アプリのビルドと、実機での動作
 - RetroArchのSwitch移植版の、実際の動作
 - LayeredFSによるMODの導入、チート・exefs_patchesの動作
+- ARCropolisと、その上で動くMODの導入、Atmosphèreのチートとの併用
+
+出典の原文との照合が済んでいないものもあります。
+
+- GBAtempのスレッドを出典とする、スタンドアロンのRCM注入ドングルの使い方と不具合の報告
+- ConsoleMods Wikiを出典とする、emuMMCの「Type」欄の表示、SD Partition方式とSD File方式の比較、MOD導入時の問題、オーバーレイアプリの説明
+- 8b章で保留した、スマブラSPの他作品キャラクターのスキンMODの事例と、CTGP Deluxeの詳細
+
+switch.hacks.guideを出典とする記述は、公式ソース([nh-server/switch-guide](https://github.com/nh-server/switch-guide))の原文と照合済みです。
 
 実機を入手し次第、1つずつ確かめます。
 
