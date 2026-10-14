@@ -166,12 +166,42 @@ iOS向けの同等アプリは見つかりませんでした。iOSのUSBホス�
 
 #### スタンドアロンのRCM注入ドングル
 
-「**RCM Loader**」などの名前で販売されている、USB-C型の小型ドングルもあります。治具が「RCMモードに入れるだけ」なのに対し、こちらは内蔵のフラッシュメモリにペイロードそのものを保存しておき、PCもスマホも使わずに、挿すだけでペイロードを送る仕組みです。
+「RCM Loader」などの名前で販売されている、USB-C型の小型ドングルもあります。治具が「RCMモードに入れるだけ」なのに対し、こちらは内蔵のフラッシュメモリにペイロードそのものを保存しておき、PCもスマホも使わずに、挿すだけでペイロードを送る仕組みです。
 
 - オープンソースの正規設計として、**SAMD Fusee Payload Launcher V2** というDIY基板がコミュニティで共有されています([GBAtempのスレッド](https://gbatemp.net/goto/post?id=8273176))。ペイロードの書き込み自体は、最初にPC経由で行う必要がありますが、以降は単体で使えます
 - 市販品の多くは、AliExpress経由の様々なリブランド品(名称は販売元によって異なる)です。コミュニティの評価は一定せず、「給電が不安定」「検出されない」「結局PC用ツールが必要だった」といった不満も報告されています([GBAtempのトラブル報告スレッド](https://gbatemp.net/posts/10874821/))
 
-**この種のデバイスには、固有の法的リスクがあります。** 任天堂は、アメリカで「RCM Loader」という名称のデバイスの販売者に対し、差止命令(injunction)を得ています。裁判所は「このデバイスの唯一の目的は、保護機構の回避である」と判断しました([TorrentFreak](https://torrentfreak.com/nintendo-wins-us-wide-injunction-against-seller-of-rcm-loader-piracy-device-210416/))。これは機器の**販売**に対する訴訟ですが、購入を検討する場合は知っておくべき事情です。
+**この種のデバイスには、固有の法的リスクがあります。** 任天堂は、アメリカで「RCM Loader」という名称のデバイスの販売者に対し、差止命令(injunction)を得ています。裁判所は「このデバイスの唯一の目的は、保護機構の回避である」と判断しました([TorrentFreak](https://torrentfreak.com/nintendo-wins-us-wide-injunction-against-seller-of-rcm-loader-piracy-device-210416/))。これは機器の販売に対する訴訟ですが、購入を検討する場合は知っておくべき事情です。
+
+##### 具体的な使い方
+
+この種のドングルは、**「どのペイロードを送るか」を、ドングル本体のボタンで事前に選んでおく**、という操作が加わります。Switch本体側のボタン操作とは別物です。
+
+1. ペイロードを書き込む(初回のみ):ドングルをPCに接続すると、USBメモリとして認識されます。専用フォルダ(製品によって名称が異なり、たとえば「`ATMOSPHERE_HEKATE`」のような名前のことがあります)の中に、`payload.bin` という名前でファイルを置きます。ルート直下に置くだけでは動かない、という報告が複数あります([GBAtemp](https://gbatemp.net/threads/rcm-loader-not-being-detected-on-pc.682629/))
+2. 送るペイロードを選ぶ:ドングルのボタンを押すと、LEDの色や点滅回数で、現在選択中のペイロードが分かる製品があります(例:ある製品では、青=Atmosphère、緑=ReiNX、赤=SX OSという報告がありますが、**この色の対応は製品ごとに異なる可能性があり、普遍的な規格ではありません**。購入した製品の説明書やラベルで確認してください)
+3. 注入する:Switchの電源を完全に切り、右Joy-ConレールにRCM治具を挿し、ドングル本体をUSB-C端子に挿します。音量+を押しながら電源ボタンを押すと、選択中のペイロードが起動します
+
+ドングル自体のファームウェア更新は、ボタンを押しながらPCに接続し、専用の更新ソフトで書き込む、という手順が報告されています。何度か試行が必要なこともあるようです([GBAtemp](https://gbatemp.net/threads/rcm-loader-oneb-update-firmware.594251/))。製品によっては、最後の更新が数年前で止まっているものもあるため、継続的なサポートを期待しすぎないほうがよさそうです。
+
+##### よくある不具合
+
+- PCにUSBメモリとして認識されない:内蔵バッテリーの劣化やケーブル不良が原因のことが多い([GBAtemp](https://gbatemp.net/threads/rcm-loader-not-being-detected-on-pc.682629/))
+- フォルダ名・ファイル名の誤り:正確な名前・正しいフォルダでないと、サイレントに失敗する
+- ファームウェア更新後に画面がノイズ状態になる:内蔵フラッシュの破損の可能性があり、リセットやペイロードの再書き込みで直ることがある([GBAtemp](https://gbatemp.net/threads/rcm-loader-bootup-showing-static-on-switch.638508/))
+- 非正規のクローン品は、ボタン・LEDの挙動が本家と異なることがあります。市場に出回っている製品の多くは、様々なリブランド・クローン品です
+
+##### SX OSという、もう一つの選択肢との違い
+
+この種のドングルは、Atmosphère用のペイロードだけでなく、SX OS(Team Xecuterが開発していた商用CFW)のペイロードも同時に保存できる製品が多く、「双系统(デュアルシステム)対応」としてうたわれています。
+
+| | SX OS | Atmosphère |
+|---|---|---|
+| 開発元・性質 | Team Xecuter(商用・有料) | コミュニティ・switchbrew(無料・オープンソース) |
+| 開発状況 | 事実上停止。Team Xecuterのメンバーは、2021年にアメリカでDMCA(デジタルミレニアム著作権法)違反の共謀罪などについて有罪を認め、2022年に懲役刑と賠償が言い渡されました([TorrentFreak](https://torrentfreak.com/team-xecuters-gary-bowser-pleads-guilty-to-criminal-charges-211101/)、[GeekWire](https://www.geekwire.com/2022/switch-hacker-gary-w-bowser-given-40-month-sentence-owes-nintendo-14-5m/)) | 現在も活発に開発が続いています |
+| 対応ファームウェア | HOS 11.0.0で止まっているとされ、最新の本体バージョンでは動作しない可能性が高いです(コミュニティの複数の報告による。公式な終了声明は確認できていません) | 最新のHOSまで継続して対応しています |
+| 代表的な機能 | 市販ゲームのバックアップデータを直接読み込んで起動する機能が、有料版の目玉でした。この機能が、海賊版利用との結びつきが強いとされた理由です | この記事で扱っている、ホームブリュー開発・MOD・emuMMCなどの基盤です |
+
+この記事の方針(自己所有ハードウェア・自作ホームブリュー・自己ダンプデータに限る、海賊版利用は対象外)からは、**SX OS側の機能は対象外**です。「双系统対応」をうたうドングルを購入しても、Atmosphère側のペイロードだけを選んで使う、という前提になります。
 
 #### 毎回の注入が要らない方法(この記事の範囲外)
 
@@ -279,11 +309,11 @@ devkitA64でlibnxベースのコードをビルドすると、`.nro` ファイ�
 
 ## 8b. 既存ゲームを改造する
 
-自作ゲームとは別の方向性として、所有しているカートリッジのゲームを、CFW環境で改造する方法があります。これは「新しいゲームを作る」のではなく、「既存のゲームの挙動を変える」側の手順です。Atmosphèreには、**LayeredFS**という機能が組み込まれており、ゲーム本体のファイルを書き換えずに、読み込み時に差し替える仕組みになっています([Atmosphère公式ドキュメント](https://github.com/Atmosphere-NX/Atmosphere/blob/master/docs/features/ldr_patches.md))。
+自作ゲームとは別の方向性として、所有しているカートリッジのゲームを、CFW環境で改造する方法があります。これは「新しいゲームを作る」のではなく、「既存のゲームの挙動を変える」側の手順です。Atmosphèreには、**LayeredFS**という機能が組み込まれており、ゲーム本体のファイルを書き換えずに、読み込み時に差し替える仕組みになっています([Atmosphère公式ドキュメント:loader.md](https://github.com/Atmosphere-NX/Atmosphere/blob/master/docs/components/modules/loader.md))。
 
 ### 仕組みとフォルダ構成
 
-MODファイルは、ゲームごとの**タイトルID**(16桁の16進数)で区別されたフォルダに置きます。
+MODファイルは、ゲームごとのタイトルID(16桁の16進数)で区別されたフォルダに置きます。
 
 ```
 sdカード/
@@ -297,7 +327,7 @@ sdカード/
 
 - `romfs` フォルダに入れたファイルは、ゲーム本体の対応するファイルを、起動時に上書きする形で読み込まれます
 - `exefs` フォルダは、実行コード自体へのパッチに使います
-- Atmosphère 0.9.4より前のバージョンでは、`contents` ではなく `titles` という名前のフォルダが使われていました。使っている版に合わせてください([Atmosphère公式ドキュメント](https://github.com/Atmosphere-NX/Atmosphere/blob/master/docs/features/ldr_patches.md))
+- Atmosphère 0.9.4より前のバージョンでは、`contents` ではなく `titles` という名前のフォルダが使われていました。使っている版に合わせてください([Atmosphère公式のchangelog](https://github.com/Atmosphere-NX/Atmosphere/blob/master/docs/changelog.md))
 
 配布されているMODの多くは、`atmosphere/contents/<タイトルID>/` 以下のフォルダをまとめて配布しています。この場合は、SDカードのルートにある `atmosphere` フォルダへ、そのまま重ね合わせる(同名フォルダがあれば中身を合流させる)形で導入するのが基本です。romfsやexefsだけが配布されている場合は、タイトルIDのフォルダを自分で作る必要があります。
 
@@ -305,7 +335,7 @@ sdカード/
 
 MODを入れる前に必要なのは、対象ゲームのタイトルIDの確認です。
 
-- ホームブリューの**EdiZon**を使うと、チート設定メニューにタイトルID(TID)とビルドID(BID)が表示されます
+- ホームブリューのEdiZonを使うと、チート設定メニューにタイトルID(TID)とビルドID(BID)が表示されます
 - [Switchbrewのタイトル一覧](https://switchbrew.org/wiki/Title_list)や、[nswdb](https://nswdb.com/)のようなデータベースでも調べられます
 
 ### 導入時によくある問題
@@ -313,6 +343,16 @@ MODを入れる前に必要なのは、対象ゲームのタイトルIDの確認
 - ファイルマネージャー上で、`romfs` や `exefs` が「フォルダ」ではなく「ファイル」として表示される場合、正しく展開されていません。手動でフォルダを作り直す必要があります([ConsoleMods Wiki](https://consolemods.org/wiki/Switch:Mods))
 - MODによっては、LayeredFSだけでは動かず、追加のローダーが必要です。たとえば大乱闘スマッシュブラザーズのキャラクターMODの多くは、[ARCropolis](https://github.com/ARCropolis/arcropolis)(skylineというコード注入フレームワークの上で動く)を必要とします
 - 一部のMOD(例:ブレス オブ ザ ワイルドのLuminescent系MOD)は、`romfs`・`exefs` に加えて、別の `exefs_patches` フォルダも使う構成になっています
+
+### MODが反映されているかの確認
+
+Atmosphèreには、「MODが有効になっています」という画面上の表示はありません。ゲームを普通に起動して、見た目や挙動の変化を、自分の目で確認する以外の方法がない、という仕組みです([switch.hacks.guide](https://switch.hacks.guide/homebrew/edizon))。
+
+反映されない場合によくある原因は、次の通りです。
+
+- ゲームを完全に終了してから、起動し直していない場合があります。LayeredFSは、プロセスの起動時にだけ適用されるため、スリープ状態からの復帰や、ホームボタンでの中断からの再開では反映されません
+- タイトルIDのフォルダが、本体のものと一致していない場合があります(アップデート版のIDではなく、ベースゲームのIDを使う必要があります)
+- MODの対応バージョンと、実際にインストールされているゲームの版がずれている場合があります。ファイルの配置先が、その版のromfs構成と合っていないと、無反応、または不安定な動作になります
 
 ### チートコード
 
@@ -329,7 +369,23 @@ sdカード/
 
 ビルドIDは、ゲームの版(アップデート)ごとに変わるため、チートファイルは**完全に一致するビルドID**のものを使う必要があります。合っていないと、チートが効きません(または、適用先がずれて不安定になります)。
 
-チートやMODを一時的に止めたい場合は、ゲーム起動時に**Lボタン**を押し続けると、適用を無効化できます。恒久的に無効化するには、`sd:/atmosphere/config/system_settings.ini` を編集します([Atmosphère公式ドキュメント](https://github.com/Atmosphere-NX/Atmosphere/blob/master/docs/features/ldr_patches.md))。
+チートやMODを一時的に止めたい場合は、ゲーム起動時に**Lボタン**を押し続けると、適用を無効化できます。恒久的に無効化するには、`sd:/atmosphere/config/system_settings.ini` を編集します([Atmosphère公式ドキュメント:loader.md](https://github.com/Atmosphere-NX/Atmosphere/blob/master/docs/components/modules/loader.md))。
+
+#### プレイ中に個別のチートをオン・オフする
+
+`.txt` ファイル内のチートは、そのままではすべてが同時に有効になります。これは、`system_settings.ini` の `[atmosphere]` セクションにある `dmnt_cheats_enabled_by_default`(既定値は `u8!0x1`)という設定によるもので、`u8!0x0` にすると、すべて無効の状態から起動するようになります([Atmosphère公式ドキュメント](https://github.com/Atmosphere-NX/Atmosphere/blob/master/docs/features/cheats.md))。個別にオン・オフしたい場合は、Atmosphère自体ではなく、別のホームブリュー(オーバーレイ)アプリを使います。
+
+- Switchのホームブリュー向けオーバーレイ基盤である**Tesla Menu**の上で動く、**EdiZon-Overlay**や**Zing**といったアプリが、チートの一覧をチェックボックス形式で表示し、ゲームをプレイしたまま切り替えられます([ConsoleMods Wiki](https://consolemods.org/wiki/Switch:Overlay_Apps))
+- オリジナルのEdiZonオーバーレイは、メンテナンスが止まっており、新しい本体バージョンでAtmosphère自体をクラッシュさせることが報告されています。EdiZon-OverlayかZingを使ってください([GBAtemp](https://gbatemp.net/threads/how-i-invoke-the-edizon-cheat-overleay.621149/))
+- オーバーレイを呼び出すボタンの組み合わせは、初期設定では**L+十字キー下+右スティック押し込み**です(libtesla公式ソースコードの[tesla.hpp](https://github.com/WerWolv/libtesla/blob/master/include/tesla.hpp)で確認。古い情報源では別の組み合わせが書かれていることもありますが、変更後の値である可能性があります)。`sd:/config/tesla/config.ini` で自由に変更できます
+
+チートコードの文法が正しいかどうかを、画面上で確認する標準的な方法はありません。実際には、**期待通りの効果(体力無限、アイテム解放など)が出るかどうかを、目で見て確認する**のが一般的なやり方です。
+
+#### 複数のチート・MODを組み合わせる
+
+- Atmosphèreは、1つのビルドIDにつき1つのチートファイルしか読み込みません。複数の配布元のチートを使いたい場合は、1つのファイルに手動でまとめる必要があります
+- チートの数には、128個(うち1つは常時有効なマスタースロット扱いのため、実質127個)という上限があります。これはAtmosphère公式ドキュメントには明記されておらず、[ソースコード](https://github.com/Atmosphere-NX/Atmosphere/blob/master/stratosphere/dmnt/source/cheat/impl/dmnt_cheat_api.cpp)で確認した値です。超えた分は、警告なく無視されます
+- 複数のMODフォルダが、同じファイルパスを上書きし合う場合の優先順位は、公式な記載が見つかりませんでした。未確認の情報として扱ってください
 
 ### exefs_patches(別の仕組み)
 
@@ -344,6 +400,22 @@ sdカード/
 ```
 
 これも、対象の実行ファイルのビルドIDと、パッチファイルが一致している必要があります。
+
+### 自己所有カートリッジの吸い出しについて
+
+MODやチートとは別の話として、「自分で買ったカートリッジのデータを、吸い出して保存できるか」という疑問を持つ人もいるはずです。技術的な事実と、その扱いについて、分けて書いておきます。
+
+**技術的には可能です。** ホームブリューアプリの [nxdumptool](https://github.com/DarkMatterCore/nxdumptool) を使うと、挿したカートリッジを、丸ごとXCI形式でSDカードに書き出せます。ただし、データは暗号化されているため、先に本体固有の鍵を取り出す [Lockpick_RCM](https://github.com/s1204IT/Lockpick_RCM) というツールが必要です(このツールは2025年2月にアーカイブされ、開発は終了しています)。
+
+この記事では、具体的な操作手順(どの画面で何を選ぶか)までは書きません。理由は、建前ではなく実状によるものです。nxdumptoolの、以前からあった安定版は開発が止まっており、現在メインで開発が続いているのは書き直し版だけです。その書き直し版は、開発者自身が公式README上で「現時点ではまともなUIがなく、実験的なコードだ」と明記しています([公式GitHub](https://github.com/DarkMatterCore/nxdumptool))。新しいUI(borealisという基盤を使用)は、開発チェックリスト上「一部実装」の段階で、完成はしていません。存在しない確立された手順を、あたかもあるかのように書くことはできません。
+
+**ただし、この記事では、吸い出しの具体的な手順までは扱いません。** 理由は、法的な位置づけが見た目ほど単純ではないためです。
+
+- 日本の著作権法30条1項は、個人・家庭内の複製(私的複製)を認めていますが、**コピープロテクト(技術的保護手段)を回避して複製する行為は、この例外の対象外になりうる**、という法律家の見解があります。カートリッジの吸い出しには、CFWによる保護回避が前提として絡むため、「所有物だから複製していい」と単純には言えません
+- アメリカのDMCAにも、個人のバックアップ目的で保護回避を認める一般的な例外はありません(光学ドライブの修理など、ごく限定的な例外に限られます)
+- 日本・アメリカいずれについても、Switchのカートリッジ吸い出しそのものを扱った判例や行政判断は見つけられませんでした。「個人の吸い出しが実際に摘発された例をほとんど聞かない」ことと、「合法である」ことは、別の話として扱うべきです
+
+**さらに、「吸い出した後、カートリッジを使わずに遊び続ける」という運用は、所有権の有無に関わらず、この記事の対象外とします。** 吸い出したデータを使って、物理メディアを介さずにゲームを動かし続けることは、一般に海賊版利用として理解されている使い方のパターンと、技術的に区別がつきません。この記事が一貫して置いてきた「自作のホームブリューアプリと、自己所有の素材に限る。海賊版利用は対象外」という境界線は、吸い出し機能についても同じように適用します。
 
 ### 試せていないこと(この章)
 
@@ -366,6 +438,7 @@ sdカード/
 
 - 対象は、**自分が所有する機体**だけです
 - 動かすのは、**自作のホームブリューアプリ**と、**自分が所有するレトロゲームのROM**(自分で吸い出したもの)に限ります。市販ソフトの吸い出しや、違法な入手は対象外です
+- Switchのゲームカートリッジについては、吸い出し自体が技術的保護手段の回避にあたるため、私的複製の例外の対象外になりえます。また、吸い出したデータでカートリッジなしに遊び続ける運用は、所有の有無に関わらず、この記事の対象外です
 - 治具の自作は、ピンを間違えると本体を破損させる危険があります。確実な情報源の手順に従ってください
 - emuMMCを使うことで、改造した環境と、オンラインで使う純正の環境を、分けておくことができます
 
@@ -377,8 +450,9 @@ sdカード/
 | RCM | Recovery Mode。USB経由でペイロードを受け取れる、起動前のモード | 同上 |
 | CFW | Custom Firmware。標準OSにメモリ上でパッチを当てる仕組み | [Atmosphère](https://github.com/Atmosphere-NX/Atmosphere) |
 | emuMMC | SDカード上に作る、仮想のNAND(内蔵ストレージ) | [Switch Guide](https://git.hitsave.org/code-sync/switch-guide/raw/commit/3535d32a04e4965a0cd1d4785e1e42317190f93f/docs/user_guide/all/cfw_environment.md) |
-| LayeredFS | ゲーム本体のファイルを書き換えずに、読み込み時に差し替える、Atmosphèreの機能 | [Atmosphère公式ドキュメント](https://github.com/Atmosphere-NX/Atmosphere/blob/master/docs/features/ldr_patches.md) |
+| LayeredFS | ゲーム本体のファイルを書き換えずに、読み込み時に差し替える、Atmosphèreの機能 | [Atmosphère公式ドキュメント:loader.md](https://github.com/Atmosphere-NX/Atmosphere/blob/master/docs/components/modules/loader.md) |
 | タイトルID / ビルドID | ゲームを識別する16桁のID(タイトルID)と、そのゲームの版を識別するID(ビルドID) | [Switchbrewのタイトル一覧](https://switchbrew.org/wiki/Title_list) |
+| XCI / NSP | カートリッジの生データ形式(XCI)と、インストール済みタイトルの配布・保存形式(NSP) | [nxdumptool](https://github.com/DarkMatterCore/nxdumptool) |
 
 ## 学べること
 
