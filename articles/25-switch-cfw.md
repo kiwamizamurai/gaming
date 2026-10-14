@@ -120,8 +120,8 @@ Mac(またはWindows PC)とUSBケーブルで繋いだ状態で、ペイロー�
 
 | OS | ツール | 備考 |
 |---|---|---|
-| **Mac** | **[fusee-launcher](https://github.com/benzhu56/fusee-launcher)**、または[CrystalRCM](https://alternativeto.net/software/crystalrcm/about/)(GUIアプリ) | fusee-launcherは、Windows・Linux・macOS・FreeBSDにネイティブ対応と、プロジェクト自身が説明している |
-| Windows | TegraRcmGUI | ドライバーのインストールが別途必要な場合がある。失敗時はZadigでlibusbKドライバーを入れる([参考](https://git.hitsave.org/code-sync/switch-guide/src/branch/guide-rewrite-go-brrrr/docs/user_guide/sysnand/sending_payload.md)) |
+| **Mac** | **fusee-launcher**、または[CrystalRCM](https://alternativeto.net/software/crystalrcm/about/)(GUIアプリ) | fusee-launcherは、元々Windows・Linux・macOS・FreeBSDにネイティブ対応をうたっていたツール([mid-kidによるミラー版のREADME](https://github.com/mid-kid/fusee-launcher)で確認)。ただし開発自体は2018年で止まっており、**開発者自身によるリポジトリは現在GitHub上に存在しません**。有志によるミラー版のみが残っている状態です |
+| Windows | TegraRcmGUI | [公式リポジトリ](https://github.com/eliboa/TegraRcmGUI)のREADMEでは、Windows専用と明記され、ドライバーとしてlibusbKの導入が案内されています。開発自体は2021年で止まっています |
 | Linux | fusee-launcher など | |
 
 ### Macでの手順の目安
@@ -139,7 +139,7 @@ pip3 install pyusb
 sudo python3 fusee-launcher.py hekate.bin
 ```
 
-この記事を書いた時点では、実機で試せていません。 2019年のガイドをもとにしているため、Pythonのバージョンや、依存ライブラリの名前が、現在と変わっている可能性があります。実行前に、[fusee-launcherの公式リポジトリ](https://github.com/benzhu56/fusee-launcher)のREADMEで、最新の手順を確認してください。
+この記事を書いた時点では、実機で試せていません。 2019年のガイドをもとにしているため、Pythonのバージョンや、依存ライブラリの名前が、現在と変わっている可能性があります。**fusee-launcher自体の開発が止まって8年以上が経っており、公式の配布元は失われています。** 実行前には、現在信頼できる形で配布されているミラー版(たとえば[mid-kidによるもの](https://github.com/mid-kid/fusee-launcher))を探し、READMEの内容を確認してください。
 
 送るファイルは、hekateの `.bin` ファイルです。注入ツールに同梱されたものは古いことが多いため、[hekateの公式リポジトリ](https://github.com/CTCaer/hekate)から、最新版を別途取得することが推奨されています。
 
@@ -371,6 +371,26 @@ sdカード/
 
 チートやMODを一時的に止めたい場合は、ゲーム起動時に**Lボタン**を押し続けると、適用を無効化できます。恒久的に無効化するには、`sd:/atmosphere/config/system_settings.ini` を編集します([Atmosphère公式ドキュメント:loader.md](https://github.com/Atmosphere-NX/Atmosphere/blob/master/docs/components/modules/loader.md))。
 
+#### チートコードの種類
+
+Atmosphèreのチートは、「どの命令(コードタイプ)を、どんな順番で並べるか」という、専用の仮想マシン(VM)形式のテキストで書かれています。単純なメモリ書き換えから、条件分岐・ループまで表現できる、プログラムに近い仕組みです。主なコードタイプは、[Atmosphère公式ドキュメント](https://github.com/Atmosphere-NX/Atmosphere/blob/master/docs/features/cheats.md)で、次のように定義されています。
+
+| コードタイプ | 名称(公式表記) | 役割 |
+|---|---|---|
+| 0x0 | Store Static Value to Memory | メモリに、固定の値を書き込む |
+| 0x1 / 0x2 | Begin / End Conditional Block | 条件分岐の開始・終了 |
+| 0x3 | Start/End Loop | ループの開始・終了 |
+| 0x4 / 0x5 | Load Register with Static Value / Memory Value | レジスタ(作業用の一時領域)に、値を読み込む |
+| 0x6 | Store Static Value to Register Memory Address | レジスタが指すアドレスに、値を書き込む |
+| 0x9 | Perform Arithmetic | 演算を行う(0x7の「Legacy Arithmetic」は、名称上は別の古い命令として区別されています) |
+| 0x8 / 0xC4 | Begin Keypress Conditional Block / Begin Extended Keypress Conditional Block | 特定のボタンが押されている間だけ、処理を有効にする |
+| 0xFF0 / 0xFF1 | Pause Process / Resume Process | ゲームの処理を一時停止・再開する |
+| 0xFFF | Debug Log | SDカードの `/atmosphere/cheat_vm_logs/` に、動作ログを書き出す |
+
+この中で、**0xFFF(Debug Log)は、チートが実際に実行されたことを確認できる、ほぼ唯一の仕組み**です。それ以外は、画面上の分かりやすい「読み込み成功」のような表示がないため、期待した効果(体力無限など)が実際に出ているかどうかを、目で見て確かめるのが基本になります。
+
+また、ソースコード([dmnt_cheat_api.cpp](https://github.com/Atmosphere-NX/Atmosphere/blob/master/stratosphere/dmnt/source/cheat/impl/dmnt_cheat_api.cpp))を確認したところ、スロット0番は「マスターチート」として予約されており、常に有効な扱いになっています。これが、チートの上限が128個ではなく、実質127個とされる理由です。
+
 #### プレイ中に個別のチートをオン・オフする
 
 `.txt` ファイル内のチートは、そのままではすべてが同時に有効になります。これは、`system_settings.ini` の `[atmosphere]` セクションにある `dmnt_cheats_enabled_by_default`(既定値は `u8!0x1`)という設定によるもので、`u8!0x0` にすると、すべて無効の状態から起動するようになります([Atmosphère公式ドキュメント](https://github.com/Atmosphere-NX/Atmosphere/blob/master/docs/features/cheats.md))。個別にオン・オフしたい場合は、Atmosphère自体ではなく、別のホームブリュー(オーバーレイ)アプリを使います。
@@ -384,7 +404,7 @@ sdカード/
 #### 複数のチート・MODを組み合わせる
 
 - Atmosphèreは、1つのビルドIDにつき1つのチートファイルしか読み込みません。複数の配布元のチートを使いたい場合は、1つのファイルに手動でまとめる必要があります
-- チートの数には、128個(うち1つは常時有効なマスタースロット扱いのため、実質127個)という上限があります。これはAtmosphère公式ドキュメントには明記されておらず、[ソースコード](https://github.com/Atmosphere-NX/Atmosphere/blob/master/stratosphere/dmnt/source/cheat/impl/dmnt_cheat_api.cpp)で確認した値です。超えた分は、警告なく無視されます
+- チートの数の上限(実質127個)は、前述の「チートコードの種類」節で説明した通りです。超えた分は、警告なく無視されます
 - 複数のMODフォルダが、同じファイルパスを上書きし合う場合の優先順位は、公式な記載が見つかりませんでした。未確認の情報として扱ってください
 
 ### exefs_patches(別の仕組み)
