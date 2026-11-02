@@ -98,7 +98,7 @@ This collects only terms that could be confirmed on pages that were actually ope
 | Chinese (Simplified) | Pinyin | Meaning | Source |
 |---|---|---|---|
 | 关注 | guānzhù | Follow, followers | [开源掌机吧](https://tieba.baidu.com/f?kw=%E5%BC%80%E6%BA%90%E6%8E%8C%E6%9C%BA) |
-| 贴子 | tiēzi | Post | Same as above |
+| 帖子 | tiězi | Post | Same as above |
 | 精华 | jīnghuá | Selected posts | [口袋改版资源吧](https://tieba.baidu.com/f?kw=%E5%8F%A3%E8%A2%8B%E6%94%B9%E7%89%88%E8%B5%84%E6%BA%90) |
 | 热门 | rèmén | Popular | Same as above |
 | 吧友互助 | bāyǒu hùzhù | Mutual help among forum members | Same as above |

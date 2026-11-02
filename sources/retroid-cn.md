@@ -1,4 +1,4 @@
-# Retroid Official Site for China
+# Retroid official site for China
 
 The type is the official Retroid Pocket site for China. The URL is https://www.retroid.cn/ , and it was checked on October 3, 2026. Reliability is official.
 

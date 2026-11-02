@@ -1,4 +1,4 @@
-# CNFans Listings and Terms
+# CNFans listings and terms
 
 The type is an overseas-facing service that buys products from Taobao and 1688 on your behalf. The URL is https://cnfans.com/ and search takes the form `https://cnfans.com/search?keywords=<Chinese>&searchType=keywords`. Reliability is seller, so what the pages state can be treated as fact as it stands. However, CNFans states explicitly that it does not guarantee the quality of the products themselves. The browser check was done on October 3, 2026. The URLs of individual products were masked in the tool output, so they are recorded by way of opening them from the search screen.
 
@@ -20,7 +20,7 @@ Searching for "RP5预装天马" returned 3 results.
 
 ![CNFans search results](../assets/screenshots/cnfans-search-rp5-tianma.jpg)
 
-The first was a listing for the device ($298.75) with a title mentioning Android 13, Tianma G included, Moonlight Box (月光宝盒), and freebies. Trying to open it displayed a message in English saying "the product is suspected of infringing rights and cannot be purchased on your behalf". A $281.15 device listing in the same search showed the same message. A $701.75 listing returned to the CNFans top page when opened.
+The first was a listing for the device ($298.75) with a title mentioning Android 13, Tianma G included, Moonlight Box (月光宝盒), and freebies. Trying to open it displayed a message in English saying "the product is suspected of infringing rights and cannot be purchased on your behalf". A $281.15 device listing showed the same message; it is not among the three results in the screenshot, and how it was reached was not recorded. The second, a $701.75 listing, returned to the CNFans top page when opened.
 
 The third, "[Memory card only] Tianma G memory card for RP5, with games and emulators included" ($52.43, 298 yuan), could be opened. The store name is "梦回少年电玩工作室". The images read "此链接不包含机器", "预装RP5天马G专用内存卡", and "需要其他机器的卡请备注". There are six options: Sandisk A1 128GB and 256GB, Samsung A2 512GB and 1TB, and Sandisk 1.5TB and 2TB. The page description says "此商品链接只有内存卡 请知悉" and explains that the 玩家 installs it following a tutorial after it arrives. It also advises writing in the remarks if a dedicated card is needed for another device (Odin 2, Odin 2 mini, RP5, RP4PRO). The "Specification Parameter" field has values apparently entered carelessly by the seller, with the brand as "Game Kiddy", the screen size as 6 inches, and supported devices as ps1 and so on, which do not match the actual specs of the RP5.
 

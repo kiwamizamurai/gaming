@@ -1,4 +1,4 @@
-# How to Study Chinese
+# How to study Chinese
 
 Studying Chinese is one of the aims of this repository. The same words appear again and again in handheld listings, spec tables, and forums. Vocabulary picked up from pages you have actually seen is easier to remember along with its context. This article sorts out what can be learned from which pages and summarizes the basics of the writing system and pronunciation and how to use dictionaries and machine translation. The word list is in the [vocabulary list](../chinese/vocabulary.md), forum slang is in the [slang glossary](../chinese/slang.md), and the words used for searching are in the [search keywords](../chinese/search-keywords.md).
 
@@ -12,7 +12,7 @@ The approach in this repository is therefore to proceed in the following order. 
 
 According to Wikipedia, simplified characters are one of the two standard sets of characters for writing Chinese. The other is traditional characters. Simplified characters are used as the standard in mainland China, Malaysia, and Singapore. Traditional characters are used officially in Hong Kong, Macau, and Taiwan ([Simplified Chinese characters](https://en.wikipedia.org/wiki/Simplified_Chinese_characters)). The same page explains that simplification reduces the total stroke count of characters and simplifies the way components are written. Because radicals are simplified as a group, many characters change at once. On the other hand, many characters did not change, and those are the same in both sets.
 
-Most of the pages opened in this repository were written in simplified characters. 散热 in discussions of heat dissipation and 内存卡 in listings are both simplified. Looking up 散热 in the MDBG dictionary shows 散熱 in the traditional field. 内存 was 內存 ([散热 on MDBG](https://www.mdbg.net/chinese/dictionary?page=worddict&wdrst=1&wdqb=%E6%95%A3%E7%83%AD), [内存卡](https://www.mdbg.net/chinese/dictionary?page=worddict&wdrst=1&wdqb=%E5%86%85%E5%AD%98%E5%8D%A1)). MDBG's input field has an option for switching between simplified and traditional. Pages of shops in Taiwan and Hong Kong were not opened in this research, so differences in terminology there have not been confirmed.
+Most of the pages opened for this repository were written in simplified characters. 散热 in discussions of heat dissipation and 内存卡 in listings are both simplified. Looking up 散热 in the MDBG dictionary shows 散熱 in the traditional field. For 内存, it shows 內存 ([散热 on MDBG](https://www.mdbg.net/chinese/dictionary?page=worddict&wdrst=1&wdqb=%E6%95%A3%E7%83%AD), [内存卡](https://www.mdbg.net/chinese/dictionary?page=worddict&wdrst=1&wdqb=%E5%86%85%E5%AD%98%E5%8D%A1)). MDBG's input field has an option for switching between simplified and traditional. Pages of shops in Taiwan and Hong Kong were not opened in this research, so differences in terminology there have not been confirmed.
 
 Some characters are close in form to their Japanese counterparts, and some are not. A manageable way to use this is to first pick up many words whose meaning you can guess on sight, and then check the ones you guessed wrong in a dictionary. For example, with 刷新率, you can guess a meaning of renewal from 刷新, but in a spec table the word refers to refresh rate.
 
@@ -20,9 +20,9 @@ Some characters are close in form to their Japanese counterparts, and some are n
 
 Pinyin (拼音) is the romanization of Standard Chinese. According to Wikipedia, it is used officially in China, Singapore, and the United Nations. In mainland China it is also the dominant input method for typing characters on computers ([Pinyin](https://en.wikipedia.org/wiki/Pinyin)). It is also used for ordering dictionary headwords and as a clue when looking up pronunciation.
 
-In pinyin, a syllable is represented by the 声母 (shēngmǔ), the initial consonant, and the 韻母 (yùnmǔ), the remaining part. The same page says the usual order of the initials is b p m f d t n l g k h j q x zh ch sh r z c s. The initial is an optional part.
+In pinyin, a syllable is represented by the 声母 (shēngmǔ), the initial consonant, and the 韵母 (yùnmǔ), the remaining part. The same page says the usual order of the initials is b p m f d t n l g k h j q x zh ch sh r z c s. The initial is an optional part.
 
-Tones are represented by four marks. The first tone is flat and high, marked with a macron (ā). The second tone rises, marked with an acute (á). The third tone goes low, falls, and rises, marked with a caron (ǎ). The fourth tone falls, marked with a grave (à). The neutral tone has no mark. The same page explains that these marks are placed above vowels. The rules for when there are several vowels are as follows.
+Tones are represented by four marks. The first tone is flat and high, marked with a macron (ā). The second tone rises, marked with an acute (á). The third tone dips low and then rises, marked with a caron (ǎ). The fourth tone falls, marked with a grave (à). The neutral tone has no mark. The same page explains that these marks are placed above vowels. The rules for when there are several vowels are as follows.
 
 - If there is an a or e, that vowel
 - For ou, above the o
@@ -30,9 +30,9 @@ Tones are represented by four marks. The first tone is flat and high, marked wit
 
 For example, in nèicún (内存), the marks are on the e of nèi and the u of cún. In sànrè (散热), both are fourth tone. If you know the rules, you can read from the position of the mark which vowel is the center.
 
-There are other rules that are easy to overlook. ü (as in ǜ) only needs to be written differently from u after l and n. After j, q, x, and y, the ü sound is still written u. For example, 鱼 is written yú, not yǘ. The shuāxīnlǜ of 刷新率 comes after l, so it is written ǜ. When typing, ü is hard to enter, so v is sometimes substituted. When a syllable boundary needs to be shown, an apostrophe is used. 西安 (Xī'ān) and 先 (xiān) are an example.
+There are other rules that are easy to overlook. ü (as in ǜ) only needs to be written differently from u after l and n. After j, q, x, and y, the ü sound is still written u. For example, 鱼 is written yú, not yǘ. In shuāxīnlǜ (刷新率), the vowel comes after l, so it is written ǜ. When typing, ü is hard to enter, so v is sometimes substituted. When a syllable boundary needs to be shown, an apostrophe is used. 西安 (Xī'ān) and 先 (xiān) are an example.
 
-Because old typewriters could not type tone marks, there is also a method of representing them with numbers. For example, tóng is written `tong2`, and the neutral tone has no number, or 0 or 5. If you know this correspondence, you can read forms without tones or with numbers when you come across them in spec tables and forums. However, forms that omit tones tend to be ambiguous as to which word they mean. Wikipedia also points out that tone marks are omitted in places such as news articles, causing ambiguity.
+Because old typewriters could not type tone marks, there is also a method of representing them with numbers. For example, tóng is written `tong2`, and the neutral tone is written with no number, or with 0 or 5. If you know this correspondence, you can read forms without tones or with numbers when you come across them in spec tables and forums. However, forms that omit tones tend to be ambiguous as to which word they mean. Wikipedia also points out that tone marks are omitted in places such as news articles, causing ambiguity.
 
 Tone changes (tone sandhi) are usually not reflected in pinyin spelling. This means that seeing the pinyin alone does not tell you the actual pronunciation. You need the habit of checking with dictionary audio or native speakers' pronunciation.
 
@@ -42,9 +42,9 @@ This field also has examples of the same character having several readings. Look
 
 Use MDBG and 汉典 for different purposes. MDBG is a dictionary for looking up words, and its menu has five items: word, character, translation, practice, and help. You can enter Chinese, pinyin, or English in the input field. The results table lists traditional characters, pinyin, English meaning, simplified characters, and HSK level. For example, 卡 was shown as HSK 2 and 内存 as HSK 7-9. Below MDBG's input field there is also an explanation of a function that takes a whole Chinese passage, automatically divides it into words, and looks them up. This is convenient for checking long forum sentences word by word.
 
-When no word matches exactly, you can use the wildcard `*` to search for words that contain it. MDBG suggested *散热* in a search for 散热, and gave the same suggestion when 内存卡 had no results. However, MDBG explicitly prohibits automated access, so use it only for looking things up by hand.
+When no word matches exactly, you can use the wildcard `*` to search for words containing the term. MDBG suggested `*散热*` in a search for 散热, and gave the same suggestion when 内存卡 had no results. However, MDBG explicitly prohibits automated access, so use it only for looking things up by hand.
 
-汉典 (zdic.net) is a dictionary for detailed lookups of individual characters. The page for 模 showed the pinyin, 注音 (such as ㄇㄛˊ), radical (木), total stroke count (14), stroke order, and the structure of the character form. It was also confirmed on screen that the bottom of the page has tabs for basic explanation, detailed explanation, national-language dictionary, Kangxi Dictionary, Shuowen Jiezi, phonology and dialects, and character origin and form. It is suited to cases where you want to research meaning from the form of a character or don't know the reading. Because ads appear, its display is not included in this repository.
+汉典 (zdic.net) is a dictionary for detailed lookups of individual characters. The page for 模 showed the pinyin, 注音 (such as ㄇㄛˊ), radical (木), total stroke count (14), stroke order, and the structure of the character form. It was also confirmed on screen that the bottom of the page has tabs for basic explanation, detailed explanation, national-language dictionary, Kangxi Dictionary, Shuowen Jiezi, phonology and dialects, and character origin and form. It is suited to cases where you want to research meaning from the form of a character or don't know the reading. Because ads appear, its screen is not shown in this repository.
 
 Chinese words can be used as they are for searching sales sites. CNFans has a "Search using: Chinese" setting, for searching with Chinese keywords. Product names appear in machine-translated English, so knowing the original Chinese words makes things easier to find. The words used for searching are collected in the [search keywords](../chinese/search-keywords.md).
 
@@ -76,7 +76,7 @@ The type of forum also affects which vocabulary is common. On the top page of �
 
 ## Software vocabulary
 
-Introductory articles on Tianma G contain a concentration of software vocabulary. These are words such as 前端 (frontend), 整合包 (bundled pack), 汉化 (Chinese localization), 精简 (lightweighting), 懒人包 (low-effort simple pack), 封面 (cover image), and 信息差 (information gap) ([模拟器游戏 篇四](https://zhuanlan.zhihu.com/p/703325151)). A CSDN article uses words such as 配置 (settings), 主题包 (theme pack), and 权限 (permissions) ([天马G前端的使用](https://blog.csdn.net/fanged/article/details/152960565)).
+An introductory article on Tianma G contains a concentration of software vocabulary. These are words such as 前端 (frontend), 整合包 (bundled pack), 汉化 (Chinese localization), 精简 (lightweighting), 懒人包 (low-effort simple pack), 封面 (cover image), and 信息差 (information gap) ([模拟器游戏 篇四](https://zhuanlan.zhihu.com/p/703325151)). A CSDN article uses words such as 配置 (settings), 主题包 (theme pack), and 权限 (permissions) ([天马G前端的使用](https://blog.csdn.net/fanged/article/details/152960565)).
 
 ## Using machine translation
 
@@ -90,7 +90,7 @@ As for how to divide the work, a good method is to get the gist with machine tra
 
 Here are the sites and apps that could actually be opened and confirmed, along with their features. Descriptions of features are limited to what was written on each official page.
 
-MDBG ([www.mdbg.net](https://www.mdbg.net/chinese/dictionary)) is a Chinese dictionary usable in a browser. As described in the previous section, you can look things up in Chinese, pinyin, or English, and automatic sentence division is also available. It was confirmed that the menu has a practice item, but its contents were not opened.
+MDBG ([www.mdbg.net](https://www.mdbg.net/chinese/dictionary)) is a Chinese dictionary usable in a browser. As described in the section on dictionaries and search above, you can look things up in Chinese, pinyin, or English, and automatic sentence division is also available. It was confirmed that the menu has a practice item, but its contents were not opened.
 
 汉典 ([www.zdic.net](https://www.zdic.net/)) is a detailed character-by-character dictionary. You can check the pinyin, radical, total stroke count, and stroke order.
 

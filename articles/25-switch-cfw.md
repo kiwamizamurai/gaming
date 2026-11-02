@@ -1,4 +1,4 @@
-# Turning an Original Switch into Your Own Homebrew Development Device
+# Turning an original Switch into your own homebrew development device
 
 Up to [Learning Android with the Nova](24-android-nova.md), we have looked at two lines: the RG40XXH and Android. This article covers a third device, the original Nintendo Switch (the base model). The scope is limited to units manufactured before mid-2018 that still have the hardware vulnerability (fusée gelée). This vulnerability stems from how the chip itself is built, so it cannot be closed by software updates ([Switchbrew documentation](https://switchbrewdocs.readthedocs.io/en/latest/hacking/rcm.html)).
 
@@ -173,7 +173,7 @@ Nyx is hekate's touch-enabled GUI. Nyx itself is inside the `bootloader` folder 
 
 emuMMC is an exact copy of the console's internal storage (NAND) on the microSD card. The modified environment runs here, and the console's internal storage (sysMMC) can be kept as a stock environment for online use.
 
-"29 FULL" means reserving a size (about 29GB) that can copy the entire internal storage of a base-model Switch. The remaining capacity becomes a normal FAT32 partition for holding games and homebrew.
+"29 FULL" reserves enough space to copy the entire internal storage of a base-model Switch. The Switch Guide uses the slider value 29 (58 for the OLED model) in its steps and describes the reserved size as 32GB (64GB for the OLED model) on another page, without explaining the difference. The remaining capacity becomes a normal FAT32 partition for holding games and homebrew.
 
 "SD Partition" is a method that writes directly to a partition dedicated to emuMMC. The other method, "SD File," is said to be less stable ([ConsoleMods Wiki](https://consolemods.org/wiki/Switch:Creating_and_Using_EmuNAND)).
 
@@ -289,7 +289,7 @@ The serial number can be checked on the console at `Settings → System → Seri
 
 The Switch Guide page has a form where you enter the whole serial number for a determination, and a table that summarizes the ranges of "unpatched, potentially patched, patched" for each first four characters such as `XAW1` and `XAJ4`. Serial numbers not in the table are not subject to the vulnerability. The table's underlying data was collected in a [GBAtemp thread](https://gbatemp.net/threads/switch-informations-by-serial-number-read-the-first-post-before-asking-questions.481215/) ([Switch Guide: Getting Started](https://switch.hacks.guide/user_guide/getting_started)). In addition, [Such Meme serial list](https://suchmememanyskill.github.io/guides/switchserials/) and [ReHack](https://rehack.com/gaming/console-gaming/is-my-switch-patched/) publish similar lists. Prefixes `XKJ`, `XJW`, `XKW`, and `XWW` are said to be all Mariko generation, regardless of range ([ReHack](https://rehack.com/gaming/console-gaming/is-my-switch-patched/)).
 
-The Switch Guide explains that no units are known to go against the pattern in this table, and that outside the "potentially patched" ranges, the table's determination matches reality. However, units within the "potentially patched" ranges cannot be decided by the table alone. In that case, the only way to check is the payload test in the next chapter.
+The Switch Guide explains that no units are known to go against the pattern in this table, and that outside the "potentially patched" ranges, the table's determination matches reality. However, units within the "potentially patched" ranges cannot be decided by the table alone. In that case, the only way to check is the payload test in [Chapter 4](#4-sending-a-payload).
 
 ## 2. What to prepare
 

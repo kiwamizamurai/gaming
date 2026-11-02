@@ -17,7 +17,7 @@ The explanations of how things work were checked by reading the ROCKNIX source c
 
 The GBA, DS, and PSP were dedicated machines built to run software for that system. When you insert a cartridge or UMD, dedicated parts inside the unit read the software and run it.
 
-The RG40XXH is built differently. Inside are general-purpose parts close to those of a smartphone. It contains neither GBA parts nor DS parts. Instead, it runs software that pretends to be a GBA or DS, and plays old games that way. It is close to thinking of it as a small computer that can pretend to be old consoles.
+The RG40XXH is built differently. Inside are general-purpose parts close to those of a smartphone. It contains neither GBA parts nor DS parts. Instead, it runs software that pretends to be a GBA or DS, and plays old games that way. You can think of it as a small computer that can pretend to be old consoles.
 
 The main specs of the parts, using the figures from 掌机圈 collected in [Differences between the main devices](02-devices.md), are as follows.
 
@@ -111,7 +111,7 @@ flowchart LR
     R[RG40XXH] --> SD
 ```
 
-It is the same reason a digital camera's SD card can be read on a PC. However, there are various file systems, and not every OS can read every one. For example, ext4, which ROCKNIX uses for its OS area, cannot be read on a Mac by default ([steps for installing CFW](04-install-cfw.md)).
+It is the same reason a digital camera's SD card can be read on a PC. However, there are various file systems, and not every OS can read every one. For example, ext4, which ROCKNIX uses for its OS area, cannot be read on a Mac by default. The [steps for installing CFW](04-install-cfw.md) state the same limit for Windows.
 
 ## The flow up to playing
 

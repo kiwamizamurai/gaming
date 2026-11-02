@@ -1,4 +1,4 @@
-# Pegasus Official Materials
+# Pegasus official materials
 
 The type is the README and documentation of the frontend Pegasus. The README URL is https://github.com/mmatyas/pegasus-frontend and the documentation source is at https://github.com/mmatyas/pegasus-docs . The public site https://pegasus-frontend.org could not be read by the browser used in this research. Reliability is official.
 

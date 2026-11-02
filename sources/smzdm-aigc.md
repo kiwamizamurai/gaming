@@ -1,6 +1,6 @@
 # AI-Generated Articles on 什么值得买
 
-The type is articles published in the 社区 of 什么值得买, with "AIGC文章詳細" displayed at the top of the page. Reliability is AI-generated. "内容由AI生成" is written at the end of each article, and multiple reference pages are listed as the basis for the text. They cannot be used as they stand to support figures and evaluations. The two articles read in this research are the following.
+The type is articles published in the 社区 of 什么值得买, with "AIGC文章详细" displayed at the top of the page. Reliability is AI-generated. "内容由AI生成" is written at the end of each article, and multiple reference pages are listed as the basis for the text. They cannot be used as they stand to support figures and evaluations. The two articles read in this research are the following.
 
 ## 2026开源掌机红黑榜
 
@@ -8,7 +8,7 @@ The URL is https://post.smzdm.com/p/aww5ev54/ , the title is "2026开源掌机�
 
 ![AI-generated article on 什么值得买](../assets/screenshots/smzdm-ranking-aigc.jpg)
 
-The contents are six sections: brand positioning, chip comparison, OS choice, price ranges, reputation, and points of comparison. In its brand descriptions, it calls Miyoo a brand popular for small devices under 200 yuan (called "猴里谢" for its low production), Anbernic a brand with a wide lineup (it released the RG350 with an IPS screen in 2017), and 老張 (GKD) a brand strong in OS optimization, and it calls the R36S an entry-level device at around 100 yuan. On chips, it says the H700 and RK3566 are mid-range, the RK3326 is entry-level, and the RG556 and Retroid Pocket 5 are high-end. On OSes, it says Onion OS suits the Miyoo Mini Plus, muOS and Knulli suit H700 Anbernic devices, and ArkOS and Rocknix suit the R36S, and it writes that the June 2026 stable release of ROCKNIX added Steam and Vita3K and that supported devices increased from 49 to 66. It divides price ranges into 100–200 yuan (R36S), 300–500 yuan (RG35XX, PowKiddy X55), and 1000–3000 yuan (Retroid Pocket 5, RG556).
+The contents are six sections: brand positioning, chip comparison, OS choice, price ranges, reputation, and points of comparison. In its brand descriptions, it calls Miyoo a brand popular for small devices under 200 yuan (called "猴里谢" for its low production), Anbernic a brand with a wide lineup (it released the RG350 with an IPS screen in 2017), and 老张 (GKD) a brand strong in OS optimization, and it calls the R36S an entry-level device at around 100 yuan. On chips, it says the H700 and RK3566 are mid-range, the RK3326 is entry-level, and the RG556 and Retroid Pocket 5 are high-end. On OSes, it says Onion OS suits the Miyoo Mini Plus, muOS and Knulli suit H700 Anbernic devices, and ArkOS and Rocknix suit the R36S, and it writes that the June 2026 stable release of ROCKNIX added Steam and Vita3K and that supported devices increased from 49 to 66. It divides price ranges into 100–200 yuan (R36S), 300–500 yuan (RG35XX, PowKiddy X55), and 1000–3000 yuan (Retroid Pocket 5, RG556).
 
 ## FC/SFC/GBA/PS1通吃!400块复古掌机横版RG40XXH实测
 

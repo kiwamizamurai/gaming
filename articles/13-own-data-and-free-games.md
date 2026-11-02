@@ -1,4 +1,4 @@
-# Preparing Your Own Data and Rights-Free Games
+# Preparing your own data and rights-free games
 
 Where to place ROMs and BIOS files is written in [Handling ROMs and BIOS](12-roms-and-bios.md). This article sorts out, in three parts, how to prepare data you can play without rights problems: dumping it yourself from cartridges and discs you have on hand, games such as homebrew that are freely distributed, and open source implementations that stand in for a BIOS. Everything here is limited to what was confirmed in official documents.
 
@@ -45,7 +45,7 @@ Linux-based OSes have PortMaster. According to the [official PortMaster site](ht
 
 ![The PortMaster installation page](../assets/screenshots/portmaster-installation.jpg)
 
-There are also other games whose rights are easy to check. [Freedoom](https://github.com/freedoom/freedoom) is an FPS with free content, playable on the Doom engine. It has everything from levels to art, sound effects, and music, but a separate engine is needed to run it. [ScummVM](https://github.com/scummvm/scummvm) is a system for running adventure games, on the premise that users prepare the game data files. Which games are distributed for free could not be confirmed from the ScummVM documentation.
+There are also other games whose rights are easy to check. [Freedoom](https://github.com/freedoom/freedoom) is an FPS with free content, playable on the Doom engine. It has everything from levels to art, sound effects, and music, but a separate engine is needed to run it. [ScummVM](https://github.com/scummvm/scummvm) is a system for running adventure games, on the premise that users prepare the game data files. The games its official site distributes for free are covered in the section on them below.
 
 ### How to read Homebrew Hub
 
@@ -59,7 +59,7 @@ Learning to read this page lets you check the license and distribution terms bef
 
 ### Free games officially distributed by ScummVM
 
-ScummVM is a system for running adventure games. According to the README, it needs game data files to run, and there is also "Mass Add" for adding several games at once. The official ScummVM site has a [download page for free games](https://www.scummvm.org/games/). When opened on October 3, 2026, the page's heading was "Game downloads for ScummVM version 2026.3.0".
+According to the README, ScummVM needs game data files to run, and there is also "Mass Add" for adding several games at once. The official ScummVM site has a [download page for free games](https://www.scummvm.org/games/). When opened on October 3, 2026, the page's heading was "Game downloads for ScummVM version 2026.3.0".
 
 The page's description says it currently has 11 free games: Beneath a Steel Sky, Broken Sword 2.5, DreamWeb, Flight of the Amazon Queen, Lure of the Temptress, Drascula: The Vampire Strikes Back, Soltys, Sfinx, The Griffon Legend, Nippon Safes, Inc., and Mystery House. Also listed are God of Thunder, many works made with the SLUDGE engine, a collection of WAGE works, and Helga Deep In Trouble. Mystery House is labeled as the public domain edition of the Apple II version.
 
@@ -77,7 +77,7 @@ Cores are installed from "Core Downloader" in "Online Updater". If this item is 
 
 Some emulators can run without a BIOS. The libretro documentation explains a method called HLE. It does not reproduce the original behavior itself, only the output, and bugs tend to occur.
 
-[mGBA](https://github.com/mgba-emu/mgba) can replace the Game Boy Advance BIOS with a built-in implementation. It can also load an external BIOS. In the libretro table, the BIOS is optional for mGBA. In the same table, it is also optional for PCSX ReArmed and required for Beetle PSX HW and SwanStation. For the Game Boy Advance there is also [Cult-of-GBA/BIOS](https://github.com/Cult-of-GBA/BIOS), a replacement BIOS under the MIT license.
+[mGBA](https://github.com/mgba-emu/mgba) can replace the Game Boy Advance BIOS with a built-in implementation. It can also load an external BIOS. In the libretro table, the BIOS is optional for mGBA. In the same table, it is also optional for PCSX ReARMed and required for Beetle PSX HW and SwanStation. For the Game Boy Advance there is also [Cult-of-GBA/BIOS](https://github.com/Cult-of-GBA/BIOS), a replacement BIOS under the MIT license.
 
 For the PS1 there is OpenBIOS from [PCSX-Redux](https://github.com/grumpycoders/pcsx-redux). According to the README, it is a BIOS implementation for the MIPS R3000A that can boot PS1 games without a retail BIOS. It also says that retail BIOS files are protected by copyright, so this serves as a replacement. Building requires a MIPS toolchain.
 
@@ -85,7 +85,7 @@ The PS2 is a different case. The official PCSX2 documentation read in this resea
 
 ## Chinese terms in this article
 
-This article centers on official documents in English. The Chinese listed here is the words appearing in the descriptions of products selling cards with games on them, as confirmed on CNFans listing pages. The contents of the listing pages are in the [CNFans source note](../sources/cnfans.md).
+This article centers on official documents in English. The Chinese listed here is mainly words appearing in the descriptions of products selling cards with games on them, as confirmed on CNFans listing pages. The contents of the listing pages are in the [CNFans source note](../sources/cnfans.md).
 
 | Chinese | Pinyin | Meaning | Source |
 |---|---|---|---|
@@ -94,7 +94,7 @@ This article centers on official documents in English. The Chinese listed here i
 | 游戏 | yóuxì | Game | CNFans listing page |
 | 模拟器 | mónǐqì | Emulator | [天马G前端的使用](https://blog.csdn.net/fanged/article/details/152960565) |
 | 预装 | yùzhuāng | Put in beforehand | CNFans listing page |
-| 内存卡 | nèicún kǎ | Memory card | CNFans listing page |
+| 内存卡 | nèicúnkǎ | Memory card | CNFans listing page |
 | 专用 | zhuānyòng | Dedicated | CNFans listing page |
 | 机器 | jīqì | Machine; here, the device itself | CNFans listing page |
 | 玩家 | wánjiā | Player, someone who plays | CNFans listing page |

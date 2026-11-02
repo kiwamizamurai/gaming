@@ -17,13 +17,13 @@ flowchart LR
     E -.pretends to be.-> P[Screen, sound, buttons<br>save chip]
 ```
 
-What the emulator translates is not only CPU commands. It takes on pretending to be all the GBA's parts, from how the GBA draws its screen, produces sound, and reads buttons, to writing to the save chip. The game runs believing it is inside a real GBA.
+The emulator translates more than CPU commands. It takes on pretending to be all the GBA's parts, from how the GBA draws its screen, produces sound, and reads buttons, to writing to the save chip. The game runs believing it is inside a real GBA.
 
 ## The effort of translating, and how heavy each system is
 
 Interpreting takes effort. Work a real GBA finishes in one step, an emulator imitates with many operations. A CPU much faster than the original console is therefore needed.
 
-In general, the newer and more complex the console being imitated, the heavier the emulator. The GBA and Game Boy are light, and the PSP, which draws 3D graphics, is on the heavy side. Guides for the RG40XXH are collected in [What runs](06-emulation.md) and [Differences between the main devices](02-devices.md). According to the materials cited there, FC, SFC, GBA, GB, and PS1 run without problems, and PSP and N64 are only partly playable.
+In general, the newer and more complex the console being imitated, the heavier the emulator. The GBA and Game Boy are light, and the PSP, which draws 3D graphics, is on the heavy side. Rough expectations for the RG40XXH are collected in [What runs](06-emulation.md) and [Differences between the main devices](02-devices.md). According to the materials cited there, FC, SFC, GBA, GB, and PS1 run without problems, and PSP and N64 are only partly playable.
 
 ## The game list menu
 

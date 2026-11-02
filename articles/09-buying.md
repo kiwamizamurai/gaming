@@ -1,4 +1,4 @@
-# How to Buy Chinese Devices
+# How to buy Chinese devices
 
 There are broadly four ways to buy a handheld game console from a Chinese manufacturer from Japan: official stores for China, official stores for overseas customers, proxy buying services, and secondhand sales between individuals. This article sorts out, site by site, what could be confirmed by actually opening the pages on October 3, 2026. Prices and shipping fees change daily, so always recheck them on screen before buying.
 

@@ -1,4 +1,4 @@
-# How to Make Your Own Games and Open Source Tools
+# How to make your own games and open source tools
 
 The way to make your own games to play on a handheld differs by system. This article sorts out programming methods and open source tools in three parts: the Game Boy, the Game Boy Advance, and Linux-based handhelds. The sources are official pages. Places to distribute the games you make are in [Preparing your own data and rights-free games](13-own-data-and-free-games.md).
 
@@ -10,15 +10,15 @@ You can make Game Boy games without programming experience. [GB Studio](https://
 
 ## Making Game Boy games in C or assembly
 
-The community [gbdev.io](https://gbdev.io/) is a non-profit group working on Game Boy development. It runs the technical reference Pan Docs, the resource collection awesome-gbdev, the assembler RGBDS, the C compiler GBDK 2020, and more. Its [resource list page](https://gbdev.io/resources.html) lists tools by type.
+The community [gbdev.io](https://gbdev.io/) is a non-profit group working on Game Boy development. It runs the technical reference Pan Docs, the resource collection awesome-gbdev, the assembler RGBDS, the C compiler GBDK-2020, and more. Its [resource list page](https://gbdev.io/resources.html) lists tools by type.
 
 For assemblers, [RGBDS](https://github.com/gbdev/rgbds) is positioned as the standard development tool for the Game Boy and Game Boy Color. The license is MIT. There is also RGBDS-Live, which can be tried in the browser. For learning, the assembly tutorial "GB ASM Tutorial" is suitable. It starts with Hello World, builds an Arkanoid-style game, and finishes with a shooter.
 
-For writing in C, there is [GBDK 2020](https://github.com/gbdk-2020/gbdk-2020). It is the maintained GBDK, uses the SDCC toolchain, and provides a C compiler, assembler, linker, and libraries. GitHub's automatic detection cannot identify the type of license, so check the LICENSE in the repository. ZGB and Retr0 GB are introduced as engines built on top of GBDK.
+For writing in C, there is [GBDK-2020](https://github.com/gbdk-2020/gbdk-2020). It is the maintained GBDK, uses the SDCC toolchain, and provides a C compiler, assembler, linker, and libraries. GitHub's automatic detection cannot identify the type of license, so check the LICENSE in the repository. ZGB and Retr0 GB are introduced as engines built on top of GBDK.
 
 Tools for graphics and sound are also available. These include Tilemap Studio for editing tiles, the sound driver DevSoundX, and hUGETracker for making music. For checking behavior, use emulators such as mGBA, SameBoy, Emulicious, and BGB. Emulicious is described as allowing debugging from VS Code while viewing the source.
 
-Finished games can also be written to a flash cart for real hardware and played. For writing, you can use GBxCart RW and FlashGBX, introduced in the [article on dumping](13-own-data-and-free-games.md).
+Finished games can also be written to a flash cart for real hardware and played. GBxCart RW and FlashGBX, introduced in the [article on dumping](13-own-data-and-free-games.md), can also be used for writing.
 
 ## Making Game Boy Advance games
 
@@ -34,15 +34,15 @@ For emulators, NanoBoyAdvance, mGBA, and no$gba are recommended. NanoBoyAdvance 
 
 ## Making games for Linux-based handhelds
 
-On Linux-based OSes such as ROCKNIX, Knulli, and muOS, use the PortMaster system. The [PortMaster development page](https://portmaster.games/porting.html) divides supported games into five types: compiling and wrapping open source games from places such as GitHub, open source engines made from scratch, engines that need the original data, such as GameMaker, Godot, and LÖVE, and running x86 Linux games with Box86 and Box64.
+On Linux-based OSes such as ROCKNIX, Knulli, and muOS, use the PortMaster system. The [PortMaster development page](https://portmaster.games/porting.html) divides supported games into five types: open source games from places such as GitHub, compiled and packaged for PortMaster; open source engines made from scratch that work with the original game assets; engines such as GameMaker, Godot, and LÖVE, with compatible runners that need the original game data; x86 Linux games translated for ARM by Box86; and x64 Linux games translated for aarch64 by Box64.
 
 ![The PortMaster development page](../assets/screenshots/portmaster-porting.jpg)
 
-The constraints are large. The same page says that many OSes have no full OpenGL, and neither X11 nor Weston. Rockchip-based Anbernic devices use an old 3.x-series kernel and a proprietary Mali driver, so only OpenGL ES can be used. OpenGL 2.x-level features are supplied by a translation library called GL4ES. Output goes through KMS/DRM or SDL2, and Vulkan and X11 cannot be used.
+The constraints are significant. The same page says that many OSes have no full OpenGL, and neither X11 nor Weston. Rockchip-based Anbernic devices use an old 3.x-series kernel and a proprietary Mali driver, so only OpenGL ES can be used. OpenGL 2.x-level features are supplied by a translation library called GL4ES. Output goes through KMS/DRM or SDL2, and Vulkan and X11 cannot be used.
 
-From a maker's point of view, the easiest tools to use are those with an official runtime provided. SDL 1.2 can be translated with sdl12-compat. Godot 3 runs with an export template called FRT. FRT disables joystick handling, so control mapping is handled by gptokeyb. LÖVE has aarch64 builds for each version. Godot 4, Java, LibGDX, SFML, SDL3, and Allegro are covered by a runtime called WestonPack. Launchers for Minecraft and Unciv are given as Java examples.
+From a maker's point of view, the easiest tools to use are those with an official runtime provided. SDL 1.2 can be translated with sdl12-compat. Godot 3 runs with an export template called FRT. FRT disables joystick handling, so control mapping is handled by gptokeyb. LÖVE has aarch64 builds for each version. Godot 4, Java, LibGDX, SFML, SDL3, and Allegro are covered by a runtime called WestonPack. Minecraft (through launchers that use the JDK), Unciv, and Mindustry are given as working Java ports.
 
-Controller input is mapped to keyboard and mouse with gptokeby. It is called in a form like `./gptokeyb "application" -c mykeymaps.gptk`, and it also supports quitting with START and SELECT. During development, it is recommended to log in to the device over SSH to try things. When doing so, stop the frontend. On ROCKNIX you can use `systemctl stop essway.service`, and on Knulli `/etc/init.d/S31emulationstation stop`. Once finished, you shape it into a port following the [packaging guide](https://portmaster.games/packaging.html) on the same site.
+Controller input is mapped to keyboard and mouse with gptokeyb. It is called in a form like `./gptokeyb "application" -c mykeymaps.gptk`, and it also supports quitting with START and SELECT. During development, it is recommended to log in to the device over SSH to try things. When doing so, stop the frontend. On ROCKNIX you can use `systemctl stop essway.service`, and on Knulli `/etc/init.d/S31emulationstation stop`. Once finished, you shape it into a port following the [packaging guide](https://portmaster.games/packaging.html) on the same site.
 
 When using LÖVE, KMS/DRM has no mouse cursor, so each game needs to include a cursor drawn in software, as explained on the same page.
 
@@ -54,13 +54,13 @@ From here on, we actually build something. The same "collect the coins" game was
 
 Whether a ROM is needed depends on the device you play on. On the Game Boy and Game Boy Advance, both emulators and flash carts on real hardware work by loading a ROM file. The official GB Studio page also says a finished product can be exported as a real ROM file. Homemade games for the GB always include a step that makes a ROM.
 
-On Linux-based OSes, there is no need to make a ROM. PortMaster's [development page](https://portmaster.games/porting.html) lists LÖVE games as a supported engine, and the LÖVE launch script in the [packaging guide](https://portmaster.games/packaging.html) runs a folder called `lovegame` as it is. The folder containing the Lua files is the game itself.
+On Linux-based OSes, there is no need to make a ROM. PortMaster's [development page](https://portmaster.games/porting.html) lists LÖVE as a supported engine, and the LÖVE launch script in the [packaging guide](https://portmaster.games/packaging.html) runs a folder called `lovegame` as it is. The folder containing the Lua files is the game itself.
 
 The languages are Lua for LÖVE and C for GBDK. For a first game, LÖVE is recommended. It runs on a PC right away, the code is short, and checking the screen is quick. GBDK suits a second game, for learning how ROMs work. How to make games for Android devices is not covered in this research.
 
 ### Making it with LÖVE (no ROM)
 
-LÖVE is a 2D game framework written with Lua. The [official release page](https://github.com/love2d/love/releases/tag/11.5) lists 11.5 for macOS, Windows, a Linux AppImage, and an Android APK. On macOS, the Homebrew cask was disabled on September 1, 2026, and `brew install --cask love` failed. The reason shown is that it does not pass macOS's Gatekeeper check. In this research, the macOS zip from the release page was extracted and used.
+LÖVE is a framework for writing 2D games in Lua. The [official release page](https://github.com/love2d/love/releases/tag/11.5) lists 11.5 for macOS, Windows, a Linux AppImage, and an Android APK. On macOS, the Homebrew cask was disabled on September 1, 2026, and `brew install --cask love` failed. The reason shown is that it does not pass macOS's Gatekeeper check. In this research, the macOS zip from the release page was extracted and used.
 
 Only two files need to be made. First, `conf.lua`, which sets the window size.
 
@@ -175,11 +175,11 @@ When using the extracted zip on macOS, call the executable inside the app. For e
 
 Behavior was also confirmed with a test script that simulates input. Holding right for just 0.1 seconds moves 24 pixels at speed 240. Moving to the coin's position increased the score from 0 to 1. The position stops at the screen edge, and after time runs out the score does not change. Pressing Enter returned the score to 0.
 
-When putting it on a handheld, follow the PortMaster flow. In the packaging guide, port names use only lowercase alphanumerics, periods, and underscores. The launch script has a name containing uppercase letters and ends in `.sh`. The LÖVE example loads the runtime with `source $controlfolder/runtimes/"love_11.5"/love.txt` and launches the game with `$LOVE_RUN "$GAMEDIR/lovegame"`. The runtime is 11.5, the same version as the LÖVE run in this article. However, running this launch script on an actual handheld could not be confirmed in this research. The locations are `/roms/ports/` for ROCKNIX and `/userdata/roms/ports` for Knulli. To register it as an official port, `port.json`, `README.md`, a screenshot, and `gameinfo.xml` are needed. PortMaster also asks for testing on several OSes and resolutions.
+When putting it on a handheld, follow the PortMaster flow. In the packaging guide, port names use only lowercase alphanumerics, periods, and underscores. The launch script has a name containing uppercase letters and ends in `.sh`. The LÖVE example loads the runtime with `source $controlfolder/runtimes/"love_11.5"/love.txt` and launches the game with `$LOVE_RUN "$GAMEDIR/lovegame"`. The runtime is 11.5, the same version as the LÖVE run in this article. However, running this launch script on an actual handheld has not been confirmed in this research. The locations are `/roms/ports/` for ROCKNIX and `/userdata/roms/ports` for Knulli. To register it as an official port, `port.json`, `README.md`, a screenshot, and `gameinfo.xml` are needed. PortMaster also asks for testing on several OSes and resolutions.
 
 ### Making it with GBDK (with a ROM)
 
-GBDK-2020 is a set of a C compiler and libraries for the Game Boy. From the [official release page](https://github.com/gbdk-2020/gbdk-2020/releases/tag/4.5.0), `gbdk-macos-arm64.tar.gz` for macOS (Apple Silicon) of 4.5.0 was downloaded. Extracting it gives a compiler called `bin/lcc`. For the emulator to play on, mGBA is used. On macOS it was installed with `brew install mgba`.
+GBDK-2020 is a set of a C compiler and libraries for the Game Boy. From the [official release page](https://github.com/gbdk-2020/gbdk-2020/releases/tag/4.5.0), version 4.5.0 of `gbdk-macos-arm64.tar.gz` for macOS (Apple Silicon) was downloaded. Extracting it gives a compiler called `bin/lcc`. For the emulator to play on, mGBA is used. On macOS it was installed with `brew install mgba`.
 
 The game's code is the following `main.c`.
 
@@ -280,7 +280,7 @@ Behavior was confirmed by simulating button input in PyBoy, an open source emula
 
 ![The screen of the ROM made with GBDK](../assets/screenshots/gbdk-coin.png)
 
-Confirmation ended on an emulator on a PC. To write to a flash cart for real hardware, you need FlashGBX from the [article on dumping](13-own-data-and-free-games.md) and a supported cart. To play in a handheld's emulator, place the ROM in that OS's Game Boy ROM folder. The name of the folder needs to be checked in each OS's documentation.
+Testing was done only on an emulator on a PC. To write to a flash cart for real hardware, you need FlashGBX from the [article on dumping](13-own-data-and-free-games.md) and a supported cart. To play in a handheld's emulator, place the ROM in that OS's Game Boy ROM folder. The name of the folder needs to be checked in each OS's documentation.
 
 ### Expanding it a little (graphics, sound effects, walls, saving the high score)
 
@@ -409,7 +409,7 @@ static uint8_t hits_wall(uint8_t x, uint8_t y) {
 
 For graphics, four tiles were drawn in `tiles.png` and converted to C data with `png2asset`, which comes with GBDK. The command is `png2asset tiles.png -spr8x8 -tiles_only -o tiles.c`. The generated `tiles.c` contains 64 bytes of data for the four tiles. Background tiles are loaded starting at number 128. The area from 128 on is shared between background and sprites, so the player and coin can also be specified as numbers 130 and 131. This sharing is described in the tile data table in [Pan Docs](https://gbdev.io/pandocs/Tile_Data.html).
 
-Saving the high score uses the battery-backed RAM inside the cartridge. According to [Pan Docs on MBC5](https://gbdev.io/pandocs/MBC5.html), the RAM appears in the range `A000` to `BFFF`, and writing `0A` to `0000`–`1FFF` enables reads and writes. Following these steps, the code enables the RAM, writes the values, and closes it at the end.
+Saving the high score uses the battery-backed RAM inside the cartridge. According to [Pan Docs on MBC5](https://gbdev.io/pandocs/MBC5.html), the RAM appears in the range `A000` to `BFFF`, and writing `0A` to `0000`–`1FFF` enables reads and writes. Following these steps, the code enables the RAM, writes the values, and disables it at the end.
 
 ```c
 static void load_best(void) {
@@ -462,7 +462,7 @@ The topics of this article center on official documents in English. Only basic C
 | 屏幕分辨率 | píngmù fēnbiànlǜ | Screen resolution | [RG-406V](https://zhangjiquan.com/handheld/rg-406v) |
 | 操作系统 | cāozuò xìtǒng | OS | [RG-556](https://zhangjiquan.com/handheld/rg-556) |
 
-To look up LÖVE and GBDK terms in Chinese materials, first try adding 开源 and 掌机 to the combinations in the [search keywords](../chinese/search-keywords.md), and searching will turn up articles on Tieba and Zhihu. The results of this search were not checked in this research.
+To look up LÖVE and GBDK terms in Chinese materials, first try adding 开源 and 掌机 to the combinations in the [search keywords](../chinese/search-keywords.md), and searching should turn up articles on Tieba and Zhihu. The results of this search were not checked in this research.
 
 ## What you can learn
 

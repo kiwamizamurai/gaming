@@ -1,4 +1,4 @@
-# Knulli Official Documentation
+# Knulli official documentation
 
 The type is the source of the documentation for the custom firmware Knulli. The URL is https://github.com/knulli-cfw/knulli.org . The public site https://knulli.org could not be read by the browser used in this research, so the GitHub source was read with the `gh` command. Reliability is official. The project itself is at https://github.com/knulli-cfw/knulli-linux , and the README of the old repository points to the new repository.
 

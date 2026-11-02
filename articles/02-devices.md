@@ -1,4 +1,4 @@
-# Differences Between the Main Devices
+# Differences between the main devices
 
 This page compares six devices that were candidates for play, based on their pages on the specification database [掌机圈](https://zhangjiquan.com/handhelds). The figures on 掌机圈 include information posted by users. They are not official spec sheets, so items that are not listed, such as battery capacity, require looking for other sources.
 
@@ -102,7 +102,7 @@ A horizontal device with a touchscreen, released in October 2024. 掌机圈 list
 
 ### Miyoo Flip
 
-A folding device released in December 2024. 掌机圈 lists external dimensions of 82×80×20mm and a weight of 165g, the lightest of the three devices with a listed weight. The SoC is the same RK3566 as the GKD Bubble. The battery is 3000mAh, wireless is WiFi 5 and Bluetooth 5.2, video output is Mini HDMI, and the speaker is mono. The body comes in four colors: black, white, yellow, and 復古灰 ([掌机圈 Miyoo Flip](https://zhangjiquan.com/handheld/miyoo-355-flip)).
+A folding device released in December 2024. 掌机圈 lists external dimensions of 82×80×20mm and a weight of 165g, the lightest of the three devices with a listed weight. The SoC is the same RK3566 as the GKD Bubble. The battery is 3000mAh, wireless is WiFi 5 and Bluetooth 5.2, video output is Mini HDMI, and the speaker is mono. The body comes in four colors: black, white, yellow, and 复古灰 ([掌机圈 Miyoo Flip](https://zhangjiquan.com/handheld/miyoo-355-flip)).
 
 The alias field on the page lists "Miyoo 翻盖机,翻米,蜜柚Flip,米柚翻盖掌机". This shows that the device is called by its shape (翻盖) and by Chinese phonetic renderings of the brand name, rather than by model number.
 

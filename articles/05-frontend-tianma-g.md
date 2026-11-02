@@ -26,7 +26,7 @@ On the settings screen, you can choose the display language, turn full screen on
 
 Pegasus manages the game list and how to launch games in a text file called `metadata.pegasus.txt`. According to the [official documentation](https://github.com/mmatyas/pegasus-docs/blob/master/docs/user-guide/meta-files.md), this file uses the format `name: value`. There are two kinds of groups to write: collections and games.
 
-A collection is a category such as a system. `collection` sets the collection's name, `extension` the file extensions to include, and `launch` the common launch command. For a game, `game` sets the display name, `file` the file name, and `developer` the developer. To change the launch command for one game, you can also write `launch` for that game. Conditions for including files can be specified with `extension`, `file`, `regex`, and `directory`, and conditions for excluding them with the same names prefixed by `ignore-`. Exclusion takes priority over inclusion.
+A collection is a category such as a system. `collection` sets the collection's name, `extension` the file extensions to include, and `launch` the common launch command. For a game, `game` sets the display name, `file` the file name, and `developer` the developer. To change the launch command for one game, you can also write `launch` for that game. Conditions for including files can be specified with `extension`, `file`, `regex`, and `directory`, and conditions for excluding them with `ignore-extension`, `ignore-file`, and `ignore-regex`. Plural forms such as `extensions` and `files` work the same way. Exclusion takes priority over inclusion.
 
 Variables such as `{file.path}` can be used in launch commands. `{file.path}` is the absolute path of the game file, `{file.name}` is the file name, `{file.basename}` is the file name without the extension, and `{file.dir}` is the folder containing the file.
 
@@ -103,7 +103,7 @@ An introduction to the same frontend was also found in a 2020 Baidu Tieba post. 
 
 ## Installing the PC version
 
-The Zhihu article divides installing the PC version into three stages. The first is installing the emulator itself. From 安装包 in the downloaded folder, choose the archive that fits your environment and extract it to the top-level folder of a drive. If it is not at the top level, the emulator does not run correctly. Extraction creates a folder called "Pegasus G". To prevent crashes at launch, also install the video plugin from the "解決閃退工具" folder.
+The Zhihu article divides installing the PC version into three stages. The first is installing the emulator itself. From 安装包 in the downloaded folder, choose the archive that fits your environment and extract it to the top-level folder of a drive. If it is not at the top level, the emulator does not run correctly. Extraction creates a folder called "Pegasus G". To prevent crashes at launch, also install the video plugin from the "解决闪退工具" folder.
 
 The second is placing the game ROMs. Extract the contents of the pack's `roms` folder to `roms` under "Pegasus G". File names must not be changed. Tianma G automatically scans `roms` and recognizes game names and descriptions.
 

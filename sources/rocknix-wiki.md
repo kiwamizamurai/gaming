@@ -1,4 +1,4 @@
-# ROCKNIX Official Wiki
+# ROCKNIX official wiki
 
 The type is the official wiki of a Linux for handheld game consoles. The URL is https://rocknix.org/ and the source is at https://github.com/ROCKNIX/distribution . Reliability is official, and a screenshot was taken of the Retroid Pocket 5 page.
 

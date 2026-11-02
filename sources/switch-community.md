@@ -1,4 +1,4 @@
-# Switch Community Sites and Guides
+# Switch community sites and guides
 
 This note collects the community guides, forums, and news articles among the sources of [article 25](../articles/25-switch-cfw.md). All were checked on October 15, 2026. Web pages were opened and read with Claude in Chrome (Chrome for macOS). GitHub repositories were read in the original through shallow clones.
 

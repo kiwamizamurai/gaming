@@ -1,4 +1,4 @@
-# How Saves Work
+# How saves work
 
 This continues from [Emulators and menus](16-emulator-and-menu.md). This article covers where a game's save is kept on a real cartridge and which file it becomes on the RG40XXH. Finally, it uses source code to check what is inside the saves of a homemade game and Pokémon Emerald.
 

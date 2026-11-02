@@ -1,4 +1,4 @@
-# CPUs and Machine Code
+# CPUs and machine code
 
 This continues from [After you turn on the power](19-boot.md) and is the last article in the series. It covers what the CPU, at the lowest of the three layers and at the center of the device, actually does. It converts a small program for the RG40XXH, for the Mac, and for PCs and compares the results, and finally reads the instructions inside Pokémon Emerald at the moment your first Pokémon is decided.
 

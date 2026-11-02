@@ -1,4 +1,4 @@
-# RG40XXH Cooling Mod on Tieba
+# RG40XXH cooling mod on Tieba
 
 The type is a post on 开源掌机吧 on Baidu Tieba. The URL is https://tieba.baidu.com/p/10191425150 , the title is "给RG40XXH改造散热", the post date is November 6, 2025, and the poster is a user in Tianjin. Reliability is personal, and it describes firsthand experience with photos. There are 11 comments, all of which could be read.
 

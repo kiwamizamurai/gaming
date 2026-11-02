@@ -1,4 +1,4 @@
-# Overview of Chinese Handhelds
+# Overview of Chinese handhelds
 
 This repository deals with handheld game consoles made by Chinese manufacturers and intended mainly for emulating retro games. In Chinese, the word 掌机 (handheld game console) is combined with 开源 (open source) or 复古 (retro) to form 开源掌机 and 复古掌机.
 
@@ -90,7 +90,7 @@ The Retroid Pocket 5 page on Retroid's official shop gives the OS as Android 13 
 
 ## What the ROCKNIX device pages tell you
 
-ROCKNIX device pages cover not just the SoC and memory but also the drivers used and the control combinations. The R35S/R36S page says the kernel is mainline Linux, the GPU drivers are libmali (GLES 3.2) and Panfrost (GL 3.1/GLES 3.1), the compositor is Sway, and the interface is Emulation Station ([ROCKNIX R35S/R36S](https://rocknix.org/devices/unbranded/game-console-r35s-r36s/)).
+ROCKNIX device pages cover the drivers used and the control combinations as well as the SoC and memory. The R35S/R36S page says the kernel is mainline Linux, the GPU drivers are libmali (GLES 3.2) and Panfrost (GL 3.1/GLES 3.1), the compositor is Sway, and the interface is Emulation Station ([ROCKNIX R35S/R36S](https://rocknix.org/devices/unbranded/game-console-r35s-r36s/)).
 
 ![ROCKNIX page for the R35S/R36S](../assets/screenshots/rocknix-r36s-page.jpg)
 

@@ -1,4 +1,4 @@
-# After You Turn On the Power
+# After you turn on the power
 
 This continues from [How the OS works](18-os.md). This article covers what happens between turning on the power and the kernel starting to run. It uses the ROCKNIX source code (commit `ae41127`) to check the "hidden areas" of the SD card, what the `dtb.img` that appears in the [steps for installing CFW](04-install-cfw.md) really is, and the difference between the DDR3 and DDR4 versions.
 
@@ -54,10 +54,10 @@ From the image creation settings ([distributions/ROCKNIX/options](https://github
 |---|---|---|
 | Sector 0 | MBR (table of contents of partitions) | `PARTITION_TABLE="msdos"` |
 | 8KiB position | SPL and U-Boot. Not a file | `bs=1K seek=8` |
-| 2GB from sector 32768 (16MiB) | Boot area (FAT, named `ROCKNIX`) | `SYSTEM_PART_START=32768`, `SYSTEM_SIZE=2048` |
-| The 32MB after that | Your own area (ext4, named `STORAGE`) | `STORAGE_SIZE=32` |
+| 2GiB from sector 32768 (16MiB) | Boot area (FAT, named `ROCKNIX`) | `SYSTEM_PART_START=32768`, `SYSTEM_SIZE=2048` |
+| The 32MiB after that | Your own area (ext4, named `STORAGE`) | `STORAGE_SIZE=32` |
 
-Your own area is only 32MB because it is designed to expand to fill the rest of the card on the first boot ([How the OS works](18-os.md)).
+Your own area is only 32MiB because it is designed to expand to fill the rest of the card on the first boot ([How the OS works](18-os.md)).
 
 ### What was checked with a dummy image
 

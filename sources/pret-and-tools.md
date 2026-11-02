@@ -1,4 +1,4 @@
-# pret and Pokémon Modding Tools
+# pret and Pokémon modding tools
 
 The type is the README and INSTALL documents of each GitHub repository. Reliability is official (each project's own materials). In this research, the contents were read with the `gh` command.
 

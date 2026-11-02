@@ -1,4 +1,4 @@
-# What You Can Modify
+# What you can modify
 
 Modifications to handheld game consoles can be divided into three kinds: software, OS, and hardware. This article sorts out the modifications that can actually be done, as far as could be confirmed from official documents and forum posts. Points that could not be confirmed are stated as such.
 
@@ -52,7 +52,7 @@ The battery level display can also be improved. Knulli's "BatteryPlus" calculate
 
 Replacing the OS changes the character of a device. The options for each device are summarized in [OS options](03-os.md), and the installation steps in [Installing CFW](04-install-cfw.md). Android devices too have environments such as [GammaOS Core](https://github.com/TheGammaSqueeze/GammaOSCore), which boots from an SD card and offers root and Magisk. This OS also has a mode for operating the screen like a mouse and settings that relax file access restrictions. According to the README, GammaOS Core is a lightweight version of Android 13 TV based on LineageOS. It has been heavily reworked to reduce memory use.
 
-An OS is not just something to install and use, but also something to modify. ROCKNIX's [Modifying ROCKNIX](https://rocknix.org/contribute/modify/) gives, with commands, ways to rebuild a single package after building the source locally, to patch a package, and to make an image that includes your changes. As a prerequisite, it asks you to first succeed in building an unmodified branch, to establish a baseline.
+An OS can be modified as well as installed and used. ROCKNIX's [Modifying ROCKNIX](https://rocknix.org/contribute/modify/) gives, with commands, ways to rebuild a single package after building the source locally, to patch a package, and to make an image that includes your changes. As a prerequisite, it asks you to first succeed in building an unmodified branch, to establish a baseline.
 
 Knulli is also said to have a guide to applying patches manually. The [Patches and Overlays](https://github.com/knulli-cfw/knulli.org/blob/main/docs/configure/patches-and-overlays.md) page states clearly that it is not the normal way to update, but an introduction for advanced users familiar with Linux. The work requires getting into the device over SSH, and the page says to make Wi-Fi and SSH usable first. In Knulli, the whole system is in a read-only SquashFS, and only `/userdata` is writable. Because of this constraint, keeping changes requires a method called overlays. The page itself says that ordinary users do not need this knowledge.
 

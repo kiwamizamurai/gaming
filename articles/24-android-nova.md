@@ -1,4 +1,4 @@
-# Learning Android with the Nova: A Study Plan Compared with the RG40XXH
+# Learning Android with the Nova: a study plan compared with the RG40XXH
 
 Up to [Reading machine code with REA and Ghidra](23-rea-and-ghidra.md), we have read the insides of the RG40XXH as a Linux machine. In this article, I choose the Android handheld Retroid Pocket Nova (the Nova from here on) as the next device and plan what to learn, and in what order, after it arrives.
 
@@ -141,8 +141,8 @@ In [article 20](20-cpu.md), we identified the "shape of the box" from the leadin
 
 | File | Leading bytes | What this tells us |
 |---|---|---|
-| `lib/arm64-v8a/liblove.so` | `7f 45 4c 46`, 18th byte is `b7 00` (183) | ELF, for arm64 |
-| `lib/armeabi-v7a/liblove.so` | `7f 45 4c 46`, 18th byte is `28 00` (40) | ELF, for 32-bit ARM |
+| `lib/arm64-v8a/liblove.so` | `7f 45 4c 46`, `b7 00` (183) at offset 18 | ELF, for arm64 |
+| `lib/armeabi-v7a/liblove.so` | `7f 45 4c 46`, `28 00` (40) at offset 18 | ELF, for 32-bit ARM |
 | `classes.dex` | `64 65 78 0a 30 33 35 00` (`dex\n035`) | Marker of the DEX format |
 | `AndroidManifest.xml` | `03 00 08 00 …` | Binary XML, not text XML |
 
@@ -343,7 +343,7 @@ The saved high score also has the same form as in the C version. It is two bytes
 love.filesystem.write("best.sav", string.char(game.SAVE_MAGIC, best))
 ```
 
-`conf.lua` sets the screen to 640×480. This is 4:3, exactly half of the Nova's 1280×960. The screen size of the RG40XXH has not been verified in this series.
+`conf.lua` sets the screen to 640×480. This is 4:3, exactly half of the Nova's 1280×960. The RG40XXH's screen resolution has not been verified in this series.
 
 ### Does it produce the same screen as the original game?
 

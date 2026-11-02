@@ -1,4 +1,4 @@
-# Communities and Information Sources
+# Communities and information sources
 
 This article sorts out, by type, the places you can rely on when researching. Confirmed facts are limited to what the pages display and what they contained when actually opened. Unless otherwise noted, the research date is October 3, 2026.
 
@@ -30,13 +30,13 @@ Videos are useful for showing screen movement, the size of the actual device, an
 
 ## Device databases
 
-[掌机圈](https://zhangjiquan.com/) is a site specializing in handheld game consoles. The top menu is divided into news, photos, a list of unreleased devices, a list of devices, and user-posted image posts (貼图). Device pages have a spec table, photos taken by users, ratings and comments, and purchase links, and there are also comparison pages that place two devices side by side (for example, [RG-40XXH and RG-406V](https://zhangjiquan.com/compare/rg-40xxh-vs-rg-406v)). Users can request corrections to specs.
+[掌机圈](https://zhangjiquan.com/) is a site specializing in handheld game consoles. The top menu is divided into news, photos, a list of unreleased devices, a list of devices, and user-posted image posts (贴图). Device pages have a spec table, photos taken by users, ratings and comments, and purchase links, and there are also comparison pages that place two devices side by side (for example, [RG-40XXH and RG-406V](https://zhangjiquan.com/compare/rg-40xxh-vs-rg-406v)). Users can request corrections to specs.
 
 This database is based on user posts, so it is not an official spec sheet. Purchase links are not dated, so prices on the pages are not necessarily current. Details on buying are summarized in [How to buy Chinese devices](09-buying.md).
 
 ## Articles
 
-Articles on 什么值得买, Zhihu, CSDN, and bilibili carry installation steps and device reviews. Among 什么值得买 articles, there are AI-generated ones with "AIGC文章詳細" displayed at the top of the page. The two read in this research, [2026开源掌机红黑榜](https://post.smzdm.com/p/aww5ev54/) and [RG40XXH hands-on](https://post.smzdm.com/p/aqrg0rx2/), were both of this kind. At the end of the article are "内容由AI生成" and a list of the original articles referred to. With this type of article, figures and evaluations need to be checked against the original articles or a spec database before being cited.
+Articles on 什么值得买, Zhihu, CSDN, and bilibili carry installation steps and device reviews. Among 什么值得买 articles, there are AI-generated ones with "AIGC文章详细" displayed at the top of the page. The two read in this research, [2026开源掌机红黑榜](https://post.smzdm.com/p/aww5ev54/) and [RG40XXH hands-on](https://post.smzdm.com/p/aqrg0rx2/), were both of this kind. At the end of the article are "内容由AI生成" and a list of the original articles referred to. With this type of article, figures and evaluations need to be checked against the original articles or a spec database before being cited.
 
 Zhihu and CSDN articles are written by individuals. Articles such as [天马G前端的使用](https://blog.csdn.net/fanged/article/details/152960565), which give steps the author tried in their own environment and even fragments of source code, are materials that are easy to reproduce. However, they depend on the OS and app versions at the time of writing, so check the date.
 
@@ -46,7 +46,7 @@ In the English-speaking world, [Retro Game Corps](https://retrogamecorps.com/) c
 
 ## Official places for OSes and tools
 
-Official information on OSes is written in English. ROCKNIX's sources are the [official Wiki](https://rocknix.org/) and [GitHub](https://github.com/ROCKNIX/distribution), and the place for questions is the [Discord](https://discord.gg/seTxckZjJy) community. Knulli's main project is on [GitHub](https://github.com/knulli-cfw/knulli-linux), with the [documentation source](https://github.com/knulli-cfw/knulli.org) under it, and questions go to the "questions" channel on [Discord](https://discord.gg/HXPS3DAeeB). muOS itself is in the repositories of [MustardOS](https://github.com/MustardOS). Pegasus has an [official site](https://pegasus-frontend.org/) and a [Discord](https://discord.gg/KTtzP6y). For Pokémon modding, the entry points are pret's [page](https://pret.github.io/) and RHH's [Discord](https://discord.gg/6CzjAG6GZk).
+Official information on OSes is written in English. ROCKNIX's sources are the [official Wiki](https://rocknix.org/) and [GitHub](https://github.com/ROCKNIX/distribution), and the place for questions is the [Discord](https://discord.gg/seTxckZjJy) community. Knulli's main project is on [GitHub](https://github.com/knulli-cfw/knulli-linux), with the [documentation source](https://github.com/knulli-cfw/knulli.org) in a separate repository in the same organization, and questions go to the "questions" channel on [Discord](https://discord.gg/HXPS3DAeeB). muOS itself is in the repositories of [MustardOS](https://github.com/MustardOS). Pegasus has an [official site](https://pegasus-frontend.org/) and a [Discord](https://discord.gg/KTtzP6y). For Pokémon modding, the entry points are pret's [page](https://pret.github.io/) and RHH's [Discord](https://discord.gg/6CzjAG6GZk).
 
 PortMaster is a program that installs game ports on Linux devices. Its [official site](https://portmaster.games/) has an introduction to its features and directions to the Wiki. A November 2023 introductory article pointed to a dedicated Discord community and said that help with translation was being accepted on Crowdin. The display languages listed were English, Italian, French, German, and Polish. Japanese was not in that article's list.
 

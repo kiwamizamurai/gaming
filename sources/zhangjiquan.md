@@ -1,4 +1,4 @@
-# 掌机圈 Device Pages
+# 掌机圈 device pages
 
 The type is a specification database of handheld game consoles. The top URL is https://zhangjiquan.com/ and the device list is at https://zhangjiquan.com/handhelds . Reliability is aggregated, and spec values are based on submissions by the site's operator and users. Each page has a "信息补充或纠错" (add to or correct information) button, used to request corrections. Since this is not an official spec sheet, some fields may be missing and some values may differ from reality.
 
@@ -12,7 +12,7 @@ The top menu is 掌机新闻和资讯 (news), 掌机图片 (photos), 待发布�
 |---|---|---|---|
 | Alias | RG40XXH | 周哥RG-406V | 周哥RG556 |
 | Release | Jul 2024 | Sep 2024 | Mar 2024 |
-| OS | 開源系統 | Not listed | 安卓 |
+| OS | 开源系统 | Not listed | 安卓 |
 | Dimensions | 163×79×16mm | 105×145×29mm | 223×90×15–25mm |
 | Weight | 208g | 289g | 331g |
 | Screen | 4.0-inch, 200PPI, 4:3, 60Hz | 4.0-inch, 300PPI, 4:3, 60Hz | 5.48-inch, 400PPI, 16:9, 60Hz |
@@ -24,14 +24,14 @@ The top menu is 掌机新闻和资讯 (news), 掌机图片 (photos), 待发布�
 | Wireless | WiFi 5, BT 4.2 | WiFi 5, BT 5.0 | WiFi 5, BT 5.0 |
 | Video output | Mini HDMI | USB-C | USB-C |
 | Sensors and similar | Not listed | Gyro, Hall sticks | Gyro, Hall sticks, Hall triggers |
-| Listed price | 300–500 yuan. The 到手 price on the purchase link is 418 yuan (50-yuan coupon) | The 到手 price on the purchase link is 1048 yuan (100-yuan coupon) | $150–200. The 到手 price on the purchase link is 1199 yuan (100-yuan coupon) |
+| Listed price | 300–500 yuan. The 到手价 on the purchase link is 418 yuan (50-yuan coupon) | The 到手价 on the purchase link is 1048 yuan (100-yuan coupon) | $150–200. The 到手价 on the purchase link is 1199 yuan (100-yuan coupon) |
 | Supported games | PSP, DOS, NDS, N64, PS1, DC, arcade, GBA, GBC, GB, SFC, FC, MAME, MD, and others | N64, DC, PSP | N64, DC, and PSP at satisfactory frame rates. Most GC and Wii, some PS2, and only simple games on Switch |
 
 | Item | [RP4 Pro](https://zhangjiquan.com/handheld/retroid-pocket-4-pro) | [RP5](https://zhangjiquan.com/handheld/retroid-pocket-5) | [Nova](https://zhangjiquan.com/handheld/retroid-pocket-nova) |
 |---|---|---|---|
 | Alias | 沙雕4 Pro, RP4 Pro | 沙雕5, RP 5 | 沙雕 Nova |
 | Release | Jan 2024 | Sep 2024 | Jul 2026 |
-| Colors | SNES灰, transparent blue, transparent red | Not listed | Black, white, 復古灰, transparent green, purple, blue |
+| Colors | SNES灰, transparent blue, transparent red | Not listed | Black, white, 复古灰, transparent green, purple, blue |
 | Dimensions | 184.8×82.6×15.8mm | 199.2×78.5×15.6mm | 169.9×84.1×26.3mm |
 | Weight | 261g | 280g | 255g |
 | Screen | 4.7-inch, 325.61PPI, 16:9, 60Hz | 5.5-inch, 400.5PPI, 16:9, 60Hz, up to 500 nits | 4.5-inch, 355.6PPI, 4:3, 120Hz |
@@ -42,7 +42,7 @@ The top menu is 掌机新闻和资讯 (news), 掌机图片 (photos), 待发布�
 | Cooling | Fan | Fan, vent | Fan, exhaust vent |
 | Wireless | WiFi 6, BT 5.2 | WiFi 6, BT 5.1 | WiFi 7, BT 5.3 |
 | Video output | Micro HDMI, USB-C | USB-C | USB-C |
-| Listed price | $150–200 | 1000–1500 yuan. The 到手 price on the purchase link is 1598 yuan | 1500–2000 yuan |
+| Listed price | $150–200 | 1000–1500 yuan. The 到手价 on the purchase link is 1598 yuan | 1500–2000 yuan |
 | Supported games | Up to GC, Wii, and PS2. Switch only for simple small games | Up to GC, Wii, and PS2. A small number of Switch games | Up to some Switch games |
 | User comments | "起手1500我说冤大头,闲鱼700只能给一句水桶机皇" (March 2026) | "性价比超神" (July 2025) | "完美毕业掌机,可以玩ps3模拟器还有pc模拟器…" (September 2026) |
 

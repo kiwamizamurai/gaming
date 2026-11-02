@@ -85,7 +85,7 @@ Apply patches only to original ROMs you have prepared yourself. A patch contains
 
 Chinese-speaking communities gather on Baidu Tieba.
 
-According to the page, [口袋改版资源吧](https://tieba.baidu.com/f?kw=%E5%8F%A3%E8%A2%8B%E6%94%B9%E7%89%88%E8%B5%84%E6%BA%90) has 261,000 followers and 1,645,000 posts. The tabs at the top are Featured, Popular, Latest, 吧友互助 (mutual help within the community), image and text walkthroughs, 汉化发布, 改版发布, and 改版教程. The pinned post, dated March 26, 2021, is "本吧資源導航", described as a table of contents gathering game files, walkthroughs, 秘籍, emulators, cheat codes, helper tools, modding tutorials, tools, assets, and more.
+According to the page, [口袋改版资源吧](https://tieba.baidu.com/f?kw=%E5%8F%A3%E8%A2%8B%E6%94%B9%E7%89%88%E8%B5%84%E6%BA%90) has 261,000 followers and 1,645,000 posts. The tabs at the top are Featured, Popular, Latest, 吧友互助 (mutual help within the community), image and text walkthroughs, 汉化发布, 改版发布, and 改版教程. The pinned post, dated March 26, 2021, is "本吧资源导航", described as a table of contents gathering game files, walkthroughs, 秘籍, emulators, cheat codes, helper tools, modding tutorials, tools, assets, and more.
 
 ![Top page of 口袋改版资源吧](../assets/screenshots/tieba-pokemon-hack-resource-bar.jpg)
 

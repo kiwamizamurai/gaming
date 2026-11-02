@@ -12,7 +12,7 @@ These are nicknames and expressions seen on forums, specification databases, and
 | 猴里谢 | hóu lǐ xiè | Nickname for Miyoo. Said to be sarcasm about its low production | Confirmed, but from [红黑榜](https://post.smzdm.com/p/aww5ev54/), which is labeled AIGC |
 | 老张 | lǎo Zhāng | Nickname for the GKD brand | Same as above |
 | 月光宝盒 | yuèguāng bǎohé | Name of a game console with many built-in games. Listed alongside other game consoles | Confirmed. In [给大家分享一个PC上的模拟器前端](https://tieba.baidu.com/p/6671136635), listed as one of the devices the poster bought |
-| 尾巴 | wěibā | Apparently a nickname for AYANEO. Written as "尾巴aya" in a post on 開源掌机吧 | Inferred. A post on [开源掌机吧](https://tieba.baidu.com/f?kw=%E5%BC%80%E6%BA%90%E6%8E%8C%E6%9C%BA) (screenshot) |
+| 尾巴 | wěibā | Apparently a nickname for AYANEO. Written as "尾巴aya" in a post on 开源掌机吧 | Inferred. A post on [开源掌机吧](https://tieba.baidu.com/f?kw=%E5%BC%80%E6%BA%90%E6%8E%8C%E6%9C%BA) (screenshot) |
 
 ## Expressions used on forums and in articles
 
@@ -37,7 +37,7 @@ The following terms appeared in search result excerpts, but the original pages w
 |---|---|
 | 小黄鱼 | Nickname for 闲鱼 |
 | 割韭菜 | Exploiting consumers, like reaping scallions |
-| 寨机 | A device that is not a genuine branded product (short for 山寨機) |
+| 寨机 | A device that is not a genuine branded product (short for 山寨机) |
 | 黄牛 | Scalper |
 | 大水杯 | A slang term for a frontend. A listing image read "大水杯ES前端" |
 | 吃细糠 | Meaning unknown. It appeared in the heading of an article about GBA packs |
