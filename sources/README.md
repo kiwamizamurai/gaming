@@ -20,4 +20,5 @@ Reliability was assigned by the following criteria. Official means material publ
 | [AI-generated articles on 什么值得买](smzdm-aigc.md) | AI-generated | Brand descriptions (caution needed) |
 | [CNFans listings and terms](cnfans.md) | Seller | How to buy, handling of products with games included |
 | [Retroid official site for China](retroid-cn.md) | Official | Official sales channels |
+| [GBA hardware and Rust sources](gba-rust.md) | Official, aggregated, personal | The GBA counter series, articles 26 to 31 |
 | [Switch community sites and guides](switch-community.md) | Official, aggregated, personal, news | Installation steps in article 25, how to use mods and cheats |

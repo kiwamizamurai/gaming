@@ -1,4 +1,4 @@
-// 2版:セーブをJSONに変え、点数をサーバーへ送る機能を足した。
+// Version 2: the save is now JSON, and a function that sends the score to a server was added.
 const fs = require('node:fs');
 
 function loadBest(path) {

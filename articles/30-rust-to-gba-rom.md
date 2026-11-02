@@ -30,6 +30,8 @@ target = "thumbv4t-none-eabi"
 | `none` | No operating system is assumed |
 | `eabi` | The rules for how compiled code passes arguments and uses the stack |
 
+The [rustc book](https://doc.rust-lang.org/rustc/platform-support/armv4t-none-eabi.html) says that on the GBA one should usually use this Thumb target for the best overall performance, and that it only supports the old Thumb-1 instruction set. The compiler itself does not write the machine code: the [rustc dev guide](https://rustc-dev-guide.rust-lang.org/backend/codegen.html) says rustc usually uses LLVM for that step.
+
 The same file adds `-Clink-arg=-Tgba.ld`, which hands the linker a layout file, and `-Ctarget-cpu=arm7tdmi`.
 
 ## The first build failed
@@ -101,7 +103,7 @@ In the GBA build, the same thing happens at a larger scale. A `.o` does not corr
 target/thumbv4t-none-eabi/debug/incremental/agb_template-16da6nlkhw16x/.../64z6d7dbsr0p92oz58lpjnjdm.o
 ```
 
-Rust divides its work by crate and by internal compilation units, so you should not expect `main.rs` to become `main.o`.
+Rust divides its work by crate and by what the [rustc dev guide](https://rustc-dev-guide.rust-lang.org/backend/codegen.html) calls codegen units. LLVM produces objects from those units, and they are passed to the linker. So you should not expect `main.rs` to become `main.o`.
 
 ## What does the linker do?
 
@@ -174,7 +176,7 @@ The 2 bytes at offset 18 are `28 00` (40), which is 32-bit ARM. `llvm-objdump -f
 
 ## Does mGBA run an ELF?
 
-Yes. Passing the ELF straight to mGBA 0.10.5 started the game, with the window title showing 59.7 fps. mGBA's source has a function for this, `mCoreLoadELF` in [core.c](https://github.com/mgba-emu/mgba/blob/master/src/core/core.c), which is used when mGBA is built with ELF support. The template relies on this: its `runner` setting calls `mgba-qt` with the build output, so `cargo run` passes it the ELF.
+Yes. Passing the ELF straight to mGBA 0.10.5 started the game, with the window title showing 59.7 fps. mGBA's source has a function for this, `mCoreLoadELF` in [core.c](https://github.com/mgba-emu/mgba/blob/0.10.5/src/core/core.c), which is used when mGBA is built with ELF support. The template relies on this: its `runner` setting calls `mgba-qt` with the build output, so `cargo run` passes it the ELF.
 
 On a Mac with mGBA installed through the Homebrew cask, `mgba-qt` was not on the `PATH`. Calling the program inside the app works.
 
@@ -275,24 +277,6 @@ The Chinese terms here were selected for their relevance to this article's topic
 | 模拟器 | mónǐqì | Emulator | [模拟器游戏 篇四](https://zhuanlan.zhihu.com/p/703325151) |
 | 内存 | nèicún | Memory | [掌机圈 RG-35XX H](https://zhangjiquan.com/handheld/rg-35xx-h) |
 | 处理器 | chǔlǐqì | Processor (SoC) | [RG-406V](https://zhangjiquan.com/handheld/rg-406v) |
-
-## Check your understanding
-
-**What does the `U` in `U _increment` mean?**
-
-The object needs `_increment`, but it is not defined there. Another part has to provide it.
-
-**Why did `cc game.o -o a` fail?**
-
-Only one part was given, so the linker had nothing to fill in the call to `_increment` with.
-
-**Does an ELF have to become a `.gba` to run in mGBA?**
-
-No. mGBA can load the ELF. The `.gba` is for real hardware, which expects a cartridge image.
-
-**Is a `.gba` unreadable?**
-
-No. It is bytes meant for the GBA, not for a text editor. `xxd` shows them, and the title is readable at `0xa0`.
 
 ## What you can learn
 

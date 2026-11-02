@@ -1,4 +1,4 @@
-// CoinGame.cs の「次の版」。更新でMODが壊れる様子を見るため、わざと形を変えている。
+// The "next version" of CoinGame.cs. Its shape is changed on purpose, to see how an update breaks mods.
 using System;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -7,10 +7,10 @@ public class CoinGame {
     public const byte SaveMagic = 0x4B;
     public int X;
     public int Coin = 7;
-    public long Score;          // int から long に変えた
-    public int Lives = 3;       // 新しく足した
+    public long Score;          // Changed from int to long
+    public int Lives = 3;       // Newly added
 
-    public void Move(char key, int steps) {   // 歩数の引数を足した
+    public void Move(char key, int steps) {   // Added a step count argument
         for (int i = 0; i < steps; i++) {
             if (key == 'a' && X > 0) X--;
             if (key == 'd' && X < 9) X++;
@@ -21,12 +21,12 @@ public class CoinGame {
         }
     }
 
-    public static void SaveBestScore(string path, long best) {  // 名前と型を変えた
+    public static void SaveBestScore(string path, long best) {  // Changed the name and types
         File.WriteAllBytes(path, new byte[] { SaveMagic, (byte)best });
     }
 
     [DllImport("libc", EntryPoint = "getpid")]
-    static extern int GetProcessId();          // 機械語のライブラリを直接呼ぶ
+    static extern int GetProcessId();          // Calls a machine code library directly
 
     public static void Main() {
         var game = new CoinGame();

@@ -1,5 +1,5 @@
-/* 端末で遊ぶコイン集め。a/dで左右に動き、コイン($)を取ると10点。qで終了。
-   最高点は gbdk-coin-plus と同じく2バイト(目印0x4B、点数)で best.sav に保存する。 */
+/* A coin game played in the terminal. a/d move left and right, a coin ($) gives 10 points, and q quits.
+   The best score is saved to best.sav as 2 bytes (marker 0x4B, score), the same as gbdk-coin-plus. */
 #include <stdio.h>
 
 #define WIDTH 10
@@ -43,7 +43,7 @@ int main(void) {
         if (c != 'a' && c != 'd') continue;
         if (x == coin) {
             score += 10;
-            coin = (coin * 3 + 1) % WIDTH;   /* 次のコインの場所 */
+            coin = (coin * 3 + 1) % WIDTH;   /* Where the next coin goes */
             if (coin == x) coin = (coin + 1) % WIDTH;
         }
         draw(x, coin, score, best);

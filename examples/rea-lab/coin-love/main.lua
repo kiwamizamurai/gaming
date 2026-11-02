@@ -10,7 +10,7 @@ end
 function love.load(args)
   g = game.new()
   best = save.load()
-  -- 自動テスト: love . selftest ddddddd のように、キー列を引数で渡す
+  -- Automatic test: pass the keys as an argument, as in love . selftest ddddddd
   if args[1] == "selftest" then
     print(game.row(g, best))
     for key in (args[2] or ""):gmatch(".") do
@@ -27,7 +27,7 @@ function love.keypressed(key)
   game.move(g, key)
 end
 
--- ゲームパッド(RG40XXHやNovaの十字キー)。実機では未確認。
+-- Gamepad (the D-pad on the RG40XXH or Nova). Not checked on real hardware.
 function love.gamepadpressed(_, button)
   if button == "dpleft" then game.move(g, "a") end
   if button == "dpright" then game.move(g, "d") end

@@ -1,4 +1,4 @@
--- 4:3の画面。RG40XXHの640x480に合わせている(Novaは1280x960で、ちょうど2倍)
+-- A 4:3 screen, matching the RG40XXH's 640x480 (the Nova's 1280x960 is exactly double)
 function love.conf(t)
   t.identity = "coin-love"
   t.window.title = "coin-love"

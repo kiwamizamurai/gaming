@@ -1,5 +1,5 @@
--- best.sav に2バイト(目印0x4B、点数)で保存する。coin_term.c と同じ形。
--- 保存先は love.filesystem が決める(端末ごとに違う)。
+-- Saves to best.sav as 2 bytes (marker 0x4B, score), the same form as coin_term.c.
+-- love.filesystem decides the location, which differs by device.
 local game = require("game")
 local M = {}
 

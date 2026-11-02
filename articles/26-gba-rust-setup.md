@@ -13,9 +13,9 @@ This series builds a counter for the Game Boy Advance in Rust and uses it to rea
 
 ## Can it be something other than C?
 
-C has the longest history on the GBA, and [article 14](14-making-games.md) lists its tools. The [gbadev guide](https://gbadev.net/getting-started.html) says the GBA does not support languages like C#, Python, or Java, and lists Nim and Rust options. This series uses Rust with agb because its types make the hardware rules easy to see.
+Yes. [Article 14](14-making-games.md) lists the C tools. The [gbadev guide](https://gbadev.net/getting-started.html) says the GBA does not support languages like C#, Python, or Java, and lists Lua through BPCore-Engine, Nim through Natu, and Rust through agb. Rust support is real but not first class: the [rustc book](https://doc.rust-lang.org/rustc/platform-support/armv4t-none-eabi.html) lists `thumbv4t-none-eabi` as Tier 3, with `core` and `alloc` only, and says it can be used on the GBA. This series uses Rust with agb.
 
-## Tools
+## What do you need?
 
 The [agb book's Mac guide](https://agbrs.dev/book/setup/mac.html) asks for rustup, git, and mGBA. You do not install a separate ARM compiler: this series never used `arm-none-eabi-gcc`, and it is not on the machine used here.
 
@@ -73,23 +73,23 @@ fn main(gba: agb::Gba) -> ! {
 /Applications/mGBA.app/Contents/MacOS/mGBA -C logToStdout=1 -C logLevel.gba.debug=127 <game>
 ```
 
+Building and running this gives agb's built-in `no_game` screen. mGBA's screenshot key (F12) saved this picture.
+
+![The agb no_game screen, with coloured squares spelling NO GAME](../assets/screenshots/agb-template-no-game.png)
+
 ## What has not been tested
 
 Nothing was run on a real GBA. The setup was tried only on one Mac.
 
-## Check your understanding
+## Chinese terms in this article
 
-**Why can't a GBA program use `println!`?**
+The Chinese terms here were selected for their relevance to this article's topic from words whose sources were confirmed in other articles in this repository.
 
-`println!` belongs to the standard library, which assumes an OS. The GBA has none, so the program uses `#![no_std]`, and `agb::println!` writes to mGBA's log instead.
-
-**Why does `main` have the return type `!`?**
-
-A game keeps running until the power goes off, so the function never returns.
-
-**Why write a date in `rust-toolchain.toml`?**
-
-Nightly compilers change. Here, the newest one could not build agb 0.25.0, and the one from its release date could.
+| Chinese | Pinyin | Meaning | Source |
+|---|---|---|---|
+| 模拟器 | mónǐqì | Emulator | [模拟器游戏 篇四](https://zhuanlan.zhihu.com/p/703325151) |
+| 开源 | kāiyuán | Open source | [开源掌机吧](https://tieba.baidu.com/f?kw=%E5%BC%80%E6%BA%90%E6%8E%8C%E6%9C%BA) |
+| 配置 | pèizhì | Settings | [天马G前端的使用](https://blog.csdn.net/fanged/article/details/152960565) |
 
 ## What you can learn
 

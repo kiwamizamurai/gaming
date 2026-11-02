@@ -81,19 +81,14 @@ The stack holds local variables and return addresses for function calls, and shr
 
 The stack's start value and how CPU modes use it were not checked. How much memory the counter uses in total was not measured.
 
-## Check your understanding
+## Chinese terms in this article
 
-**Why does `.ewram` need copying at startup?**
+The Chinese terms here were selected for their relevance to this article's topic from words whose sources were confirmed in other articles in this repository.
 
-ROM keeps its contents with the power off, and RAM does not. Initial values wait in ROM and are copied to RAM before `main`.
-
-**Why was `STEP` in ROM and `PRESSES` in EWRAM?**
-
-`STEP` never changes. `PRESSES` is `mut`, so it has to be in writable memory.
-
-**Why does `Counter::increment` have an odd address?**
-
-On ARM, the lowest bit of a function's address marks it as Thumb code.
+| Chinese | Pinyin | Meaning | Source |
+|---|---|---|---|
+| 内存 | nèicún | Memory | [掌机圈 RG-35XX H](https://zhangjiquan.com/handheld/rg-35xx-h) |
+| 处理器 | chǔlǐqì | Processor (SoC) | [RG-406V](https://zhangjiquan.com/handheld/rg-406v) |
 
 ## What you can learn
 
