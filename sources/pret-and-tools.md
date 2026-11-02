@@ -1,23 +1,23 @@
-# pretとポケモン改造のツール
+# pret and Pokémon Modding Tools
 
-種類は、GitHubの各リポジトリのREADMEとINSTALLの文書です。信頼度は公式(各プロジェクト自身の資料)です。この調査では、`gh` コマンドで内容を読みました。
+The type is the README and INSTALL documents of each GitHub repository. Reliability is official (each project's own materials). In this research, the contents were read with the `gh` command.
 
 ## pret
 
-pretの各プロジェクトのREADMEは、短く、何をビルドするかと、確認用のSHA1を書いたものです。
+The README of each pret project is short and states what gets built and the SHA1 for verification.
 
-[pokeemerald](https://github.com/pret/pokeemerald)は、ポケモンエメラルドの逆コンパイルで、`pokeemerald.gba` を作ります。[pokefirered](https://github.com/pret/pokefirered)は、英語版のファイアレッドとリーフグリーンの逆コンパイルです。作るROMは、通常版、rev1、Switch版の6種類です。[pokecrystal](https://github.com/pret/pokecrystal)は、クリスタルの逆アセンブルで、複数のバージョンのROMを作ります。FAQ、ドキュメント、Wiki、チュートリアル、シンボル、ツール(gb-asm-tools)への案内があり、質問はDiscordで受け付けています。[pokered](https://github.com/pret/pokered)は、赤と青の逆アセンブルです。連絡先とほかのプロジェクトは、[pret.github.io](https://pret.github.io/)にあります。
+[pokeemerald](https://github.com/pret/pokeemerald) is a decompilation of Pokémon Emerald and produces `pokeemerald.gba`. [pokefirered](https://github.com/pret/pokefirered) is a decompilation of the English versions of FireRed and LeafGreen. The ROMs it produces come in six kinds: regular, rev1, and Switch versions. [pokecrystal](https://github.com/pret/pokecrystal) is a disassembly of Crystal and produces ROMs of multiple versions. It points to an FAQ, documentation, a wiki, tutorials, symbols, and tools (gb-asm-tools), and questions are taken on Discord. [pokered](https://github.com/pret/pokered) is a disassembly of Red and Blue. Contact information and other projects are at [pret.github.io](https://pret.github.io/).
 
-[pokeemeraldのINSTALL.md](https://github.com/pret/pokeemerald/blob/HEAD/INSTALL.md)は、ビルド環境を作る手順です。Windowsの方法は、WSL1(推奨で最速)、msys2(約2倍遅い)、Cygwin(約5〜6倍遅い)の3つです。WSL2は、ファイルをWSL2側に置けば、WSL1より速い場合があります。ただし、Qt 5.15.2より前のバージョンを使うPorymapなどは、WSL2のネットワークドライブのパスで問題を起こすことがある点には、注意が必要です。WSL1では、Ubuntuに `build-essential`、`binutils-arm-none-eabi`、`git`、`libpng-dev` を入れます。Windows 7と8の手順は、サポートが終わったOSのため、今後壊れても、直るのが遅いと断り書きがあります。
+[pokeemerald's INSTALL.md](https://github.com/pret/pokeemerald/blob/HEAD/INSTALL.md) gives the steps for setting up a build environment. There are three methods for Windows: WSL1 (recommended and fastest), msys2 (about 2 times slower), and Cygwin (about 5 to 6 times slower). WSL2 can be faster than WSL1 if the files are placed on the WSL2 side. However, note that Porymap and other software using versions of Qt earlier than 5.15.2 can have problems with WSL2 network drive paths. On WSL1, install `build-essential`, `binutils-arm-none-eabi`, `git`, and `libpng-dev` on Ubuntu. The steps for Windows 7 and 8 carry a disclaimer that, since these OSes are out of support, fixes will be slow if the steps break in the future.
 
 ## pokeemerald-expansion
 
-[pokeemerald-expansion](https://github.com/rh-hideout/pokeemerald-expansion)は、pretのpokeemeraldの上に作られた、ROM hackの基盤です。READMEは、「これ自体は遊べるポケモンのゲームではない」と明記しています。備える機能は、シリーズの何百もの機能と、遊びやすさを上げる機能です。使うときは、RHH(Rom Hacking Hideout)をクレジットとして書くよう求め、例文を載せています。公式のゲームとは通信できないので、公式との互換性が必要ならpret側を使う、という案内です。GitHubの「Download Zip」では、コミット履歴が付かず、更新や機能ブランチの統合ができないため使わないよう、注意書きがあります。ドキュメントは https://rh-hideout.github.io/pokeemerald-expansion/ にあり、質問はRHHのDiscordです。
+[pokeemerald-expansion](https://github.com/rh-hideout/pokeemerald-expansion) is a base for ROM hacks built on top of pret's pokeemerald. The README states explicitly that "this is not a playable Pokémon game on its own". The features it provides are hundreds of features from the series and features that improve playability. It asks users to credit RHH (Rom Hacking Hideout) and includes an example text. It cannot communicate with the official games, so it advises using the pret side if compatibility with the official games is needed. There is a warning not to use GitHub's "Download Zip", since it does not include commit history and does not allow updating or merging feature branches. The documentation is at https://rh-hideout.github.io/pokeemerald-expansion/ , and questions go to RHH's Discord.
 
 ## Porymap
 
-[Porymap](https://github.com/huderlem/porymap)は、pokeruby、pokeemerald、pokefireredの地図エディタです。ライセンスはLGPL-3.0で、[公式のガイド](https://huderlem.github.io/porymap/)があります。WindowsとmacOSには配布のビルドがあります。Linuxでは、ソースからビルドするか、FlathubやAURのような外部のパッケージ管理を使う形です。
+[Porymap](https://github.com/huderlem/porymap) is a map editor for pokeruby, pokeemerald, and pokefirered. The license is LGPL-3.0, and there is an [official guide](https://huderlem.github.io/porymap/). Distributed builds exist for Windows and macOS. On Linux, you build from source or use an external package manager such as Flathub or the AUR.
 
 ## HexManiacAdvance
 
-[HexManiacAdvance](https://github.com/haven1433/HexManiacAdvance)は、ポケモンのGBA作品のためのエディタです。対象は、英語版のRuby、Sapphire、FireRed、LeafGreen、Emeraldで、ほかのファイルを開いたときは、機能が減ります。データ(ポケモン、トレーナー、技、アイテム、各種の定数)、地図(地図、イベント、接続、ワープ)、テキスト(元の場所に収まらないテキストの再配置を自動で行う)、画像(PNGとの変換、パレットの管理)、コード(XSEに近いイベントスクリプトと、技の効果とトレーナーAIなどのスクリプト、thumbコード)が編集の対象です。IPSとUPSのパッチの作成と適用、図鑑の並べ替え、バックアップの書き出しもできます。ライセンスはMITで、Windowsと.NET 6.0が必要です。
+[HexManiacAdvance](https://github.com/haven1433/HexManiacAdvance) is an editor for the Pokémon GBA games. The targets are the English versions of Ruby, Sapphire, FireRed, LeafGreen, and Emerald, and functionality is reduced when other files are opened. What can be edited is data (Pokémon, trainers, moves, items, various constants), maps (maps, events, connections, warps), text (automatically relocating text that does not fit in its original location), images (conversion to and from PNG, palette management), and code (event scripts close to XSE, scripts for move effects and trainer AI and so on, and thumb code). It can also create and apply IPS and UPS patches, reorder the Pokédex, and export backups. The license is MIT, and it requires Windows and .NET 6.0.
