@@ -1,4 +1,4 @@
-# Repositories of Other OSes
+# Repositories of other OSes
 
 The type is the GitHub repositories and official wikis of each OS. Reliability is official. Star counts and update dates were checked with the `gh` command on October 3, 2026.
 

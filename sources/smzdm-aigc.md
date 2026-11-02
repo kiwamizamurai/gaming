@@ -1,4 +1,4 @@
-# AI-Generated Articles on 什么值得买
+# AI-generated articles on 什么值得买
 
 The type is articles published in the 社区 of 什么值得买, with "AIGC文章详细" displayed at the top of the page. Reliability is AI-generated. "内容由AI生成" is written at the end of each article, and multiple reference pages are listed as the basis for the text. They cannot be used as they stand to support figures and evaluations. The two articles read in this research are the following.
 
