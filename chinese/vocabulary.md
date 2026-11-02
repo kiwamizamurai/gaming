@@ -184,7 +184,6 @@ This table collects the "Chinese terms in this article" section of each article,
 | TF卡 | TF kǎ | microSD card | [04-install-cfw](../articles/04-install-cfw.md) |
 | 格式化 | géshìhuà | Formatting | [04-install-cfw](../articles/04-install-cfw.md) |
 | 备份 | bèifèn | Backup | [04-install-cfw](../articles/04-install-cfw.md) |
-| 变砖 | biànzhuān | A device no longer booting (so-called bricking) | [04-install-cfw](../articles/04-install-cfw.md) |
 | 下载 | xiàzài | Download | [04-install-cfw](../articles/04-install-cfw.md) |
 | 安伯尼克 | Ānbóníkè | Chinese name for Anbernic | [04-install-cfw](../articles/04-install-cfw.md) |
 | 汉化 | hànhuà | Localizing into Chinese | 05, [08-pokemon-hacking](../articles/08-pokemon-hacking.md), [10-communities](../articles/10-communities.md), [11-chinese](../articles/11-chinese.md) |
