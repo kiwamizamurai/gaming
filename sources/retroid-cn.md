@@ -1,11 +1,11 @@
-# Retroid中国公式サイト
+# Retroid Official Site for China
 
-種類は、Retroid Pocketの中国向けの公式サイトです。URLは https://www.retroid.cn/ で、確認は2026年10月3日に行いました。信頼度は公式です。
+The type is the official Retroid Pocket site for China. The URL is https://www.retroid.cn/ , and it was checked on October 3, 2026. Reliability is official.
 
-![Retroid Pocket公式サイトのトップページ](../assets/screenshots/retroid-cn-home.jpg)
+![Top page of the official Retroid Pocket site](../assets/screenshots/retroid-cn-home.jpg)
 
-トップページには、新製品の「RP DUO」の予約販売が、3枚のバナーで表示されていました。画面の下には、Retroid Pocket Novaの案内が続きます。上部のメニューは、首页(ホーム)、商城(ショップ)、社区(コミュニティ)、服务与支持(サービスとサポート)、个人中心(マイページ)、更多精彩(そのほか)、去发布帖子(投稿する)です。
+The top page showed pre-orders for the new "RP DUO" in three banners. Lower on the screen, information about the Retroid Pocket Nova follows. The top menu is 首页 (home), 商城 (shop), 社区 (community), 服务与支持 (service and support), 个人中心 (my page), 更多精彩 (more), and 去发布帖子 (make a post).
 
-ページの下部は、商品として「掌机」(携帯機)と「配件」(アクセサリー)、商城として「天猫旗舰店」と「淘宝企业店」、社区として「官网社区」、サポートとして「使用指南」(使い方のガイド)、「下载中心」、「视频」、「服务中心」、そして発展の歴史、ニュース、採用情報への入口を並べています。連絡先は、メールが `Retroidpocket@163.com` で、電話は「即将开放」(まもなく開始)とあり、販売前後の問い合わせは、淘宝のカスタマーサービスに連絡するよう書かれています。
+The bottom of the page lists "掌机" (handhelds) and "配件" (accessories) as products, "天猫旗舰店" and "淘宝企业店" under 商城, "官网社区" under 社区, "使用指南" (usage guide), "下载中心", "视频", and "服务中心" under support, and then entry points to company history, news, and recruitment. For contact, the email is `Retroidpocket@163.com`, the phone reads "即将开放" (opening soon), and it says to contact Taobao customer service for pre-sale and after-sale inquiries.
 
-サイトの著作権の表示は、「2023 深圳市驰晶科技有限公司」です。商業的な宣伝は広告にあたると、法令に基づく注記が付いています。
+The site's copyright notice is "2023 深圳市驰晶科技有限公司". There is a note based on law and regulations that commercial promotion counts as advertising.
