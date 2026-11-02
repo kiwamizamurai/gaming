@@ -181,7 +181,7 @@ In [experiment 2 of article 22](22-rea-hands-on.md#experiment-2-rebuilding-from-
     if (iVar1 == 100 && iVar4 < 9) {         /* with d, move right only when left of 9 */
 ```
 
-At the left and right ends, it stops and moves no further. It does not wrap around. The part that could only be filled in by guessing when watching behavior can be confirmed by reading the contents. On the other hand, taking a record of input B would have reached the same answer without reading the contents. As in the approach of the guide collection introduced in [Cheats and passthrough](21-cheats-and-passthrough.md), if observation produces an answer, you can use it first.
+At the left and right ends, it stops and moves no further. It does not wrap around. The part that could only be filled in by guessing when watching behavior can be confirmed by reading the contents. On the other hand, taking a record of input B would have reached the same answer without reading the contents. If observation produces an answer, you can use it first.
 
 ## What happens when you remove the names
 
@@ -404,7 +404,7 @@ According to REA's documentation, the appearance of pseudocode differs by engine
 
 ## Ground rules
 
-What was rewritten in this article is a game I made myself. Rewriting and distributing other people's games can violate game terms of service and the law. For the approach, read chapter 13 of the guide collection introduced in [Cheats and passthrough](21-cheats-and-passthrough.md). The order of observing first if observation produces an answer was the same in this article.
+What was rewritten in this article is a game I made myself. Rewriting and distributing other people's games can violate game terms of service and the law.
 
 REA's `capture-process` is not a sandbox ([article 22](22-rea-hands-on.md#ground-rules)). Even through QEMU, the program runs with the current user's privileges.
 

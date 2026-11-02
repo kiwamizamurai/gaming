@@ -2,7 +2,7 @@
 
 Up to [Learning Android with the Nova](24-android-nova.md), we have looked at two lines: the RG40XXH and Android. This article covers a third device, the original Nintendo Switch (the base model). The scope is limited to units manufactured before mid-2018 that still have the hardware vulnerability (fusée gelée). This vulnerability stems from how the chip itself is built, so it cannot be closed by software updates ([Switchbrew documentation](https://switchbrewdocs.readthedocs.io/en/latest/hacking/rcm.html)).
 
-This article explains the steps for running your own homebrew apps on a unit you own. Dumping commercial software and using illegal copies are out of scope. This boundary is the same as the position of the guide collection introduced in [Cheats and passthrough](21-cheats-and-passthrough.md).
+This article explains the steps for running your own homebrew apps on a unit you own. Dumping commercial software and using illegal copies are out of scope.
 
 ## How this article is organized
 

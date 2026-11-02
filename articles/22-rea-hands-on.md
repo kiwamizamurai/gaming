@@ -267,11 +267,11 @@ The following could be read from the result.
 | Calls | `SaveBest` calls `File.WriteAllBytes`, and `Main` calls `Move` and `Console.WriteLine` |
 | Variable reads and writes | `Move` reads and writes `X`, `Coin`, and `Score` |
 
-In a C program compiled to machine code, function and variable names often do not remain. .NET programs are distributed not as machine code but in an intermediate language (CIL), with name and type information included. The FAQ of a guide collection ([07-faq.md](https://github.com/trevaintdead/ai-game-modding-guides/blob/54a980970606f71996e6f25723d42fb9a95aaae5/guides/07-faq.md)) also explains that .NET games such as Terraria, Stardew Valley, and Celeste can be turned back into readable C# with a tool called ILSpy. The games the same FAQ lists as easy to start with also included Terraria and Stardew Valley.
+In a C program compiled to machine code, function and variable names often do not remain. .NET programs are distributed not as machine code but in an intermediate language (CIL), with name and type information included.
 
 ### What happens to a mod's markers when the version changes (compare-managed-members)
 
-Many mods for .NET games rewrite the game's functions. Chapter 8 of the guide collection ([08-mod-loaders-and-script-extenders.md](https://github.com/trevaintdead/ai-game-modding-guides/blob/54a980970606f71996e6f25723d42fb9a95aaae5/guides/08-mod-loaders-and-script-extenders.md)) lists Harmony and MonoMod as tools for this. According to Harmony's [documentation](https://github.com/pardeike/Harmony/blob/e7872dc17008bc0ca2b3de1f53fd4120dbd7a17c/Documentation/articles/annotations.md), the function to rewrite is specified by type, name, and argument types. For example, the specification for rewriting `String.IndexOf(char, int)` is `[HarmonyPatch(typeof(String), "IndexOf", new Type[] { typeof(char), typeof(int) })]`. What happens to a mod when the game is updated and a function's form changes?
+Many mods for .NET games rewrite the game's functions. Harmony is one tool for this. According to Harmony's [documentation](https://github.com/pardeike/Harmony/blob/e7872dc17008bc0ca2b3de1f53fd4120dbd7a17c/Documentation/articles/annotations.md), the function to rewrite is specified by type, name, and argument types. For example, the specification for rewriting `String.IndexOf(char, int)` is `[HarmonyPatch(typeof(String), "IndexOf", new Type[] { typeof(char), typeof(int) })]`. What happens to a mod when the game is updated and a function's form changes?
 
 To check this, I made a "next version" of `CoinGame.cs` ([CoinGame2.cs](../examples/rea-lab/CoinGame2.cs)). I deliberately changed the following five places.
 
@@ -301,7 +301,7 @@ Although the name `Move` is the same, its argument form changed, so it appeared 
 
 The last row is also important. There are three 4-byte integer fields in each version. When there are several fields of the same type, REA did not decide the correspondence by name alone and reported "cannot be determined". The limitations field of the result also says, "Names alone are not used as grounds for matching." To a person, `X` and `X` look the same, but having the same name does not necessarily mean having the same role.
 
-Chapter 9 of the guide collection ([09-worked-example-passthrough-mod.md](https://github.com/trevaintdead/ai-game-modding-guides/blob/54a980970606f71996e6f25723d42fb9a95aaae5/guides/09-worked-example-passthrough-mod.md)), using SkyCraft as an example, recommends that a mod settle on one game version as its target and state it in the README. The purpose is to gather in one place what breaks when the game is updated. REA's comparison feature serves as a tool for checking, with evidence, what an update changed.
+REA's comparison feature serves as a tool for checking, with evidence, what an update changed.
 
 ### Finding the boundary with machine code (inspect-managed-native-boundaries)
 
@@ -403,7 +403,7 @@ Searching for the same `best.sav` with the text search in `trace-application-fea
 
 ## Ground rules
 
-As in this article, it is safest to start by examining things with REA that you made yourself or that the distributor has published. The approach to examining other people's programs is in chapter 13 of the guide collection introduced in [Cheats and passthrough](21-cheats-and-passthrough.md). The approach is to choose running and observing (black box) first, and limit decompilation to cases where observation does not produce an answer.
+As in this article, it is safest to start by examining things with REA that you made yourself or that the distributor has published.
 
 REA's `capture-process` runs a program with the current user's privileges. REA's documentation also says this is not a sandbox. Do not use this feature to run programs whose contents you do not know.
 

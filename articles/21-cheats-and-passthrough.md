@@ -6,7 +6,7 @@ At the end, it considers how to try the same idea on a small scale between the R
 
 ## Sources for this article
 
-The explanation proceeds by checking the following source code and guides at fixed commits. Links to explanatory pages such as Wikipedia are also placed in the body for explaining terms.
+The explanation proceeds by checking the following source code at fixed commits. Links to explanatory pages such as Wikipedia are also placed in the body for explaining terms.
 
 | Source | Commit | Where it is used |
 |---|---|---|
@@ -15,22 +15,7 @@ The explanation proceeds by checking the following source code and guides at fix
 | [libretro/mgba](https://github.com/libretro/mgba) | `e31759b` | The mGBA core used by ROCKNIX (a component for RetroArch) |
 | [RetroArch](https://github.com/libretro/RetroArch) | `015298c` | Cheat features, the feature for sending commands from outside |
 | [ROCKNIX](https://github.com/ROCKNIX/distribution) | `ae41127` | Default settings on the RG40XXH |
-| [ai-game-modding-guides](https://github.com/trevaintdead/ai-game-modding-guides) | `54a9809` | How to proceed with passthrough mods, rules to follow |
 | [SkyCraft](https://github.com/chasmlol/SkyCraft) | `bfcaf17` | Design of a passthrough mod |
-
-On November 2, 2026, the ai-game-modding-guides repository returned a 404 page on GitHub, so its links in this article and in articles 22 and 23 could not be opened. The descriptions of it are based on what was read at the commit above before it disappeared, and could not be rechecked.
-
-## Three ways of investigating
-
-Chapter 13 ([13-reverse-engineering-and-the-law.md](https://github.com/trevaintdead/ai-game-modding-guides/blob/54a980970606f71996e6f25723d42fb9a95aaae5/guides/13-reverse-engineering-and-the-law.md)) of ai-game-modding-guides, a collection of guides for people modding games with AI, divides ways of investigating a game into three.
-
-| Method | How much of the inside you see | Example in this repository |
-|---|---|---|
-| Black box | You do not look inside. You see only what goes in and what comes out | Trying things by playing. Looking at [save files](17-save-data.md) |
-| Gray box | You see only the data while it is running | The cheats and memory reading in this article |
-| White box | You read everything inside the program | The Pokémon reconstruction projects, [disassembly](20-cpu.md) |
-
-The guide recommends choosing black box whenever possible. Because nothing is copied, no copyright problems arise. The subject of this article falls in the next category, gray box. It does not read the program itself, and looks only at the numbers of a running game.
 
 ## The GBA memory map
 
@@ -126,7 +111,7 @@ flowchart TD
     E -->|Down to one| F[Register that address as a cheat]
 ```
 
-Each time the value changes, the candidates shrink, and the address left at the end is the address of your money. It does not read the game's program, and looks only at how numbers change while it runs. This is the typical gray box approach.
+Each time the value changes, the candidates shrink, and the address left at the end is the address of your money. It does not read the game's program, and looks only at how numbers change while it runs.
 
 [RetroAchievements](https://retroachievements.org/), which collects game achievements, is built on the same idea. According to its official description ([How RA Works](https://docs.retroachievements.org/general/how-ra-works.html)), achievements are judged by comparing values in the game's memory with conditions written by the author. It explains that achievement authors examine memory during play to find the addresses to use. There is also a caution that addresses may differ between versions of the same game ([Rom versions](https://retroachievements.org/forums/topic/3481?comment=24755)). In the RetroArch settings for H700 in ROCKNIX, RetroAchievements is off by default (`cheevos_enable = "false"` in [retroarch.cfg](https://github.com/ROCKNIX/distribution/blob/ae41127cee7e3e81b1ab3b17b676d91be5165e61/projects/ROCKNIX/packages/emulators/libretro/retroarch/sources/H700/retroarch.cfg)).
 
@@ -280,8 +265,6 @@ A passthrough mod runs two games at the same time and connects them so that they
 | Player position and physics calculations | Minecraft (window hidden, running in the background) |
 | Player health | Minecraft |
 
-Chapter 2 of the guide collection ([02-passthrough-mods.md](https://github.com/trevaintdead/ai-game-modding-guides/blob/54a980970606f71996e6f25723d42fb9a95aaae5/guides/02-passthrough-mods.md)) explains that whereas an ordinary mod "puts the contents of another game inside one game," passthrough is something where "neither works unless the other is running." Because two games run at the same time, the player needs to own both.
-
 ### How the two games talk
 
 The two games are connected by [shared memory](https://ja.wikipedia.org/wiki/%E5%85%B1%E6%9C%89%E3%83%A1%E3%83%A2%E3%83%AA). This is a method in which two programs open the same block of memory at the same time and read and write it. When one writes, the other can see it immediately. It can be used only within the same machine.
@@ -319,42 +302,6 @@ The same Wikipedia entry also says that seqlock cannot be used for data containi
 
 An event that happens only once (a block was placed, an attack landed) would be erased by the next write if it were written on the whiteboard. So events are written in order to a [ring buffer](https://ja.wikipedia.org/wiki/%E3%83%AA%E3%83%B3%E3%82%B0%E3%83%90%E3%83%83%E3%83%95%E3%82%A1). A ring buffer is a temporary place for data, used by joining its two ends into a ring. When the write position reaches the end, it returns to the start. SkyCraft's two ring buffers are both of the SPSC (single producer, single consumer) form, with one writer and one reader each.
 
-### Three design rules
-
-Chapter 2 of the guide collection lists three rules to tell the agent before starting to write.
-
-1. Define the protocol in one place and generate the code for both languages from it. SkyCraft generates both C++ and Java code from the protocol and checks both layouts with automated tests
-2. Lay everything out in fixed sizes and little-endian
-3. If one side crashes, the other survives. A heartbeat notices that the other side has stopped; if Minecraft crashes, control of Skyrim returns to the player, and if Skyrim crashes, Minecraft is stopped
-
-These are the same ideas as the mechanisms seen in the series. The [marker at the start of an ELF](20-cpu.md), the [little-endian numbers in the MBR](19-boot.md), and [the marker and two slots of Emerald's save](17-save-data.md) are all devices for not using data that has gone wrong.
-
-### The order of building
-
-Chapter 9 of the guide collection ([09-worked-example-passthrough-mod.md](https://github.com/trevaintdead/ai-game-modding-guides/blob/54a980970606f71996e6f25723d42fb9a95aaae5/guides/09-worked-example-passthrough-mod.md)) explains the flow from start to finish, with prompts for the agent.
-
-1. Choose a combination. The game in charge of the screen needs a tool that loads mods (mod loader), and the game running in the background needs a mechanism for modding (mod API)
-2. Decide first which game owns which values. In SkyCraft, the owner of the player's position is Minecraft, not Skyrim, which draws the screen
-3. Send just one value. Send the player's position every frame, and record the sent and received values on both sides and compare them
-4. Send one value in the reverse direction too
-5. Add features one at a time, each time testing by playing and then recording
-6. Fix stutter. Because two games run, about twice the memory is needed
-7. Align saving and loading, because each of the two games has its own save
-
-Chapter 9 lists as combinations that work the pairing of Skyrim, Fallout 4, or Outer Wilds with Minecraft, among others. The causes of lost time it lists are four: mods breaking when a game's version changes, differences in how the two games define coordinates, the two saves, and the screen and frame clocks competing with each other.
-
-### Ideas that do not work
-
-Chapter 2 of the guide collection also has a table of ideas that do not work.
-
-| Idea | Reason |
-|---|---|
-| Using an online game as the side running in the background | Out of scope. Goes against the rules in chapter 6 of the guide |
-| Using a game with neither a modding base nor source as the side in charge of the screen | You end up having to analyze the whole engine first |
-| Running the background game without drawing anything to the screen | Layering screens is the key, so it does not work without drawing |
-| Making the mod run on Linux or macOS | The modding bases are tools for Windows |
-| Distributing the second game's assets along with the mod | Distribute only the code and setup steps. The player provides the games |
-
 ## A small passthrough on the RG40XXH
 
 Mods like SkyCraft assume two large Windows games running at the same time. They are not suited to the RG40XXH, a Linux machine with 1GB of memory. Still, the idea of two programs exchanging numbers also applies to the combination of the RG40XXH and a Mac.
@@ -365,7 +312,6 @@ Mods like SkyCraft assume two large Windows games running at the same time. They
 | Owner of values | Minecraft owns the player's position | The RG40XXH's emulator owns the game state |
 | Header check | Marker and version number | Check the game's name and CRC32 with `GET_STATUS` |
 | Detecting that the other side stopped | Heartbeat | Send `GET_STATUS` at regular intervals and see whether a reply comes |
-| First step | Send one player position | Read one address and display it on the Mac's screen |
 
 ### Possible steps
 
@@ -384,12 +330,6 @@ Step 5 is the same idea as the reader side of a seqlock. Because Emerald moves t
 If the data you want to read is mixed with a key, as money is, you also need to read the key and undo the XOR. To read Pokémon data, you need to take into account that it is reordered by personality value and mixed with the ID and personality value, and restore it.
 
 ## Rules to follow
-
-Chapter 6 of the guide collection ([06-rules-legal-and-publishing.md](https://github.com/trevaintdead/ai-game-modding-guides/blob/54a980970606f71996e6f25723d42fb9a95aaae5/guides/06-rules-legal-and-publishing.md)) sets out rules for modding in general. Those relevant to cheats and passthrough are as follows.
-
-- Target only single-player or offline games. Do not touch online games or games with anti-cheat. Never publish tools, settings, or steps for bypassing anti-cheat
-- Check with the person using it before starting long automated operations or placing anything in a game folder
-- Do not put game files in the repository
 
 Regarding RetroArch's network commands, a comment in the source (`command_network_new` in command.c) gives a caution. If you do not specify where to listen, commands are accepted on all network interfaces, so anyone on the same network can send commands to load cores or write memory. It explains that if you use it only from the same machine, you can set `network_cmd_bind_address = "127.0.0.1"`. When operating the RG40XXH from a Mac, it is safest to enable it only on a trusted network such as your home network, and to turn it off when you are done.
 
