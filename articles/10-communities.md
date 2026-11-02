@@ -16,7 +16,7 @@ At the time the screenshot was taken, there were two popular posts. One mocks An
 
 There are also posts that give steps with photos, such as the RG40XXH cooling mod ([给RG40XXH改造散热](https://tieba.baidu.com/p/10191425150)). Its content is covered in [What you can modify](07-mods.md).
 
-Pokémon modding has two dedicated forums. [口袋妖怪改版吧](https://tieba.baidu.com/f?kw=%E5%8F%A3%E8%A2%8B%E5%A6%96%E6%80%AA%E6%94%B9%E7%89%88) has 50,000 followers and 127,000 posts, and was created on March 29, 2012. Its tabs include NDS and GBA tutorials, resource downloads, and videos. [口袋改版资源吧](https://tieba.baidu.com/f?kw=%E5%8F%A3%E8%A2%8B%E6%94%B9%E7%89%88%E8%B5%84%E6%BA%90) has 263,000 followers and 1,665,000 posts, and a pinned post holds a table of contents for the resources on the forum. Its tabs run in the order of 汉化 releases, 改版 releases, and 改版 tutorials.
+Pokémon modding has two dedicated forums. [口袋妖怪改版吧](https://tieba.baidu.com/f?kw=%E5%8F%A3%E8%A2%8B%E5%A6%96%E6%80%AA%E6%94%B9%E7%89%88) had 50,000 followers and 127,000 posts on November 2, 2026, and was created on March 29, 2012. Its tabs include NDS and GBA tutorials, resource downloads, and videos. [口袋改版资源吧](https://tieba.baidu.com/f?kw=%E5%8F%A3%E8%A2%8B%E6%94%B9%E7%89%88%E8%B5%84%E6%BA%90) had 263,000 followers and 1,665,000 posts on the same date, and a pinned post holds a table of contents for the resources on the forum. Its tabs run in the order of 汉化 releases, 改版 releases, and 改版 tutorials.
 
 On resource forums, file sharing is a daily occurrence. This article does not introduce where to obtain ROMs or BIOS files. The reason is that much game data circulates without the permission of the rights holders. How to think about rights is covered in [Handling ROMs and BIOS](12-roms-and-bios.md). For Pokémon modding itself, see [Pokémon ROM hacks](08-pokemon-hacking.md).
 
@@ -30,7 +30,7 @@ Videos are useful for showing screen movement, the size of the actual device, an
 
 ## Device databases
 
-[掌机圈](https://zhangjiquan.com/) is a site specializing in handheld game consoles. The top menu is divided into news, photos, a list of unreleased devices, a list of devices, and user-posted image posts (贴图). Device pages have a spec table, photos taken by users, ratings and comments, and purchase links, and there are also comparison pages that place two devices side by side (for example, [RG-40XXH and RG-406V](https://zhangjiquan.com/compare/rg-40xxh-vs-rg-406v)). Users can request corrections to specs.
+[掌机圈](https://zhangjiquan.com/) is a site specializing in handheld game consoles. The top menu is divided into news, photos, a list of upcoming devices, a list of devices, and spec comparison. Device pages have a spec table, photos taken by users, ratings and comments, and purchase links, and there are also comparison pages that place two devices side by side (for example, [RG-40XXH and RG-406V](https://zhangjiquan.com/compare/rg-40xxh-vs-rg-406v)). Users can request corrections to specs.
 
 This database is based on user posts, so it is not an official spec sheet. Purchase links are not dated, so prices on the pages are not necessarily current. Details on buying are summarized in [How to buy Chinese devices](09-buying.md).
 
@@ -56,13 +56,13 @@ For Retroid's Android devices, the English community is [r/retroid](https://www.
 
 Retroid's official site for China places a 社区 (community) menu and a 去发布帖子 (make a post) button at the top. The bottom of the page has entries for 官网社区, 使用指南, 下载中心, 视频, and 服务中心. There are also login and 注册 (registration) links. The site also had entries for its official account on 抖音 (the Chinese version of TikTok) and its 微信公众号 (official WeChat account) ([retroid.cn](https://www.retroid.cn/)). Pressing the 官网社区 link did not visibly move to another page this time, so the content of its posts was not seen.
 
-Anbernic's [official site](https://anbernic.com/) carries news articles. Articles from September 10 and 9, 2026 included an introduction to the RG DS Plus, an explanation of its differences from the RG DS, and a guide to switching GPU drivers on the RG 55G1. Support is by email or ticket, and the top page gives an average reply time of 24–48 hours. Manufacturer articles are the manufacturer's own explanations of its products' strengths.
+Anbernic's [official site](https://anbernic.com/) carries news articles. Articles from September 10 and 9, 2026 included an introduction to the RG DS Plus, an explanation of its differences from the RG DS, and a guide to switching GPU drivers on the RG 55G1. On November 2, 2026, the top page listed newer articles as well: the RG DS Linux V1.1 update (October 19) and an introduction to the RG DDS (October 9). Support is by email or ticket, and the top page gives an average reply time of 24–48 hours. Manufacturer articles are the manufacturer's own explanations of its products' strengths.
 
 ## Places that could not be confirmed
 
 Reddit could not be opened in the browser used in this research because of security restrictions. The content of r/retroid could not be confirmed. The ROCKNIX Discord invitation link displayed nothing when opened, so the server's content and rules could not be seen. Taobao required login on its search page, so shop reviews and inquiry contents were not seen either.
 
-Some sites' page content could not be read under the permission settings of the browser used in this research: knulli.org (Knulli's official site), muos.dev (muOS's official site), github.com, and pegasus-frontend.org. The contents of GitHub repositories were read with the `gh` command. Knulli's documentation was read from the `knulli-cfw/knulli.org` GitHub repository, and Pegasus's documentation from the `mmatyas/pegasus-docs` GitHub repository. The content of muOS's official site could not be read.
+On October 3, 2026, some sites' page content could not be read under the permission settings of the browser used in this research: knulli.org (Knulli's official site), muos.dev (muOS's official site), github.com, and pegasus-frontend.org. The contents of GitHub repositories were read with the `gh` command. Knulli's documentation was read from the `knulli-cfw/knulli.org` GitHub repository, and Pegasus's documentation from the `mmatyas/pegasus-docs` GitHub repository. On November 2, 2026, all four sites could be opened and read, and muos.dev displayed the name MustardOS. Reddit was still blocked.
 
 ## How to read user voices
 
