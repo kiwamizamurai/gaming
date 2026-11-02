@@ -60,6 +60,8 @@ Logging in cannot be done on your behalf, so searching these sites has to be don
 
 ## The proxy buying service CNFans
 
+On November 2, 2026, cnfans.com showed only a maintenance notice saying the site was under persistent cyberattacks and undergoing maintenance and upgrades, so the descriptions below are as of October 3, 2026. Check the current state before using it.
+
 CNFans is a proxy buying service that lets you search Taobao products without logging in. The search URL takes the form `https://cnfans.com/search?keywords=<Chinese keyword>&searchType=keywords`, and prices are shown in US dollars. You can choose currencies such as USD, EUR, and CNY, but not Japanese yen.
 
 The shorter the search keyword, the better the matches. Short terms such as "安伯尼克 RG406V" listed products for the device, but adding terms, as in "安伯尼克 256G 游戏内存卡", mixed in unrelated products such as SD cards for dash cams. Product names are shown in machine-translated English, so the meaning can drift from the original Chinese name.

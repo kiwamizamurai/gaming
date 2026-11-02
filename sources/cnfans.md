@@ -1,6 +1,6 @@
 # CNFans listings and terms
 
-The type is an overseas-facing service that buys products from Taobao and 1688 on your behalf. The URL is https://cnfans.com/ and search takes the form `https://cnfans.com/search?keywords=<Chinese>&searchType=keywords`. Reliability is seller, so what the pages state can be treated as fact as it stands. However, CNFans states explicitly that it does not guarantee the quality of the products themselves. The browser check was done on October 3, 2026. The URLs of individual products were masked in the tool output, so they are recorded by way of opening them from the search screen.
+The type is an overseas-facing service that buys products from Taobao and 1688 on your behalf. The URL is https://cnfans.com/ and search takes the form `https://cnfans.com/search?keywords=<Chinese>&searchType=keywords`. Reliability is seller, so what the pages state can be treated as fact as it stands. However, CNFans states explicitly that it does not guarantee the quality of the products themselves. The browser check was done on October 3, 2026. On November 2, 2026, the site showed only a maintenance notice citing persistent cyberattacks, so the search and listings could not be rechecked. The URLs of individual products were masked in the tool output, so they are recorded by way of opening them from the search screen.
 
 ## Observations on use
 
