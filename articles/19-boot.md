@@ -1,94 +1,94 @@
-# 電源を入れてから
+# After you turn on the power
 
-[OSの仕組み](18-os.md)の続きです。この記事では、電源を入れてから、カーネルが動き出すまでに何が起きているかを扱います。SDカードの「見えない場所」、[CFWを入れる手順](04-install-cfw.md)に出てくる `dtb.img` の正体、DDR3版とDDR4版の違いを、ROCKNIXのソースコード(コミット `ae41127`)で確かめます。
+This continues from [How the OS works](18-os.md). This article covers what happens between turning on the power and the kernel starting to run. It uses the ROCKNIX source code (commit `ae41127`) to check the "hidden areas" of the SD card, what the `dtb.img` that appears in the [steps for installing CFW](04-install-cfw.md) really is, and the difference between the DDR3 and DDR4 versions.
 
-## 2つの困りごと
+## Two problems
 
-[OSの仕組み](18-os.md)では、メニューを起動するのはOSだと説明しました。では、そのOSを起動するのは誰でしょうか。
+[How the OS works](18-os.md) explained that the OS starts the menu. Then who starts the OS?
 
-1つ目の困りごとは、順番です。OSはSDカードに入っています。SDカードを読むにはプログラムが必要ですが、そのプログラムもSDカードの中にあります。電源を入れた直後は、まだ何のプログラムも動いていません。
+The first problem is order. The OS is on the SD card. Reading the SD card requires a program, but that program is also on the SD card. Right after the power comes on, no program is running yet.
 
-2つ目の困りごとは、作業台です。RG40XXHには1GBのメモリがありますが、電源を入れた直後は、このメモリをまだ使えません。メモリは、決まった手順で設定してはじめて使える部品だからです。使えるのは、チップの中にある小さな記憶だけです。
+The second problem is the workbench. The RG40XXH has 1GB of memory, but right after the power comes on, this memory cannot be used yet. Memory is a component that becomes usable only after being configured through a set procedure. All that can be used is a small memory inside the chip.
 
-この2つを、小さなプログラムから大きなプログラムへ、順に役目を渡していく形で解決します。起動を英語でbootと言うのは、靴(boot)のつまみ紐を自分で引っ張って自分を持ち上げる、という言い回しから来ています。
+These two problems are solved by handing the role along in order, from small programs to larger ones. Starting up is called boot in English because of the expression about lifting yourself up by pulling on the straps of your own boots.
 
-## 起動のリレー
+## The boot relay
 
 ```mermaid
 flowchart TD
-    A[電源を入れる] --> B[BootROM<br>チップに焼き込まれたプログラム]
-    B -->|SDカードの8KiBの位置を読む| C[SPL<br>U-Bootの前半。メモリを使える状態にする]
-    C --> D[U-Boot<br>ファイルを読み、指示書に従う]
-    D -->|KERNELとdtb.imgを読み込む| E[Linuxのカーネル]
-    E --> F[init、systemd、メニュー<br>記事18の流れ]
+    A[Turn on the power] --> B[BootROM<br>program burned into the chip]
+    B -->|Reads the 8KiB position on the SD card| C[SPL<br>first half of U-Boot. Makes memory usable]
+    C --> D[U-Boot<br>reads files and follows the instruction sheet]
+    D -->|Loads KERNEL and dtb.img| E[Linux kernel]
+    E --> F[init, systemd, menu<br>the flow in article 18]
 ```
 
-役目を渡すたびに、できることが増えていく流れです。
+Each handover adds to what can be done.
 
-| 段階 | どこで動くか | できること |
+| Stage | Where it runs | What it can do |
 |---|---|---|
-| BootROM | チップの中。書き換えられない | 決まった位置を読むことだけ。ファイルは分からない |
-| SPL | チップの中の小さな記憶 | 1GBのメモリを使える状態にする |
-| U-Boot | 1GBのメモリ | ファイルシステムを読み、指示書に従ってカーネルを読み込む |
-| カーネル | 1GBのメモリ | OSとして、すべての部品を扱う |
+| BootROM | Inside the chip. Cannot be rewritten | Only read a fixed position. It does not understand files |
+| SPL | Small memory inside the chip | Make the 1GB of memory usable |
+| U-Boot | 1GB of memory | Read the file system and load the kernel according to the instruction sheet |
+| Kernel | 1GB of memory | Handle all components as the OS |
 
-## SDカードの見えない場所
+## The hidden areas of the SD card
 
-BootROMは、ファイルというものを知りません。決まった位置を読むことしかできません。そのため、次のSPLとU-Bootは、ファイルとしてではなく、SDカードの決まった位置に直接書かれています。
+The BootROM has no notion of files. All it can do is read a fixed position. So the next stages, SPL and U-Boot, are written directly to a fixed position on the SD card, not as files.
 
-ROCKNIXのイメージ作成のスクリプトは、H700用のU-Bootを、カードの先頭から8KiBの位置にそのまま書き込みます([bootloader/mkimage](https://github.com/ROCKNIX/distribution/blob/ae41127cee7e3e81b1ab3b17b676d91be5165e61/projects/ROCKNIX/bootloader/mkimage))。
+The ROCKNIX image creation script writes the U-Boot for H700 as is to the position 8KiB from the start of the card ([bootloader/mkimage](https://github.com/ROCKNIX/distribution/blob/ae41127cee7e3e81b1ab3b17b676d91be5165e61/projects/ROCKNIX/bootloader/mkimage)).
 
 ```sh
 dd if="${RELEASE_DIR}/3rdparty/bootloader/H700_${SUBDEVICE}_u-boot-sunxi-with-spl.bin" of="${DISK}" bs=1K seek=8 conv=fsync,notrunc
 ```
 
-`bs=1K seek=8` が、1KiB単位で8つ進んだ位置、つまり8KiBの位置に書くという意味です。ファイル名の `with-spl` は、SPLとU-Bootが1つにまとめられていることを表しています。H700のU-Bootのビルドの設定には、セキュリティにかかわる小さなプログラム(ATFのBL31)をSPLに含める、という説明もあります([u-boot-DDR4のpackage.mk](https://github.com/ROCKNIX/distribution/blob/ae41127cee7e3e81b1ab3b17b676d91be5165e61/projects/ROCKNIX/devices/H700/packages/u-boot-DDR4/package.mk))。
+`bs=1K seek=8` means writing at a position 8 units of 1KiB ahead, that is, at the 8KiB position. The `with-spl` in the file name indicates that SPL and U-Boot are combined into one. The build settings for the H700 U-Boot also include a description saying that a small security-related program (ATF's BL31) is included in the SPL ([u-boot-DDR4 package.mk](https://github.com/ROCKNIX/distribution/blob/ae41127cee7e3e81b1ab3b17b676d91be5165e61/projects/ROCKNIX/devices/H700/packages/u-boot-DDR4/package.mk)).
 
-8KiBの位置に何があればよいかは、U-Bootのソースが手がかりになります。[sunxi_image.h](https://github.com/u-boot/u-boot/blob/8d7bc8add17bbc69a58dfe0002eea039dd2dc1bc/include/sunxi_image.h)は、Allwinnerのチップ向けの起動用イメージの見出しを定義していて、その目印を `eGON.BT0` としています。
+The U-Boot source gives a clue to what needs to be at the 8KiB position. [sunxi_image.h](https://github.com/u-boot/u-boot/blob/8d7bc8add17bbc69a58dfe0002eea039dd2dc1bc/include/sunxi_image.h) defines the header of boot images for Allwinner chips, and gives its marker as `eGON.BT0`.
 
-### SDカードの地図
+### A map of the SD card
 
-イメージ作成の設定([distributions/ROCKNIX/options](https://github.com/ROCKNIX/distribution/blob/ae41127cee7e3e81b1ab3b17b676d91be5165e61/distributions/ROCKNIX/options))と、作成のスクリプト([scripts/mkimage](https://github.com/ROCKNIX/distribution/blob/ae41127cee7e3e81b1ab3b17b676d91be5165e61/scripts/mkimage))から、書き込んだ直後のSDカードの並びは次の表のとおりです。セクターは、カードを512バイトずつに区切った単位です。
+From the image creation settings ([distributions/ROCKNIX/options](https://github.com/ROCKNIX/distribution/blob/ae41127cee7e3e81b1ab3b17b676d91be5165e61/distributions/ROCKNIX/options)) and the creation script ([scripts/mkimage](https://github.com/ROCKNIX/distribution/blob/ae41127cee7e3e81b1ab3b17b676d91be5165e61/scripts/mkimage)), the layout of the SD card right after writing is as in the following table. A sector is a unit that divides the card into 512-byte pieces.
 
-| 位置 | 中身 | 決めている設定 |
+| Position | Contents | Setting that determines it |
 |---|---|---|
-| 0セクター目 | MBR(パーティションの目次) | `PARTITION_TABLE="msdos"` |
-| 8KiBの位置 | SPLとU-Boot。ファイルではない | `bs=1K seek=8` |
-| 32768セクター目(16MiB)から2GB | 起動用の領域(FAT、名前は `ROCKNIX`) | `SYSTEM_PART_START=32768`、`SYSTEM_SIZE=2048` |
-| その後ろの32MB | 自分の領域(ext4、名前は `STORAGE`) | `STORAGE_SIZE=32` |
+| Sector 0 | MBR (table of contents of partitions) | `PARTITION_TABLE="msdos"` |
+| 8KiB position | SPL and U-Boot. Not a file | `bs=1K seek=8` |
+| 2GiB from sector 32768 (16MiB) | Boot area (FAT, named `ROCKNIX`) | `SYSTEM_PART_START=32768`, `SYSTEM_SIZE=2048` |
+| The 32MiB after that | Your own area (ext4, named `STORAGE`) | `STORAGE_SIZE=32` |
 
-自分の領域が32MBしかないのは、初回の起動で、カードの残りいっぱいまで広げる作りだからです([OSの仕組み](18-os.md))。
+Your own area is only 32MiB because it is designed to expand to fill the rest of the card on the first boot ([How the OS works](18-os.md)).
 
-### ダミーのイメージで確かめたこと
+### What was checked with a dummy image
 
-この調査では、上の設定値どおりの配置で、中身がダミーのイメージを作って確かめました。MBRのパーティションの表を読むと、次の数が並んでいました。数は小さい桁から順に並べて書かれます(リトルエンディアン)。
+In this research, an image with dummy contents was created using the layout of the above settings, and checked. Reading the partition table in the MBR showed the following numbers. Numbers are written starting from the lowest digits (little-endian).
 
-| 区画 | 起動の印 | 種類 | 開始のセクター | セクター数 |
+| Partition | Boot flag | Type | Start sector | Sector count |
 |---|---|---|---|---|
-| 1つ目 | `80`(起動できる) | `0c`(FAT32) | `00 80 00 00` = 32768 | `00 00 40 00` = 4194304(2GiB) |
-| 2つ目 | `00` | `83`(Linux) | `00 80 40 00` = 4227072 | `00 00 01 00` = 65536(32MiB) |
+| First | `80` (bootable) | `0c` (FAT32) | `00 80 00 00` = 32768 | `00 00 40 00` = 4194304 (2GiB) |
+| Second | `00` | `83` (Linux) | `00 80 40 00` = 4227072 | `00 00 01 00` = 65536 (32MiB) |
 
-MBRの最後の2バイトは `55 aa` で、これがMBRであることの目印です。
+The last two bytes of the MBR are `55 aa`, which is the marker showing it is an MBR.
 
-16MiBより手前は、どのファイルシステムにも属していません。MacのFinderやWindowsのエクスプローラーからは見えない場所です。この調査では、ファイルだけを別のカードの形のイメージにコピーし、8KiBの位置が空のままになることも確かめました。
+The area before 16MiB does not belong to any file system. It cannot be seen from the Mac's Finder or Windows Explorer. This research also copied only the files to another card-shaped image, and confirmed that the 8KiB position stays empty.
 
 ```mermaid
 flowchart LR
-    A[元のカード<br>MBR、U-Boot、FAT、ext4] -->|Finderでファイルをコピー| B[新しいカード<br>ファイルだけ。8KiBの位置は空]
-    A -->|先頭から最後まで丸ごと写す| C[新しいカード<br>U-Bootも含めて同じ]
-    B -.-> X[BootROMが何も見つけられず、起動しない]
-    C -.-> Y[起動する]
+    A[Original card<br>MBR, U-Boot, FAT, ext4] -->|Copy files in Finder| B[New card<br>files only. 8KiB position is empty]
+    A -->|Copy whole card, start to finish| C[New card<br>identical, including U-Boot]
+    B -.-> X[BootROM finds nothing and it does not boot]
+    C -.-> Y[It boots]
 ```
 
-付属のSDカードを保存しておきたいときは、ファイルをコピーするのではなく、カードの先頭から最後までを丸ごと写し取ります。
+If you want to keep the bundled SD card, do not copy its files; copy the whole card from start to finish.
 
-## DDR3版とDDR4版がある理由
+## Why there are DDR3 and DDR4 versions
 
-SPLの大事な仕事は、メモリを使える状態にすることです。メモリの種類によって、その手順が違います。
+An important job of the SPL is to make memory usable. The procedure differs by memory type.
 
-ROCKNIXは、H700向けにU-Bootを2種類ビルドし、イメージもDDR3版とDDR4版の2種類を作ります([config.xml](https://github.com/ROCKNIX/distribution/blob/ae41127cee7e3e81b1ab3b17b676d91be5165e61/projects/ROCKNIX/config.xml))。DDR4版のU-Bootの設定名は `anbernic_rg35xx_h700_lpddr4_defconfig` で、メモリの種類に合わせた設定を使っています(u-boot-DDR4のpackage.mk)。
+ROCKNIX builds two kinds of U-Boot for H700 and also creates two images, a DDR3 version and a DDR4 version ([config.xml](https://github.com/ROCKNIX/distribution/blob/ae41127cee7e3e81b1ab3b17b676d91be5165e61/projects/ROCKNIX/config.xml)). The configuration name of the DDR4 U-Boot is `anbernic_rg35xx_h700_lpddr4_defconfig`, a configuration matched to the memory type (u-boot-DDR4 package.mk).
 
-起動後の更新のスクリプト([update.sh](https://github.com/ROCKNIX/distribution/blob/ae41127cee7e3e81b1ab3b17b676d91be5165e61/projects/ROCKNIX/devices/H700/bootloader/update.sh))は、メモリにかかっている電圧を読んで、どちらのU-Bootを書き込むかを決めています。
+The update script that runs after boot ([update.sh](https://github.com/ROCKNIX/distribution/blob/ae41127cee7e3e81b1ab3b17b676d91be5165e61/projects/ROCKNIX/devices/H700/bootloader/update.sh)) reads the voltage applied to the memory and decides which U-Boot to write.
 
 ```sh
 case "$DCDC3_MICROVOLTS" in
@@ -101,11 +101,11 @@ case "$DCDC3_MICROVOLTS" in
 esac
 ```
 
-1.2Vならば DDR3版、1.1Vならば DDR4版です。RG40XXHのメモリは、掌机圈ではLPDDR4と記載されています([主要機種の違い](02-devices.md))。DDR4版が合うはずですが、ダウンロードの前に、ROCKNIXの機種のページで確かめます。
+1.2V means the DDR3 version, and 1.1V means the DDR4 version. The RG40XXH's memory is listed as LPDDR4 on 掌机圈 ([Differences between the main devices](02-devices.md)). The DDR4 version should fit, but check on the ROCKNIX device page before downloading.
 
-## U-Bootの指示書
+## U-Boot's instruction sheet
 
-U-Bootは、FATの起動用の領域にある `extlinux/extlinux.conf` を読み、そこに書かれたとおりにカーネルを読み込みます。H700では、イメージ作成時に次の内容で作られます(bootloader/mkimage の `mkimage_extlinux`、config.xml の `fdt="dtb.img"`、H700のoptions の `EXTRA_CMDLINE`)。
+U-Boot reads `extlinux/extlinux.conf` in the FAT boot area and loads the kernel as written there. On H700, it is created at image creation with the following contents (`mkimage_extlinux` in bootloader/mkimage, `fdt="dtb.img"` in config.xml, `EXTRA_CMDLINE` in the H700 options).
 
 ```
 LABEL ROCKNIX
@@ -114,23 +114,23 @@ LABEL ROCKNIX
   APPEND boot=LABEL=ROCKNIX disk=LABEL=STORAGE quiet console=ttyS0,115200 console=tty0 systemd.debug_shell=ttyS0
 ```
 
-| 行 | 意味 |
+| Line | Meaning |
 |---|---|
-| `LINUX /KERNEL` | カーネルは、FATの `KERNEL` というファイル |
-| `FDT /dtb.img` | DTBは、FATの `dtb.img` というファイル |
-| `APPEND boot=LABEL=ROCKNIX` | 起動用の領域は、`ROCKNIX` という名前の領域 |
-| `APPEND disk=LABEL=STORAGE` | 自分の領域は、`STORAGE` という名前の領域 |
+| `LINUX /KERNEL` | The kernel is the file named `KERNEL` in the FAT area |
+| `FDT /dtb.img` | The DTB is the file named `dtb.img` in the FAT area |
+| `APPEND boot=LABEL=ROCKNIX` | The boot area is the area named `ROCKNIX` |
+| `APPEND disk=LABEL=STORAGE` | Your own area is the area named `STORAGE` |
 
-`APPEND` の行は、カーネルとinitに渡す伝言です。init は、この名前を手がかりに、[OSの仕組み](18-os.md)の `/flash` と `/storage` をつなぎます。
+The `APPEND` line is a message passed to the kernel and init. Using these names as clues, init attaches the `/flash` and `/storage` described in [How the OS works](18-os.md).
 
-## DTBは機械の間取り図
+## The DTB is the machine's floor plan
 
-カーネルは、DTB(デバイスツリー)という間取り図を受け取って、画面やボタンやLEDが、チップのどの線につながっているかを知ります。同じH700を使う機種でも、画面の部品やボタンの配線は機種ごとに違うものです。
+The kernel receives a floor plan called the DTB (device tree) and learns from it which lines of the chip the screen, buttons, and LEDs are connected to. Even among devices using the same H700, screen components and button wiring differ by device.
 
-ROCKNIXのイメージは、1枚でH700を使う多くの機種に対応しています。カーネルは共通で、機種ごとのDTBを `device_trees` のフォルダにまとめて入れています。
+One ROCKNIX image supports many devices using the H700. The kernel is shared, and the per-device DTBs are gathered in the `device_trees` folder.
 
 ```
-FAT(起動用の領域)
+FAT (boot area)
 ├── KERNEL
 ├── SYSTEM
 ├── extlinux/extlinux.conf
@@ -138,13 +138,13 @@ FAT(起動用の領域)
 │   ├── sun50i-h700-anbernic-rg35xx-h.dtb
 │   ├── sun50i-h700-anbernic-rg40xx-h.dtb
 │   ├── sun50i-h700-anbernic-rg40xx-h-v2-panel.dtb
-│   └── (ほかの機種)
-└── dtb.img   ← 自分で置く
+│   └── (other devices)
+└── dtb.img   ← you place this yourself
 ```
 
-### RG40XXHの間取り図の中身
+### Inside the RG40XXH's floor plan
 
-DTBの元になるのは、DTSという文章です。RG40XX H用のDTS([sun50i-h700-anbernic-rg40xx-h.dts](https://github.com/ROCKNIX/distribution/blob/ae41127cee7e3e81b1ab3b17b676d91be5165e61/projects/ROCKNIX/devices/H700/linux/dts/allwinner/sun50i-h700-anbernic-rg40xx-h.dts))は38行しかありません。RG35XX Plusの間取り図を読み込み、違うところだけを書き足す形だからです。
+The DTB is made from a text called DTS. The DTS for the RG40XX H ([sun50i-h700-anbernic-rg40xx-h.dts](https://github.com/ROCKNIX/distribution/blob/ae41127cee7e3e81b1ab3b17b676d91be5165e61/projects/ROCKNIX/devices/H700/linux/dts/allwinner/sun50i-h700-anbernic-rg40xx-h.dts)) is only 38 lines. This is because it loads the RG35XX Plus floor plan and adds only what differs.
 
 ```dts
 #include "sun50i-h700-anbernic-rg35xx-plus.dts"
@@ -156,22 +156,22 @@ DTBの元になるのは、DTSという文章です。RG40XX H用のDTS([sun50i-
 };
 ```
 
-| 書き足している部分 | 内容 |
+| Added part | Contents |
 |---|---|
-| `model`、`compatible` | 機種の名前と、どの機種向けかの印 |
-| `rocknix-dt-id` | ROCKNIXが機種を見分けるための名前 |
-| `&joypad` | スティックの軸の向きを反転する設定など |
-| `&uart5` | シリアル通信の端子(UART)を有効にする |
-| `&leds` | RGBのLEDがつながっている線(PI7) |
-| `&panel` | 画面の部品の種類(`anbernic,rg40xx-panel`) |
+| `model`, `compatible` | The device name, and a mark of which device it is for |
+| `rocknix-dt-id` | The name ROCKNIX uses to identify the device |
+| `&joypad` | Settings such as reversing the direction of stick axes |
+| `&uart5` | Enables the serial communication pins (UART) |
+| `&leds` | The line the RGB LEDs are connected to (PI7) |
+| `&panel` | The type of screen component (`anbernic,rg40xx-panel`) |
 
-画面の新しい版のDTS([v2-panel](https://github.com/ROCKNIX/distribution/blob/ae41127cee7e3e81b1ab3b17b676d91be5165e61/projects/ROCKNIX/devices/H700/linux/dts/allwinner/sun50i-h700-anbernic-rg40xx-h-v2-panel.dts))は、さらに短い14行です。RG40XX Hの間取り図を読み込み、画面の部品の種類を `anbernic,rg40xx-v2-panel` に変えているだけでした。2つのDTBの違いは、画面の部品だけだと分かります。画面が乱れたら、もう一方を試すことになりそうです。どちらが合うかは、実機で確かめます。
+The DTS for the newer version of the screen ([v2-panel](https://github.com/ROCKNIX/distribution/blob/ae41127cee7e3e81b1ab3b17b676d91be5165e61/projects/ROCKNIX/devices/H700/linux/dts/allwinner/sun50i-h700-anbernic-rg40xx-h-v2-panel.dts)) is even shorter, at 14 lines. It only loads the RG40XX H floor plan, sets its own `rocknix-dt-id`, and changes the type of screen component to `anbernic,rg40xx-v2-panel`. This shows that, apart from that identifying name, the only difference between the two DTBs is the screen component. If the screen is garbled, it seems you would try the other one. Which one fits is to be checked on the device.
 
-### dtb.imgを人がコピーする理由
+### Why a person copies dtb.img
 
-指示書には `FDT /dtb.img` という固定の名前しか書かれていません。起動の時点のソフトには、どの機種に挿されたかを知る手段がありません。そのため、[CFWを入れる手順](04-install-cfw.md)では、自分の機種のDTBを `device_trees` からコピーし、`dtb.img` という名前で置きます。人が機種を教えているわけです。
+The instruction sheet has only the fixed name `FDT /dtb.img`. The software at the boot stage has no way of knowing which device it has been inserted into. So in the [steps for installing CFW](04-install-cfw.md), you copy your device's DTB from `device_trees` and place it under the name `dtb.img`. A person is telling it the device.
 
-一度起動すれば、カーネルは間取り図の `rocknix-dt-id` で自分の機種を知っています。更新のスクリプトは、その名前を `/proc/device-tree/rocknix-dt-id` から読み、同じ名前のDTBで `dtb.img` を差し替えます(update.sh)。手作業が最初の1回だけで済むのは、このためです。
+Once booted, the kernel knows its own device from the floor plan's `rocknix-dt-id`. The update script reads that name from `/proc/device-tree/rocknix-dt-id` and replaces `dtb.img` with the DTB of the same name (update.sh). This is why the manual work is needed only the first time.
 
 ```sh
 DT_ID=$(cat /proc/device-tree/rocknix-dt-id)
@@ -182,29 +182,29 @@ if [ -f "$UPDATE_DTB_SOURCE" ]; then
 fi
 ```
 
-## うまく起動しないときの見当
+## Guessing what is wrong when it does not boot
 
-起動の順番が分かると、どこで止まったかの見当がつきます。次の表は仕組みから考えた目安で、実機ではまだ確かめていません。
+Knowing the boot order gives you an idea of where it stopped. The following table is a guide reasoned from how things work, and has not yet been checked on a device.
 
-| 症状 | 止まった段階の見当 | 考えられる原因 |
+| Symptom | Likely stage where it stopped | Possible causes |
 |---|---|---|
-| 画面が暗いまま何も起きない | BootROMからU-Bootまで | 書き込みの失敗、ファイルのコピーだけで作ったカード、DDR3版とDDR4版の取り違え |
-| 起動しているが、画面が乱れる | カーネルとDTB | `dtb.img` の版が合っていない |
-| ロゴは出るが、メニューまで進まない | initからsystemdまで | `/storage` の用意や、メニューの起動 |
+| The screen stays dark and nothing happens | BootROM through U-Boot | A failed write, a card made only by copying files, using the wrong one of the DDR3 and DDR4 versions |
+| It boots, but the screen is garbled | Kernel and DTB | The version of `dtb.img` does not fit |
+| The logo appears, but it does not reach the menu | init through systemd | Preparing `/storage`, or starting the menu |
 
-## この記事で出てくる中国語
+## Chinese terms in this article
 
-中国語は、このリポジトリのほかの記事で出典を確認した語から、この記事の話題に関わるものを選びました。
+The Chinese terms here were selected for their relevance to this article's topic from words whose sources were confirmed in other articles in this repository.
 
-| 中国語 | ピンイン | 日本語の意味 | 出典 |
+| Chinese | Pinyin | Meaning | Source |
 |---|---|---|---|
-| 刷机 | shuā jī | 機器のOSを書き換えること | [百度の検索結果](https://www.baidu.com/s?wd=RG40XXH%20%E5%88%B7%E6%9C%BA%20%E5%9B%BA%E4%BB%B6%20Knulli%20%E6%95%99%E7%A8%8B) |
-| 固件 | gùjiàn | ファームウェア | [百度の検索結果](https://www.baidu.com/s?wd=RG40XXH%20%E5%88%B7%E6%9C%BA%20%E5%9B%BA%E4%BB%B6%20Knulli%20%E6%95%99%E7%A8%8B) |
-| 格式化 | géshìhuà | フォーマットすること | [百度の検索結果](https://www.baidu.com/s?wd=RG40XXH%20%E5%88%B7%E6%9C%BA%20%E5%9B%BA%E4%BB%B6%20Knulli%20%E6%95%99%E7%A8%8B) |
-| 读卡器 | dúkǎqì | カードリーダー | [百度の検索結果](https://www.baidu.com/s?wd=RG40XXH%20%E5%88%B7%E6%9C%BA%20%E5%9B%BA%E4%BB%B6%20Knulli%20%E6%95%99%E7%A8%8B) |
-| 变砖 | biànzhuān | 機器が起動しなくなること(いわゆる文鎮化) | [百度の検索結果](https://www.baidu.com/s?wd=RG40XXH%20%E5%88%B7%E6%9C%BA%20%E5%9B%BA%E4%BB%B6%20Knulli%20%E6%95%99%E7%A8%8B) |
-| 启动速度 | qǐdòng sùdù | 起動の速さ | [CSDN](https://blog.csdn.net/fanged/article/details/152960565) |
+| 刷机 | shuā jī | Rewriting a device's OS | [Baidu search results](https://www.baidu.com/s?wd=RG40XXH%20%E5%88%B7%E6%9C%BA%20%E5%9B%BA%E4%BB%B6%20Knulli%20%E6%95%99%E7%A8%8B) |
+| 固件 | gùjiàn | Firmware | [Baidu search results](https://www.baidu.com/s?wd=RG40XXH%20%E5%88%B7%E6%9C%BA%20%E5%9B%BA%E4%BB%B6%20Knulli%20%E6%95%99%E7%A8%8B) |
+| 格式化 | géshìhuà | Formatting | [Baidu search results](https://www.baidu.com/s?wd=RG40XXH%20%E5%88%B7%E6%9C%BA%20%E5%9B%BA%E4%BB%B6%20Knulli%20%E6%95%99%E7%A8%8B) |
+| 读卡器 | dúkǎqì | Card reader | [Baidu search results](https://www.baidu.com/s?wd=RG40XXH%20%E5%88%B7%E6%9C%BA%20%E5%9B%BA%E4%BB%B6%20Knulli%20%E6%95%99%E7%A8%8B) |
+| 变砖 | biànzhuān | A device no longer booting (so-called bricking) | [Baidu search results](https://www.baidu.com/s?wd=RG40XXH%20%E5%88%B7%E6%9C%BA%20%E5%9B%BA%E4%BB%B6%20Knulli%20%E6%95%99%E7%A8%8B) |
+| 启动速度 | qǐdòng sùdù | Boot speed | [CSDN](https://blog.csdn.net/fanged/article/details/152960565) |
 
-## 学べること
+## What you learn
 
-電源を入れた直後は、プログラムも動いておらず、メモリも使えません。そこで、BootROM、SPL、U-Boot、カーネルの順に、小さなものから役目を渡していきます。BootROMは決まった位置しか読めないので、最初のプログラムはSDカードのファイルシステムの外に置かれ、カードの保存は丸ごと写す必要があります。カーネルは、DTBという間取り図で機種の部品の配置を知る仕組みでした。`dtb.img` は、起動前のソフトに機種を教えるために、人が置くファイルでした。次の [CPUと機械語](20-cpu.md) では、いちばん下の層で、CPUが実際に何をしているかを見ます。
+Right after the power comes on, no program is running and memory cannot be used. So the role is handed along from small to large: BootROM, SPL, U-Boot, then the kernel. Because the BootROM can read only a fixed position, the first program is placed outside the SD card's file system, and keeping a copy of the card requires copying the whole thing. The kernel learns the layout of the device's components from a floor plan called the DTB. `dtb.img` is a file a person places to tell the pre-boot software which device it is. The next article, [CPUs and machine code](20-cpu.md), looks at what the CPU actually does at the lowest layer.

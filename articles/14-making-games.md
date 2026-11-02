@@ -1,68 +1,68 @@
-# 自作ゲームを作る方法とオープンソースのツール
+# How to make your own games and open source tools
 
-携帯機で遊ぶ自作ゲームは、機種ごとに作り方が違います。この記事では、ゲームボーイ、ゲームボーイアドバンス、Linux系の携帯機の三つに分けて、プログラミングの方法とオープンソースのツールを整理します。出典は公式のページです。作ったゲームの配布先は [自分で用意するデータと権利のないゲーム](13-own-data-and-free-games.md) にあります。
+The way to make your own games to play on a handheld differs by system. This article sorts out programming methods and open source tools in three parts: the Game Boy, the Game Boy Advance, and Linux-based handhelds. The sources are official pages. Places to distribute the games you make are in [Preparing your own data and rights-free games](13-own-data-and-free-games.md).
 
-## コードを書かずに作る
+## Making games without writing code
 
-プログラミングの経験がなくても、ゲームボーイのゲームは作れます。[GB Studio](https://www.gbstudio.dev/)は、ドラッグ&ドロップで作るゲーム制作ツールです。公式のページによると、見下ろし型、プラットフォーム型、シューティングなどを作れ、音楽の編集機能も内蔵しています。完成したゲームは本物のROMファイルとして書き出せるので、ゲームボーイのエミュレーターで遊べます。ブラウザ用の書き出しもあり、itch.ioへの公開も可能です。対応OSはWindows、Mac、Linuxです。ソースコードは[GitHub](https://github.com/chrismaltby/gb-studio)にあり、ライセンスはMITと確認できました。
+You can make Game Boy games without programming experience. [GB Studio](https://www.gbstudio.dev/) is a drag-and-drop game creation tool. According to the official page, it can make top-down games, platformers, shooters, and more, and it has a built-in music editor. A finished game can be exported as a real ROM file, so it can be played on a Game Boy emulator. There is also a browser export, and publishing to itch.io is possible. The supported OSes are Windows, Mac, and Linux. The source code is on [GitHub](https://github.com/chrismaltby/gb-studio), and the license was confirmed to be MIT.
 
-![GB Studioの公式サイト](../assets/screenshots/gb-studio-home.jpg)
+![The official GB Studio site](../assets/screenshots/gb-studio-home.jpg)
 
-## ゲームボーイをCやアセンブリで作る
+## Making Game Boy games in C or assembly
 
-コミュニティの[gbdev.io](https://gbdev.io/)は、ゲームボーイの開発に取り組む非営利の集まりです。技術資料のPan Docs、資料集のawesome-gbdev、アセンブラのRGBDS、CコンパイラのGBDK 2020などを運営しています。[資料の一覧ページ](https://gbdev.io/resources.html)は、道具を種類ごとに並べた一覧です。
+The community [gbdev.io](https://gbdev.io/) is a non-profit group working on Game Boy development. It runs the technical reference Pan Docs, the resource collection awesome-gbdev, the assembler RGBDS, the C compiler GBDK-2020, and more. Its [resource list page](https://gbdev.io/resources.html) lists tools by type.
 
-アセンブラでは、[RGBDS](https://github.com/gbdev/rgbds)が、ゲームボーイとゲームボーイカラー向けの標準的な開発ツールと位置づけられています。ライセンスはMITです。ブラウザ上で試せるRGBDS-Liveもあります。学習用には、アセンブリで作るチュートリアル「GB ASM Tutorial」が向いています。Hello Worldから始めてアルカノイド風のゲームを作り、最後にシューティングを仕上げる構成です。
+For assemblers, [RGBDS](https://github.com/gbdev/rgbds) is positioned as the standard development tool for the Game Boy and Game Boy Color. The license is MIT. There is also RGBDS-Live, which can be tried in the browser. For learning, the assembly tutorial "GB ASM Tutorial" is suitable. It starts with Hello World, builds an Arkanoid-style game, and finishes with a shooter.
 
-Cで書くなら、[GBDK 2020](https://github.com/gbdk-2020/gbdk-2020)です。メンテナンスされているGBDKで、SDCCのツールチェーンを使い、Cコンパイラ、アセンブラ、リンカー、ライブラリを提供します。ライセンスは、GitHubの自動判定では種類を特定できないため、リポジトリのLICENSEで確認してください。GBDKの上に作るエンジンとして、ZGBとRetr0 GBが紹介されています。
+For writing in C, there is [GBDK-2020](https://github.com/gbdk-2020/gbdk-2020). It is the maintained GBDK, uses the SDCC toolchain, and provides a C compiler, assembler, linker, and libraries. GitHub's automatic detection cannot identify the type of license, so check the LICENSE in the repository. ZGB and Retr0 GB are introduced as engines built on top of GBDK.
 
-画像と音の道具も、公開されています。タイルを編集するTilemap Studio、サウンドドライバーのDevSoundX、音楽を作るhUGETrackerなどです。動作の確認には、mGBA、SameBoy、Emulicious、BGBなどのエミュレーターを使います。Emuliciousは、VS Codeからソースを見ながらデバッグできるという紹介です。
+Tools for graphics and sound are also available. These include Tilemap Studio for editing tiles, the sound driver DevSoundX, and hUGETracker for making music. For checking behavior, use emulators such as mGBA, SameBoy, Emulicious, and BGB. Emulicious is described as allowing debugging from VS Code while viewing the source.
 
-完成したゲームは、実機のフラッシュカートに書き込んでも遊べます。書き込みにも使えるのは、[吸い出しの記事](13-own-data-and-free-games.md)で紹介した GBxCart RW と FlashGBX です。
+Finished games can also be written to a flash cart for real hardware and played. GBxCart RW and FlashGBX, introduced in the [article on dumping](13-own-data-and-free-games.md), can also be used for writing.
 
-## ゲームボーイアドバンスを作る
+## Making Game Boy Advance games
 
-GBAは、[gbadev.net](https://gbadev.net/)が、コミュニティの拠点です。[導入のガイド](https://gbadev.net/getting-started.html)は、道筋を三つに分けています。
+For the GBA, [gbadev.net](https://gbadev.net/) is the community hub. Its [getting started guide](https://gbadev.net/getting-started.html) divides the path into three.
 
-![gbadevの導入ガイド](../assets/screenshots/gbadev-getting-started.jpg)
+![The gbadev getting started guide](../assets/screenshots/gbadev-getting-started.jpg)
 
-高水準の道は、ゲームを作ることを優先する人向けです。ガイドは、UnityやGodotのようなPC向けのエンジンはなく、C#、Python、Javaも使えないと書いています。おすすめは、C++のライブラリの[Butano](https://github.com/GValiente/butano)で、ライセンスはZlibです。Luaで書くBPCore-Engineもあります。
+The high-level path is for people who prioritize making a game. The guide says there are no PC engines such as Unity or Godot, and that C#, Python, and Java cannot be used either. The recommendation is the C++ library [Butano](https://github.com/GValiente/butano), whose license is Zlib. There is also BPCore-Engine, written in Lua.
 
-低水準の道は、I/Oレジスタを直接扱う人向けです。ガイドが最も人気とするのは、devkitARMとlibtoncの組み合わせで、チュートリアルの「Tonc」は現在で最も良い教材とされています。ほかに、NimのNatuやRustのagbも紹介されています。ツールチェーンには、CMakeを使うgba-toolchainと、Mesonを使うmeson-gbaも選べる、という案内です。2003年が最後のリリースのDevKit Advanceは、古すぎるため使わないよう警告されています。ライブラリなしで一から作る道もありますが、助けを得にくいので、慣れた人向けです。
+The low-level path is for people who handle I/O registers directly. What the guide calls the most popular is the combination of devkitARM and libtonc, and the tutorial "Tonc" is regarded as the best teaching material currently available. Natu for Nim and agb for Rust are also introduced. For toolchains, you can also choose gba-toolchain, which uses CMake, and meson-gba, which uses Meson. DevKit Advance, whose last release was in 2003, comes with a warning not to use it because it is too old. There is also a path of building from scratch without libraries, but help is hard to get, so it is for experienced people.
 
-エミュレーターは、NanoBoyAdvance、mGBA、no$gbaが推奨されています。NanoBoyAdvanceは最も正確ですが、デバッグ機能がありません。GitHubのリポジトリは、2026年6月21日の更新を最後にアーカイブされました。mGBAにはGDBをつなげるので、PCのプログラムのようにデバッグできます。no$gbaは正確さで劣る一方、優れたデバッガー付きです。
+For emulators, NanoBoyAdvance, mGBA, and no$gba are recommended. NanoBoyAdvance is the most accurate but has no debugging features. Its GitHub repository was archived after a last update on June 21, 2026. mGBA can connect to GDB, so you can debug as with a PC program. no$gba is inferior in accuracy but comes with an excellent debugger.
 
-## Linux系の携帯機に作る
+## Making games for Linux-based handhelds
 
-ROCKNIX、Knulli、muOSなどのLinux系OSでは、PortMasterの仕組みを使います。[PortMasterの開発ページ](https://portmaster.games/porting.html)は、対応するゲームを5種類に分けています。GitHubなどのオープンソースのゲームをコンパイルして包むもの、一から作られたオープンソースのエンジン、GameMakerやGodot、LÖVEのような、元のデータが必要なエンジン、そしてBox86とBox64でx86のLinuxゲームを動かすものです。
+On Linux-based OSes such as ROCKNIX, Knulli, and muOS, use the PortMaster system. The [PortMaster development page](https://portmaster.games/porting.html) divides supported games into five types: open source games from places such as GitHub, compiled and packaged for PortMaster; open source engines made from scratch that work with the original game assets; engines such as GameMaker, Godot, and LÖVE, with compatible runners that need the original game data; x86 Linux games translated for ARM by Box86; and x64 Linux games translated for aarch64 by Box64.
 
-![PortMasterの開発ページ](../assets/screenshots/portmaster-porting.jpg)
+![The PortMaster development page](../assets/screenshots/portmaster-porting.jpg)
 
-制約は大きいです。同じページは、多くのOSには完全なOpenGLがなく、X11もWestonもないと書いています。RockchipのAnbernic機は、古い3.x系のカーネルと、Mali用の独自ドライバーを使うため、使えるのはOpenGL ESだけです。OpenGL 2.x相当の機能は、GL4ESという変換のライブラリで補います。出力は、KMS/DRMかSDL2になり、VulkanとX11は使えません。
+The constraints are significant. The same page says that many OSes have no full OpenGL, and neither X11 nor Weston. Rockchip-based Anbernic devices use an old 3.x-series kernel and a proprietary Mali driver, so only OpenGL ES can be used. OpenGL 2.x-level features are supplied by a translation library called GL4ES. Output goes through KMS/DRM or SDL2, and Vulkan and X11 cannot be used.
 
-作る側から見て使いやすいのは、公式の実行環境が用意された道具です。SDL 1.2はsdl12-compatで変換できます。Godot 3は、FRTというエクスポートテンプレートで動かします。FRTではジョイスティックの処理が無効なので、操作の割り当てはgptokeybの担当です。LÖVEには、バージョンごとのaarch64版があります。Godot 4、Java、LibGDX、SFML、SDL3、Allegroは、WestonPackというランタイムの対象です。Javaの例として、Minecraft用のランチャーやUncivが挙げられています。
+From a maker's point of view, the easiest tools to use are those with an official runtime provided. SDL 1.2 can be translated with sdl12-compat. Godot 3 runs with an export template called FRT. FRT disables joystick handling, so control mapping is handled by gptokeyb. LÖVE has aarch64 builds for each version. Godot 4, Java, LibGDX, SFML, SDL3, and Allegro are covered by a runtime called WestonPack. Minecraft (through launchers that use the JDK), Unciv, and Mindustry are given as working Java ports.
 
-コントローラーの操作は、gptokebyでキーボードやマウスに割り当てます。`./gptokeyb "application" -c mykeymaps.gptk` のように呼び出し、STARTとSELECTでの終了にも対応する形です。開発中は、SSHで機器に入って試すことが勧められています。その際は、フロントエンドを止めてください。ROCKNIXでは `systemctl stop essway.service`、Knulliでは `/etc/init.d/S31emulationstation stop` が使えます。完成後は、同じサイトの[パッケージのガイド](https://portmaster.games/packaging.html)に沿って、ポートの形に整える流れです。
+Controller input is mapped to keyboard and mouse with gptokeyb. It is called in a form like `./gptokeyb "application" -c mykeymaps.gptk`, and it also supports quitting with START and SELECT. During development, it is recommended to log in to the device over SSH to try things. When doing so, stop the frontend. On ROCKNIX you can use `systemctl stop essway.service`, and on Knulli `/etc/init.d/S31emulationstation stop`. Once finished, you shape it into a port following the [packaging guide](https://portmaster.games/packaging.html) on the same site.
 
-LÖVEを使う場合、KMS/DRMにはマウスカーソルがないため、ゲームごとに、ソフトウェアで描くカーソルを入れる必要があると、同じページに説明があります。
+When using LÖVE, KMS/DRM has no mouse cursor, so each game needs to include a cursor drawn in software, as explained on the same page.
 
-## 最小のゲームを作る
+## Making a minimal game
 
-ここからは、実際に手を動かします。同じ「コインを集める」ゲームを、LÖVE(Lua)とGBDK(C)の二通りで作りました。コードは、この調査の中でビルドして、動作を確かめたものです。ソースはリポジトリの[examples/love2d-coin](../examples/love2d-coin)と[examples/gbdk-coin](../examples/gbdk-coin)にあります。
+From here on, we actually build something. The same "collect the coins" game was made in two ways, with LÖVE (Lua) and GBDK (C). The code was built and its behavior confirmed during this research. The source is in the repository at [examples/love2d-coin](../examples/love2d-coin) and [examples/gbdk-coin](../examples/gbdk-coin).
 
-### ROMは必要か、何で作るか
+### Do you need a ROM, and what do you make it with?
 
-ROMが要るかは、遊ぶ機器で決まります。ゲームボーイとゲームボーイアドバンスは、エミュレーターも実機のフラッシュカートも、ROMファイルを読み込む仕組みです。GB Studioの公式ページにも、完成品を本物のROMファイルとして書き出せるとあります。GB向けの自作では、ROMを作る手順が必ず入ります。
+Whether a ROM is needed depends on the device you play on. On the Game Boy and Game Boy Advance, both emulators and flash carts on real hardware work by loading a ROM file. The official GB Studio page also says a finished product can be exported as a real ROM file. Homemade games for the GB always include a step that makes a ROM.
 
-Linux系のOSでは、ROMを作る必要はありません。PortMasterの[開発ページ](https://portmaster.games/porting.html)が、LÖVEのゲームを対応するエンジンに挙げていて、[パッケージのガイド](https://portmaster.games/packaging.html)のLÖVE用の起動スクリプトは、`lovegame`というフォルダをそのまま実行する形です。Luaのファイルを置いたフォルダが、ゲームの本体になります。
+On Linux-based OSes, there is no need to make a ROM. PortMaster's [development page](https://portmaster.games/porting.html) lists LÖVE as a supported engine, and the LÖVE launch script in the [packaging guide](https://portmaster.games/packaging.html) runs a folder called `lovegame` as it is. The folder containing the Lua files is the game itself.
 
-言語は、LÖVEがLua、GBDKがCです。最初の一本には、LÖVEをおすすめします。PCですぐ動かせて、コードも短く、画面の確認が速いためです。GBDKは、ROMの仕組みを学ぶ二本目に向いています。Android機向けの作り方は、この調査では扱っていません。
+The languages are Lua for LÖVE and C for GBDK. For a first game, LÖVE is recommended. It runs on a PC right away, the code is short, and checking the screen is quick. GBDK suits a second game, for learning how ROMs work. How to make games for Android devices is not covered in this research.
 
-### LÖVEで作る(ROMなし)
+### Making it with LÖVE (no ROM)
 
-LÖVEは、Luaで書く2Dゲームのフレームワークです。[公式のリリースページ](https://github.com/love2d/love/releases/tag/11.5)には、11.5のmacOS用、Windows用、Linux用のAppImage、Android用のAPKが並んでいます。macOSでは、Homebrewのcaskが2026年9月1日に無効化されていて、`brew install --cask love`が失敗しました。理由は、macOSのGatekeeperの検査に通らないためと表示されます。この調査では、リリースページのmacOS用のzipを展開して使いました。
+LÖVE is a framework for writing 2D games in Lua. The [official release page](https://github.com/love2d/love/releases/tag/11.5) lists 11.5 for macOS, Windows, a Linux AppImage, and an Android APK. On macOS, the Homebrew cask was disabled on September 1, 2026, and `brew install --cask love` failed. The reason shown is that it does not pass macOS's Gatekeeper check. In this research, the macOS zip from the release page was extracted and used.
 
-作るファイルは二つだけです。まず、窓の大きさを決める`conf.lua`です。
+Only two files need to be made. First, `conf.lua`, which sets the window size.
 
 ```lua
 function love.conf(t)
@@ -72,7 +72,7 @@ function love.conf(t)
 end
 ```
 
-続いて、ゲーム本体の`main.lua`を書きます。
+Next, write `main.lua`, the game itself.
 
 ```lua
 local SIZE = 32
@@ -159,29 +159,29 @@ function love.gamepadpressed(_, button)
 end
 ```
 
-LÖVEは、決まった名前の関数を、決まったタイミングで呼びます。`love.load`は起動時に一度、`love.update(dt)`は毎フレーム、`love.draw`は描画のたびの呼び出しです。`dt`は前のフレームからの経過秒数で、移動量を`SPEED * dt`にすれば、フレームの速さに関係なく同じ速さで動きます。
+LÖVE calls functions with fixed names at fixed times. `love.load` is called once at startup, `love.update(dt)` every frame, and `love.draw` for each draw. `dt` is the number of seconds elapsed since the previous frame, and making the amount of movement `SPEED * dt` means things move at the same speed regardless of the frame rate.
 
-`isDown`は、キーボードの矢印キーと、ゲームパッドの十字キーの両方を扱う関数です。携帯機では、十字キーがゲームパッドとして届く場合があるため、両方に対応させています。当たり判定の`overlaps`は、二つの四角が重なるかを、四辺の位置の比較だけで調べます。
+`isDown` is a function that handles both the keyboard's arrow keys and the gamepad's D-pad. On handhelds, the D-pad may arrive as a gamepad, so both are supported. The collision check `overlaps` tests whether two rectangles overlap only by comparing the positions of their four sides.
 
-動かし方は、ゲームのフォルダを、LÖVEに渡すだけです。
+To run it, just pass the game's folder to LÖVE.
 
 ```sh
 love examples/love2d-coin
 ```
 
-macOSで展開したzipを使う場合は、アプリの中の実行ファイルを呼びます。たとえば`love.app/Contents/MacOS/love examples/love2d-coin`です。矢印キーで青い四角を動かし、黄色い四角に触れると得点が増えます。制限時間は30秒で、終わったあとはEnterで再開できます。
+When using the extracted zip on macOS, call the executable inside the app. For example, `love.app/Contents/MacOS/love examples/love2d-coin`. Move the blue square with the arrow keys, and touching the yellow square increases the score. The time limit is 30 seconds, and afterward you can restart with Enter.
 
-![LÖVEで動かしたコイン集め](../assets/screenshots/love2d-coin.png)
+![Coin collecting running in LÖVE](../assets/screenshots/love2d-coin.png)
 
-動作は、入力を模擬するテスト用のスクリプトでも確認しました。0.1秒だけ右へ押し続けると、速さ240で24ピクセル進みます。コインの位置まで動くと、得点が0から1に増えました。画面の端では位置が止まり、時間切れのあとは得点が動きません。Enterを押すと、得点は0に戻りました。
+Behavior was also confirmed with a test script that simulates input. Holding right for just 0.1 seconds moves 24 pixels at speed 240. Moving to the coin's position increased the score from 0 to 1. The position stops at the screen edge, and after time runs out the score does not change. Pressing Enter returned the score to 0.
 
-携帯機に入れるときは、PortMasterの流れに合わせます。パッケージのガイドでは、ポートの名前は、小文字の英数字とピリオド、アンダースコアだけです。起動スクリプトは、大文字を含む名前で、`.sh`で終わります。LÖVE用の例は、`source $controlfolder/runtimes/"love_11.5"/love.txt`でランタイムを読み込み、`$LOVE_RUN "$GAMEDIR/lovegame"`でゲームを起動する形です。ランタイムは11.5で、この記事で動かしたLÖVEと同じ版です。ただし、この起動スクリプトを実際の携帯機で動かす確認は、この調査ではできていません。置き場所は、ROCKNIXが`/roms/ports/`、Knulliが`/userdata/roms/ports`です。公式のポートとして登録するなら、`port.json`、`README.md`、スクリーンショット、`gameinfo.xml`が必要になります。複数のOSと解像度でのテストも、PortMasterは求めています。
+When putting it on a handheld, follow the PortMaster flow. In the packaging guide, port names use only lowercase alphanumerics, periods, and underscores. The launch script has a name containing uppercase letters and ends in `.sh`. The LÖVE example loads the runtime with `source $controlfolder/runtimes/"love_11.5"/love.txt` and launches the game with `$LOVE_RUN "$GAMEDIR/lovegame"`. The runtime is 11.5, the same version as the LÖVE run in this article. However, running this launch script on an actual handheld has not been confirmed in this research. The locations are `/roms/ports/` for ROCKNIX and `/userdata/roms/ports` for Knulli. To register it as an official port, `port.json`, `README.md`, a screenshot, and `gameinfo.xml` are needed. PortMaster also asks for testing on several OSes and resolutions.
 
-### GBDKで作る(ROMあり)
+### Making it with GBDK (with a ROM)
 
-GBDK-2020は、ゲームボーイ用のCコンパイラとライブラリのセットです。[公式のリリースページ](https://github.com/gbdk-2020/gbdk-2020/releases/tag/4.5.0)から、4.5.0のmacOS(Apple Silicon)用の`gbdk-macos-arm64.tar.gz`を取りました。展開すると、`bin/lcc`というコンパイラが入っています。遊ぶ側のエミュレーターには、mGBAを使います。macOSでは`brew install mgba`で入りました。
+GBDK-2020 is a set of a C compiler and libraries for the Game Boy. From the [official release page](https://github.com/gbdk-2020/gbdk-2020/releases/tag/4.5.0), version 4.5.0 of `gbdk-macos-arm64.tar.gz` for macOS (Apple Silicon) was downloaded. Extracting it gives a compiler called `bin/lcc`. For the emulator to play on, mGBA is used. On macOS it was installed with `brew install mgba`.
 
-ゲームのコードは、次の`main.c`です。
+The game's code is the following `main.c`.
 
 ```c
 #include <gb/gb.h>
@@ -252,11 +252,11 @@ void main(void) {
 }
 ```
 
-ゲームボーイの画面は、タイルという8×8の絵を並べて作ります。[Pan Docs](https://gbdev.io/pandocs/Tile_Data.html)によると、1タイルは16バイトで、1行を2バイトで表します。最初のバイトが色の番号の下位ビット、次のバイトが上位ビットで、1ピクセルが2ビット、つまり4色です。スプライトでは、色の番号0が透明になります。コードの`tiles`は、この形式で書いた2枚のタイルで、1枚目がプレイヤーの四角、2枚目がコインの丸です。
+The Game Boy's screen is made by arranging 8×8 pictures called tiles. According to [Pan Docs](https://gbdev.io/pandocs/Tile_Data.html), one tile is 16 bytes, with each row represented by 2 bytes. The first byte holds the low bits of the color number and the next byte the high bits, so one pixel is 2 bits, which means 4 colors. For sprites, color number 0 is transparent. `tiles` in the code is two tiles written in this format, the first being the player's square and the second the coin's circle.
 
-[OAMの説明](https://gbdev.io/pandocs/OAM.html)によると、スプライトの位置は、画面の位置にYは16、Xは8を足した値で指定します。そのため、コードの移動範囲は、Xが8から160、Yが16から152です。`move_sprite`には、このずれを含めた値を渡します。`set_sprite_data`でタイルをVRAMに送り、`set_sprite_tile`でスプライトに割り当て、`vsync`で画面の更新を待つ流れです。得点は、`gotoxy`と`printf`による背景の文字です。
+According to the [OAM explanation](https://gbdev.io/pandocs/OAM.html), a sprite's position is specified as the screen position plus 16 for Y and 8 for X. That is why the movement range in the code is 8 to 160 for X and 16 to 152 for Y. `move_sprite` is passed values that include this offset. `set_sprite_data` sends the tiles to VRAM, `set_sprite_tile` assigns them to sprites, and `vsync` waits for the screen update. The score is background text using `gotoxy` and `printf`.
 
-ビルドに必要なのは`lcc`を呼ぶ一行だけで、`Makefile`にまとめてあります。
+All the build needs is one line calling `lcc`, which is put in a `Makefile`.
 
 ```make
 GBDK_HOME ?= $(HOME)/gbdk
@@ -268,29 +268,29 @@ clean:
 	rm -f coin.gb *.o *.lst *.map *.sym *.asm *.ihx *.noi
 ```
 
-`make GBDK_HOME=$HOME/gbdk`で、`coin.gb`という32キロバイトのROMができます。mGBAで開くには、次のとおりです。
+`make GBDK_HOME=$HOME/gbdk` produces a 32-kilobyte ROM called `coin.gb`. To open it in mGBA, do the following.
 
 ```sh
 mgba coin.gb
 ```
 
-ビルドで、二つの失敗がありました。一つ目は、コンパイラの`lcc`が、実行しても何も出力せず、終了コード133で止まった問題です。原因は、GBDKを置いたフォルダのパスが長いことでした。`lldb`で調べると、`lcc`が文字列バッファの検査に失敗していました。`$HOME/gbdk`のような、短いパスに置くと、直ります。二つ目は、`gotoxy`が「暗黙の宣言」とエラーになった問題です。宣言は`<gbdk/console.h>`にあり、`<gb/gb.h>`には含まれません。
+There were two failures in the build. The first was a problem where the compiler `lcc` produced no output when run and stopped with exit code 133. The cause was that the path of the folder containing GBDK was long. Investigating with `lldb` showed `lcc` failing a string buffer check. Placing it at a short path such as `$HOME/gbdk` fixes it. The second was a problem where `gotoxy` gave an "implicit declaration" error. The declaration is in `<gbdk/console.h>` and is not included in `<gb/gb.h>`.
 
-動作は、PyBoyというオープンソースのエミュレーターで、ボタン入力を模擬して確かめました。右ボタンを押すと、スプライトのX座標が増えます。上ボタンを押し続けると、Y座標は16で止まりました。プレイヤーをコインの位置まで動かすと、画面に`SCORE 1`と出て、コインは別の場所へ移りました。
+Behavior was confirmed by simulating button input in PyBoy, an open source emulator. Pressing the right button increases the sprite's X coordinate. Holding the up button stopped the Y coordinate at 16. Moving the player to the coin's position displayed `SCORE 1` on screen, and the coin moved to another location.
 
-![GBDKで作ったROMの画面](../assets/screenshots/gbdk-coin.png)
+![The screen of the ROM made with GBDK](../assets/screenshots/gbdk-coin.png)
 
-確認はPCのエミュレーター上で終えています。実機のフラッシュカートへ書き込むには、[吸い出しの記事](13-own-data-and-free-games.md)のFlashGBXと、対応するカートが必要です。携帯機のエミュレーターで遊ぶなら、ROMを、そのOSのゲームボーイ用ROMフォルダに置いてください。フォルダの名前は、OSごとの文書で確認する必要があります。
+Testing was done only on an emulator on a PC. To write to a flash cart for real hardware, you need FlashGBX from the [article on dumping](13-own-data-and-free-games.md) and a supported cart. To play in a handheld's emulator, place the ROM in that OS's Game Boy ROM folder. The name of the folder needs to be checked in each OS's documentation.
 
-### 少し広げる(絵、効果音、壁、最高点の保存)
+### Expanding it a little (graphics, sound effects, walls, saving the high score)
 
-最小のゲームは、四角を動かすだけでした。ここから、絵、効果音、壁のあるマップ、最高点の保存を足します。足したものは、同じ「コイン集め」の発展版として、`examples/love2d-coin-plus`と`examples/gbdk-coin-plus`に置きました。どちらも、素材は外から持ってきていません。絵は文字で書いたドット絵を、Pythonの`make_assets.py`と`make_tiles.py`が画像に変換します。LÖVE版の効果音も、`make_assets.py`が波形を計算して、`coin.wav`に書き出します。素材の権利を気にせず、そのまま配れる形です。
+The minimal game only moved squares around. From here, graphics, sound effects, a map with walls, and saving the high score are added. The additions are placed as expanded versions of the same "coin collecting" game, in `examples/love2d-coin-plus` and `examples/gbdk-coin-plus`. Neither brings in outside assets. The graphics are pixel art written as text, and the Python scripts `make_assets.py` and `make_tiles.py` convert it to images. The sound effect in the LÖVE version is also calculated as a waveform by `make_assets.py` and written out to `coin.wav`. This form can be distributed as it is without worrying about asset rights.
 
-![LÖVE版の発展形。壁、タイル、最高点](../assets/screenshots/love2d-coin-plus.png)
+![The expanded LÖVE version, with walls, tiles, and a high score](../assets/screenshots/love2d-coin-plus.png)
 
-#### LÖVE版
+#### LÖVE version
 
-画面は、32ピクセルのタイルで組む方式です。壁と床、プレイヤー、コインの4枚は、1枚の画像`tiles.png`に横に並べてあり、必要な部分だけを切り出して描きます。切り出しにはQuadを使います。公式ウィキの[love.graphics.newQuad](https://love2d.org/wiki/love.graphics.newQuad)では、Quadはテクスチャの一部で描くための仕組みで、スプライトシートに向くと説明されています。同じページの注意は、`love.update`や`love.draw`から繰り返し呼ぶと遅くなるので、一度だけ作って使い回すこと。コードも、`love.load`の中で一度だけ作る形です。
+The screen is assembled from 32-pixel tiles. The four tiles for wall, floor, player, and coin are lined up horizontally in one image, `tiles.png`, and only the needed part is cut out and drawn. Quad is used for cutting out. On the official wiki's [love.graphics.newQuad](https://love2d.org/wiki/love.graphics.newQuad) page, a Quad is described as a mechanism for drawing with part of a texture, suited to sprite sheets. A caution on the same page is that calling it repeatedly from `love.update` or `love.draw` is slow, so create it once and reuse it. The code too creates them only once, inside `love.load`.
 
 ```lua
 function love.load()
@@ -306,9 +306,9 @@ function love.load()
 end
 ```
 
-`setDefaultFilter("nearest", "nearest")`は、絵を拡大するときの補間をやめて、ドットをそのまま見せるための指定です。この指定について、公式ウィキの説明は、この調査では確認していません。
+`setDefaultFilter("nearest", "nearest")` is a setting that stops interpolation when enlarging images, showing the pixels as they are. The official wiki's explanation of this setting was not checked in this research.
 
-壁は、文字の並びで書いた地図で表します。`#`が壁、`.`が床です。`map.lua`は、座標がどのタイルに当たるかを計算して、壁かどうかを調べます。
+Walls are represented by a map written as rows of characters. `#` is a wall and `.` is floor. `map.lua` calculates which tile a coordinate falls on and checks whether it is a wall.
 
 ```lua
 function M.isSolid(col, row)
@@ -334,9 +334,9 @@ function M.hitsWall(x, y, w, h)
 end
 ```
 
-四角の四隅が、どれか壁のタイルに入るかを調べるだけの、単純な当たり判定です。移動は、横と縦を別々に判定します。横に動けなくても縦には動ける形で、壁に沿って滑るように動きます。
+This is a simple collision check that only tests whether any of the rectangle's four corners falls in a wall tile. Movement is checked separately for horizontal and vertical. Even if you cannot move horizontally you can still move vertically, so you slide along walls.
 
-最高点は、保存用のフォルダへ、文字として書き出す方式です。[love.filesystem.write](https://love2d.org/wiki/love.filesystem.write)の公式ウィキでは、この関数は保存用ディレクトリにファイルを書き、既存のファイルは完全に置き換えると説明されています。戻り値は、成功したかどうかと、失敗時のメッセージです。保存先は、`conf.lua`の`identity`で決まるフォルダです。このゲームの`identity`は`coin-catcher-plus`で、macOSでは`~/Library/Application Support/LOVE/coin-catcher-plus`に`highscore.txt`ができました。
+The high score is written out as text to the save folder. The official wiki's [love.filesystem.write](https://love2d.org/wiki/love.filesystem.write) says this function writes a file to the save directory and completely replaces any existing file. The return values are whether it succeeded and a message on failure. The save location is a folder determined by `identity` in `conf.lua`. This game's `identity` is `coin-catcher-plus`, and on macOS `highscore.txt` was created in `~/Library/Application Support/LOVE/coin-catcher-plus`.
 
 ```lua
 local function loadBest()
@@ -358,13 +358,13 @@ local function finish()
 end
 ```
 
-動作は、前と同じ方法で検証しました。0.1秒右へ押すと24ピクセル進み、左へ押し続けると壁の手前の36ピクセルで止まります。コインの位置に動くと得点が1増え、制限時間が切れると、得点5が`highscore.txt`に書かれました。次に起動すると、最高点が5と表示されました。効果音の再生は、ファイルの読み込みに成功したことまでを確認しています。音を聞いての確認は、していません。
+Behavior was verified in the same way as before. Pressing right for 0.1 seconds moves 24 pixels, and holding left stops at 36 pixels, just before the wall. Moving to the coin's position increases the score by 1, and when the time limit ran out, a score of 5 was written to `highscore.txt`. On the next launch, the high score was displayed as 5. Sound effect playback was confirmed only as far as the file loading successfully. It was not confirmed by listening to the sound.
 
-#### GBDK版
+#### GBDK version
 
-![GBDK版の発展形。タイルの壁と床](../assets/screenshots/gbdk-coin-plus.png)
+![The expanded GBDK version, with tile walls and floor](../assets/screenshots/gbdk-coin-plus.png)
 
-ゲームボーイ版でも、壁と床を、背景のタイルで描きます。地図は、LÖVE版と同じく文字の並びです。
+In the Game Boy version too, walls and floor are drawn with background tiles. The map is rows of characters, as in the LÖVE version.
 
 ```c
 static const char *const rows[ROWS] = {
@@ -389,7 +389,7 @@ static const char *const rows[ROWS] = {
 };
 ```
 
-壁の判定は、地図の文字を直接見ます。
+The wall check looks directly at the map's characters.
 
 ```c
 static uint8_t solid(uint8_t col, uint8_t row) {
@@ -407,9 +407,9 @@ static uint8_t hits_wall(uint8_t x, uint8_t y) {
 }
 ```
 
-絵は、`tiles.png`に4枚のタイルを描き、GBDK付属の`png2asset`でCのデータに変えました。コマンドは`png2asset tiles.png -spr8x8 -tiles_only -o tiles.c`です。生成された`tiles.c`には、4枚分で64バイトのデータが入っています。背景のタイルは128番から読み込みます。128番からの領域は背景とスプライトで共有されるので、プレイヤーとコインも、130番と131番で指定できる形です。共有については、[Pan Docs](https://gbdev.io/pandocs/Tile_Data.html)のタイルデータの表に記載があります。
+For graphics, four tiles were drawn in `tiles.png` and converted to C data with `png2asset`, which comes with GBDK. The command is `png2asset tiles.png -spr8x8 -tiles_only -o tiles.c`. The generated `tiles.c` contains 64 bytes of data for the four tiles. Background tiles are loaded starting at number 128. The area from 128 on is shared between background and sprites, so the player and coin can also be specified as numbers 130 and 131. This sharing is described in the tile data table in [Pan Docs](https://gbdev.io/pandocs/Tile_Data.html).
 
-最高点の保存には、カートリッジの中のバッテリー付きRAMを使います。[MBC5のPan Docs](https://gbdev.io/pandocs/MBC5.html)によると、RAMは`A000`から`BFFF`の範囲に現れ、`0000`から`1FFF`に`0A`を書くと、読み書きが有効になります。コードは、この手順のとおり、RAMを有効にして値を書き、最後に閉じます。
+Saving the high score uses the battery-backed RAM inside the cartridge. According to [Pan Docs on MBC5](https://gbdev.io/pandocs/MBC5.html), the RAM appears in the range `A000` to `BFFF`, and writing `0A` to `0000`–`1FFF` enables reads and writes. Following these steps, the code enables the RAM, writes the values, and disables it at the end.
 
 ```c
 static void load_best(void) {
@@ -439,31 +439,31 @@ static void beep(void) {
 }
 ```
 
-ROMのヘッダーでRAM付きのカートリッジだと名乗るために、ビルドのときに`-Wm-yt0x1B -Wm-ya1`を付けます。できたROMを`file`コマンドで見ると、`MBC5+RAM+BATT`、RAM 64Kbitと表示されました。
+To declare in the ROM header that the cartridge has RAM, add `-Wm-yt0x1B -Wm-ya1` when building. Looking at the resulting ROM with the `file` command showed `MBC5+RAM+BATT`, RAM 64Kbit.
 
-効果音は、音のレジスタを直接書いて鳴らします。[Audio RegistersのPan Docs](https://gbdev.io/pandocs/Audio_Registers.html)によると、`NR52`の最上位ビットが音声の電源、`NR51`が左右の割り当て、`NR50`が全体の音量です。チャンネル1は、`NR12`で初期音量と減衰を、`NR13`と`NR14`の下位3ビットで11ビットの周期を決めます。`NR14`の最上位ビットを立てて書くと、音が鳴り始めます。周波数は、`131072 ÷ (2048 − 周期の値)`ヘルツです。コードの周期は`0x300`なので、始まりの音程は計算上は約102ヘルツで、`NR10`のスイープで変化します。この音は、実機でも、エミュレーターの音としても、耳では確認していません。
+The sound effect is played by writing the sound registers directly. According to [Pan Docs on Audio Registers](https://gbdev.io/pandocs/Audio_Registers.html), the top bit of `NR52` is the audio power, `NR51` is left and right assignment, and `NR50` is the overall volume. For channel 1, `NR12` sets the initial volume and decay, and `NR13` and the low 3 bits of `NR14` set the 11-bit period. Writing `NR14` with its top bit set starts the sound. The frequency is `131072 ÷ (2048 − period value)` hertz. The period in the code is `0x300`, so the starting pitch is calculated to be about 102 hertz, and it changes with the `NR10` sweep. This sound has not been confirmed by ear, either on real hardware or as emulator audio.
 
-動作は、PyBoyで確かめました。STARTで始まり、右ボタンを10フレーム押すとX座標が20進みます。左と上へ押し続けると、壁の手前の8で止まりました。コインの位置に重ねると得点が1になり、コインは別の場所へ移っています。時間切れで最高点が更新され、エミュレーターを閉じると、8192バイトのセーブファイルが生成されました。もう一度起動すると、最高点が復元されています。時間切れのあと、STARTで再開するのは、ボタンを離した時点です。コードの`waitpadup`が、離すまで待つためです。
+Behavior was confirmed with PyBoy. The game starts with START, and pressing the right button for 10 frames advances the X coordinate by 20. Holding left and up stopped at 8, just before the wall. Overlapping the coin's position made the score 1, and the coin moved to another location. When time ran out the high score was updated, and closing the emulator generated an 8192-byte save file. Launching again restored the high score. After time runs out, restarting with START happens at the moment the button is released. This is because `waitpadup` in the code waits until release.
 
-#### 次に作れるもの
+#### What you can make next
 
-この2本のコードに、次の要素を足していくと、遊べる形に近づきます。LÖVEでは、敵を動かす、複数のステージを切り替える、`love.graphics.newImage`で背景を描く、といった方向があります。GBDKでは、メタスプライトで大きなキャラクターを作る、BGMのドライバーを入れる、といった方向です。[gbdev.ioの資料集](https://gbdev.io/resources.html)に、GBDK向けのチュートリアルと、音楽ツールが並んでいます。
+Adding the following elements to these two sets of code brings them closer to something playable. In LÖVE, directions include moving enemies, switching between several stages, and drawing backgrounds with `love.graphics.newImage`. In GBDK, directions include making large characters with metasprites and adding a BGM driver. The [gbdev.io resource collection](https://gbdev.io/resources.html) lists tutorials for GBDK and music tools.
 
-## この記事で出てくる中国語
+## Chinese terms in this article
 
-この記事の話題は、英語の公式文書が中心です。中国語は、この調査で出典を確認できた、基本の語だけを載せます。中国語で自作ゲームの情報を探すときの足がかりに使ってください。
+The topics of this article center on official documents in English. Only basic Chinese words whose sources could be confirmed in this research are listed. Use them as a foothold when looking for information on making your own games in Chinese.
 
-| 中国語 | ピンイン | 日本語の意味 | 出典 |
+| Chinese | Pinyin | Meaning | Source |
 |---|---|---|---|
-| 开源 | kāiyuán | オープンソース | [开源掌机吧](https://tieba.baidu.com/f?kw=%E5%BC%80%E6%BA%90%E6%8E%8C%E6%9C%BA) |
-| 掌机 | zhǎngjī | 携帯ゲーム機 | [掌机圈](https://zhangjiquan.com/handhelds) |
-| 游戏 | yóuxì | ゲーム | CNFansの出品ページ |
-| 模拟器 | mónǐqì | エミュレーター | [天马G前端的使用](https://blog.csdn.net/fanged/article/details/152960565) |
-| 屏幕分辨率 | píngmù fēnbiànlǜ | 画面の解像度 | [RG-406V](https://zhangjiquan.com/handheld/rg-406v) |
+| 开源 | kāiyuán | Open source | [开源掌机吧](https://tieba.baidu.com/f?kw=%E5%BC%80%E6%BA%90%E6%8E%8C%E6%9C%BA) |
+| 掌机 | zhǎngjī | Handheld game console | [掌机圈](https://zhangjiquan.com/handhelds) |
+| 游戏 | yóuxì | Game | CNFans listing page |
+| 模拟器 | mónǐqì | Emulator | [天马G前端的使用](https://blog.csdn.net/fanged/article/details/152960565) |
+| 屏幕分辨率 | píngmù fēnbiànlǜ | Screen resolution | [RG-406V](https://zhangjiquan.com/handheld/rg-406v) |
 | 操作系统 | cāozuò xìtǒng | OS | [RG-556](https://zhangjiquan.com/handheld/rg-556) |
 
-LÖVEやGBDKの用語を、中国語の資料で調べたい場合は、まず「开源」と「掌机」を、[検索キーワード](../chinese/search-keywords.md)の組み合わせに足して検索すると、貼吧や知乎の記事が見つかります。この検索の結果は、この調査では確認していません。
+To look up LÖVE and GBDK terms in Chinese materials, first try adding 开源 and 掌机 to the combinations in the [search keywords](../chinese/search-keywords.md), and searching should turn up articles on Tieba and Zhihu. The results of this search were not checked in this research.
 
-## 学べること
+## What you can learn
 
-ゲームボーイは、CPUとメモリの仕組みを少ない命令で学べる教材です。Pan DocsとGB ASM Tutorialがそろい、エミュレーターのデバッガーで動作を確認できます。GBAでは、devkitARMとlibtoncを使い、I/Oレジスタを直接扱う練習ができます。Linux系の携帯機は、SSHで入ってビルドし、グラフィックスAPIの制約に合わせる経験の場です。移植の作業は、OpenGL ESとKMS/DRMの違いを学ぶ入り口にもなります。
+The Game Boy is teaching material for learning how CPUs and memory work with a small number of instructions. Pan Docs and the GB ASM Tutorial are both available, and you can check behavior in an emulator's debugger. On the GBA, you can use devkitARM and libtonc to practice handling I/O registers directly. Linux-based handhelds are a place to gain experience in logging in over SSH to build and adapting to the constraints of graphics APIs. Porting work is also an entry point to learning the differences between OpenGL ES and KMS/DRM.

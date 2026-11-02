@@ -1,134 +1,134 @@
-# 中国語の学び方
+# How to study Chinese
 
-このリポジトリでは、中国語の勉強も目的の1つです。携帯ゲーム機の出品、仕様表、掲示板には、同じ語が何度も出てきます。語彙は、実際に見たページから拾うと、意味を文脈ごと覚えやすいものです。この記事は、どのページから何が学べるかの整理と、文字や発音の基本、辞書と機械翻訳の使い方をまとめたものです。語彙の一覧は [語彙表](../chinese/vocabulary.md)、掲示板の隠語は [隠語集](../chinese/slang.md)、検索に使った語は [検索キーワード](../chinese/search-keywords.md) にあります。
+Studying Chinese is one of the aims of this repository. The same words appear again and again in handheld listings, spec tables, and forums. Vocabulary picked up from pages you have actually seen is easier to remember along with its context. This article sorts out what can be learned from which pages and summarizes the basics of the writing system and pronunciation and how to use dictionaries and machine translation. The word list is in the [vocabulary list](../chinese/vocabulary.md), forum slang is in the [slang glossary](../chinese/slang.md), and the words used for searching are in the [search keywords](../chinese/search-keywords.md).
 
-## この分野の中国語を学ぶ順番
+## The order for learning Chinese in this field
 
-この分野の中国語は、仕様表、出品、掲示板の順に難しくなります。仕様表は、項目名が決まっていて、1語ずつが短い名詞です。出品の説明は、短い文が並び、買い手に向けた定型の言い回しが多くなります。掲示板の投稿は、愛称や皮肉、略語が混ざるため、辞書だけでは読み切れないことがあります。
+Chinese in this field gets harder in this order: spec tables, listings, forums. Spec tables have fixed field names, and each is a short noun. Listing descriptions consist of short sentences lined up, with many set phrases aimed at buyers. Forum posts mix nicknames, sarcasm, and abbreviations, so a dictionary alone is sometimes not enough to read them completely.
 
-そこで、次の順で進めるのが、このリポジトリの考え方です。まず、簡体字とピンインの読み方を、最低限だけ押さえます。次に、仕様表の項目名を、日本語と対応づけて覚えます。そのあと、出品の文を区切って読み、最後に掲示板の投稿へ進む流れです。分からない語は、辞書で引いて、[語彙表](../chinese/vocabulary.md) か [隠語集](../chinese/slang.md) に足していきます。
+The approach in this repository is therefore to proceed in the following order. First, get down the bare minimum of how to read simplified characters and pinyin. Next, memorize the field names in spec tables by matching them to Japanese. After that, read listing sentences by dividing them up, and finally move on to forum posts. Look up words you don't know in a dictionary and add them to the [vocabulary list](../chinese/vocabulary.md) or the [slang glossary](../chinese/slang.md).
 
-## 簡体字の基本
+## Basics of simplified characters
 
-Wikipediaによると、簡体字は、中国語を書くための2つの標準的な字体のうちの1つです。もう1つは繁体字です。簡体字は、中国本土、マレーシア、シンガポールで標準の字体として使われています。繁体字は、香港、マカオ、台湾で公式に使われています([Simplified Chinese characters](https://en.wikipedia.org/wiki/Simplified_Chinese_characters))。同じページは、簡体字化では、字の総画数を減らしたり、部品の書き方を簡単にしたりすると説明しています。部首をまとめて簡単にするので、多くの字が一度に変わります。一方で、変わらなかった字も多く、その字は両方の字体で同じです。
+According to Wikipedia, simplified characters are one of the two standard sets of characters for writing Chinese. The other is traditional characters. Simplified characters are used as the standard in mainland China, Malaysia, and Singapore. Traditional characters are used officially in Hong Kong, Macau, and Taiwan ([Simplified Chinese characters](https://en.wikipedia.org/wiki/Simplified_Chinese_characters)). The same page explains that simplification reduces the total stroke count of characters and simplifies the way components are written. Because radicals are simplified as a group, many characters change at once. On the other hand, many characters did not change, and those are the same in both sets.
 
-このリポジトリで開いたページの多くは、簡体字で書かれていました。放熱の話題の「散热」や、出品の「内存卡」も、簡体字です。MDBGの辞書で「散热」を引くと、繁体字の欄に「散熱」と表示されます。「内存」は「內存」でした([MDBGの散热](https://www.mdbg.net/chinese/dictionary?page=worddict&wdrst=1&wdqb=%E6%95%A3%E7%83%AD)、[内存卡](https://www.mdbg.net/chinese/dictionary?page=worddict&wdrst=1&wdqb=%E5%86%85%E5%AD%98%E5%8D%A1))。MDBGの入力欄には、簡体字と繁体字を切り替える項目があります。台湾や香港の店のページは、この調査では開いていないため、そこでの用語の違いは確認できていません。
+Most of the pages opened for this repository were written in simplified characters. 散热 in discussions of heat dissipation and 内存卡 in listings are both simplified. Looking up 散热 in the MDBG dictionary shows 散熱 in the traditional field. For 内存, it shows 內存 ([散热 on MDBG](https://www.mdbg.net/chinese/dictionary?page=worddict&wdrst=1&wdqb=%E6%95%A3%E7%83%AD), [内存卡](https://www.mdbg.net/chinese/dictionary?page=worddict&wdrst=1&wdqb=%E5%86%85%E5%AD%98%E5%8D%A1)). MDBG's input field has an option for switching between simplified and traditional. Pages of shops in Taiwan and Hong Kong were not opened in this research, so differences in terminology there have not been confirmed.
 
-漢字は、日本語と形が近いものと、そうでないものがあります。まず、画面で見て意味が推測できる語を多く拾い、推測が外れた語を辞書で確かめる使い方が、無理がありません。たとえば「刷新率」は、「刷新」から更新の意味が推測できますが、仕様表の中では、リフレッシュレートを指す語です。
+Some characters are close in form to their Japanese counterparts, and some are not. A manageable way to use this is to first pick up many words whose meaning you can guess on sight, and then check the ones you guessed wrong in a dictionary. For example, with 刷新率, you can guess a meaning of renewal from 刷新, but in a spec table the word refers to refresh rate.
 
-## ピンインと声調
+## Pinyin and tones
 
-ピンイン(拼音)は、標準中国語のローマ字表記です。Wikipediaの説明では、中国、シンガポール、国連で公式に使われています。中国本土では、コンピューターで文字を打つときの入力方法としても主流です([Pinyin](https://en.wikipedia.org/wiki/Pinyin))。辞書の見出しの並べ方や、発音を調べる手がかりにも使われます。
+Pinyin (拼音) is the romanization of Standard Chinese. According to Wikipedia, it is used officially in China, Singapore, and the United Nations. In mainland China it is also the dominant input method for typing characters on computers ([Pinyin](https://en.wikipedia.org/wiki/Pinyin)). It is also used for ordering dictionary headwords and as a clue when looking up pronunciation.
 
-ピンインでは、1つの音節を、語頭の子音の「声母」(shēngmǔ)と、残りの部分の「韻母」(yùnmǔ)で表す仕組みです。声母の通常の並び順は、b p m f d t n l g k h j q x zh ch sh r z c s だと、同じページにあります。声母は、あってもなくてもかまわない部分です。
+In pinyin, a syllable is represented by the 声母 (shēngmǔ), the initial consonant, and the 韵母 (yùnmǔ), the remaining part. The same page says the usual order of the initials is b p m f d t n l g k h j q x zh ch sh r z c s. The initial is an optional part.
 
-声調は、4つの記号で表します。第1声は平らで高い音で、記号はmacron(ā)です。第2声は上がる音で、記号はacute(á)。第3声は低く下がって上がる音で、記号はcaron(ǎ)。第4声は下がる音で、記号はgrave(à)です。軽声には記号を付けません。同じページは、これらの記号を、母音の上に置くと説明しています。複数の母音があるときの規則も、次のとおりです。
+Tones are represented by four marks. The first tone is flat and high, marked with a macron (ā). The second tone rises, marked with an acute (á). The third tone dips low and then rises, marked with a caron (ǎ). The fourth tone falls, marked with a grave (à). The neutral tone has no mark. The same page explains that these marks are placed above vowels. The rules for when there are several vowels are as follows.
 
-- aかeがあれば、その母音
-- ouのときは、oの上
-- そのほかは、2つ目の母音
+- If there is an a or e, that vowel
+- For ou, above the o
+- Otherwise, the second vowel
 
-たとえば「内存」の nèicún は、nèi の e と、cún の u に付いています。「散热」の sànrè は、どちらも第4声です。規則を知っていれば、記号の位置から、どの母音が中心かを読み取れます。
+For example, in nèicún (内存), the marks are on the e of nèi and the u of cún. In sànrè (散热), both are fourth tone. If you know the rules, you can read from the position of the mark which vowel is the center.
 
-ほかにも、見落としやすい決まりがあります。ü(ǜ など)は、l と n の後ろでだけ、u との書き分けが必要です。j、q、x、y の後ろでは、ü の音でも u と書きます。たとえば「鱼」は yú と書き、yǘ とは書きません。「刷新率」の shuāxīnlǜ は、l の後ろなので、ǜ と書きます。入力するときは、ü を打ちにくいため、v で代用することがあります。音節の切れ目を示す必要があるときは、アポストロフィの出番です。西安(Xī'ān)と先(xiān)が、その例です。
+There are other rules that are easy to overlook. ü (as in ǜ) only needs to be written differently from u after l and n. After j, q, x, and y, the ü sound is still written u. For example, 鱼 is written yú, not yǘ. In shuāxīnlǜ (刷新率), the vowel comes after l, so it is written ǜ. When typing, ü is hard to enter, so v is sometimes substituted. When a syllable boundary needs to be shown, an apostrophe is used. 西安 (Xī'ān) and 先 (xiān) are an example.
 
-昔のタイプライターでは、声調の記号を打てなかったため、数字で表す方法もあります。たとえば、tóng は `tong2` と書き、軽声は数字なしか、0か5です。仕様表や掲示板で、声調のない表記や数字付きの表記に出会っても、この対応を知っていれば読み取れます。ただし、声調を省いた表記は、どの語を指すか曖昧になりがちです。Wikipediaも、ニュース記事などで声調の記号が省かれ、曖昧さが生じると指摘しています。
+Because old typewriters could not type tone marks, there is also a method of representing them with numbers. For example, tóng is written `tong2`, and the neutral tone is written with no number, or with 0 or 5. If you know this correspondence, you can read forms without tones or with numbers when you come across them in spec tables and forums. However, forms that omit tones tend to be ambiguous as to which word they mean. Wikipedia also points out that tone marks are omitted in places such as news articles, causing ambiguity.
 
-声調の変化(声調のサンディ)は、ふつうピンインの綴りには反映されません。この点は、ピンインを見ただけでは、実際の発音が分からないことを意味します。辞書の音声や、母語話者の発音で確かめる習慣が必要です。
+Tone changes (tone sandhi) are usually not reflected in pinyin spelling. This means that seeing the pinyin alone does not tell you the actual pronunciation. You need the habit of checking with dictionary audio or native speakers' pronunciation.
 
-同じ字で、読みが複数ある例も、この分野にあります。MDBGで「内存卡」を引くと、辞書にその形の項目がなく、「内存」(nèicún)と「卡」(kǎ と qiǎ)に分けて表示されました。「卡」の kǎ には、カードの意味があり、qiǎ には、引っかかる、挟まる、という意味が載っています。「模拟器」の「模」は、汉典で mó と mú の2つの読みが出てきます([汉典の「模」](https://www.zdic.net/hans/%E6%A8%A1))。どちらの読みかは、語の中で決まるため、単語として引くことが、字ごとに引くより確実です。
+This field also has examples of the same character having several readings. Looking up 内存卡 on MDBG showed no entry for that form, and it was displayed split into 内存 (nèicún) and 卡 (kǎ and qiǎ). For 卡, kǎ has the meaning of card, and qiǎ is listed as meaning to get caught or wedged. The 模 in 模拟器 has two readings on 汉典, mó and mú ([模 on 汉典](https://www.zdic.net/hans/%E6%A8%A1)). Which reading applies is determined within the word, so looking it up as a word is more reliable than looking it up character by character.
 
-## 辞書と検索の使い方
+## Using dictionaries and search
 
-辞書は、MDBGと汉典を、目的ごとに使い分けます。MDBGは、語を引く辞書で、メニューに、単語、文字、翻訳、練習、ヘルプの5つがあります。入力欄には、中国語、ピンイン、英語のどれを入れてもかまいません。結果の表には、繁体字、ピンイン、英語の意味、簡体字、HSKの等級が並びます。たとえば「卡」は HSK 2、「内存」は HSK 7-9 と表示されていました。MDBGの入力欄の下には、中国語の文章を丸ごと入れて、自動で単語に分けて引く機能があるという説明もあります。掲示板の長い文を、語に分けて確かめるのに便利です。
+Use MDBG and 汉典 for different purposes. MDBG is a dictionary for looking up words, and its menu has five items: word, character, translation, practice, and help. You can enter Chinese, pinyin, or English in the input field. The results table lists traditional characters, pinyin, English meaning, simplified characters, and HSK level. For example, 卡 was shown as HSK 2 and 内存 as HSK 7-9. Below MDBG's input field there is also an explanation of a function that takes a whole Chinese passage, automatically divides it into words, and looks them up. This is convenient for checking long forum sentences word by word.
 
-完全に一致する語がないときは、ワイルドカードの `*` で、含む語を探す手があります。MDBGは、「散热」の検索で「*散热*」を案内していて、「内存卡」で結果がなかったときも同じ案内でした。ただし、MDBGは自動化されたアクセスを禁止すると明記しているため、手作業で引く使い方に限ります。
+When no word matches exactly, you can use the wildcard `*` to search for words containing the term. MDBG suggested `*散热*` in a search for 散热, and gave the same suggestion when 内存卡 had no results. However, MDBG explicitly prohibits automated access, so use it only for looking things up by hand.
 
-汉典(zdic.net)は、1字ごとに詳しく引く辞書です。「模」のページには、ピンイン、注音(ㄇㄛˊ など)、部首(木)、総画数(14)、筆順、字形の構造が出ていました。ページの下に、基本解釈、詳細解釈、国語辞典、康熙字典、説文解字、音韻方言、字源字形のタブがあることも、画面で確認しました。字の形から意味を調べたいときや、読みが分からないときに向いています。広告が出るため、表示は、このリポジトリには載せていません。
+汉典 (zdic.net) is a dictionary for detailed lookups of individual characters. The page for 模 showed the pinyin, 注音 (such as ㄇㄛˊ), radical (木), total stroke count (14), stroke order, and the structure of the character form. It was also confirmed on screen that the bottom of the page has tabs for basic explanation, detailed explanation, national-language dictionary, Kangxi Dictionary, Shuowen Jiezi, phonology and dialects, and character origin and form. It is suited to cases where you want to research meaning from the form of a character or don't know the reading. Because ads appear, its screen is not shown in this repository.
 
-販売サイトの検索には、中国語の語がそのまま使えます。CNFansには、「Search using: Chinese」の設定があり、中国語のキーワードで検索する形です。商品名は機械翻訳された英語で出るので、元の中国語の語を知っておくと探しやすくなります。検索に使った語は、[検索キーワード](../chinese/search-keywords.md)にまとめました。
+Chinese words can be used as they are for searching sales sites. CNFans has a "Search using: Chinese" setting, for searching with Chinese keywords. Product names appear in machine-translated English, so knowing the original Chinese words makes things easier to find. The words used for searching are collected in the [search keywords](../chinese/search-keywords.md).
 
-## 仕様表から覚える語彙
+## Vocabulary to learn from spec tables
 
-掌机圈の機種のページは、仕様表の項目が決まっているため、機器の語彙を覚えるのに向いています。[RG-406Vのページ](https://zhangjiquan.com/handheld/rg-406v)には、「发布时间」(発売時期)、「外观尺寸」(外形寸法)、「外壳材质」(外装の素材)、「屏幕尺寸」、「屏幕分辨率」(画面の解像度)、「屏幕比例」(アスペクト比)、「屏幕刷新率」、「处理器」、「CPU核心和线程数」、「GPU」、「连接性」、「视频输出」、「音频输出」、「扬声器」(スピーカー)、「起售价格」、「价格区间」、「模拟器支持」といった項目が並ぶ構成です。値の側にも、「散热管,散热风扇」(ヒートパイプとファン)、「霍尔摇杆」(ホール効果のスティック)、「陀螺仪」(ジャイロ)、「双立体声」(ステレオスピーカー)のような語があります。
+The device pages on 掌机圈 have fixed spec table fields, which makes them good for learning device vocabulary. The [RG-406V page](https://zhangjiquan.com/handheld/rg-406v) is laid out with fields such as 发布时间 (release date), 外观尺寸 (external dimensions), 外壳材质 (casing material), 屏幕尺寸, 屏幕分辨率 (screen resolution), 屏幕比例 (aspect ratio), 屏幕刷新率, 处理器, CPU核心和线程数, GPU, 连接性, 视频输出, 音频输出, 扬声器 (speaker), 起售价格, 价格区间, and 模拟器支持. On the value side as well there are words such as 散热管,散热风扇 (heat pipe and fan), 霍尔摇杆 (Hall effect stick), 陀螺仪 (gyro), and 双立体声 (stereo speakers).
 
-![掌机圈のRG-556のページ。項目名と値の両方が中国語で並ぶ](../assets/screenshots/zhangjiquan-rg556-spec-rows.png)
+![The RG-556 page on 掌机圈, with both field names and values listed in Chinese](../assets/screenshots/zhangjiquan-rg556-spec-rows.png)
 
-項目名には、「屏幕」(画面)が何度も出てきます。「屏幕尺寸」「屏幕分辨率」「屏幕比例」「屏幕刷新率」は、すべて「屏幕」に、日本語でも通じる語を足した形です。こうした共通の部品を見つけると、語を1つずつ覚えるより、少ない手間で増やせます。
+屏幕 (screen) appears repeatedly in the field names. 屏幕尺寸, 屏幕分辨率, 屏幕比例, and 屏幕刷新率 are all 屏幕 plus a word that is also understandable in Japanese. Finding such shared components lets you expand your vocabulary with less effort than memorizing words one at a time.
 
-購入リンクの欄には、「到手价」(クーポンなどを引いた実際の価格)と「券面额」(クーポンの額)、「下单链接」(注文のリンク)が並びます。実際の出品を読むときに、そのまま使える語です。
+The purchase link field lists 到手价 (actual price after coupons and the like), 券面额 (coupon value), and 下单链接 (order link). These are words you can use as they are when reading actual listings. On November 2, 2026, the field was no longer shown as page text on the device pages checked.
 
-## 出品から覚える語彙
+## Vocabulary to learn from listings
 
-CNFansで見つけた天馬Gのカードの出品は、短い文で、重要な語がそろっています。画像には、「此链接不包含机器」(このリンクには本体を含まない)、「预装RP5天马G专用内存卡」(RP5用の天馬Gを事前に入れた専用メモリーカード)、「需要其他机器的卡请备注」(ほかの機種用のカードが必要なら、備考に書いてください)と書かれています([検索結果](https://cnfans.com/search?keywords=RP5%E9%A2%84%E8%A3%85%E5%A4%A9%E9%A9%AC&searchType=keywords))。ページの説明には、「此商品链接只有内存卡 请知悉」(この商品はメモリーカードだけです)、「玩家到手后可根据教程安装」(購入者は、届いたあとで手順書に従って入れられます)、「傻瓜式操作」(誰でもできる簡単な操作)があります。
+The listing for a Tianma G card found on CNFans has short sentences that contain the important words. The image says 此链接不包含机器 (this link does not include the device), 预装RP5天马G专用内存卡 (dedicated memory card for the RP5 with Tianma G preinstalled), and 需要其他机器的卡请备注 (if you need a card for another device, write it in the notes) ([search results](https://cnfans.com/search?keywords=RP5%E9%A2%84%E8%A3%85%E5%A4%A9%E9%A9%AC&searchType=keywords)). The page description has 此商品链接只有内存卡 请知悉 (this product is the memory card only), 玩家到手后可根据教程安装 (buyers can install it according to the instructions after it arrives), and 傻瓜式操作 (a simple operation anyone can do).
 
-これらの文から、「预装」(あらかじめ入れてある)、「专用」(専用)、「内存卡」(メモリーカード)、「教程」(手順書)、「备注」(備考)、「傻瓜式」(誰でもできる)といった語が、ここから拾える語です。文を区切ると、「此链接」(このリンク)、「不包含」(含まない)、「机器」(本体)のような短い語の組み合わせに分かれます。この区切り方が、出品の文を読む基本の型です。
+Words that can be picked up from these sentences include 预装 (put in beforehand), 专用 (dedicated), 内存卡 (memory card), 教程 (instructions), 备注 (notes), and 傻瓜式 (anyone can do it). Dividing a sentence breaks it into combinations of short words such as 此链接 (this link), 不包含 (does not include), and 机器 (device). This way of dividing is the basic pattern for reading listing sentences.
 
-## 掲示板から覚える語彙と隠語
+## Vocabulary and slang to learn from forums
 
-[RG40XXHの放熱改造の投稿](https://tieba.baidu.com/p/10191425150)は、機器の語彙が豊富です。「发热」(発熱)、「散热」(放熱)、「导热垫」(熱伝導パッド)、「泡棉」(発泡材)、「铜箔」(銅箔)、「满载」(全力で動かすこと)、「串键」(十字キーの誤入力)のような語が出てきます。投稿者は、メーカーのAnbernicを、「周哥」とは呼ばず、揶揄を込めた「周割」と書いています。
+The [post on the RG40XXH heat dissipation mod](https://tieba.baidu.com/p/10191425150) is rich in device vocabulary. Words such as 发热 (heat generation), 散热 (heat dissipation), 导热垫 (thermal pad), 泡棉 (foam), 铜箔 (copper foil), 满载 (running at full power), and 串键 (false D-pad input) appear. Rather than calling the manufacturer Anbernic 周哥, the poster writes 周割 with a note of ridicule.
 
-ブランドには愛称があり、掌机圈の掲載では、Anbernicの[RG-406V](https://zhangjiquan.com/handheld/rg-406v)の別名は「周哥RG-406V」、Retroidの[Retroid Pocket 5](https://zhangjiquan.com/handheld/retroid-pocket-5)の別名は「沙雕5,RP 5」です。購入者のコメントも、言い回しの勉強の材料です。[RP4 Proのページ](https://zhangjiquan.com/handheld/retroid-pocket-4-pro)には、「起手1500我说冤大头,闲鱼700只能给一句水桶机皇」というコメントがあります。「冤大头」は、損をする人を指す言い方です。「水桶机皇」は、弱点の少ない万能機の王という意味に読めます。[Retroid Pocket Novaのページ](https://zhangjiquan.com/handheld/retroid-pocket-nova)のコメントは、この機種を「完美毕业掌机」(完璧な最終機)と呼んでいます。「毕业」(卒業)は、これ以上買い替える必要がない、という意味の言い方です。
+Brands have nicknames. As listed on 掌机圈, the alias of Anbernic's [RG-406V](https://zhangjiquan.com/handheld/rg-406v) is 周哥RG-406V, and the alias of Retroid's [Retroid Pocket 5](https://zhangjiquan.com/handheld/retroid-pocket-5) is 沙雕5,RP 5. Buyers' comments are also material for studying expressions. The [RP4 Pro page](https://zhangjiquan.com/handheld/retroid-pocket-4-pro) has the comment 起手1500我说冤大头,闲鱼700只能给一句水桶机皇. 冤大头 is a way of referring to someone who loses out. 水桶机皇 can be read as meaning the king of all-round devices with few weak points. A comment on the [Retroid Pocket Nova page](https://zhangjiquan.com/handheld/retroid-pocket-nova) calls this device 完美毕业掌机 (the perfect final device). 毕业 (graduation) is an expression meaning there is no need to buy any further replacement.
 
-掲示板の掲載は、読む順番を決めると、負担が減ります。まず、掲示板の名前と、投稿の題名から、どの機種のどの話題かをつかみます。貼吧の掲示板の名前は、「开源掌机吧」のように、末尾に「吧」が付く形です。次に、本文の中の機器名と数字を拾います。そのあとで、分からない語を、[隠語集](../chinese/slang.md)と辞書で調べる流れです。「完美毕业掌机」のような長い語は、「完美」「毕业」「掌机」に区切って、1語ずつ引きます。
+Reading forum content is less of a burden if you decide on an order. First, grasp which topic about which device it is from the forum name and the post title. Tieba forum names end in 吧, as in 开源掌机吧. Next, pick out device names and numbers in the body text. After that, look up words you don't know in the [slang glossary](../chinese/slang.md) and a dictionary. Divide long words such as 完美毕业掌机 into 完美, 毕业, and 掌机, and look them up one at a time.
 
-掲示板の種類も、語彙の偏りに影響します。「开源掌机吧」のトップページには、ハードウェアの議論、ソフトの交流、質問と回答のタブがあり、「吧友互助」というタブも、確認できました。「口袋改版资源吧」には、「改版教程」のタブがあり、ポケモンの改造の語彙を学べます。掲示板の規模などは、[コミュニティの記事](10-communities.md)を参照してください。
+The type of forum also affects which vocabulary is common. On the top page of 开源掌机吧, tabs for hardware discussion, software exchange, and questions and answers, as well as a tab called 吧友互助, could be confirmed. 口袋改版资源吧 has a 改版教程 tab, where you can learn the vocabulary of Pokémon modding. For details such as forum size, see the [communities article](10-communities.md).
 
-## ソフトウェアの語彙
+## Software vocabulary
 
-天馬Gの紹介記事には、ソフトウェアの語彙がまとまって出てきます。「前端」(フロントエンド)、「整合包」(まとめパック)、「汉化」(中国語化)、「精简」(軽量化)、「懒人包」(手間のかからない簡易パック)、「封面」(カバー画像)、「信息差」(情報の差)といった語です([模拟器游戏 篇四](https://zhuanlan.zhihu.com/p/703325151))。CSDNの記事は、「配置」(設定)、「主题包」(テーマのパック)、「权限」(権限)といった語を使います([天马G前端的使用](https://blog.csdn.net/fanged/article/details/152960565))。
+An introductory article on Tianma G contains a concentration of software vocabulary. These are words such as 前端 (frontend), 整合包 (bundled pack), 汉化 (Chinese localization), 精简 (lightweighting), 懒人包 (low-effort simple pack), 封面 (cover image), and 信息差 (information gap) ([模拟器游戏 篇四](https://zhuanlan.zhihu.com/p/703325151)). A CSDN article uses words such as 配置 (settings), 主题包 (theme pack), and 权限 (permissions) ([天马G前端的使用](https://blog.csdn.net/fanged/article/details/152960565)).
 
-## 機械翻訳の使い方
+## Using machine translation
 
-出品や投稿を読むときは、機械翻訳も使えます。Google翻訳のヘルプによると、画像の中の文字も訳せます。ブラウザでGoogle翻訳を開き、上部の「画像」のタブを選び、原文と訳文の言語を指定してから、翻訳する画像を選ぶ手順です。訳したあとは、原文を並べて表示したり、訳文をコピーしたり、訳した画像を保存したりできます([画像を翻訳する](https://support.google.com/translate/answer/6142483))。CNFansの出品は、重要な説明が画像の中にあるため、この機能が役立ちます。
+Machine translation can also be used when reading listings and posts. According to Google Translate's help, text in images can also be translated. The steps are to open Google Translate in a browser, select the Images tab at the top, specify the source and target languages, and then select the image to translate. After translating, you can display the original side by side, copy the translated text, or save the translated image ([画像を翻訳する (Translate images)](https://support.google.com/translate/answer/6142483)). In CNFans listings, important explanations are in images, so this function is useful.
 
-ただし、同じヘルプは、翻訳の精度が文字の鮮明さに左右されると注意しています。小さい文字、不鮮明な文字、図案化された書体の文字は、正確に訳されないことがあるそうです。一般的なフォントで、はっきり写っている文字なら、結果がよくなるとも書かれています。出品の画像を訳すときも、訳文をそのまま信じず、重要な語は辞書で確かめてください。
+However, the same help page cautions that translation accuracy depends on the clarity of the text. Small text, blurry text, and text in stylized typefaces may not be translated accurately. It also says results are better for clearly captured text in a common font. When translating listing images too, don't trust the translation as is, and check important words in a dictionary.
 
-使い分けとしては、機械翻訳で大意をつかみ、重要な語を辞書で引く方法が向いています。たとえば、CNFansの検索結果の商品名は、機械翻訳された英語で表示されます。そこから商品の種類は分かりますが、「预装」(あらかじめ入れてある)や「此链接不包含机器」(本体を含まない)のような、買ううえで重要な語は、元の中国語の説明で確かめるほうが確実です。MDBGの文の自動分割は、機械翻訳の結果を検証するときに、語の区切りを知る手がかりになります。掲示板の隠語や愛称が、機械翻訳でどう訳されるかは、この調査では検証していません。
+As for how to divide the work, a good method is to get the gist with machine translation and look up the important words in a dictionary. For example, product names in CNFans search results are displayed in machine-translated English. From that you can tell the type of product, but for words important to a purchase, such as 预装 (put in beforehand) and 此链接不包含机器 (does not include the device), it is more reliable to check the original Chinese description. MDBG's automatic sentence division gives a clue to word boundaries when verifying machine translation results. How forum slang and nicknames come out in machine translation has not been verified in this research.
 
-## 学習に使えるサイトとアプリ
+## Sites and apps useful for study
 
-実際に開いて確認できたサイトとアプリを、特徴とあわせて挙げます。機能の記述は、各公式ページに書かれていたものに限ります。
+Here are the sites and apps that could actually be opened and confirmed, along with their features. Descriptions of features are limited to what was written on each official page.
 
-MDBG([www.mdbg.net](https://www.mdbg.net/chinese/dictionary))は、ブラウザで使える中国語の辞書です。前の節に書いたとおり、中国語、ピンイン、英語で引け、文の自動分割も使えます。メニューに「練習」があることは確認しましたが、中身は開いていません。
+MDBG ([www.mdbg.net](https://www.mdbg.net/chinese/dictionary)) is a Chinese dictionary usable in a browser. As described in the section on dictionaries and search above, you can look things up in Chinese, pinyin, or English, and automatic sentence division is also available. It was confirmed that the menu has a practice item, but its contents were not opened.
 
-汉典([www.zdic.net](https://www.zdic.net/))は、字ごとの詳しい辞書です。ピンイン、部首、総画数、筆順を確認できます。
+汉典 ([www.zdic.net](https://www.zdic.net/)) is a detailed character-by-character dictionary. You can check the pinyin, radical, total stroke count, and stroke order.
 
-Pleco([www.pleco.com](https://www.pleco.com/))は、iOSとAndroidの中国語辞書アプリです。公式ページには、主な機能が次のように書かれています。カメラでライブに未知の語を調べるOCR、画面に字を書いて調べる手書き入力、複数の出版社の辞書、3万4000語に付く2人のネイティブ話者の録音、辞書の項目から作れる単語カード、タップで語を引けるドキュメントリーダー、約2万7000字の筆順のアニメーションです。画面に出ている語を調べる機能は、Androidだけに用意されていると書かれています。携帯ゲーム機がAndroid機なら、アプリ上の中国語の画面を調べる使い方もありえますが、この調査では、アプリを入れて試してはいません。価格と、各辞書の収録内容も確認できていません。
+Pleco ([www.pleco.com](https://www.pleco.com/)) is a Chinese dictionary app for iOS and Android. The official page lists its main features as follows: OCR for looking up unknown words live with the camera, handwriting input for looking things up by writing characters on the screen, dictionaries from several publishers, recordings by two native speakers for 34,000 words, flashcards that can be made from dictionary entries, a document reader in which you can look up words by tapping, and stroke order animations for about 27,000 characters. The function for looking up words shown on the screen is said to be available only on Android. If your handheld is an Android device, you could use it to look up Chinese screens in apps, but the app was not installed and tried in this research. The price and the contents of each dictionary have also not been confirmed.
 
-HSKの公式サイト([中文考试服务网](https://www.chinesetest.cn/))は、中国語の検定試験HSKを案内するサイトです。トップページには、HSK3.0、模擬試験、試験の申し込み、試験日、試験会場の検索、成績の照会、証明書の検証といった項目が並びます。試験の等級ごとの語彙や、試験の内容までは、このサイトの別のページを開いて確かめられなかったため、ここには書きません。MDBGの表示にある「HSK 2」や「HSK 7-9」は、語が検定の語彙表のどの帯に入るかの目安として読めますが、等級の定義は、公式サイトで確認できませんでした。
+The official HSK site ([中文考试服务网](https://www.chinesetest.cn/)) is a site that provides information on the HSK Chinese proficiency test. The top page lists items such as HSK3.0, mock exams, test registration, test dates, test center search, score lookup, and certificate verification. Vocabulary by test level and the contents of the test could not be confirmed by opening other pages of this site, so they are not written here. The HSK 2 and HSK 7-9 shown on MDBG can be read as a guide to which band of the test's vocabulary list a word falls into, but the definitions of the levels could not be confirmed on the official site.
 
-ピンインと声調の細かい決まりは、Wikipediaの[Pinyin](https://en.wikipedia.org/wiki/Pinyin)のページが、表と例を使って詳しく説明しています。Wikipediaは、誰でも編集できる百科事典なので、重要な点は、辞書や公的な資料でも確かめてください。
+For the fine details of pinyin and tones, Wikipedia's [Pinyin](https://en.wikipedia.org/wiki/Pinyin) page explains them in detail using tables and examples. Wikipedia is an encyclopedia anyone can edit, so check important points in dictionaries and official materials as well.
 
-## 学び方の例
+## Examples of how to study
 
-効率のよい進め方を、3つ挙げます。1つ目は、仕様表の項目名を、日本語と対応づけて覚えることです。2つ目は、出品の説明文を、短い文ごとに区切って読むことです。3つ目は、掲示板の投稿から動詞と道具の名前を拾うこと。
+Here are three efficient ways to proceed. The first is to memorize spec table field names by matching them to Japanese. The second is to read listing descriptions by dividing them into short sentences. The third is to pick out verbs and tool names from forum posts.
 
-声調と簡体字の勉強には、仕様表の語が向いています。中国語は、同じ漢字でも意味が日本語と違うことがあります。たとえば「内存」はメモリー、「存储」はストレージ、「刷新率」はリフレッシュレートです。
+Spec table words are good for studying tones and simplified characters. In Chinese, the same kanji can have a meaning different from Japanese. For example, 内存 is memory, 存储 is storage, and 刷新率 is refresh rate.
 
-語を覚えるときは、ピンインと声調を、最初から付けて覚えます。「散热」を sànrè と、声調を付けて覚えれば、聞いたときにも気づきやすくなります。声調の記号は、辞書の表示から写してください。自信がない語のピンインは、語彙表にも載せない決まりです。
+When memorizing words, learn them with pinyin and tones from the start. If you memorize 散热 as sànrè with its tones, you will notice it more easily when you hear it. Copy tone marks from what the dictionary displays. The rule is that pinyin you are not confident about is not put in the vocabulary list either.
 
-## この記事で出てくる中国語
+## Chinese terms in this article
 
-次の表は、この記事の本文に出てくる主要な語を、ピンインと意味とあわせてまとめたものです。
+The following table collects the main words appearing in the text of this article, along with their pinyin and meaning.
 
-| 中国語(簡体字) | ピンイン | 日本語の意味 | 出典 |
+| Chinese (Simplified) | Pinyin | Meaning | Source |
 |---|---|---|---|
-| 掌机 | zhǎngjī | 携帯ゲーム機 | [掌机圈](https://zhangjiquan.com/handhelds) |
-| 散热 | sànrè | 熱を逃がす、放熱する | [MDBG](https://www.mdbg.net/chinese/dictionary?page=worddict&wdrst=1&wdqb=%E6%95%A3%E7%83%AD) |
-| 内存 | nèicún | メモリー(RAM) | [MDBG](https://www.mdbg.net/chinese/dictionary?page=worddict&wdrst=1&wdqb=%E5%86%85%E5%AD%98%E5%8D%A1) |
-| 内存卡 | nèicúnkǎ | メモリーカード | [CNFansの検索結果](https://cnfans.com/search?keywords=RP5%E9%A2%84%E8%A3%85%E5%A4%A9%E9%A9%AC&searchType=keywords) |
-| 模拟器 | mónǐqì | エミュレーター | [RG-406V](https://zhangjiquan.com/handheld/rg-406v) |
-| 刷新率 | shuāxīnlǜ | リフレッシュレート | [RG-406V](https://zhangjiquan.com/handheld/rg-406v) |
-| 到手价 | dàoshǒujià | クーポンなどを引いた実際の価格 | [RG-406V](https://zhangjiquan.com/handheld/rg-406v) |
-| 预装 | yùzhuāng | あらかじめ入れてある | [CNFansの検索結果](https://cnfans.com/search?keywords=RP5%E9%A2%84%E8%A3%85%E5%A4%A9%E9%A9%AC&searchType=keywords) |
-| 备注 | bèizhù | 備考 | [CNFansの検索結果](https://cnfans.com/search?keywords=RP5%E9%A2%84%E8%A3%85%E5%A4%A9%E9%A9%AC&searchType=keywords) |
-| 汉化 | hànhuà | 中国語化 | [模拟器游戏 篇四](https://zhuanlan.zhihu.com/p/703325151) |
-| 前端 | qiánduān | フロントエンド | [模拟器游戏 篇四](https://zhuanlan.zhihu.com/p/703325151) |
-| 满载 | mǎnzài | 全力で動かすこと | [RG40XXHの投稿](https://tieba.baidu.com/p/10191425150) |
-| 毕业 | bìyè | 卒業、買い替え不要の意味 | [Retroid Pocket Nova](https://zhangjiquan.com/handheld/retroid-pocket-nova) |
-| 简体字 | jiǎntǐzì | 簡体字 | [Simplified Chinese characters](https://en.wikipedia.org/wiki/Simplified_Chinese_characters) |
-| 拼音 | pīnyīn | ピンイン | [Pinyin](https://en.wikipedia.org/wiki/Pinyin) |
-| 声母 | shēngmǔ | 音節の頭の子音 | [Pinyin](https://en.wikipedia.org/wiki/Pinyin) |
-| 韵母 | yùnmǔ | 声母を除いた音節の残り | [Pinyin](https://en.wikipedia.org/wiki/Pinyin) |
-| 汉典 | Hàndiǎn | 中国語の辞書サイトの名前 | [汉典](https://www.zdic.net/hans/%E6%A8%A1) |
+| 掌机 | zhǎngjī | Handheld game console | [掌机圈](https://zhangjiquan.com/handhelds) |
+| 散热 | sànrè | To release heat, dissipate heat | [MDBG](https://www.mdbg.net/chinese/dictionary?page=worddict&wdrst=1&wdqb=%E6%95%A3%E7%83%AD) |
+| 内存 | nèicún | Memory (RAM) | [MDBG](https://www.mdbg.net/chinese/dictionary?page=worddict&wdrst=1&wdqb=%E5%86%85%E5%AD%98%E5%8D%A1) |
+| 内存卡 | nèicúnkǎ | Memory card | [CNFans search results](https://cnfans.com/search?keywords=RP5%E9%A2%84%E8%A3%85%E5%A4%A9%E9%A9%AC&searchType=keywords) |
+| 模拟器 | mónǐqì | Emulator | [RG-406V](https://zhangjiquan.com/handheld/rg-406v) |
+| 刷新率 | shuāxīnlǜ | Refresh rate | [RG-406V](https://zhangjiquan.com/handheld/rg-406v) |
+| 到手价 | dàoshǒujià | Actual price after coupons and the like | [RG-406V](https://zhangjiquan.com/handheld/rg-406v) |
+| 预装 | yùzhuāng | Put in beforehand | [CNFans search results](https://cnfans.com/search?keywords=RP5%E9%A2%84%E8%A3%85%E5%A4%A9%E9%A9%AC&searchType=keywords) |
+| 备注 | bèizhù | Notes | [CNFans search results](https://cnfans.com/search?keywords=RP5%E9%A2%84%E8%A3%85%E5%A4%A9%E9%A9%AC&searchType=keywords) |
+| 汉化 | hànhuà | Chinese localization | [模拟器游戏 篇四](https://zhuanlan.zhihu.com/p/703325151) |
+| 前端 | qiánduān | Frontend | [模拟器游戏 篇四](https://zhuanlan.zhihu.com/p/703325151) |
+| 满载 | mǎnzài | Running at full power | [RG40XXH post](https://tieba.baidu.com/p/10191425150) |
+| 毕业 | bìyè | Graduation; meaning no need for further replacement | [Retroid Pocket Nova](https://zhangjiquan.com/handheld/retroid-pocket-nova) |
+| 简体字 | jiǎntǐzì | Simplified characters | [Simplified Chinese characters](https://en.wikipedia.org/wiki/Simplified_Chinese_characters) |
+| 拼音 | pīnyīn | Pinyin | [Pinyin](https://en.wikipedia.org/wiki/Pinyin) |
+| 声母 | shēngmǔ | Consonant at the start of a syllable | [Pinyin](https://en.wikipedia.org/wiki/Pinyin) |
+| 韵母 | yùnmǔ | The rest of a syllable, excluding the 声母 | [Pinyin](https://en.wikipedia.org/wiki/Pinyin) |
+| 汉典 | Hàndiǎn | Name of a Chinese dictionary site | [汉典](https://www.zdic.net/hans/%E6%A8%A1) |

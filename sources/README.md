@@ -1,23 +1,23 @@
-# 出典ノート
+# Source notes
 
-本文の引用元について、内容の要約、確認日、信頼度を1つずつ記録したノートです。確認日は、特に断りのない限り2026年10月3日です。
+These notes record, one by one, a summary of the content, the date checked, and the reliability of the sources cited in the articles. Unless otherwise noted, the date checked is October 3, 2026.
 
-信頼度は、次の基準で付けました。公式は、開発元や販売元が自分で出している資料です。個人は、個人が自分の経験をもとに書いた記事や投稿を指します。集約は、ユーザーの投稿を集めたデータベースです。AI生成は、ページ上でAI生成と表示されたものです。
+Reliability was assigned by the following criteria. Official means material published by the developer or seller itself. Personal means articles or posts written by an individual based on their own experience. Aggregated means a database that collects user submissions. AI-generated means a page labeled as AI-generated. Seller means a page published by a store or service about what it sells. News means reporting by a media outlet.
 
-| ノート | 種類と信頼度 | 本文での主な使い道 |
+| Note | Type and reliability | Main use in the articles |
 |---|---|---|
-| [掌机圈の機種ページ](zhangjiquan.md) | 集約 | 機種の仕様、エミュレーションの目安、愛称 |
-| [ROCKNIX公式Wiki](rocknix-wiki.md) | 公式 | 対応機種、導入の手順、ゲームの追加 |
-| [Knulliの公式ドキュメント](knulli-docs.md) | 公式 | Knulliの考え方、導入、対応機種 |
-| [Pegasusの公式資料](pegasus.md) | 公式 | フロントエンド、メタデータの書式 |
-| [pretとポケモン改造のツール](pret-and-tools.md) | 公式 | ソースからのビルド、地図、データの編集 |
-| [そのほかのOSのリポジトリ](other-os-repos.md) | 公式 | GammaOS、ArkOS、JELOS、muOS、LineageOS |
-| [知乎の天馬G紹介記事](zhihu-703325151.md) | 個人(転載) | 天馬Gの構造と導入 |
-| [CSDNの天馬G記事](csdn-fanged.md) | 個人 | OSの比較、Android版の導入、スマホの活用 |
-| [貼吧の2020年の投稿](tieba-6671136635.md) | 個人 | 天馬Gの前端の紹介 |
-| [貼吧のRG40XXH放熱改造](tieba-cooling-thread.md) | 個人 | 放熱の改造の実例 |
-| [貼吧の掲示板3か所](tieba-forums.md) | 集約 | コミュニティの規模、ポケモン改造 |
-| [什么值得买のAI生成記事](smzdm-aigc.md) | AI生成 | ブランドの説明(注意が必要) |
-| [CNFansの出品と規約](cnfans.md) | 販売元 | 買い方、ゲーム入り商品の扱い |
-| [Retroid中国公式サイト](retroid-cn.md) | 公式 | 公式の販売経路 |
-| [Switchのコミュニティサイトとガイド](switch-community.md) | 公式・集約・個人・報道 | 記事25の導入手順、MODとチートの使い方 |
+| [掌机圈 device pages](zhangjiquan.md) | Aggregated | Device specs, emulation guidelines, nicknames |
+| [ROCKNIX official wiki](rocknix-wiki.md) | Official | Supported devices, installation steps, adding games |
+| [Knulli official documentation](knulli-docs.md) | Official | Knulli's approach, installation, supported devices |
+| [Pegasus official materials](pegasus.md) | Official | Frontend, metadata format |
+| [pret and Pokémon modding tools](pret-and-tools.md) | Official | Building from source, maps, data editing |
+| [Repositories of other OSes](other-os-repos.md) | Official | GammaOS, ArkOS, JELOS, muOS, LineageOS |
+| [Zhihu article introducing Tianma G](zhihu-703325151.md) | Personal (reposted) | Structure and installation of Tianma G |
+| [CSDN article on Tianma G](csdn-fanged.md) | Personal | OS comparison, installing the Android version, using a smartphone |
+| [2020 Tieba post](tieba-6671136635.md) | Personal | Introduction of the Tianma G frontend |
+| [RG40XXH cooling mod on Tieba](tieba-cooling-thread.md) | Personal | A real example of a cooling mod |
+| [Three Tieba forums](tieba-forums.md) | Aggregated | Community size, Pokémon modding |
+| [AI-generated articles on 什么值得买](smzdm-aigc.md) | AI-generated | Brand descriptions (caution needed) |
+| [CNFans listings and terms](cnfans.md) | Seller | How to buy, handling of products with games included |
+| [Retroid official site for China](retroid-cn.md) | Official | Official sales channels |
+| [Switch community sites and guides](switch-community.md) | Official, aggregated, personal, news | Installation steps in article 25, how to use mods and cheats |

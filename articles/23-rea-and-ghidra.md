@@ -1,24 +1,24 @@
-# REAとGhidraで機械語を読む
+# Reading machine code with REA and Ghidra
 
-[REAでリバースエンジニアリングを体験する](22-rea-hands-on.md)では、SDカードのイメージを分解して、RG40XXH向けのゲーム `coin_term` を取り出しました。ただし、中身の機械語を読む手前で止まっています。読むには、解析エンジンが必要だったからです。
+[Trying reverse engineering with REA](22-rea-hands-on.md) took apart an SD card image and extracted `coin_term`, a game for the RG40XXH. However, it stopped just short of reading the machine code inside. Reading it required an analysis engine.
 
-この記事では、解析エンジンのGhidraを入れて、その続きをします。
+In this article, I install the analysis engine Ghidra and continue from there.
 
-1. 文字列を手がかりに、セーブを扱う関数を見つける
-2. 関数の流れを図にして、疑似コード(C言語に似た形)に戻す
-3. 関数の名前を消したプログラムで、同じことを試す
-4. 読んだ結果を使って、1バイト書き換え、点数を5倍にする
-5. 改造したポケモン エメラルドの関数も読む
+1. Find the function that handles saves, using a string as a clue
+2. Draw the function's flow as a diagram and recover it as pseudocode (a form resembling C)
+3. Try the same thing on a program with its function names removed
+4. Use what was read to rewrite one byte and multiply the score by 5
+5. Also read a function from a modified Pokémon Emerald
 
-[CPUと機械語](20-cpu.md)で、命令を1つずつ読む練習をしました。この記事では、道具に命令をまとめて読ませ、人が読みやすい形に戻します。実験はx86_64のUbuntu 24.04で行い、REAは記事22と同じnpmの `rea-agents` 4.1.0を使いました。使ったスクリプトは [examples/rea-lab](../examples/rea-lab) に置いています。
+[CPUs and machine code](20-cpu.md) practiced reading instructions one at a time. In this article, I have a tool read the instructions in bulk and turn them back into a form that is easy for people to read. The experiments were done on x86_64 Ubuntu 24.04, using `rea-agents` 4.1.0 from npm for REA, the same as article 22. The scripts used are in [examples/rea-lab](../examples/rea-lab).
 
-## Ghidraを用意する
+## Preparing Ghidra
 
-[Ghidra](https://github.com/NationalSecurityAgency/ghidra)は、アメリカの国家安全保障局(NSA)が公開している、無料のリバースエンジニアリングの道具です。REAの[インストールの説明](https://github.com/morluto/rea/blob/472b72a53068a8e2ec78fe239d687023482daaa7/docs/installation.md)によると、REAはGhidra 12.1.4と、64ビットのJDK 21を使います。対応しているのは、Linux x64とmacOS(x64、arm64)です。
+[Ghidra](https://github.com/NationalSecurityAgency/ghidra) is a free reverse engineering tool published by the US National Security Agency (NSA). According to REA's [installation documentation](https://github.com/morluto/rea/blob/472b72a53068a8e2ec78fe239d687023482daaa7/docs/installation.md), REA uses Ghidra 12.1.4 and a 64-bit JDK 21. The supported platforms are Linux x64 and macOS (x64, arm64).
 
-ふつうは、Ghidraの[GitHubのリリース](https://github.com/NationalSecurityAgency/ghidra/releases)からダウンロードします。この実験の環境では、そのダウンロードが拒否されました。そこで、Docker Hubで公開されている `blacktop/ghidra:12.1.4` というイメージから、Ghidraのフォルダだけを取り出して使いました。取り出したフォルダの `Ghidra/application.properties` で、版が12.1.4であることを確かめています。Macで試すときは、公式のリリースを使ってください。
+Normally you download it from [Ghidra's GitHub releases](https://github.com/NationalSecurityAgency/ghidra/releases). In this experiment's environment, that download was refused. So I extracted just the Ghidra folder from an image published on Docker Hub, `blacktop/ghidra:12.1.4`, and used that. I confirmed that the version was 12.1.4 in `Ghidra/application.properties` in the extracted folder. When trying this on a Mac, use the official release.
 
-場所は、環境変数で教えます。
+You tell it the locations with environment variables.
 
 ```sh
 export GHIDRA_INSTALL_DIR=/path/to/ghidra_12.1.4_PUBLIC
@@ -26,96 +26,96 @@ export JAVA_HOME=/path/to/jdk-21
 rea doctor --json
 ```
 
-`rea doctor` は、Ghidraの版、`analyzeHeadless`(画面なしでGhidraを動かすための入り口)、JDKの版の3つを確かめて、すべて `healthy`(問題なし)と報告しました。
+`rea doctor` checked three things, the Ghidra version, `analyzeHeadless` (the entry point for running Ghidra without a GUI), and the JDK version, and reported all of them as `healthy` (no problems).
 
-## 文字列から関数をたどる
+## Tracing a function from a string
 
-調べるのは、[記事22の実験1](22-rea-hands-on.md#実験1sdカードのイメージを分解する)でSDカードのイメージから取り出した `coin_term` です。中身は、記事22の実験2のコイン集めをaarch64向けに変換したもので、関数の名前が残っています。
+The subject is `coin_term`, extracted from the SD card image in [experiment 1 of article 22](22-rea-hands-on.md#experiment-1-taking-apart-an-sd-card-image). Its contents are the coin collecting game from experiment 2 of article 22 compiled for aarch64, with function names remaining.
 
-リバースエンジニアリングでは、まず手がかりになる文字列を探します。このゲームは `best.sav` に保存するので、この文字列を探しました。
+In reverse engineering, you first look for a string that can serve as a clue. This game saves to `best.sav`, so I searched for this string.
 
 ```sh
 rea search coin_term best.sav --provider ghidra --json
 ```
 
-`best.sav` は、アドレス `0x453648` にありました。次に、この文字列を使っている場所(参照)を調べます。
+`best.sav` was at address `0x453648`. Next, I looked up the places that use this string (references).
 
 ```sh
 rea xrefs coin_term 0x453648 --json
 ```
 
-参照は `0x400894` と `0x400a34` の2か所でした。名前で関数を探すと、`main` が `0x400858` から始まっていて、2か所とも `main` の中です。
+There were two references, `0x400894` and `0x400a34`. Searching for functions by name showed that `main` starts at `0x400858`, and both places are inside `main`.
 
-この2つの手順は、`rea trace` の1回にまとめられます。文字を探し、参照を集め、参照がどの関数の中にあるかまで調べます。
+These two steps can be combined into a single `rea trace`. It searches for the text, collects references, and goes as far as finding which function each reference is in.
 
 ```sh
 rea trace coin_term best.sav --json
 ```
 
-結果には、2か所の参照のそれぞれについて、「`main`(`0x400858` から `0x400a67` までの528バイト)の中」と書かれていました。
+For each of the two references, the result said "inside `main` (528 bytes from `0x400858` to `0x400a67`)".
 
-REAは、命令を動かすたびに、ゲームをGhidraへ読み込ませて解析し、終わると消します(結果の制限の欄に、そう書かれています)。この実験では、命令1回に30秒から40秒かかりました。
+Each time a command is run, REA loads the game into Ghidra, analyzes it, and deletes it when finished (the limitations field of the result says so). In this experiment, each command took 30 to 40 seconds.
 
-## 関数の全体を調べる
+## Examining the whole function
 
-`rea function` は、1つの関数について、疑似コード、命令、呼び出す関数、呼ばれる場所、使う文字、処理の区切りなどを、まとめて返します。
+`rea function` returns, all at once for a single function, the pseudocode, instructions, functions called, places it is called from, strings used, processing divisions, and more.
 
 ```sh
 rea function coin_term main --json
 ```
 
-`main` が呼ぶ関数は、次の8つでした。
+`main` calls the following eight functions.
 
-| 関数 | 役目 |
+| Function | Role |
 |---|---|
-| `fopen64`、`fread`、`fwrite`、`fclose` | `best.sav` を開いて、読み書きして、閉じる |
-| `fgetc` | キーを1文字受け取る |
-| `draw` | 1行を画面に出す |
-| `___printf_chk` | 最後の `bye score=…` を出す |
-| `__stack_chk_fail` | 関数の作業場所(スタック)が壊されたことに気づいたときに止める |
+| `fopen64`, `fread`, `fwrite`, `fclose` | Open, read and write, and close `best.sav` |
+| `fgetc` | Receive one character of key input |
+| `draw` | Output one row to the screen |
+| `___printf_chk` | Output the final `bye score=…` |
+| `__stack_chk_fail` | Stop the program when it notices the function's work area (the stack) has been corrupted |
 
-最後の `__stack_chk_fail` は、元のソースにはありません。コンパイラが、安全のために自動で足した仕組みです。
+The last one, `__stack_chk_fail`, is not in the original source. It is a mechanism the compiler automatically added for safety.
 
-`main` を呼ぶ場所は、`0x400678` の1か所でした。ここは、[名前を消したとき](#名前を消すとどうなるか)に、もう一度出てきます。
+`main` is called from one place, `0x400678`. This place comes up again in [when names are removed](#what-happens-when-you-remove-the-names).
 
-### 処理の流れを図にする
+### Drawing the flow as a diagram
 
-`rea function` の結果には、処理の区切り(基本ブロック)が22個と、それぞれの次に進む先が入っていました。基本ブロックは、途中で分かれ道のない、ひと続きの命令のまとまりです。22個を、命令の中身と合わせて、役目ごとにまとめると、次の図になります。
+The result of `rea function` contained 22 processing divisions (basic blocks) and where each one proceeds next. A basic block is a continuous group of instructions with no branches partway through. Combining the 22 with the contents of their instructions and grouping them by role gives the following diagram.
 
 ```mermaid
 flowchart TD
-  A["0x400858<br>best.sav を rb で開く"] -->|開けない| B0["最高点 = 0"]
-  A -->|開けた| B["2バイト読んで閉じる<br>1バイト目が 0x4B なら<br>最高点 = 2バイト目"]
+  A["0x400858<br>Open best.sav with rb"] -->|cannot open| B0["best = 0"]
+  A -->|opened| B["Read 2 bytes and close<br>If byte 1 is 0x4B,<br>best = byte 2"]
   B0 --> C
-  B --> C["最初の画面を出す<br>x=0、coin=7、score=0"]
-  C --> D["0x40095c<br>キーを1文字受け取る"]
-  D -->|q か 終わり| S["0x4009c4<br>score が最高点より大きい?"]
-  D -->|a で x>0| L["x を1減らす"]
-  D -->|d で x<9| R["x を1増やす"]
-  D -->|a でも d でもない| D
-  D -->|a か d だが<br>壁で動けない| H
+  B --> C["Show the first screen<br>x=0, coin=7, score=0"]
+  C --> D["0x40095c<br>Receive one character of key input"]
+  D -->|q or end| S["0x4009c4<br>score greater than best?"]
+  D -->|a with x>0| L["Decrease x by 1"]
+  D -->|d with x<9| R["Increase x by 1"]
+  D -->|neither a nor d| D
+  D -->|a or d but<br>blocked by wall| H
   L --> H["0x400980<br>x == coin?"]
   R --> H
-  H -->|いいえ| W["画面を出す"]
-  H -->|はい| P["0x400988<br>score を10増やす<br>coin = (coin×3+1) % 10"]
+  H -->|no| W["Show the screen"]
+  H -->|yes| P["0x400988<br>Increase score by 10<br>coin = (coin×3+1) % 10"]
   P --> W
   W --> D
-  S -->|はい| V["best.sav を wb で開き<br>2バイト書いて閉じる"]
-  S -->|いいえ| E["bye score=… を出して終わる"]
+  S -->|yes| V["Open best.sav with wb,<br>write 2 bytes, and close"]
+  S -->|no| E["Output bye score=… and end"]
   V --> E
 ```
 
-この図は、[CPUと機械語](20-cpu.md)で見た「命令が、上から順に、ときどき飛びながら進む」様子を、関数1つ分の大きさで描いたものです。図の中の `0x400988` は、あとで[書き換える](#1バイト書き換えて点数を5倍にする)命令の場所です。
+This diagram draws, at the scale of one function, what was seen in [CPUs and machine code](20-cpu.md): "instructions proceeding in order from the top, occasionally jumping." The `0x400988` in the diagram is the location of the instruction to be [rewritten](#rewriting-one-byte-to-multiply-the-score-by-five) later.
 
-## 疑似コードに戻す
+## Recovering pseudocode
 
-`main` を、Ghidraに疑似コード(C言語に似た形)へ戻させました。
+I had Ghidra turn `main` back into pseudocode (a form resembling C).
 
 ```sh
 rea decompile coin_term 0x400858 --json
 ```
 
-結果のうち、セーブを読むところと、キーを受け取るところを抜き出します。
+From the result, here are the part that reads the save and the part that receives key input.
 
 ```c
   pFVar2 = fopen64("best.sav","rb");
@@ -146,59 +146,59 @@ rea decompile coin_term 0x400858 --json
         iVar5 = (iVar5 * 3 + 1) % 10;
 ```
 
-元のソースと見比べると、次のことが分かります。
+Comparing this with the original source shows the following.
 
-| 疑似コード | 元のソース | 読み方 |
+| Pseudocode | Original source | How to read it |
 |---|---|---|
-| `local_60 != 'K'` | `b[0] == SAVE_MAGIC` | 目印の `0x4B` は、文字の `K` と同じ数字なので、Ghidraは文字として表示した |
-| `0x71`、`0x61`、`100` | `'q'`、`'a'`、`'d'` | キーの文字が、数字のまま出ている |
-| `iVar4`、`iVar5`、`iVar6` | `x`、`coin`、`score` | 変数の名前は残らない。役目から名前を付け直すのが、読む人の仕事 |
-| `load_best` と `save_best` がない | 2つの関数がある | 1回しか呼ばない関数を、コンパイラが `main` の中へ埋め込んだ |
+| `local_60 != 'K'` | `b[0] == SAVE_MAGIC` | The marker `0x4B` is the same number as the character `K`, so Ghidra displayed it as a character |
+| `0x71`, `0x61`, `100` | `'q'`, `'a'`, `'d'` | The key characters appear as plain numbers |
+| `iVar4`, `iVar5`, `iVar6` | `x`, `coin`, `score` | Variable names do not remain. Giving them new names based on their roles is the reader's job |
+| No `load_best` or `save_best` | The two functions exist | The compiler embedded functions called only once into `main` |
 
-最後の行は、変換するときの最適化によるものです。このゲームは `-O1` で変換しました。GCCの[最適化の説明](https://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html)によると、`-O1` では、1回しか呼ばれない `static` の関数を、呼び出し元に埋め込みます(`-finline-functions-called-once`)。疑似コードの関数の分け方は、元のソースと同じとは限りません。
+The last row is due to optimization at compile time. This game was compiled with `-O1`. According to GCC's [optimization documentation](https://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html), at `-O1`, `static` functions called only once are embedded in the caller (`-finline-functions-called-once`). The way pseudocode is divided into functions is not necessarily the same as in the original source.
 
-### 「% 10」は、掛け算になっていた
+### "% 10" had become a multiplication
 
-疑似コードの `(iVar5 * 3 + 1) % 10` は、元のソースの `(coin * 3 + 1) % WIDTH` と同じです。ところが、命令のほうを読むと、10で割る命令は使われていませんでした。`rea function` の命令の一覧から、その部分を抜き出します。
+The `(iVar5 * 3 + 1) % 10` in the pseudocode is the same as `(coin * 3 + 1) % WIDTH` in the original source. However, reading the instructions shows that no instruction dividing by 10 was used. Here is that part, from the instruction list in `rea function`.
 
 ```
 mov   w25, #0x6667
 movk  w25, #0x6666, lsl #16   … w25 = 0x66666667
 add   w20, w20, w20, lsl #1   … coin × 3
 add   w0, w20, #0x1           … + 1
-smull x20, w0, w25            … 0x66666667 を掛ける
-asr   x20, x20, #34           … 34ビット右へずらす(2の34乗で割る)
+smull x20, w0, w25            … multiply by 0x66666667
+asr   x20, x20, #34           … shift right 34 bits (divide by 2 to the 34th power)
 ```
 
-2の34乗(17179869184)を10で割ると、1717986918.4です。これを切り上げた1717986919が、16進数の `0x66666667` です。「`0x66666667` を掛けて、2の34乗で割る」と、「10で割る」と同じ答えになります。コンパイラ(GCC)は、決まった数で割るところを、このような掛け算とずらしに置き換えていました。Ghidraは、この並びを見て、`% 10` に戻して表示しました。命令をそのまま読むより、疑似コードのほうが早く意味をつかめる例です。
+2 to the 34th power (17179869184) divided by 10 is 1717986918.4. Rounding this up gives 1717986919, which is `0x66666667` in hexadecimal. "Multiplying by `0x66666667` and dividing by 2 to the 34th power" gives the same answer as "dividing by 10". The compiler (GCC) replaced division by a fixed number with this kind of multiplication and shift. Ghidra saw this sequence and displayed it back as `% 10`. This is an example where pseudocode lets you grasp the meaning faster than reading the instructions directly.
 
-## 記事22の実験2の答え合わせ
+## Checking the answer to experiment 2 of article 22
 
-[記事22の実験2](22-rea-hands-on.md#実験2動きだけを見て作り直す)では、左の壁での動きを記録していなかったため、作り直しでは「回り込む」と推測しました。疑似コードには、その答えが書いてあります。
+In [experiment 2 of article 22](22-rea-hands-on.md#experiment-2-rebuilding-from-behavior-alone), behavior at the left wall was not recorded, so the rebuild guessed "wraps around". The pseudocode contains the answer.
 
 ```c
-    if (iVar1 == 0x61 && 0 < iVar4) break;   /* a で、0より右にいるときだけ左へ */
-    if (iVar1 == 100 && iVar4 < 9) {         /* d で、9より左にいるときだけ右へ */
+    if (iVar1 == 0x61 && 0 < iVar4) break;   /* with a, move left only when right of 0 */
+    if (iVar1 == 100 && iVar4 < 9) {         /* with d, move right only when left of 9 */
 ```
 
-左右の端では、それ以上動かずに止まります。回り込みはしません。動きを見るだけでは推測で埋めるしかなかった部分が、中身を読むと確かめられます。一方で、操作Bの記録を取れば、中身を読まなくても同じ答えにたどり着けました。[チートとパススルー](21-cheats-and-passthrough.md)で紹介したガイド集の考え方のとおり、観察で答えが出るなら、そちらを先に使えます。
+At the left and right ends, it stops and moves no further. It does not wrap around. The part that could only be filled in by guessing when watching behavior can be confirmed by reading the contents. On the other hand, taking a record of input B would have reached the same answer without reading the contents. If observation produces an answer, you can use it first.
 
-## 名前を消すと、どうなるか
+## What happens when you remove the names
 
-配られるプログラムは、関数の名前を消してあることがあります(ストリップ)。同じゲームから名前を消して、同じ手順を試しました。
+Distributed programs sometimes have their function names removed (stripping). I removed the names from the same game and tried the same steps.
 
 ```sh
 aarch64-linux-gnu-strip -o coin_term_stripped coin_term
 ```
 
-文字列の `best.sav` と、それを使う2か所(`0x400894` と `0x400a34`)は、名前があるときと同じように見つかりました。違ったのは、次の2つです。
+The string `best.sav` and the two places that use it (`0x400894` and `0x400a34`) were found the same way as with names. The following two things differed.
 
-- `main` という名前の関数が見つからない。ほかの関数は、`FUN_004007b0` のように、アドレスから作った名前になる
-- `0x400858` を疑似コードに戻そうとすると、REAは「入力が正しくない」というエラーを返す。Ghidraが、ここを関数の始まりとして登録していないため
+- No function named `main` is found. Other functions get names made from their addresses, such as `FUN_004007b0`
+- Trying to turn `0x400858` back into pseudocode makes REA return an error saying "the input is invalid". This is because Ghidra has not registered this place as the start of a function
 
-`rea trace` で同じことを調べると、違いがはっきりします。2か所の参照のどちらにも、「関数の中にない」(`found: false`、`reason: not_in_procedure`)と書かれていました。参照のある場所は分かっても、それを含む関数を、Ghidraが知らないのです。
+Examining the same thing with `rea trace` makes the difference clear. Both references were reported as "not in a function" (`found: false`, `reason: not_in_procedure`). The location of a reference is known, but Ghidra does not know the function that contains it.
 
-プログラムの入り口(`0x400640`)を疑似コードに戻すと、次のようになりました。
+Turning the program's entry point (`0x400640`) back into pseudocode gave the following.
 
 ```c
 void entry(undefined8 param_1)
@@ -209,17 +209,17 @@ void entry(undefined8 param_1)
 }
 ```
 
-入り口は、`0x400674` のアドレスを、別の関数に渡しています。`0x400674` の8バイトを読みました。
+The entry point passes the address `0x400674` to another function. I read the 8 bytes at `0x400674`.
 
 ```sh
 rea read-bytes coin_term_stripped 0x400674 --length 8 --json
 ```
 
-結果は `1f2003d5 78000014` でした。aarch64の逆アセンブラ(`aarch64-linux-gnu-objdump`)で読むと、「何もしない」(`nop`)と「`0x400858` へ飛ぶ」(`b 0x400858`)の2命令です。名前のあるほうで確かめると、`0x400674` は `__wrap_main`、`0x400858` は `main` という名前でした。つまり、入り口から2回たどると、`main` に着きます。
+The result was `1f2003d5 78000014`. Read with an aarch64 disassembler (`aarch64-linux-gnu-objdump`), these are two instructions: "do nothing" (`nop`) and "jump to `0x400858`" (`b 0x400858`). Checking the version with names, `0x400674` is named `__wrap_main` and `0x400858` is named `main`. In other words, following two steps from the entry point gets you to `main`.
 
-## Ghidraを直接動かす
+## Running Ghidra directly
 
-REAの命令の一覧(`rea --help`)と[インストールの説明](https://github.com/morluto/rea/blob/472b72a53068a8e2ec78fe239d687023482daaa7/docs/installation.md)では、関数を新しく登録する命令は見つけられませんでした。説明によると、Ghidraに対するREAの操作は、関数の名前と説明を書き込むもの以外は、読むだけです。そこで、Ghidraに付いている `analyzeHeadless` を直接使いました。Ghidraには、Javaで書いた小さなプログラム(スクリプト)を、解析のあとに動かす仕組みがあります。次のスクリプトは、指定したアドレスに関数がなければ登録し、疑似コードを出力します([DecompAt.java](../examples/rea-lab/DecompAt.java))。
+I could not find a command for registering a new function in REA's command list (`rea --help`) or in the [installation documentation](https://github.com/morluto/rea/blob/472b72a53068a8e2ec78fe239d687023482daaa7/docs/installation.md). According to the documentation, REA's operations on Ghidra are read-only, apart from those that write function names and descriptions. So I directly used `analyzeHeadless`, which comes with Ghidra. Ghidra has a mechanism for running a small program written in Java (a script) after analysis. The following script registers a function at the specified address if there is none, and outputs the pseudocode ([DecompAt.java](../examples/rea-lab/DecompAt.java)).
 
 ```java
 Address a = toAddr(getScriptArgs()[0]);
@@ -239,7 +239,7 @@ analyzeHeadless ./proj lab -import coin_term_stripped -deleteProject \
   -scriptPath ./scripts -postScript DecompAt.java 0x400858
 ```
 
-結果の始まりは、次のとおりです。
+The result begins as follows.
 
 ```c
 undefined8 FUN_00400858(void)
@@ -256,73 +256,73 @@ undefined8 FUN_00400858(void)
     if ((iVar2 == 2) && (uVar7 = (uint)bStack_5f, cStack_60 != 'K')) {
 ```
 
-ゲームの処理の形は、名前があるときと同じです。ただし、`fopen64` や `fread` のようなライブラリの関数も、名前を失って `FUN_` になりました。このゲームは、ライブラリをプログラムの中にまとめて入れる形(`-static`)で変換したため、ライブラリの関数も名前ごと消えています。
+The shape of the game's processing is the same as with names. However, library functions such as `fopen64` and `fread` also lost their names and became `FUN_`. This game was compiled in a form that bundles the libraries inside the program (`-static`), so the library functions lost their names too.
 
-ここからは、引数から関数の役目を推理します。`FUN_00401e50` に渡されているのは、`"best.sav"` と `DAT_00453640` の2つです。`0x453640` の中身は `rb` という文字でした。ファイルの名前と `rb`(読み込み用に開く)を受け取るので、ファイルを開く関数だろうと見当がつきます。名前のあるほうで確かめると、`0x401e50` は `fopen` でした。同じように、`0x401e70` は `fread`、`0x401870` は `fclose` です。
+From here, you deduce a function's role from its arguments. `FUN_00401e50` is passed two things: `"best.sav"` and `DAT_00453640`. The contents of `0x453640` were the characters `rb`. Since it receives a file name and `rb` (open for reading), you can guess that it is a function that opens a file. Checking the version with names, `0x401e50` was `fopen`. Likewise, `0x401e70` is `fread` and `0x401870` is `fclose`.
 
-| アドレス | 名前を消したとき | 名前があるとき |
+| Address | With names removed | With names |
 |---|---|---|
-| `0x400858` | 関数として見つからない | `main` |
+| `0x400858` | Not found as a function | `main` |
 | `0x401e50` | `FUN_00401e50` | `fopen` |
 | `0x401e70` | `FUN_00401e70` | `fread` |
 | `0x401870` | `FUN_00401870` | `fclose` |
 | `0x4007b0` | `FUN_004007b0` | `draw` |
 
 
-REAには、すでにある関数に名前や説明を付ける命令もあります。名前を消した版の `0x4007b0` に、名前を付けてみました。
+REA also has a command that gives names and descriptions to existing functions. I tried giving a name to `0x4007b0` in the version with names removed.
 
 ```sh
 rea annotate-native-function coin_term_stripped 0x4007b0 --name draw_row --comment "row of 10 cells"
 ```
 
-結果には、新しい名前 `draw_row` と説明が入った、関数の情報が返ってきました。ただし、REAの説明によると、この書き込みは、解析を閉じると消えます。プログラムのファイル自体は書き換えません。名前のない関数に、役目から名前を付けていく作業が、リバースエンジニアリングの大部分です。Ghidraの画面で作業すれば、付けた名前をプロジェクトに保存できます。
+The result returned the function's information, containing the new name `draw_row` and the description. However, according to REA's documentation, this write disappears when the analysis is closed. The program file itself is not rewritten. The work of naming unnamed functions based on their roles makes up most of reverse engineering. If you work in Ghidra's GUI, you can save the names you give to the project.
 
-## 1バイト書き換えて、点数を5倍にする
+## Rewriting one byte to multiply the score by five
 
-ここまでは読むだけでした。最後に、読んだ結果を使って、ゲームを書き換えます。コインを取ったときの点数を、10点から50点にします。
+Up to this point, everything has been reading only. Finally, I use what was read to rewrite the game. The score for taking a coin changes from 10 points to 50 points.
 
-### 書き換える場所を決める
+### Deciding where to rewrite
 
-[処理の流れの図](#処理の流れを図にする)で、点数を増やす命令は `0x400988` でした。この命令を、REAに分解させます。
+In the [flow diagram](#drawing-the-flow-as-a-diagram), the instruction that increases the score was at `0x400988`. I had REA disassemble this instruction.
 
 ```sh
 rea inspect-native-instruction coin_term 0x400988 --json
 ```
 
-| 項目 | 結果 |
+| Item | Result |
 |---|---|
-| 命令 | `add w21,w21,#0xa`(`w21` に10を足す) |
-| ファイルの中のバイト | `b5 2a 00 11` |
-| 長さ | 4バイト |
+| Instruction | `add w21,w21,#0xa` (add 10 to `w21`) |
+| Bytes in the file | `b5 2a 00 11` |
+| Length | 4 bytes |
 
-`w21` が点数で、`#0xa` が10です。バイトが `b5 2a 00 11` と、命令の数字 `0x11002ab5` とは逆の順に並んでいるのは、aarch64が、小さい桁から順にメモリへ置く決まり(リトルエンディアン)だからです。
+`w21` is the score and `#0xa` is 10. The bytes `b5 2a 00 11` are in the reverse order of the instruction's number `0x11002ab5` because aarch64 follows the rule of placing the lowest digits in memory first (little endian).
 
-次に、この命令が、ファイルの先頭から何バイト目にあるかを調べます。Ghidraが表示するアドレスは、プログラムがメモリに置かれたときの位置で、ファイルの中の位置とは違います。
+Next, I looked up how many bytes from the start of the file this instruction is. The addresses Ghidra displays are the positions when the program is placed in memory, which differ from the positions in the file.
 
 ```sh
 rea address-to-file-offset coin_term 0x400988 --json
 ```
 
-答えは2440バイト目でした。
+The answer was byte 2440.
 
-### 命令を作り直す
+### Rebuilding the instruction
 
-aarch64の `add` の命令では、足す数は、32ビットのうち10ビット目から21ビット目までの12ビットに入っています。`0x11002ab5` から取り出すと `0xa`(10)です。ここを50(`0x32`)に変えると、命令は `0x1100cab5`、ファイルに書くバイトは `b5 ca 00 11` になります。変わるのは、2バイト目の `2a` が `ca` になる、1バイトだけです。
+In the aarch64 `add` instruction, the number to add is in the 12 bits from bit 10 to bit 21 of the 32 bits. Extracting it from `0x11002ab5` gives `0xa` (10). Changing this to 50 (`0x32`) makes the instruction `0x1100cab5`, and the bytes to write in the file `b5 ca 00 11`. What changes is just one byte: the second byte, `2a`, becomes `ca`.
 
 ```sh
 cp coin_term coin_term_x50
 printf '\xb5\xca\x00\x11' | dd of=coin_term_x50 bs=1 seek=2440 conv=notrunc
 ```
 
-書き換えたファイルを、REAに疑似コードへ戻させると、点数の行が次のように変わっていました。
+When I had REA turn the rewritten file back into pseudocode, the score line had changed as follows.
 
 ```c
-        iVar6 = iVar6 + 0x32;   /* 0x32 は 50 */
+        iVar6 = iVar6 + 0x32;   /* 0x32 is 50 */
 ```
 
-### 動かして確かめる
+### Running it to confirm
 
-aarch64のプログラムは、x86_64の機械ではそのまま動きません。[CPUと機械語](20-cpu.md)と同じように、エミュレーターのQEMU(`qemu-aarch64`)を通して動かします。REAの `capture-process` のシナリオでは、動かすプログラムを `qemu-aarch64` にし、ゲームのファイルを引数に渡しました。
+An aarch64 program does not run as is on an x86_64 machine. As in [CPUs and machine code](20-cpu.md), it is run through the emulator QEMU (`qemu-aarch64`). In the scenario for REA's `capture-process`, I made `qemu-aarch64` the program to run and passed the game file as an argument.
 
 ```json
 {
@@ -339,33 +339,33 @@ aarch64のプログラムは、x86_64の機械ではそのまま動きません�
 }
 ```
 
-元のゲームと、書き換えたゲームを、同じ操作で記録しました。
+I recorded the original game and the rewritten game with the same input.
 
-| | 元 | 書き換え後 |
+| | Original | After rewriting |
 |---|---|---|
-| 最後の画面 | `bye score=10` | `bye score=50` |
-| `best.sav` | `4b 0a`(10点) | `4b 32`(50点) |
-| 終了コード | 0 | 0 |
+| Final screen | `bye score=10` | `bye score=50` |
+| `best.sav` | `4b 0a` (10 points) | `4b 32` (50 points) |
+| Exit code | 0 | 0 |
 
-ねらいどおり、1バイトの書き換えで、点数は5倍です。セーブにも、50点が書かれています。
+As intended, rewriting one byte multiplied the score by 5. The save also has 50 points written in it.
 
-### 落とし穴:記録された「プログラムの指紋」はQEMUのもの
+### Pitfall: The recorded "program fingerprint" belongs to QEMU
 
-REAの記録には、動かしたプログラムのSHA-256(`executable_sha256`)が残ります。2つの記録を見比べると、この値は同じでした。REAが指紋を取ったのは、`executable` に書いた `qemu-aarch64` で、ゲームのファイルは引数の1つとして、パスだけが残っていたのです。
+REA's record keeps the SHA-256 of the program that was run (`executable_sha256`). Comparing the two records, this value was the same. What REA fingerprinted was `qemu-aarch64`, written under `executable`, and the game file, as one of the arguments, remained only as a path.
 
-エミュレーターを通して動かすと、記録の上では「同じプログラムを、違う引数で動かした」ことになります。どのゲームを動かしたのかは、自分で `sha256sum` を取って、記録と一緒に残しておく必要があります。
+When running through an emulator, the record says "the same program was run with different arguments". To show which game was run, you need to take a `sha256sum` yourself and keep it with the record.
 
-`compare-process-captures` の判定は、今回も `changed` でした。最初の違いとして報告されたのは、点数ではなく、画面の出力の区切り方でした。[記事22の落とし穴2](22-rea-hands-on.md#落とし穴2reaの同じは厳しい)と同じで、判定の言葉だけでなく、中身を確かめる必要があります。
+The verdict of `compare-process-captures` was again `changed`. What was reported as the first difference was not the score but the way the screen output was divided. As in [pitfall 2 of article 22](22-rea-hands-on.md#pitfall-2-reas-same-is-strict), you need to check the contents, not only the word in the verdict.
 
-### 実機に持っていくなら
+### If you take it to the real device
 
-書き換えたファイルは、RG40XXHと同じaarch64向けです。ただし、ROCKNIXの `SYSTEM` はsquashfsで、読み込み専用です([OSの話](18-os.md))。中のファイルを差し替えるには、`SYSTEM` を作り直す必要があります。この記事では、実機での確認はしていません。
+The rewritten file is for aarch64, the same as the RG40XXH. However, ROCKNIX's `SYSTEM` is squashfs and read-only ([the OS article](18-os.md)). To replace a file inside, `SYSTEM` needs to be rebuilt. This article did not confirm this on the real device.
 
-## エメラルドの関数も読む
+## Also reading a function from Emerald
 
-[CPUと機械語](20-cpu.md)では、改造したエメラルドの `GetStarterPokemon` を、`arm-none-eabi-objdump` で命令に戻して読みました。今度は、最初のポケモンを3匹とも変えたビルドの `pokeemerald.elf`(36MB、GBAのARM向け)を、Ghidraで読みます。
+In [CPUs and machine code](20-cpu.md), the `GetStarterPokemon` of a modified Emerald was turned back into instructions with `arm-none-eabi-objdump` and read. This time, I use Ghidra to read `pokeemerald.elf` (36MB, for the GBA's ARM) from the build in which all three starter Pokémon were changed.
 
-最初はREAの `rea search` で関数を探したところ、330秒で時間切れ(`provider_timeout`)になりました。そこで、上のスクリプトを名前で関数を探す形に変えて([DecompByName.java](../examples/rea-lab/DecompByName.java))、`analyzeHeadless` で直接動かしました。解析には約5分かかり、記録には、デバッグ情報(DWARF)の一部を読めなかったというエラーが8行あります。それでも、解析そのものは「成功」で終わりました。
+At first, searching for the function with REA's `rea search` timed out after 330 seconds (`provider_timeout`). So I changed the script above into a form that finds a function by name ([DecompByName.java](../examples/rea-lab/DecompByName.java)) and ran it directly with `analyzeHeadless`. Analysis took about 5 minutes, and the log has 8 lines of errors saying that part of the debug information (DWARF) could not be read. Even so, the analysis itself ended in "success".
 
 ```c
 undefined2 GetStarterPokemon(uint param_1)
@@ -380,45 +380,45 @@ undefined2 GetStarterPokemon(uint param_1)
 }
 ```
 
-記事20の命令の表と、1行ずつ対応しています。
+This corresponds line by line with the instruction table in article 20.
 
-| 疑似コード | 記事20の命令 | 意味 |
+| Pseudocode | Instruction in article 20 | Meaning |
 |---|---|---|
-| `param_1 & 0xffff` | `lsls`、`lsrs` | 番号を16ビットに整える |
-| `uVar1 = 0x19;` | `movs r0, #25` | 先に25(ピカチュウ)を入れておく |
-| `< 4` | `cmp r3, #3` と `bhi` | 3より大きければ、25のまま返す |
-| `DAT_0820bc50` | `ldr r2, [表の位置]` | 表の位置が書いてある場所 |
-| `* 2 + 8` | `lsls r3, r3, #1`、`ldrh r0, [r2, #8]` | 番号を2倍し、8を足した位置から2バイト読む |
+| `param_1 & 0xffff` | `lsls`, `lsrs` | Fit the number to 16 bits |
+| `uVar1 = 0x19;` | `movs r0, #25` | Put 25 (Pikachu) in first |
+| `< 4` | `cmp r3, #3` and `bhi` | If greater than 3, return with 25 as is |
+| `DAT_0820bc50` | `ldr r2, [table position]` | The place where the table's position is written |
+| `* 2 + 8` | `lsls r3, r3, #1`, `ldrh r0, [r2, #8]` | Double the number and read 2 bytes from the position with 8 added |
 
-`0x0820bc50` の4バイトを読むと `0x08ca3f08` で、8を足した `0x08ca3f10` が、表 `sStarterMon` の位置でした。表の6バイトは `19 00 85 00 bf 01` で、25(ピカチュウ)、133(イーブイ)、447(リオル)です。
+Reading the 4 bytes at `0x0820bc50` gives `0x08ca3f08`, and adding 8 gives `0x08ca3f10`, the position of the table `sStarterMon`. The table's 6 bytes are `19 00 85 00 bf 01`: 25 (Pikachu), 133 (Eevee), and 447 (Riolu).
 
-元のソースの条件は `chosenStarterId > STARTER_MON_COUNT`(3より大きい)で、Ghidraは同じ意味を `< 4` と書きました。そのため、番号が3のときは、3匹分しかない表の、次の2バイトを読みます。ソースでは見落としやすい境目も、疑似コードでは数字で見えます。
+The condition in the original source is `chosenStarterId > STARTER_MON_COUNT` (greater than 3), and Ghidra wrote the same meaning as `< 4`. As a result, when the number is 3, it reads the next 2 bytes of a table with room for only three Pokémon. A boundary that is easy to overlook in the source appears as a number in the pseudocode.
 
-## HopperとIDA Proは試せなかった
+## Hopper and IDA Pro could not be tried
 
-[Hopper](https://www.hopperapp.com/)は、有料のリバースエンジニアリングの道具です。REAの[インストールの説明](https://github.com/morluto/rea/blob/472b72a53068a8e2ec78fe239d687023482daaa7/docs/installation.md)によると、HopperにはLinux向けの無料の体験版(demo)があり、REAの `rea setup` は、Hopperの公式のパッケージを確かめてから入れることができます。この実験の環境からは、Hopperの配布元に接続できなかったため、試していません。
+[Hopper](https://www.hopperapp.com/) is a paid reverse engineering tool. According to REA's [installation documentation](https://github.com/morluto/rea/blob/472b72a53068a8e2ec78fe239d687023482daaa7/docs/installation.md), Hopper has a free trial version (demo) for Linux, and REA's `rea setup` can verify Hopper's official package before installing it. This experiment's environment could not connect to Hopper's distribution site, so I did not try it.
 
-IDA Proは、Hex-Raysが販売している有料の道具です。REAは、IDA Proを自分では入れず、[ida-pro-mcp](https://github.com/mrexodia/ida-pro-mcp)という別の道具を通して使います([IDAの説明](https://github.com/morluto/rea/blob/472b72a53068a8e2ec78fe239d687023482daaa7/docs/ida-provider.md))。IDA Proの入手と、ライセンスの用意は、使う人の仕事です。REAのREADMEによると、確かめられているのは、WindowsのIDA 9.3での動きです。この環境では、IDA Proを入手できなかったため、試していません。
+IDA Pro is a paid tool sold by Hex-Rays. REA does not install IDA Pro itself but uses it through a separate tool called [ida-pro-mcp](https://github.com/mrexodia/ida-pro-mcp) ([IDA documentation](https://github.com/morluto/rea/blob/472b72a53068a8e2ec78fe239d687023482daaa7/docs/ida-provider.md)). Obtaining IDA Pro and arranging a license is up to the user. According to REA's README, what has been verified is operation with IDA 9.3 on Windows. IDA Pro could not be obtained in this environment, so I did not try it.
 
-REAの説明によると、エンジンごとに疑似コードの見た目は違い、REAはそれを同じものとして扱いません(`rea decompile` の結果にも、「Ghidraの出力で、Hopperの出力と文字が同じになるわけではない」と書かれていました)。
+According to REA's documentation, the appearance of pseudocode differs by engine, and REA does not treat them as the same (the result of `rea decompile` also said, "This is Ghidra output, and its text will not be the same as Hopper output").
 
-## 守ること
+## Ground rules
 
-この記事で書き換えたのは、自分で作ったゲームです。他人のゲームを書き換えて配ることは、ゲームの利用規約や法律に触れることがあります。考え方は、[チートとパススルー](21-cheats-and-passthrough.md)で紹介したガイド集の13章を読んでください。観察で答えが出るなら観察を先に、という順番は、この記事でも同じでした。
+What was rewritten in this article is a game I made myself. Rewriting and distributing other people's games can violate game terms of service and the law.
 
-REAの `capture-process` は、サンドボックスではありません([記事22](22-rea-hands-on.md#守ること))。QEMUを通しても、プログラムは今のユーザーの権限で動きます。
+REA's `capture-process` is not a sandbox ([article 22](22-rea-hands-on.md#ground-rules)). Even through QEMU, the program runs with the current user's privileges.
 
-## 確かめた環境
+## Environment used
 
-| もの | 版 |
+| Item | Version |
 |---|---|
-| OS | x86_64のUbuntu 24.04 |
-| REA | npmの `rea-agents` 4.1.0 |
-| Ghidra | 12.1.4(Docker Hubの `blacktop/ghidra:12.1.4` から取り出したもの) |
-| JDK | OpenJDK 21.0.11(Ubuntuのパッケージ) |
-| aarch64への変換 | `aarch64-linux-gnu-gcc -O1 -static` |
-| aarch64の実行 | `qemu-aarch64`(Ubuntuの `qemu-user`) |
+| OS | x86_64 Ubuntu 24.04 |
+| REA | `rea-agents` 4.1.0 from npm |
+| Ghidra | 12.1.4 (extracted from `blacktop/ghidra:12.1.4` on Docker Hub) |
+| JDK | OpenJDK 21.0.11 (Ubuntu package) |
+| Compiling for aarch64 | `aarch64-linux-gnu-gcc -O1 -static` |
+| Running aarch64 | `qemu-aarch64` (Ubuntu's `qemu-user`) |
 
-## 学べること
+## What you can learn
 
-Ghidraを入れると、REAは、文字列から関数を見つけ、関数の流れと疑似コードを、根拠つきで返しました。疑似コードは元のソースとよく似ていましたが、変数の名前は消え、小さな関数は埋め込まれ、`% 10` は命令の上では掛け算になっていました。名前を消したプログラムでは、`main` さえ関数として見つからないので、入り口から命令をたどって、自分で見つけます。読んだ結果を使うと、1バイトの書き換えで、ゲームの点数を変えられました。一方で、エミュレーターを通すと記録の指紋がQEMUのものになるなど、道具の記録が何を指しているかは、毎回確かめる必要があります。HopperとIDA Proは、この環境では試せませんでした。
+With Ghidra installed, REA found functions from strings and returned function flow and pseudocode with evidence. The pseudocode closely resembled the original source, but variable names were gone, small functions were embedded, and `% 10` was a multiplication at the instruction level. In a program with its names removed, even `main` cannot be found as a function, so you follow instructions from the entry point and find it yourself. Using what was read, rewriting one byte changed the game's score. On the other hand, you need to check each time what a tool's record refers to; for example, going through an emulator makes the fingerprint in the record QEMU's. Hopper and IDA Pro could not be tried in this environment.

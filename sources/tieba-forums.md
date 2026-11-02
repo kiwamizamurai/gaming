@@ -1,23 +1,23 @@
-# 貼吧の掲示板3か所
+# Three Tieba forums
 
-種類は、百度貼吧の掲示板のトップページです。ログインなしで開けて、画面のテキストから読めたのは、掲示板の名前と数字でした。信頼度は集約で、ページに表示された数字の確認にとどまります。
+The type is the top pages of forums on Baidu Tieba. They could be opened without logging in, and what could be read from the on-screen text was the forum names and numbers. Reliability is aggregated, and this is limited to checking the numbers shown on the pages.
 
 ## 开源掌机吧
 
-URLは https://tieba.baidu.com/f?kw=%E5%BC%80%E6%BA%90%E6%8E%8C%E6%9C%BA (「开源掌机」を文字コードで表した形)です。関注者は7.9万人、投稿は143.1万件、建吧日は2014年3月7日です。サイドの説明は、「開源掌機とは、システムと内容がオープンソースの掌機」と書き、本掲示板の話題は、開源掌機に関するものに限らず、仲間の交流、楽しむことが中心であり、悪意のある交流と汚い言葉、露骨な広告と洗脳、立場争い、神格化を禁じ、違反者には処罰があると書いています。トップページのタブは、精華、人気、最新、吧友互助、ハードウェアの議論、ソフトの交流、開源についての雑談、質問と回答などです。
+The URL is https://tieba.baidu.com/f?kw=%E5%BC%80%E6%BA%90%E6%8E%8C%E6%9C%BA (the form in which "开源掌机" is expressed in character codes). It has 79,000 followers and 1,431,000 posts, and the forum was created on March 7, 2014. The side description says "开源掌机 are 掌机 whose system and content are open source", says that the topics of this forum are not limited to 开源掌机 and center on interaction among members and having fun, and prohibits malicious exchanges and foul language, blatant advertising and brainwashing, camp wars, and deification, with penalties for violators. The tabs on the top page include 精华, popular, latest, 吧友互助, hardware discussion, software exchange, casual talk about open source, and questions and answers.
 
-![开源掌机吧のトップページ](../assets/screenshots/tieba-open-source-handheld-bar.jpg)
+![Top page of 开源掌机吧](../assets/screenshots/tieba-open-source-handheld-bar.jpg)
 
-スクリーンショットを撮ったときの人気の投稿は、2件ありました。1件は、Anbernicを揶揄して、今週は47という機種を出さないのか、旗艦機を出さないのか、AYANEOに押されているのか、と書いています。もう1件は、「LinuxをもとにしたSteamOS(armadaos)をAYNとRetroidに合わせた」という開発者の投稿です。対応機種を並べるところで、「ayn和沙雕是一家」と書き、AYNとRetroidを同じグループとして挙げています。続く行には、「尾巴aya和攻氪是一家」とも書かれています。
+When the screenshot was taken, there were 2 popular posts. One mocks Anbernic, asking whether it will not release a model called 47 this week, whether it will not release a flagship, and whether it is being pushed aside by AYANEO. The other is a post by a developer saying "I adapted a Linux-based SteamOS (armadaos) to AYN and Retroid". Where it lists supported devices, it writes "ayn和沙雕是一家", listing AYN and Retroid as the same group. The next line also reads "尾巴aya和攻氪是一家".
 
 ## 口袋改版资源吧
 
-URLは https://tieba.baidu.com/f?kw=%E5%8F%A3%E8%A2%8B%E6%94%B9%E7%89%88%E8%B5%84%E6%BA%90 (「口袋改版资源」を文字コードで表した形)です。関注者は26.1万人、投稿は164.5万件です。タブには、精華、人気、最新、吧友互助、図文攻略、汉化発布、改版発布、改版教程があります。固定の投稿は、2021年3月26日付の「本吧資源導航」で、掲示板内の資源の目次という説明です。内容には、ゲームのファイル、攻略、秘籍、エミュレーター、チートコード、補助ツール、改造の教程、ツール、素材などが含まれます。人気の投稿の例は、「宝可梦 水银」(FC)の公開で、ファイアレッドをもとにした非営利のROM改造版です。
+The URL is https://tieba.baidu.com/f?kw=%E5%8F%A3%E8%A2%8B%E6%94%B9%E7%89%88%E8%B5%84%E6%BA%90 (the form in which "口袋改版资源" is expressed in character codes). It has 263,000 followers and 1,665,000 posts. The tabs include 精华, popular, latest, 吧友互助, 图文攻略, 汉化发布, 改版发布, and 改版教程. The pinned post is "本吧资源导航", dated March 26, 2021, described as a table of contents of resources in the forum. Its contents include game files, walkthroughs, 秘籍, emulators, cheat codes, helper tools, modding 教程, tools, and materials. An example of a popular post is the release of "宝可梦 水银" (FC), a non-commercial ROM mod based on FireRed.
 
-![口袋改版资源吧のトップページ](../assets/screenshots/tieba-pokemon-hack-resource-bar.jpg)
+![Top page of 口袋改版资源吧](../assets/screenshots/tieba-pokemon-hack-resource-bar.jpg)
 
 ## 口袋妖怪改版吧
 
-URLは https://tieba.baidu.com/f?kw=%E5%8F%A3%E8%A2%8B%E5%A6%96%E6%80%AA%E6%94%B9%E7%89%88 (「口袋妖怪改版」を文字コードで表した形)です。関注者は4.9万人で、投稿は12.7万件、建吧日は2012年3月29日となっています。タブは、精華、人気、最新、吧友互助、NDS教程、GBA教程、資源ダウンロード、動画です。サイドの説明に、「改版技術は未来の活発さの源泉」、「各種の改版バージョンが掲示板にあり、必要な人は取る」という趣旨の文があります。
+The URL is https://tieba.baidu.com/f?kw=%E5%8F%A3%E8%A2%8B%E5%A6%96%E6%80%AA%E6%94%B9%E7%89%88 (the form in which "口袋妖怪改版" is expressed in character codes). It has 50,000 followers and 127,000 posts, and the forum was created on March 29, 2012. The tabs are 精华, popular, latest, 吧友互助, NDS教程, GBA教程, resource downloads, and videos. The side description has sentences to the effect that "改版 technology is the source of future vitality" and "all kinds of 改版 versions are on the forum, for those who need them to take".
 
-![口袋妖怪改版吧のトップページ](../assets/screenshots/tieba-pokemon-hack-bar.jpg)
+![Top page of 口袋妖怪改版吧](../assets/screenshots/tieba-pokemon-hack-bar.jpg)

@@ -1,43 +1,30 @@
-# 隠語集
+# Slang glossary
 
-掲示板、仕様のデータベース、出品で見かけた俗称と言い回しです。確度を3段階で書きました。「確認」は、実際に開いたページで用法を確認できたもの、「推定」は、文脈からの推定、「不明」は、意味を確認できていないものです。
+These are nicknames and expressions seen on forums, specification databases, and listings. Confidence is given in three levels. "Confirmed" means the usage could be confirmed on a page that was actually opened, "Inferred" means it was inferred from context, and "Unknown" means the meaning has not been confirmed.
 
-## ブランドと機種の愛称
+## Brand and device nicknames
 
-| 表現 | ピンイン | 意味 | 確度と出典 |
+| Expression | Pinyin | Meaning | Confidence and source |
 |---|---|---|---|
-| 周哥 | Zhōu gē | Anbernicの愛称。機種名の前に付けて「周哥RG-406V」「周哥RG556」と使う | 確認。[RG-406V](https://zhangjiquan.com/handheld/rg-406v)と[RG-556](https://zhangjiquan.com/handheld/rg-556)の別名の欄 |
-| 周割 | Zhōu gē | 「周哥」を同じ発音の「割」に替えた揶揄。「割」は切る、刈るの意味 | 確認。[给RG40XXH改造散热](https://tieba.baidu.com/p/10191425150)で、Anbernicを指して使用。意味は推定 |
-| 沙雕 | shādiāo | Retroidの愛称。「沙雕5」「沙雕4 Pro」「沙雕 Nova」のように、機種名に付く | 確認。[RP5](https://zhangjiquan.com/handheld/retroid-pocket-5)、[RP4 Pro](https://zhangjiquan.com/handheld/retroid-pocket-4-pro)、[Nova](https://zhangjiquan.com/handheld/retroid-pocket-nova)の別名の欄。由来は不明 |
-| 猴里谢 | hóu lǐ xiè | Miyooの愛称。生産が少ないことへの皮肉とされる | 確認。ただしAIGC表示の[红黑榜](https://post.smzdm.com/p/aww5ev54/)の記述 |
-| 老张 | lǎo Zhāng | GKDブランドの愛称 | 同上 |
-| 月光宝盒 | yuèguāng bǎohé | 多数のゲームを内蔵したゲーム機の名前。ほかのゲーム機と並べて挙げられている | 確認。[给大家分享一个PC上的模拟器前端](https://tieba.baidu.com/p/6671136635)で、投稿者が買った機器の1つとして記載 |
-| 尾巴 | wěibā | AYANEOの愛称とみられる。開源掌机吧の投稿で「尾巴aya」と書かれている | 推定。[开源掌机吧](https://tieba.baidu.com/f?kw=%E5%BC%80%E6%BA%90%E6%8E%8C%E6%9C%BA)の投稿(スクリーンショット) |
+| 周哥 | Zhōu gē | Nickname for Anbernic. Placed before a model name, as in "周哥RG-406V" and "周哥RG556" | Confirmed. The alias fields of [RG-406V](https://zhangjiquan.com/handheld/rg-406v) and [RG-556](https://zhangjiquan.com/handheld/rg-556) |
+| 周割 | Zhōu gē | A mocking form that replaces "周哥" with "割", which has the same pronunciation. "割" means to cut or reap | Confirmed. Used to refer to Anbernic in [给RG40XXH改造散热](https://tieba.baidu.com/p/10191425150). The meaning is inferred |
+| 沙雕 | shādiāo | Nickname for Retroid. Attached to model names, as in "沙雕5", "沙雕4 Pro", and "沙雕 Nova" | Confirmed. The alias fields of [RP5](https://zhangjiquan.com/handheld/retroid-pocket-5), [RP4 Pro](https://zhangjiquan.com/handheld/retroid-pocket-4-pro), and [Nova](https://zhangjiquan.com/handheld/retroid-pocket-nova). The origin is unknown |
+| 猴里谢 | hóu lǐ xiè | Nickname for Miyoo. Said to be sarcasm about its low production | Confirmed, but from [红黑榜](https://post.smzdm.com/p/aww5ev54/), which is labeled AIGC |
+| 老张 | lǎo Zhāng | Nickname for the GKD brand | Same as above |
+| 月光宝盒 | yuèguāng bǎohé | Name of a game console with many built-in games. Listed alongside other game consoles | Confirmed. In [给大家分享一个PC上的模拟器前端](https://tieba.baidu.com/p/6671136635), listed as one of the devices the poster bought |
+| 尾巴 | wěibā | Apparently a nickname for AYANEO. Written as "尾巴aya" in a post on 开源掌机吧 | Inferred. A post on [开源掌机吧](https://tieba.baidu.com/f?kw=%E5%BC%80%E6%BA%90%E6%8E%8C%E6%9C%BA) (screenshot) |
 
-## 掲示板と記事で使う言い回し
+## Expressions used on forums and in articles
 
-| 表現 | ピンイン | 意味 | 確度と出典 |
+| Expression | Pinyin | Meaning | Confidence and source |
 |---|---|---|---|
-| 毕业掌机、毕业机 | bìyè zhǎngjī | これ以上買い替える必要がない最終機 | 確認。[Novaのコメント](https://zhangjiquan.com/handheld/retroid-pocket-nova)の「完美毕业掌机」 |
-| 水桶机皇 | shuǐtǒng jī huáng | 弱点の少ない万能機の王 | 推定。[RP4 Proのコメント](https://zhangjiquan.com/handheld/retroid-pocket-4-pro) |
-| 冤大头 | yuāndàtóu | 損をする人、カモ | 確認。同じコメントに「起手1500我说冤大头」 |
-| 起手 | qǐshǒu | 発売直後の価格、最初の価格 | 推定。同じコメント |
-| 青稞纸 | qīngkēzhǐ | 絶縁用の厚めの紙 | 確認。[放熱改造の投稿](https://tieba.baidu.com/p/10191425150) |
-| 串键 | chuànjiàn | 十字キーなどの誤入力 | 確認。同じ投稿 |
-| 满载 | mǎnzài | 全力で動かすこと | 確認。同じ投稿 |
-| 懒人包 | lǎnrénbāo | 手間のかからない簡易パック | 確認。[模拟器游戏 篇四](https://zhuanlan.zhihu.com/p/703325151) |
-| 信息差 | xìnxīchā | 知っている人と知らない人の間の情報の差 | 確認。同じ記事 |
-| 傻瓜式操作 | shǎguāshì cāozuò | 誰でもできる簡単な操作 | 確認。[CNFansの出品](https://cnfans.com/search?keywords=RP5%E9%A2%84%E8%A3%85%E5%A4%A9%E9%A9%AC&searchType=keywords) |
-
-## 検索結果の抜粋だけで見かけた語
-
-次の語は、検索結果の抜粋に出てきましたが、元のページを開いて確かめていません。
-
-| 表現 | 意味の推定 |
-|---|---|
-| 小黄鱼 | 闲鱼の愛称 |
-| 割韭菜 | ネギを刈るように、消費者から搾取すること |
-| 寨机 | ブランドの正規品ではない機体(山寨機の略) |
-| 黄牛 | 転売屋 |
-| 大水杯 | フロントエンドの俗称。出品の画像に「大水杯ES前端」とあった |
-| 吃细糠 | 意味は不明。GBAのパックの記事の見出しに出てきた |
+| 毕业掌机, 毕业机 | bìyè zhǎngjī | A final device that never needs replacing | Confirmed. "完美毕业掌机" in a [comment on the Nova](https://zhangjiquan.com/handheld/retroid-pocket-nova) |
+| 水桶机皇 | shuǐtǒng jī huáng | King of all-round devices with few weaknesses | Inferred. A [comment on the RP4 Pro](https://zhangjiquan.com/handheld/retroid-pocket-4-pro) |
+| 冤大头 | yuāndàtóu | Someone who loses out, a sucker | Confirmed. "起手1500我说冤大头" in the same comment |
+| 起手 | qǐshǒu | The price right after release, the initial price | Inferred. The same comment |
+| 青稞纸 | qīngkēzhǐ | A fairly thick insulating paper | Confirmed. A [cooling mod post](https://tieba.baidu.com/p/10191425150) |
+| 串键 | chuànjiàn | Mistaken input on a D-pad or similar | Confirmed. The same post |
+| 满载 | mǎnzài | Running at full power | Confirmed. The same post |
+| 懒人包 | lǎnrénbāo | A simple, low-effort pack | Confirmed. [模拟器游戏 篇四](https://zhuanlan.zhihu.com/p/703325151) |
+| 信息差 | xìnxīchā | The information gap between those who know and those who do not | Confirmed. The same article |
+| 傻瓜式操作 | shǎguāshì cāozuò | Simple operation that anyone can do | Confirmed. A [CNFans listing](https://cnfans.com/search?keywords=RP5%E9%A2%84%E8%A3%85%E5%A4%A9%E9%A9%AC&searchType=keywords) |

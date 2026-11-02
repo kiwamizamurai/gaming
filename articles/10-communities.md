@@ -1,101 +1,101 @@
-# コミュニティと情報源
+# Communities and information sources
 
-調べ物をするときに頼れる場所を、種類別に整理します。確認できた事実は、ページの表示と、実際に開いたときの内容に限ります。調査日は、特に断らない限り2026年10月3日です。
+This article sorts out, by type, the places you can rely on when researching. Confirmed facts are limited to what the pages display and what they contained when actually opened. Unless otherwise noted, the research date is October 3, 2026.
 
-情報源は、大きく五つに分かれます。中国語の掲示板、機種のデータベース、記事と動画、OSやツールの公式の場所、メーカーのコミュニティです。同じ話題でも、場所によって書き手の立場が違うため、どこで読んだ情報かを意識すると、判断しやすくなります。
+Information sources divide broadly into five: Chinese forums, device databases, articles and videos, official places for OSes and tools, and manufacturer communities. Even on the same topic, writers' positions differ by place, so being aware of where you read something makes it easier to judge.
 
-## 中国語の掲示板
+## Chinese forums
 
-中国語の情報が最も多く集まるのは、百度貼吧です。[开源掌机吧](https://tieba.baidu.com/f?kw=%E5%BC%80%E6%BA%90%E6%8E%8C%E6%9C%BA)は、ページの表示によると、関注者が7.9万人、投稿が143.1万件で、2014年3月7日に作られました。コミュニティの説明は、「開源掌機とは、システムと内容がオープンソースの掌机」と書き、悪意のある書き込みや、露骨な宣伝を禁じています。トップページのタブは、人気、最新、仲間の助け合い、ハードウェアの議論、ソフトの交流、質問と回答などに分かれています。
+The largest amount of Chinese-language information gathers on Baidu Tieba. According to the page, [开源掌机吧](https://tieba.baidu.com/f?kw=%E5%BC%80%E6%BA%90%E6%8E%8C%E6%9C%BA) had 79,000 followers and 1,431,000 posts on October 3, 2026 (81,000 and 1,467,000 on November 2, 2026), and was created on March 7, 2014. The community description says that "an 开源掌机 is a 掌机 whose system and content are open source", and prohibits malicious posts and blatant advertising. The tabs on the top page are divided into Popular, Latest, mutual help among members, hardware discussion, software exchange, questions and answers, and others.
 
-![开源掌机吧のトップページ](../assets/screenshots/tieba-open-source-handheld-bar.jpg)
+![Top page of 开源掌机吧](../assets/screenshots/tieba-open-source-handheld-bar.jpg)
 
-ログインなしで見られるのは、掲示板のトップと、個別の投稿です。今回、トップページの本文として読み取れたのは、掲示板の名前と、関注者と投稿の数、「关注」と「发贴」のボタンまででした。投稿の一覧はスクリーンショットで確認しました。書き込みの条件は、ログインしなかったため、確認できていません。
+What can be viewed without login are the forum's top page and individual posts. This time, the text that could be read from the top page went only as far as the forum's name, the follower and post counts, and the 关注 and 发贴 buttons. The list of posts was checked through a screenshot. The conditions for posting could not be confirmed, because no login was made.
 
-スクリーンショットを撮った時点の人気の投稿は、2件ありました。1件は、Anbernicが次々に新機種を出すことを揶揄する内容です。もう1件は、LinuxをもとにしたSteamOS風のシステムを、AYNとRetroidの機種に合わせたという、開発者の投稿でした。この2件のように、掲示板の投稿は、皮肉や愛称を交えて書かれることがあるため、冗談と事実を区別して読む必要があります。
+At the time the screenshot was taken, there were two popular posts. One mocks Anbernic for putting out new devices one after another. The other was a developer's post about adapting a Linux-based SteamOS-style system to AYN and Retroid devices. As these two show, forum posts are sometimes written with sarcasm and nicknames, so you need to tell jokes from facts when reading.
 
-RG40XXHの放熱改造のように、写真つきで手順を書いた投稿もあります([给RG40XXH改造散热](https://tieba.baidu.com/p/10191425150))。内容は [改造できること](07-mods.md) に書きました。
+There are also posts that give steps with photos, such as the RG40XXH cooling mod ([给RG40XXH改造散热](https://tieba.baidu.com/p/10191425150)). Its content is covered in [What you can modify](07-mods.md).
 
-ポケモンの改造には、専用の2つの掲示板があります。[口袋妖怪改版吧](https://tieba.baidu.com/f?kw=%E5%8F%A3%E8%A2%8B%E5%A6%96%E6%80%AA%E6%94%B9%E7%89%88)は、関注者が4.9万人、投稿が12.7万件で、2012年3月29日に作られました。タブには、NDSとGBAの教程、資源ダウンロード、動画があります。[口袋改版资源吧](https://tieba.baidu.com/f?kw=%E5%8F%A3%E8%A2%8B%E6%94%B9%E7%89%88%E8%B5%84%E6%BA%90)は、関注者が26.1万人、投稿が164.5万件で、固定の投稿に、掲示板内の資源の目次があります。タブは、汉化の発布、改版の発布、改版の教程の順です。
+Pokémon modding has two dedicated forums. [口袋妖怪改版吧](https://tieba.baidu.com/f?kw=%E5%8F%A3%E8%A2%8B%E5%A6%96%E6%80%AA%E6%94%B9%E7%89%88) had 50,000 followers and 127,000 posts on November 2, 2026, and was created on March 29, 2012. Its tabs include NDS and GBA tutorials, resource downloads, and videos. [口袋改版资源吧](https://tieba.baidu.com/f?kw=%E5%8F%A3%E8%A2%8B%E6%94%B9%E7%89%88%E8%B5%84%E6%BA%90) had 263,000 followers and 1,665,000 posts on the same date, and a pinned post holds a table of contents for the resources on the forum. Its tabs run in the order of 汉化 releases, 改版 releases, and 改版 tutorials.
 
-資源の掲示板では、ファイルの共有が日常的に行われています。ROMやBIOSの入手先は、この記事では紹介しません。理由は、ゲームのデータの多くが、権利者の許可を得ていない形で出回っているためです。権利の考え方は、[ROMとBIOSの扱い方](12-roms-and-bios.md)に書きました。ポケモンの改造そのものについては、[ポケモンのROM hack](08-pokemon-hacking.md) を参照してください。
+On resource forums, file sharing is a daily occurrence. This article does not introduce where to obtain ROMs or BIOS files. The reason is that much game data circulates without the permission of the rights holders. How to think about rights is covered in [Handling ROMs and BIOS](12-roms-and-bios.md). For Pokémon modding itself, see [Pokémon ROM hacks](08-pokemon-hacking.md).
 
-## 動画サイトのBilibili
+## The video site Bilibili
 
-動画の情報源は、Bilibili(哔哩哔哩)です。「开源掌机」で検索すると、ログインなしで、動画の一覧が表示されました([検索結果](https://search.bilibili.com/all?keyword=%E5%BC%80%E6%BA%90%E6%8E%8C%E6%9C%BA))。検索のタブは、動画が99件以上、专栏(コラム記事)が99件以上、ユーザーが5件という表示でした。並べ替えは、综合排序、最多播放、最新发布などから選べます。
+The source for videos is Bilibili (哔哩哔哩). Searching for 开源掌机 displayed a list of videos without login ([search results](https://search.bilibili.com/all?keyword=%E5%BC%80%E6%BA%90%E6%8E%8C%E6%9C%BA)). The search tabs showed 99+ videos, 99+ 专栏 (column articles), and 5 users. Sorting can be chosen from 综合排序, 最多播放, 最新发布, and others.
 
-一覧の題名から、動画の種類が分かります。価格帯ごとのおすすめ(「2026年上半年,性价比最高的开源/安卓掌机大推荐」)、新機種の評測(「RP Duo Lite全面评测」)、200元以内の機種をまとめて開ける開箱の動画、「GammaOS系统刷机和配置教程」のような導入の解説、移植ゲーム(ports)を動かす動画などがありました。2026年10月3日の時点で、再生数が20万回を超える動画も、一覧に出ていました。
+The titles in the list show the types of videos. There were recommendations by price range (2026年上半年,性价比最高的开源/安卓掌机大推荐), reviews of new devices (RP Duo Lite全面评测), unboxing videos opening several devices under 200 yuan, installation guides such as GammaOS系统刷机和配置教程, and videos running ported games (ports). As of October 3, 2026, videos with more than 200,000 views also appeared in the list.
 
-動画は、画面の動きや、実機の大きさ、音や発熱の様子が分かる点が便利です。一方で、紹介料や、機材の提供を受けているかどうかは、動画ごとに違い、一覧からは分かりません。数字や評価は、機種のデータベースや公式の資料で、あとから確かめるのが安全です。
+Videos are useful for showing screen movement, the size of the actual device, and sound and heat. On the other hand, whether referral fees or provided equipment are involved differs by video and cannot be told from the list. It is safest to verify figures and evaluations afterward in device databases or official materials.
 
-## 機種のデータベース
+## Device databases
 
-[掌机圈](https://zhangjiquan.com/)は、携帯ゲーム機の専門のサイトです。上部のメニューは、ニュース、写真、発売前の機種の一覧、機種の一覧、ユーザーが投稿する貼り絵(貼图)に分かれています。機種のページには、仕様の表、ユーザーが撮った写真、評価とコメント、購入リンクがあり、2機種を並べた比較のページも用意されています(例は[RG-40XXHとRG-406V](https://zhangjiquan.com/compare/rg-40xxh-vs-rg-406v))。仕様は、ユーザーが訂正を申請できる形式です。
+[掌机圈](https://zhangjiquan.com/) is a site specializing in handheld game consoles. The top menu is divided into news, photos, a list of upcoming devices, a list of devices, and spec comparison. Device pages have a spec table, photos taken by users, ratings and comments, and purchase links, and there are also comparison pages that place two devices side by side (for example, [RG-40XXH and RG-406V](https://zhangjiquan.com/compare/rg-40xxh-vs-rg-406v)). Users can request corrections to specs.
 
-このデータベースは、ユーザーの投稿をもとにしているため、公式の仕様表ではありません。ページの価格は、購入リンクの日付が書かれていないため、現在の価格とは限りません。買い方の詳細は、[中国の機種を買う方法](09-buying.md)にまとめました。
+This database is based on user posts, so it is not an official spec sheet. Purchase links are not dated, so prices on the pages are not necessarily current. Details on buying are summarized in [How to buy Chinese devices](09-buying.md).
 
-## 記事
+## Articles
 
-什么值得买、知乎、CSDN、bilibiliの記事が、導入の手順や機種のレビューを載せています。什么值得买の記事の中には、ページの上部に「AIGC文章詳細」と表示されるAI生成の記事があります。この調査で読んだ2本、[2026开源掌机红黑榜](https://post.smzdm.com/p/aww5ev54/)と[RG40XXH実測](https://post.smzdm.com/p/aqrg0rx2/)は、どちらもそうでした。記事の末尾に、「内容由AI生成」と、参考にした元の記事の一覧が付いています。この種類の記事は、数値や評価を引用する前に、元の記事か、仕様のデータベースで確かめる必要があります。
+Articles on 什么值得买, Zhihu, CSDN, and bilibili carry installation steps and device reviews. Among 什么值得买 articles, there are AI-generated ones with "AIGC文章详情" displayed at the top of the page. The two read in this research, [2026开源掌机红黑榜](https://post.smzdm.com/p/aww5ev54/) and [RG40XXH hands-on](https://post.smzdm.com/p/aqrg0rx2/), were both of this kind. At the end of the article are "内容由AI生成" and a list of the original articles referred to. With this type of article, figures and evaluations need to be checked against the original articles or a spec database before being cited.
 
-知乎と、CSDNの記事は、個人が書いたものです。[天马G前端的使用](https://blog.csdn.net/fanged/article/details/152960565)のように、筆者が自分の環境で試した手順と、ソースコードの断片まで書かれている記事は、再現しやすい資料です。ただし、書かれた時点のOSやアプリの版に依存するため、日付を確認してください。
+Zhihu and CSDN articles are written by individuals. Articles such as [天马G前端的使用](https://blog.csdn.net/fanged/article/details/152960565), which give steps the author tried in their own environment and even fragments of source code, are materials that are easy to reproduce. However, they depend on the OS and app versions at the time of writing, so check the date.
 
-## 英語圏のレビューとガイド
+## English-language reviews and guides
 
-英語圏では、[Retro Game Corps](https://retrogamecorps.com/)が、導入のガイドをまとめています。2026年10月3日のトップページに並んでいた最近の記事は、ROCKNIXのガイド(Android機にLinuxを入れる)、PortMasterの入門、Anbernic RG35XXシリーズの入門、MinUIの入門、Syncthingとシェーダーとオーバーレイのガイドなどです。サイトは、Amazon、eBay、Humble、AliExpressなどへのリンクに、紹介のコードが付く場合があると、トップページに明記しています。
+In the English-speaking world, [Retro Game Corps](https://retrogamecorps.com/) collects installation guides. Recent articles on its top page on October 3, 2026 included a ROCKNIX guide (installing Linux on Android devices), a PortMaster introduction, an introduction to Anbernic's RG35XX series, a MinUI introduction, and guides to Syncthing, shaders, and overlays. The site states clearly on its top page that links to Amazon, eBay, Humble, AliExpress, and others may carry referral codes.
 
-## OSとツールの公式の場所
+## Official places for OSes and tools
 
-OSの公式の情報は、英語で書かれています。ROCKNIXの情報源は、[公式Wiki](https://rocknix.org/)と[GitHub](https://github.com/ROCKNIX/distribution)で、質問の場所は[Discord](https://discord.gg/seTxckZjJy)のコミュニティです。Knulliの本体は[GitHub](https://github.com/knulli-cfw/knulli-linux)の下に[ドキュメントのソース](https://github.com/knulli-cfw/knulli.org)があり、質問先は[Discord](https://discord.gg/HXPS3DAeeB)の「questions」チャンネルです。muOSの本体は、[MustardOS](https://github.com/MustardOS)のリポジトリ群にあります。Pegasusには、[公式サイト](https://pegasus-frontend.org/)と[Discord](https://discord.gg/KTtzP6y)が用意されています。ポケモンの改造は、pretの[ページ](https://pret.github.io/)と、RHHの[Discord](https://discord.gg/6CzjAG6GZk)が入口です。
+Official information on OSes is written in English. ROCKNIX's sources are the [official Wiki](https://rocknix.org/) and [GitHub](https://github.com/ROCKNIX/distribution), and the place for questions is the [Discord](https://discord.gg/seTxckZjJy) community. Knulli's main project is on [GitHub](https://github.com/knulli-cfw/knulli-linux), with the [documentation source](https://github.com/knulli-cfw/knulli.org) in a separate repository in the same organization, and questions go to the "questions" channel on [Discord](https://discord.gg/HXPS3DAeeB). muOS itself is in the repositories of [MustardOS](https://github.com/MustardOS). Pegasus has an [official site](https://pegasus-frontend.org/) and a [Discord](https://discord.gg/KTtzP6y). For Pokémon modding, the entry points are pret's [page](https://pret.github.io/) and RHH's [Discord](https://discord.gg/6CzjAG6GZk).
 
-PortMasterは、Linux機にゲームのポートを入れるプログラムです。[公式サイト](https://portmaster.games/)には、機能の紹介とWikiへの案内が載っています。2023年11月の紹介記事は、専用のDiscordコミュニティを案内し、翻訳の協力をCrowdinで受け付けていると書いていました。表示言語として挙がっていたのは、英語、イタリア語、フランス語、ドイツ語、ポーランド語です。日本語は、その記事の一覧には入っていませんでした。
+PortMaster is a program that installs game ports on Linux devices. Its [official site](https://portmaster.games/) has an introduction to its features and directions to the Wiki. A November 2023 introductory article pointed to a dedicated Discord community and said that help with translation was being accepted on Crowdin. The display languages listed were English, Italian, French, German, and Polish. Japanese was not in that article's list.
 
-RetroidのAndroid機について、英語のコミュニティは、Redditの[r/retroid](https://www.reddit.com/r/retroid)です。検索では、XDA Forumsに、RP4 Proのroot化の手順を共有するスレッドも見つかりました([検索結果](https://www.bing.com/search?q=Retroid+Pocket+4+Pro+custom+ROM+LineageOS+bootloader+unlock+reddit))。AndroidのOSを入れ替える場合は、[LineageOSの公式Wiki](https://wiki.lineageos.org/devices/RPN)にRetroid Pocket Novaのページがあり、導入の手順と既知の問題が載っています。
+For Retroid's Android devices, the English community is [r/retroid](https://www.reddit.com/r/retroid) on Reddit. A search also found a thread on XDA Forums sharing steps for rooting the RP4 Pro ([search results](https://www.bing.com/search?q=Retroid+Pocket+4+Pro+custom+ROM+LineageOS+bootloader+unlock+reddit)). For replacing the Android OS, the [official LineageOS Wiki](https://wiki.lineageos.org/devices/RPN) has a page for the Retroid Pocket Nova with installation steps and known issues.
 
-## メーカーのコミュニティと公式アカウント
+## Manufacturer communities and official accounts
 
-Retroidの中国の公式サイトは、上部に「社区」(コミュニティ)のメニューと、「去发布帖子」(投稿する)のボタンを置いています。ページの下部は、官网社区、使用指南、下载中心、视频、服务中心への入口です。ログインと注册(登録)のリンクもあります。サイトには、抖音(中国版のTikTok)の公式アカウントと、微信公众号(WeChatの公式アカウント)の入口もありました([retroid.cn](https://www.retroid.cn/))。官网社区のリンクを押しても、今回は、ページの移動を確認できなかったため、掲示の内容は見ていません。
+Retroid's official site for China places a 社区 (community) menu and a 去发布帖子 (make a post) button at the top. The bottom of the page has entries for 官网社区, 使用指南, 下载中心, 视频, and 服务中心. There are also login and 注册 (registration) links. The site also had entries for its official account on 抖音 (the Chinese version of TikTok) and its 微信公众号 (official WeChat account) ([retroid.cn](https://www.retroid.cn/)). Pressing the 官网社区 link did not visibly move to another page this time, so the content of its posts was not seen.
 
-Anbernicの[公式サイト](https://anbernic.com/)は、ニュースの記事を載せています。2026年9月10日と9日の記事には、RG DS Plusの紹介や、RG DSとの違いの解説、RG 55G1のGPUドライバーの切り替えガイドがありました。サポートは、メールかチケットで、トップページには、平均の返信時間が24〜48時間と書かれています。メーカーの記事は、製品の特長を、メーカー自身が説明したものです。
+Anbernic's [official site](https://anbernic.com/) carries news articles. Articles from September 10 and 9, 2026 included an introduction to the RG DS Plus, an explanation of its differences from the RG DS, and a guide to switching GPU drivers on the RG 55G1. On November 2, 2026, the top page listed newer articles as well: the RG DS Linux V1.1 update (October 19) and an introduction to the RG DDS (October 9). Support is by email or ticket, and the top page gives an average reply time of 24–48 hours. Manufacturer articles are the manufacturer's own explanations of its products' strengths.
 
-## 確認できなかった場所
+## Places that could not be confirmed
 
-Redditは、この調査のブラウザで、安全上の制限により、ページを開けませんでした。r/retroidの内容は、確認できていません。DiscordのROCKNIXの招待のリンクは、開いても何も表示されず、サーバーの内容や、規則を見られませんでした。淘宝は、検索のページでログインを求められたため、ショップのレビューや、問い合わせの内容も、見ていません。
+Reddit could not be opened in the browser used in this research because of security restrictions. The content of r/retroid could not be confirmed. The ROCKNIX Discord invitation link displayed nothing when opened, so the server's content and rules could not be seen. Taobao required login on its search page, so shop reviews and inquiry contents were not seen either.
 
-この調査で使ったブラウザの権限の設定で、ページ内容を読めなかったサイトもあります。knulli.org(Knulliの公式サイト)、muos.dev(muOSの公式サイト)、github.com、pegasus-frontend.orgです。GitHubのリポジトリの内容は、`gh` コマンドで読みました。Knulliのドキュメントは、`knulli-cfw/knulli.org` のGitHubリポジトリから、Pegasusのドキュメントは、`mmatyas/pegasus-docs` のGitHubリポジトリから読んでいます。muOSの公式サイトの内容は、読めていません。
+On October 3, 2026, some sites' page content could not be read under the permission settings of the browser used in this research: knulli.org (Knulli's official site), muos.dev (muOS's official site), github.com, and pegasus-frontend.org. The contents of GitHub repositories were read with the `gh` command. Knulli's documentation was read from the `knulli-cfw/knulli.org` GitHub repository, and Pegasus's documentation from the `mmatyas/pegasus-docs` GitHub repository. On November 2, 2026, all four sites could be opened and read, and muos.dev displayed the name MustardOS. Reddit was still blocked.
 
-## ユーザーの声の読み方
+## How to read user voices
 
-[掌机圈](https://zhangjiquan.com/handheld/retroid-pocket-5)の機種ページには、ユーザーのコメントが載っています。たとえばRetroid Pocket 5には、2025年7月付けの「性价比超神」という短い評価があり、RP4 Proには、2026年3月付けで、発売時の価格を高いと感じ、中古を勧める趣旨のコメントがありました。Novaには、2026年9月付けで、PS3やPCのエミュレーターまで遊べると褒めるコメントがあります。
+Device pages on [掌机圈](https://zhangjiquan.com/handheld/retroid-pocket-5) carry user comments. For example, the Retroid Pocket 5 has a short evaluation dated July 2025, 性价比超神, and the RP4 Pro has a comment dated March 2026 to the effect that the launch price felt high and recommending buying secondhand. The Nova has a comment dated September 2026 praising it for playing even PS3 and PC emulators.
 
-こうしたコメントは、短くて分かりやすい反面、どの設定で、どのゲームを遊んだ結果なのかが書かれていません。一つの機種に、高く評価する声と、価格に不満を言う声が並ぶことも、同じページで確認できます。参考にするなら、具体的なゲーム名や、設定の書かれた投稿を選ぶとよいでしょう。貼吧の放熱改造の投稿のように、写真と手順がそろったものは、再現しやすい資料です。
+Such comments are short and easy to understand, but they do not say with what settings or playing what games the results were obtained. The same pages also show that one device can have voices rating it highly alongside voices complaining about the price. If you use them for reference, choose posts that give specific game names and settings. Posts with both photos and steps, such as the Tieba cooling mod post, are materials that are easy to reproduce.
 
-## 質問するときの心がまえ
+## Attitude when asking questions
 
-OSの質問は、Wikiの導入ページと、よくある質問を読んでから行うのが基本です。ROCKNIXのWikiは、対応機種ごとのページで、手順と注意点を載せています。KnulliのDiscordは、質問用のチャンネルが分かれているため、そこを使う指定がありました。機種の名前、OSの版、SDカードの種類、試した手順を書くと、答えを得やすくなります。
+The basic rule for OS questions is to read the Wiki's installation pages and frequently asked questions first. The ROCKNIX Wiki gives steps and cautions on a page for each supported device. Knulli's Discord has a separate channel for questions, and there was an instruction to use it. Writing the device name, OS version, SD card type, and the steps you tried makes it easier to get an answer.
 
-中国語の掲示板に質問する場合は、機種の通称を知っておくと役立ちます。Retroid Pocketの別名「沙雕」は、掌机圈の機種ページに載っているほか、开源掌机吧の投稿にも出てくる語です。掲示板では、公式の名前とは別の呼び名が通用します。
+When asking on Chinese forums, it helps to know devices' common names. The Retroid Pocket alias 沙雕 appears on device pages on 掌机圈 and also in posts on 开源掌机吧. On forums, names other than the official ones are widely understood.
 
-## この記事で出てくる中国語
+## Chinese terms in this article
 
-本文に出てきた掲示板と動画サイトの中国語を、実際のページで確認できたものに限って並べます。
+Chinese words for forums and video sites from the text are listed here, limited to those that could be confirmed on the actual pages.
 
-| 中国語(簡体字) | ピンイン | 日本語の意味 | 出典 |
+| Chinese (Simplified) | Pinyin | Meaning | Source |
 |---|---|---|---|
-| 贴吧 | tiēbā | 百度の掲示板サービス | [开源掌机吧](https://tieba.baidu.com/f?kw=%E5%BC%80%E6%BA%90%E6%8E%8C%E6%9C%BA) |
-| 关注 | guānzhù | フォロー | [开源掌机吧](https://tieba.baidu.com/f?kw=%E5%BC%80%E6%BA%90%E6%8E%8C%E6%9C%BA) |
-| 发贴 | fātiē | 投稿する | [开源掌机吧](https://tieba.baidu.com/f?kw=%E5%BC%80%E6%BA%90%E6%8E%8C%E6%9C%BA) |
-| 开源掌机 | kāiyuán zhǎngjī | オープンソースの携帯機 | [开源掌机吧](https://tieba.baidu.com/f?kw=%E5%BC%80%E6%BA%90%E6%8E%8C%E6%9C%BA) |
-| 改版 | gǎibǎn | 改造版 | [口袋妖怪改版吧](https://tieba.baidu.com/f?kw=%E5%8F%A3%E8%A2%8B%E5%A6%96%E6%80%AA%E6%94%B9%E7%89%88) |
-| 汉化 | hànhuà | 中国語化 | [口袋改版资源吧](https://tieba.baidu.com/f?kw=%E5%8F%A3%E8%A2%8B%E6%94%B9%E7%89%88%E8%B5%84%E6%BA%90) |
-| 资源 | zīyuán | 資源、ファイルなど | [口袋改版资源吧](https://tieba.baidu.com/f?kw=%E5%8F%A3%E8%A2%8B%E6%94%B9%E7%89%88%E8%B5%84%E6%BA%90) |
-| 教程 | jiàochéng | 手順の解説 | [口袋妖怪改版吧](https://tieba.baidu.com/f?kw=%E5%8F%A3%E8%A2%8B%E5%A6%96%E6%80%AA%E6%94%B9%E7%89%88) |
-| 社区 | shèqū | コミュニティ | [retroid.cn](https://www.retroid.cn/) |
-| 去发布帖子 | qù fābù tiězi | 投稿しに行く | [retroid.cn](https://www.retroid.cn/) |
-| 注册 | zhùcè | 登録 | [retroid.cn](https://www.retroid.cn/) |
-| 视频 | shìpín | 動画 | [retroid.cn](https://www.retroid.cn/) |
-| 搜索 | sōusuǒ | 検索 | [Bilibili](https://search.bilibili.com/all?keyword=%E5%BC%80%E6%BA%90%E6%8E%8C%E6%9C%BA) |
-| 评测 | píngcè | 製品のレビュー | [Bilibili](https://search.bilibili.com/all?keyword=%E5%BC%80%E6%BA%90%E6%8E%8C%E6%9C%BA) |
-| 开箱 | kāixiāng | 開封の紹介 | [Bilibili](https://search.bilibili.com/all?keyword=%E5%BC%80%E6%BA%90%E6%8E%8C%E6%9C%BA) |
-| 最多播放 | zuì duō bōfàng | 再生数が多い順 | [Bilibili](https://search.bilibili.com/all?keyword=%E5%BC%80%E6%BA%90%E6%8E%8C%E6%9C%BA) |
-| 抖音 | dǒuyīn | 動画アプリ、中国版TikTok | [retroid.cn](https://www.retroid.cn/) |
+| 贴吧 | tiēbā | Baidu's forum service | [开源掌机吧](https://tieba.baidu.com/f?kw=%E5%BC%80%E6%BA%90%E6%8E%8C%E6%9C%BA) |
+| 关注 | guānzhù | Follow | [开源掌机吧](https://tieba.baidu.com/f?kw=%E5%BC%80%E6%BA%90%E6%8E%8C%E6%9C%BA) |
+| 发贴 | fātiē | To post | [开源掌机吧](https://tieba.baidu.com/f?kw=%E5%BC%80%E6%BA%90%E6%8E%8C%E6%9C%BA) |
+| 开源掌机 | kāiyuán zhǎngjī | Open source handheld | [开源掌机吧](https://tieba.baidu.com/f?kw=%E5%BC%80%E6%BA%90%E6%8E%8C%E6%9C%BA) |
+| 改版 | gǎibǎn | Modified version | [口袋妖怪改版吧](https://tieba.baidu.com/f?kw=%E5%8F%A3%E8%A2%8B%E5%A6%96%E6%80%AA%E6%94%B9%E7%89%88) |
+| 汉化 | hànhuà | Chinese localization | [口袋改版资源吧](https://tieba.baidu.com/f?kw=%E5%8F%A3%E8%A2%8B%E6%94%B9%E7%89%88%E8%B5%84%E6%BA%90) |
+| 资源 | zīyuán | Resources, files, and so on | [口袋改版资源吧](https://tieba.baidu.com/f?kw=%E5%8F%A3%E8%A2%8B%E6%94%B9%E7%89%88%E8%B5%84%E6%BA%90) |
+| 教程 | jiàochéng | Step-by-step guide | [口袋妖怪改版吧](https://tieba.baidu.com/f?kw=%E5%8F%A3%E8%A2%8B%E5%A6%96%E6%80%AA%E6%94%B9%E7%89%88) |
+| 社区 | shèqū | Community | [retroid.cn](https://www.retroid.cn/) |
+| 去发布帖子 | qù fābù tiězi | Go make a post | [retroid.cn](https://www.retroid.cn/) |
+| 注册 | zhùcè | Registration | [retroid.cn](https://www.retroid.cn/) |
+| 视频 | shìpín | Video | [retroid.cn](https://www.retroid.cn/) |
+| 搜索 | sōusuǒ | Search | [Bilibili](https://search.bilibili.com/all?keyword=%E5%BC%80%E6%BA%90%E6%8E%8C%E6%9C%BA) |
+| 评测 | píngcè | Product review | [Bilibili](https://search.bilibili.com/all?keyword=%E5%BC%80%E6%BA%90%E6%8E%8C%E6%9C%BA) |
+| 开箱 | kāixiāng | Unboxing | [Bilibili](https://search.bilibili.com/all?keyword=%E5%BC%80%E6%BA%90%E6%8E%8C%E6%9C%BA) |
+| 最多播放 | zuì duō bōfàng | Most played first | [Bilibili](https://search.bilibili.com/all?keyword=%E5%BC%80%E6%BA%90%E6%8E%8C%E6%9C%BA) |
+| 抖音 | dǒuyīn | Video app, the Chinese version of TikTok | [retroid.cn](https://www.retroid.cn/) |

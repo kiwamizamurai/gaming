@@ -1,19 +1,19 @@
-# 貼吧のRG40XXH放熱改造
+# RG40XXH cooling mod on Tieba
 
-種類は、百度貼吧の开源掌机吧の投稿です。URLは https://tieba.baidu.com/p/10191425150 、題名は「给RG40XXH改造散热」、投稿日は2025年11月6日、投稿者は天津のユーザーです。信頼度は個人で、写真つきの実体験が書かれています。コメントは11件で、すべて読めました。
+The type is a post on 开源掌机吧 on Baidu Tieba. The URL is https://tieba.baidu.com/p/10191425150 , the title is "给RG40XXH改造散热", the post date is November 6, 2025, and the poster is a user in Tianjin. Reliability is personal, and it describes firsthand experience with photos. There are 11 comments, all of which could be read.
 
-![RG40XXHの放熱改造の投稿](../assets/screenshots/tieba-rg40xxh-cooling-thread.jpg)
+![Post on the RG40XXH cooling mod](../assets/screenshots/tieba-rg40xxh-cooling-thread.jpg)
 
-## 投稿の内容
+## Contents of the post
 
-投稿者は、RG40XXHで遊ぶと、背面の右側が熱くなり、右手が汗ばむため、分解して調べました。H700なので、Anbernic(投稿では「周割」)は放熱を付けなかったと推測し、H700がそれほど熱かった記憶はなかったと書いています。分解すると、背面のカバーには黒い絶縁紙の「青稞纸」が貼られていました。厚さは0.5mmで、投稿者の感想は、貼らないほうがよいというものです。その下には、電池を動かさないための厚さ2mmの発泡材が2枚ありました。
+The poster found that when playing on the RG40XXH, the right side of the back got hot and their right hand got sweaty, so they took it apart to investigate. They speculate that Anbernic ("周割" in the post) did not add cooling because it uses an H700, and write that they did not remember the H700 being that hot. When taken apart, the back cover had a black insulating paper, "青稞纸", stuck on it. It was 0.5mm thick, and the poster's impression was that it is better not stuck on. Beneath it were two pieces of 2mm-thick foam that keep the battery from moving.
 
-動画で見たH700系のSoCに、熱伝導パッドと銅箔を使う方法を参考に、ネットで買った熱伝導パッドを貼りました。H700の上に1枚貼れば足りたが、最初に貼る向きを間違えたので、全部に貼ったそうです。H700に使ったパッドは、厚さ5.5mmが合い、電池とカバーの隙間が2mmなので、電池が動かないよう適当なものを貼れば足ります。試すと、背面で熱いのはH700の真上の小さな部分だけになり、右手は熱くなくなりました。
+Referring to a method seen in a Bilibili video that uses thermal pads and copper foil on a chip like the "A122" (A122这种U), they stuck on thermal pads bought online. One piece on the H700 would have been enough, but they first stuck it on in the wrong orientation, so they stuck pads on everything. A thickness of 5.5mm suited the pad for the H700, and since the gap between the battery and cover is 2mm, anything suitable that keeps the battery from moving will do. When tested, the only hot part on the back was the small area directly over the H700, and their right hand no longer got hot.
 
-投稿者は、H700は全力で動かしても極端には熱くならず、熱をカバーに逃がせば、熱がこもらないと結論しています。最後に、RG40XXHの十字キーに軽い誤入力があるが、BluetoothとWi-Fiがあることは便利で、コントローラーをつないで遊ぶ体験がよいと書いています。
+The poster concludes that the H700 does not get extremely hot even at full power, and that if the heat is released to the cover, it will not build up. Finally, they write that the RG40XXH's D-pad has slight mistaken inputs, but that having Bluetooth and Wi-Fi is convenient and the experience of playing with a connected controller is good.
 
-## コメント
+## Comments
 
-別のユーザーの書き込みは、シリコンのパッドを置くだけでよかったのに、というものです。ほかのユーザーの書き込みは、海外のレビューでも、40XXHは発熱が問題と言われていた、というものです。投稿者は、セットトップボックスでH700を使うときは、アルミの放熱片を貼るだけで、ファンもいらないほどで、メーカーが放熱を付けなかったのが残念だと返しています。「効果は本当にあるのか」という質問に、投稿者は、H700は高温でもフリーズしないので、メーカーは付けなかったが、パッドを付ければ温度は下がる、必須ではない、と答えています。
+Another user wrote that just placing a silicone pad would have been enough. Another wrote that overseas reviews also called heat a problem on the 40XXH. The poster replied that when the H700 is used in a set-top box, just sticking on an aluminum heat sink is enough and no fan is needed, and that it is a pity the manufacturer did not add cooling. To the question "does it really have an effect?", the poster answered that the H700 does not freeze at high temperatures, so the manufacturer did not add cooling, but that adding a pad lowers the temperature, and that it is not essential.
 
-別のコメントは、「H700は、PS1を2倍の解像度にすると重い」と書きました。投稿者は、フィルターとマスクを切れば止まらず、ドリームキャストのエミュレーターも、640×480に設定すれば止まらないと返しました。銅箔の厚さを聞かれて、約0.1mmの紙のような薄さと答え、熱伝導パッドの厚さと種類を聞かれて、いちばん安いもので十分、40XXHなら5mmか、2.5mmを2枚重ねればよい、と答えています。
+Another comment wrote, "The H700 struggles when PS1 is set to 2x resolution." The poster replied that it does not stutter if filters and masks are turned off, and that a Dreamcast emulator does not stutter either if set to 640×480. Asked about the thickness of the copper foil, they answered that it is about 0.1mm, as thin as paper; asked about the thickness and type of thermal pad, they answered that the cheapest is good enough, and that for the 40XXH, 5mm or two 2.5mm pads stacked will do.

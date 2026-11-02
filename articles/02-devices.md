@@ -1,163 +1,163 @@
-# 主要機種の違い
+# Differences between the main devices
 
-このページでは、遊ぶ機種を選ぶ候補になった6機種を、仕様のデータベースである[掌机圈](https://zhangjiquan.com/handhelds)の各ページをもとに比べます。掌机圈の数値は、ユーザーの投稿を含む情報です。公式の仕様表ではないため、電池容量のように載っていない項目は、ほかの出典を探す必要があります。
+This page compares six devices that were candidates for play, based on their pages on the specification database [掌机圈](https://zhangjiquan.com/handhelds). The figures on 掌机圈 include information posted by users. They are not official spec sheets, so items that are not listed, such as battery capacity, require looking for other sources.
 
-## 仕様の一覧
+## Spec list
 
-| 項目 | RG40XXH | RG406V | RG556 | RP4 Pro | RP5 | Nova |
+| Item | RG40XXH | RG406V | RG556 | RP4 Pro | RP5 | Nova |
 |---|---|---|---|---|---|---|
-| 発売 | 2024年7月 | 2024年9月 | 2024年3月 | 2024年1月 | 2024年9月 | 2026年7月 |
-| 画面 | 4.0インチ 4:3 | 4.0インチ 4:3 | 5.48インチ 16:9 | 4.7インチ 16:9 | 5.5インチ 16:9 | 4.5インチ 4:3 |
-| 画素密度 | 200 | 300 | 400 | 325.61 | 400.5 | 355.6 |
-| リフレッシュレート | 60Hz | 60Hz | 60Hz | 60Hz | 60Hz | 120Hz |
+| Release | Jul 2024 | Sep 2024 | Mar 2024 | Jan 2024 | Sep 2024 | Jul 2026 |
+| Screen | 4.0-inch 4:3 | 4.0-inch 4:3 | 5.48-inch 16:9 | 4.7-inch 16:9 | 5.5-inch 16:9 | 4.5-inch 4:3 |
+| Pixel density | 200 | 300 | 402 | 325.61 | 400.5 | 355.6 |
+| Refresh rate | 60Hz | 60Hz | 60Hz | 60Hz | 60Hz | 120Hz |
 | SoC | H700 | T820 | T820 | Dimensity 1100 | Snapdragon 865 | Snapdragon 8 Gen 2 |
-| メモリ | 1GB LPDDR4 | 8GB LPDDR4X | 8GB LPDDR4X | 8GB LPDDR4x | 6/8GB LPDDR4 | 8〜12GB LPDDR5X |
-| ストレージ | SDカード | 128GB UFS 2.2 | 128GB UFS 2.2 | 128GB UFS 3.1 | 128GB UFS 3.1 | 128〜256GB |
-| 無線 | Wi-Fi 5、BT 4.2 | Wi-Fi 5、BT 5.0 | Wi-Fi 5、BT 5.0 | Wi-Fi 6、BT 5.2 | Wi-Fi 6、BT 5.1 | Wi-Fi 7、BT 5.3 |
-| 重さ | 208g | 289g | 331g | 261g | 280g | 255g |
-| 冷却 | 記載なし | ヒートパイプとファン | ヒートパイプとファン | ファン | ファン | ファン |
-| 価格の表示 | 300〜500元 | 1048元(券後) | 1199元(券後) | 150〜200ドル | 1000〜1500元 | 1500〜2000元 |
+| Memory | 1GB LPDDR4 | 8GB LPDDR4X | 8GB LPDDR4X | 8GB LPDDR4x | 6/8GB LPDDR4 | 8–12GB LPDDR5X |
+| Storage | SD card | 128GB UFS 2.2 | 128GB UFS 2.2 | 128GB UFS 3.1 | 128GB UFS 3.1 | 128–256GB |
+| Wireless | Wi-Fi 5, BT 4.2 | Wi-Fi 5, BT 5.0 | Wi-Fi 5, BT 5.0 | Wi-Fi 6, BT 5.2 | Wi-Fi 6, BT 5.1 | Wi-Fi 7, BT 5.3 |
+| Weight | 208g | 289g | 331g | 261g | 280g | 255g |
+| Cooling | Not listed | Heat pipe and fan | Heat pipe and fan | Fan | Fan | Fan |
+| Price shown | 300–500 yuan | 1048 yuan (after coupon) | 1199 yuan (after coupon) | $150–200 | 1000–1500 yuan | 1500–2000 yuan |
 
-出典は、[RG40XXH](https://zhangjiquan.com/handheld/rg-40xxh)、[RG406V](https://zhangjiquan.com/handheld/rg-406v)、[RG556](https://zhangjiquan.com/handheld/rg-556)、[RP4 Pro](https://zhangjiquan.com/handheld/retroid-pocket-4-pro)、[RP5](https://zhangjiquan.com/handheld/retroid-pocket-5)、[Nova](https://zhangjiquan.com/handheld/retroid-pocket-nova)の各ページです。RG40XXHの冷却欄は空で、RG406VとRG556の1048元と1199元は、掌机圈が載せている購入リンクの到手価格(クーポン適用後)を示しています。
+The sources are the pages for the [RG40XXH](https://zhangjiquan.com/handheld/rg-40xxh), [RG406V](https://zhangjiquan.com/handheld/rg-406v), [RG556](https://zhangjiquan.com/handheld/rg-556), [RP4 Pro](https://zhangjiquan.com/handheld/retroid-pocket-4-pro), [RP5](https://zhangjiquan.com/handheld/retroid-pocket-5), and [Nova](https://zhangjiquan.com/handheld/retroid-pocket-nova). The cooling field for the RG40XXH is empty, and the 1048 yuan and 1199 yuan for the RG406V and RG556 are the final prices (after coupons) of the purchase links shown on 掌机圈.
 
-## 仕様表の項目の読み方
+## How to read the spec table fields
 
-掌机圈の機種ページは、仕様を項目ごとの表にして載せています。項目名は中国語で、「发布时间」(発売時期)、「机身颜色」(本体の色)、「外观尺寸」(外形寸法)、「重量」(重さ)、「屏幕尺寸」(画面サイズ)、「屏幕比例」(縦横比)、「屏幕刷新率」(リフレッシュレート)、「处理器」(SoC)、「内存」(メモリ)、「存储」(ストレージ)、「电池」(電池)、「散热」(冷却)、「连接性」(無線)、「视频输出」(映像出力)、「模拟器支持」(エミュレーションの目安)が並びます([RG-35XX Hのページ](https://zhangjiquan.com/handheld/rg-35xx-h))。
+Device pages on 掌机圈 present specs in a table, field by field. The field names are in Chinese: 发布时间 (release date), 机身颜色 (body color), 外观尺寸 (external dimensions), 重量 (weight), 屏幕尺寸 (screen size), 屏幕比例 (aspect ratio), 屏幕刷新率 (refresh rate), 处理器 (SoC), 内存 (memory), 存储 (storage), 电池 (battery), 散热 (cooling), 连接性 (wireless), 视频输出 (video output), and 模拟器支持 (emulation guide) ([RG-35XX H page](https://zhangjiquan.com/handheld/rg-35xx-h)).
 
-項目が空欄の機種もあります。上の一覧でRG40XXHの冷却を「記載なし」としたのは、このためです。ページの下には、「信息补充或纠错」(情報の補足や訂正)というボタンがあり、利用者が訂正を送れます。ページ内の説明は、掲載する仕様がネット上の情報の収集で、漏れや誤りがあり得ると断っています。
+Some devices have blank fields. This is why the list above shows "Not listed" for the RG40XXH's cooling. At the bottom of the page is a button labeled 信息补充或纠错 (add or correct information), which lets users send corrections. A note on the page cautions that the listed specs are collected from information online and may contain omissions or errors.
 
-エミュレーションの目安の欄は、1行の短い文です。たとえばRG-35XX Hは「N64,PSP和Dreamcast大部分可玩」、R36Sは「SNES FX和3D PS1(60 FPS)…」と書かれています。測定の条件は書かれていないため、遊べるかどうかの目安にとどまります。
+The emulation guide field is one short line. For example, the RG-35XX H has "N64,PSP和Dreamcast大部分可玩", and the R36S has "SNES FX和3D PS1(60 FPS)…". No measurement conditions are given, so these remain only a rough guide to what is playable.
 
 ## Anbernic RG40XXH
 
-H700を載せた横型の4インチ機です。掌机圈では、サイズが163×79×16mmで、SDカードスロットが2つ、出力はMini HDMIと記載されています。対応するゲームの形式は、PSP、DOS、NDS、N64、PS1、DC、アーケード、GBA、GBC、GB、SFC、FC、MAME、MDなどです。
+A horizontal 4-inch device with an H700. 掌机圈 lists its size as 163×79×16mm, two SD card slots, and Mini HDMI output. Supported game formats include PSP, DOS, NDS, N64, PS1, DC, arcade, GBA, GBC, GB, SFC, FC, MAME, and MD.
 
-![掌机圈のRG-40XXHのページ](../assets/screenshots/zhangjiquan-rg40xxh.png)
+![The RG-40XXH page on 掌机圈](../assets/screenshots/zhangjiquan-rg40xxh.png)
 
-什么值得买の[RG40XXH実測記事](https://post.smzdm.com/p/aqrg0rx2/)は、電池を3200mAh、重さを208gとし、FC、SFC、GBA、GB、PS1は問題なく動くと書いています。PSPとN64は一部が遊べる程度です。この記事もAIGCの表示があり、掲載された数値は、上の掌机圈のページと照らして使う必要があります。
+The [RG40XXH hands-on article](https://post.smzdm.com/p/aqrg0rx2/) on 什么值得买 gives a 3200mAh battery and a weight of 208g, and says that FC, SFC, GBA, GB, and PS1 run without problems. PSP and N64 are only partly playable. This article also has the AIGC label, so its figures need to be checked against the 掌机圈 page above before use.
 
-![什么值得买のRG40XXH記事。AIGCの表示がある](../assets/screenshots/smzdm-rg40xxh-review-aigc.jpg)
+![The RG40XXH article on 什么值得买, showing the AIGC label](../assets/screenshots/smzdm-rg40xxh-review-aigc.jpg)
 
-この機種は、OSの選択肢が広いのが特徴です。[ROCKNIX](https://rocknix.org/devices/anbernic/rg40xx-h/)と[Knulli](https://github.com/knulli-cfw/knulli.org/blob/main/docs/devices/anbernic/rg40xx-h.md)の両方が公式に対応しています。
+A distinguishing feature of this device is its wide choice of OS. Both [ROCKNIX](https://rocknix.org/devices/anbernic/rg40xx-h/) and [Knulli](https://github.com/knulli-cfw/knulli.org/blob/main/docs/devices/anbernic/rg40xx-h.md) officially support it.
 
 ## Anbernic RG406V
 
-縦型の4インチ機で、SoCは虎贲T820です。掌机圈によると、メモリは8GB、ストレージは128GBのUFS 2.2で、冷却にはヒートパイプとファンを使い、ジャイロとホールスティックを備えています。重さは289gです。対応するゲームは、掌机圈の欄では「N64、DC、PSP」とされ、PS2は書かれていません。
+A vertical 4-inch device whose SoC is the 虎贲T820. According to 掌机圈, it has 8GB of memory and 128GB of UFS 2.2 storage, uses a heat pipe and fan for cooling, and has a gyro and Hall sticks. It weighs 289g. The supported games field on 掌机圈 says "N64, DC, PSP", and PS2 is not mentioned.
 
-![掌机圈のRG-406Vのページ](../assets/screenshots/zhangjiquan-rg406v.png)
+![The RG-406V page on 掌机圈](../assets/screenshots/zhangjiquan-rg406v.png)
 
-画面は4インチで、画素密度が300あります。4:3の画面なので、16:9のPSPの映像を表示すると、上下に黒帯が入ります。
+The screen is 4 inches with a pixel density of 300. Because it is a 4:3 screen, displaying 16:9 PSP video leaves black bars at the top and bottom.
 
 ## Anbernic RG556
 
-横型で5.48インチの大きな画面を持つ機種です。SoCはRG406Vと同じT820で、掌机圈の記載では、重さが331g、画素密度が400、ホールスティックとホールトリガーを備えています。対応するゲームについて、掌机圈は、N64、Dreamcast、PSPがすべて満足なフレームレート、GameCubeとWiiは大部分が遊べる、PS2は一部が遊べる、Switchは簡単なゲームだけ、と書いています。
+A horizontal device with a large 5.48-inch screen. The SoC is the same T820 as the RG406V, and 掌机圈 lists a weight of 331g, a pixel density of 402 (400 when checked on October 3, 2026), and Hall sticks and Hall triggers. On supported games, 掌机圈 says that N64, Dreamcast, and PSP all run at satisfactory frame rates, most GameCube and Wii games are playable, some PS2 games are playable, and only simple games work on Switch.
 
-![掌机圈のRG-556のページ](../assets/screenshots/zhangjiquan-rg556.jpg)
+![The RG-556 page on 掌机圈](../assets/screenshots/zhangjiquan-rg556.jpg)
 
 ## Retroid Pocket 4 Pro
 
-Dimensity 1100を載せた4.7インチの横型機です。掌机圈では、重さが261gで、WiFi 6とBluetooth 5.2に対応し、出力はMicro HDMIとUSB-Cです。対応するゲームは、GameCube、Wii、PS2までとされ、Switchは簡単な小さなゲームだけと書かれています。
+A horizontal 4.7-inch device with a Dimensity 1100. 掌机圈 lists a weight of 261g, support for WiFi 6 and Bluetooth 5.2, and Micro HDMI and USB-C output. Supported games are listed as going up to GameCube, Wii, and PS2, and for Switch only simple, small games are said to work.
 
-![掌机圈のRetroid Pocket 4 Proのページ](../assets/screenshots/zhangjiquan-retroid-pocket-4-pro.png)
+![The Retroid Pocket 4 Pro page on 掌机圈](../assets/screenshots/zhangjiquan-retroid-pocket-4-pro.png)
 
-同じページには、購入者のコメントとして「起手1500我说冤大头,闲鱼700只能给一句水桶机皇」が載っています。発売直後の1500元は高いと感じたが、閑魚で700元なら、弱点の少ない万能機として評価する、という内容です。
+The same page carries a buyer's comment: "起手1500我说冤大头,闲鱼700只能给一句水桶机皇". It says that 1500 yuan right after launch felt expensive, but that at 700 yuan on 闲鱼 the writer rates it as an all-rounder with few weak points.
 
 ## Retroid Pocket 5
 
-Snapdragon 865を載せた5.5インチの横型機です。掌机圈の記載では、サイズが199.2×78.5×15.6mmで、重さは280g、最大輝度は500ニト、出力はUSB-Cとされています。対応するゲームは、GameCube、Wii、PS2までで、一部のSwitchのゲームも動きます。
+A horizontal 5.5-inch device with a Snapdragon 865. 掌机圈 lists a size of 199.2×78.5×15.6mm, a weight of 280g, a maximum brightness of 500 nits, and USB-C output. Supported games go up to GameCube, Wii, and PS2, and some Switch games also run.
 
-![掌机圈のRetroid Pocket 5のページ](../assets/screenshots/zhangjiquan-retroid-pocket-5.png)
+![The Retroid Pocket 5 page on 掌机圈](../assets/screenshots/zhangjiquan-retroid-pocket-5.png)
 
-この機種は、OSの選択肢でも他の機種より有利です。[ROCKNIX](https://rocknix.org/devices/retroid/retroid-pocket-5/)と[Knulli](https://github.com/knulli-cfw/knulli.org/blob/main/docs/devices/goretroid/retroid-pocket-5.md)の両方に対応ページがあります。Knulliのページには、準備したSDカードを挿し、音量上キーを押したまま起動して、表示されるメニューから起動を選ぶ手順が書かれています。
+This device also has an advantage over the others in OS options. Both [ROCKNIX](https://rocknix.org/devices/retroid/retroid-pocket-5/) and [Knulli](https://github.com/knulli-cfw/knulli.org/blob/main/docs/devices/goretroid/retroid-pocket-5.md) have pages for it. The Knulli page describes inserting a prepared SD card, starting the device while holding the volume up key, and choosing to boot from the menu that appears.
 
 ## Retroid Pocket Nova
 
-2026年7月に発売された新しい機種です。Snapdragon 8 Gen 2を載せ、画面は4.5インチの4:3で、リフレッシュレートが120Hzです。掌机圈では、サイズが169.9×84.1×26.3mm、重さが255gで、WiFi 7とBluetooth 5.3に対応しています。対応するゲームは、一部のSwitchまでです。
+A new device released in July 2026. It has a Snapdragon 8 Gen 2 and a 4.5-inch 4:3 screen with a 120Hz refresh rate. 掌机圈 lists a size of 169.9×84.1×26.3mm, a weight of 255g, and support for WiFi 7 and Bluetooth 5.3. Supported games go up to some Switch games.
 
-![掌机圈のRetroid Pocket Novaのページ](../assets/screenshots/zhangjiquan-retroid-pocket-nova.jpg)
+![The Retroid Pocket Nova page on 掌机圈](../assets/screenshots/zhangjiquan-retroid-pocket-nova.jpg)
 
-購入者のコメントには、「PS3のエミュレーターやPCのエミュレーターも遊べ、8 Gen 2のドライバーも整っていて、255gで手のひらに収まり、性能、放熱、電池、重さのすべてが整った完成された機種」という趣旨の評価があります。[LineageOS](https://wiki.lineageos.org/devices/RPN)の公式対応機種にもなっています。
+One buyer's comment gives an evaluation to the effect of: "It can also play PS3 emulators and PC emulators, the 8 Gen 2 drivers are in good shape, it fits in the palm at 255g, and it is a finished device with everything in order: performance, heat dissipation, battery, and weight." It is also an officially supported device of [LineageOS](https://wiki.lineageos.org/devices/RPN).
 
-## 3.5インチ級の4機種
+## Four devices in the 3.5-inch class
 
-上の6機種とは別に、掌机圈で3.5インチ画面の機種も調べました。対象はR36S、RG-35XX H、GKD Bubble、Miyoo Flipの4機種で、画面は640×480、縦横比は4:3、60Hzという共通の値です。
+Apart from the six devices above, devices with 3.5-inch screens were also looked up on 掌机圈. The four devices are the R36S, RG-35XX H, GKD Bubble, and Miyoo Flip, and they share a 640×480 screen, a 4:3 aspect ratio, and 60Hz.
 
 ### R36S
 
-2023年11月に発売された縦型の機種で、掌机圈のブランド欄は「Game Console」という総称のような表記です。SoCはRK3326で、Cortex-A35の4コア(1.3〜1.5GHz)とMali-G31 MP2(650MHz)、メモリは1GBのDDR3Lを載せています。ストレージは外付けのMicroSDが2枚、電池は3500mAh、接続の欄はUSB-C OTG、スピーカーの欄はモノラルとなっています([掌机圈 R36S](https://zhangjiquan.com/handheld/r36s))。
+A vertical device released in November 2023. The brand field on 掌机圈 reads "Game Console", which looks like a generic label. The SoC is the RK3326, with four Cortex-A35 cores (1.3–1.5GHz) and a Mali-G31 MP2 (650MHz), along with 1GB of DDR3L memory. Storage is two external MicroSD cards, the battery is 3500mAh, the connectivity field says USB-C OTG, and the speaker field says mono ([掌机圈 R36S](https://zhangjiquan.com/handheld/r36s)).
 
-ROCKNIXのページは、同じ機種を「R35S/R36S」としてまとめ、メモリは1GBのDDR3、画面は3.5インチ640×480と記載しています([ROCKNIX R35S/R36S](https://rocknix.org/devices/unbranded/game-console-r35s-r36s/))。2024年のR36Sには、新しい画面を載せたものがあり、動かすには追加の作業が必要とされています。ページは、画面の種類に合うオーバーレイのファイルを、起動用の領域に置く手順を説明しています。
+The ROCKNIX page groups the same device as "R35S/R36S" and lists 1GB of DDR3 memory and a 3.5-inch 640×480 screen ([ROCKNIX R35S/R36S](https://rocknix.org/devices/unbranded/game-console-r35s-r36s/)). Some 2024 R36S units have a new screen, and these are said to need additional work to run. The page explains the steps for placing an overlay file matching the screen type in the boot area.
 
 ### RG-35XX H
 
-2024年1月に発売された、Anbernicの機種です。掌机圈では、外形寸法が145×69×16mm、重さが180gで、H700(Cortex-A53の4コア1.5GHz、Mali-G31 MP2の650MHz)と、1GBのLPDDR4を載せています。ストレージは外付けのMicroSDが2枚、無線はWiFi 5とBluetooth 4.2、映像出力はMini HDMIです。3.5mmのイヤホン端子と、ステレオのスピーカーも備えています([掌机圈 RG-35XX H](https://zhangjiquan.com/handheld/rg-35xx-h))。
+An Anbernic device released in January 2024. 掌机圈 lists external dimensions of 145×69×16mm, a weight of 180g, an H700 (four Cortex-A53 cores at 1.5GHz, Mali-G31 MP2 at 650MHz), and 1GB of LPDDR4. Storage is two external MicroSD cards, wireless is WiFi 5 and Bluetooth 4.2, and video output is Mini HDMI. It also has a 3.5mm earphone jack and stereo speakers ([掌机圈 RG-35XX H](https://zhangjiquan.com/handheld/rg-35xx-h)).
 
-![ROCKNIXのRG35XX Hのページ](../assets/screenshots/rocknix-rg35xx-h-page.jpg)
+![The RG35XX H page on ROCKNIX](../assets/screenshots/rocknix-rg35xx-h-page.jpg)
 
-ROCKNIXのページは、同じ機種のH700を1.4GHzと書き、設定でオーバークロックすると1.5GHzになるとしています。ページは、無線のLANをオンにする場所をEmulationStationのメインメニューのネットワーク設定と案内し、電源LEDの色を選べること、Bluetoothの音声とコントローラーに対応することも書いています([ROCKNIX RG35XX H](https://rocknix.org/devices/anbernic/rg35xx-h/))。
+The ROCKNIX page gives the same device's H700 as 1.4GHz and says that overclocking in the settings brings it to 1.5GHz. The page says wireless LAN is turned on in the network settings of the EmulationStation main menu, and also says that the power LED color can be chosen and that Bluetooth audio and controllers are supported ([ROCKNIX RG35XX H](https://rocknix.org/devices/anbernic/rg35xx-h/)).
 
 ### GKD Bubble
 
-2024年10月に発売された、タッチ画面つきの横型機です。掌机圈では、外形寸法が166.8×82×24mm、重さが227gで、SoCがRK3566(Cortex-A55の4コア1.8GHz、Mali-G52 2EEの850MHz)、メモリが1GBのLPDDR4、電池が4000mAhです。映像出力はMicro HDMI、スピーカーはステレオで、振動の機能があります。価格は379元と書かれています([掌机圈 GKD Bubble](https://zhangjiquan.com/handheld/gkd-bubble))。
+A horizontal device with a touchscreen, released in October 2024. 掌机圈 lists external dimensions of 166.8×82×24mm, a weight of 227g, an RK3566 SoC (four Cortex-A55 cores at 1.8GHz, Mali-G52 2EE at 850MHz), 1GB of LPDDR4 memory, and a 4000mAh battery. Video output is Micro HDMI, the speakers are stereo, and it has a vibration function. The price is given as 379 yuan ([掌机圈 GKD Bubble](https://zhangjiquan.com/handheld/gkd-bubble)).
 
 ### Miyoo Flip
 
-2024年12月に発売された、折りたたみ式の機種です。掌机圈では、外形寸法が82×80×20mmで、重さは165gで、重さが載る3機種のなかで最も軽くなっています。SoCはGKD Bubbleと同じRK3566です。電池は3000mAh、無線はWiFi 5とBluetooth 5.2、映像出力はMini HDMIで、スピーカーはモノラルです。本体の色には、黒、白、黄、復古灰の4色があります([掌机圈 Miyoo Flip](https://zhangjiquan.com/handheld/miyoo-355-flip))。
+A folding device released in December 2024. 掌机圈 lists external dimensions of 82×80×20mm and a weight of 165g, the lightest of the three devices with a listed weight. The SoC is the same RK3566 as the GKD Bubble. The battery is 3000mAh, wireless is WiFi 5 and Bluetooth 5.2, video output is Mini HDMI, and the speaker is mono. The body comes in four colors: black, white, yellow, and 复古灰 ([掌机圈 Miyoo Flip](https://zhangjiquan.com/handheld/miyoo-355-flip)).
 
-ページの別名の欄には、「Miyoo 翻盖机,翻米,蜜柚Flip,米柚翻盖掌机」が並んでいます。型番ではなく、形(翻盖)や、ブランド名の中国語の当て字で呼ばれている様子が分かります。
+The alias field on the page lists "Miyoo 翻盖机,翻米,蜜柚Flip,米柚翻盖掌机". This shows that the device is called by its shape (翻盖) and by Chinese phonetic renderings of the brand name, rather than by model number.
 
-## 数値で見る違い
+## Differences in numbers
 
-ここまでの10機種を、掌机圈の数値で比べた結果が次のとおりです。重さは、165gのMiyoo Flipから331gのRG556までの幅です。間には、RG-35XX Hの180g、RG40XXHの208g、GKD Bubbleの227g、Novaの255g、RP4 Proの261g、RP5の280g、RG406Vの289gが入ります。R36Sは、重さの欄が空でした。
+Comparing the ten devices so far using the figures on 掌机圈 gives the following. Weight ranges from 165g for the Miyoo Flip to 331g for the RG556. In between are the RG-35XX H at 180g, RG40XXH at 208g, GKD Bubble at 227g, Nova at 255g, RP4 Pro at 261g, RP5 at 280g, and RG406V at 289g. The weight field for the R36S was empty.
 
-価格は、R36Sの40ドル(起售价格)から、Novaの1500〜2000元(価格帯)までの差があります。ただし、ドル表示と元表示が混ざるため、順位は付けられません。
+Prices range from $40 for the R36S (起售价格) to 1500–2000 yuan for the Nova (price range). However, because dollars and yuan are mixed, they cannot be ranked.
 
-SoCの世代は、H700とRK3566の機種が小型で軽く、T820以上の機種が重いという対応になっています。これは10機種の数値を並べた結果にすぎず、一般的な法則としては確かめていません。
+As for SoC generations, devices with the H700 and RK3566 are small and light, and devices with the T820 and above are heavy. This is merely the result of lining up the figures for ten devices and has not been verified as a general rule.
 
-## OSの対応状況
+## OS support
 
-公式のOSが、どの機種に対応しているかを、これまでに確認した一覧から表にします。「一覧にない」は、その一覧に当てはまる機種名が見つからなかったという意味にすぎません。対応しないと断言するものではありません。
+The following table shows which devices the official OSes support, from the lists checked so far. "Not listed" only means that no matching device name was found in that list. It is not a definitive statement that the device is unsupported.
 
-| 機種 | ROCKNIX | Knulli | そのほか |
+| Device | ROCKNIX | Knulli | Other |
 |---|---|---|---|
-| RG40XXH | あり | あり | muOSの対応機種データにRG40XX-H |
-| RG-35XX H | あり | あり | muOSの対応機種データにRG35XX H |
-| R36S | あり(R35S/R36S) | 一覧にない | ArkOSの説明は確認できなかった |
-| RG406V | 一覧にない | 一覧にない | 確認できなかった |
-| RG556 | 一覧にない | 一覧にない | 確認できなかった |
-| RP4 Pro | 一覧にない | 一覧にない | 確認できなかった |
-| RP5 | あり | あり(GoRetroid) | 確認できなかった |
-| Nova | あり | 一覧にない | LineageOSの公式対応(コード名RPN) |
-| Miyoo Flip | 一覧にない | あり | GammaOS Coreの対応機種 |
-| GKD Bubble | 一覧にない | 一覧にない | GammaOS Coreの対応機種 |
+| RG40XXH | Yes | Yes | RG40XX-H in muOS's supported device data |
+| RG-35XX H | Yes | Yes | RG35XX H in muOS's supported device data |
+| R36S | Yes (R35S/R36S) | Not listed | ArkOS description could not be confirmed |
+| RG406V | Not listed | Not listed | Could not be confirmed |
+| RG556 | Not listed | Not listed | Could not be confirmed |
+| RP4 Pro | Not listed | Not listed | Could not be confirmed |
+| RP5 | Yes | Yes (GoRetroid) | Could not be confirmed |
+| Nova | Yes | Not listed | Officially supported by LineageOS (code name RPN) |
+| Miyoo Flip | Not listed | Yes | Supported by GammaOS Core |
+| GKD Bubble | Not listed | Not listed | Supported by GammaOS Core |
 
-出典は、[ROCKNIXの対応機種一覧](https://rocknix.org/devices/)、[Knulliの対応機種一覧](https://github.com/knulli-cfw/knulli.org/blob/main/docs/devices/index.md)、[GammaOS Core](https://github.com/TheGammaSqueeze/GammaOSCore)、[LineageOS Wiki](https://wiki.lineageos.org/devices/RPN)、[MustardOSのリポジトリ](https://github.com/MustardOS)です。RG406VとRG556は、ROCKNIXの一覧にあるRG552やRG353とは、型番が別です。
+The sources are the [ROCKNIX supported device list](https://rocknix.org/devices/), the [Knulli supported device list](https://github.com/knulli-cfw/knulli.org/blob/main/docs/devices/index.md), [GammaOS Core](https://github.com/TheGammaSqueeze/GammaOSCore), the [LineageOS Wiki](https://wiki.lineageos.org/devices/RPN), and the [MustardOS repository](https://github.com/MustardOS). The RG406V and RG556 have different model numbers from the RG552 and RG353 on the ROCKNIX list.
 
-## Retroid Pocket 5の公式ショップの記載
+## What the official shop says about the Retroid Pocket 5
 
-Retroidの公式ショップのRetroid Pocket 5のページは、5.5インチのAMOLED、1080pの60fps、5000mAhの電池、アクティブ冷却、Android 13、アナログのL2とR2、3Dのホールスティックを挙げています。無線はWi-Fi 6とBluetooth 5.1で、公式のOTAによる差分のアップデートに対応するとあります([goretroid.com](https://www.goretroid.com/en-jp/products/retroid-pocket-5))。
+The Retroid Pocket 5 page on Retroid's official shop lists a 5.5-inch AMOLED, 1080p at 60fps, a 5000mAh battery, active cooling, Android 13, analog L2 and R2, and 3D Hall sticks. Wireless is Wi-Fi 6 and Bluetooth 5.1, and it says that official OTA incremental updates are supported ([goretroid.com](https://www.goretroid.com/en-jp/products/retroid-pocket-5)).
 
-掌机圈のRP5の欄は、無線をWiFi 6とBluetooth 5.1、メモリを6または8GBとしています。無線の規格は、公式ショップと掌机圈で一致しました。メモリは、整備品のページが8GBで、掌机圈の6または8GBとは表記が違います。電池の容量は、掌机圈のRP5のページに数値がなく、公式ショップの5000mAhだけが手がかりです。
+The RP5 fields on 掌机圈 give wireless as WiFi 6 and Bluetooth 5.1, and memory as 6 or 8GB. The wireless standards match between the official shop and 掌机圈. For memory, the refurbished page says 8GB, which is worded differently from the 6 or 8GB on 掌机圈. The RP5 page on 掌机圈 has no figure for battery capacity, so the 5000mAh on the official shop is the only clue.
 
-## この記事で出てくる中国語
+## Chinese terms in this article
 
-仕様の表に並ぶ項目名を、読み方と一緒に確認します。
+Here are the field names in the spec tables, along with their pronunciation.
 
-| 中国語(簡体字) | ピンイン | 日本語の意味 | 出典 |
+| Chinese (Simplified) | Pinyin | Meaning | Source |
 |---|---|---|---|
-| 发布时间 | fābù shíjiān | 発売時期 | [掌机圈 RG-35XX H](https://zhangjiquan.com/handheld/rg-35xx-h) |
-| 机身颜色 | jīshēn yánsè | 本体の色 | [掌机圈 RG-35XX H](https://zhangjiquan.com/handheld/rg-35xx-h) |
-| 外观尺寸 | wàiguān chǐcùn | 外形寸法 | [掌机圈 RG-35XX H](https://zhangjiquan.com/handheld/rg-35xx-h) |
-| 重量 | zhòngliàng | 重さ | [掌机圈 RG-35XX H](https://zhangjiquan.com/handheld/rg-35xx-h) |
-| 屏幕尺寸 | píngmù chǐcùn | 画面サイズ | [掌机圈 RG-35XX H](https://zhangjiquan.com/handheld/rg-35xx-h) |
-| 屏幕比例 | píngmù bǐlì | 画面の縦横比 | [掌机圈 RG-35XX H](https://zhangjiquan.com/handheld/rg-35xx-h) |
-| 屏幕刷新率 | píngmù shuāxīnlǜ | 画面のリフレッシュレート | [掌机圈 RG-35XX H](https://zhangjiquan.com/handheld/rg-35xx-h) |
-| 处理器 | chǔlǐqì | プロセッサー(SoC) | [掌机圈 RG-35XX H](https://zhangjiquan.com/handheld/rg-35xx-h) |
-| 内存 | nèicún | メモリ | [掌机圈 RG-35XX H](https://zhangjiquan.com/handheld/rg-35xx-h) |
-| 存储 | cúnchǔ | ストレージ | [掌机圈 RG-35XX H](https://zhangjiquan.com/handheld/rg-35xx-h) |
-| 电池 | diànchí | 電池 | [掌机圈 RG-35XX H](https://zhangjiquan.com/handheld/rg-35xx-h) |
-| 散热 | sànrè | 冷却 | [掌机圈 RG-35XX H](https://zhangjiquan.com/handheld/rg-35xx-h) |
-| 连接性 | liánjiēxìng | 無線などの接続 | [掌机圈 RG-35XX H](https://zhangjiquan.com/handheld/rg-35xx-h) |
-| 视频输出 | shìpín shūchū | 映像出力 | [掌机圈 RG-35XX H](https://zhangjiquan.com/handheld/rg-35xx-h) |
-| 模拟器支持 | mónǐqì zhīchí | エミュレーションの目安 | [掌机圈 RG-35XX H](https://zhangjiquan.com/handheld/rg-35xx-h) |
-| 信息补充或纠错 | xìnxī bǔchōng huò jiūcuò | 情報の補足や訂正 | [掌机圈 RG-35XX H](https://zhangjiquan.com/handheld/rg-35xx-h) |
+| 发布时间 | fābù shíjiān | Release date | [掌机圈 RG-35XX H](https://zhangjiquan.com/handheld/rg-35xx-h) |
+| 机身颜色 | jīshēn yánsè | Body color | [掌机圈 RG-35XX H](https://zhangjiquan.com/handheld/rg-35xx-h) |
+| 外观尺寸 | wàiguān chǐcùn | External dimensions | [掌机圈 RG-35XX H](https://zhangjiquan.com/handheld/rg-35xx-h) |
+| 重量 | zhòngliàng | Weight | [掌机圈 RG-35XX H](https://zhangjiquan.com/handheld/rg-35xx-h) |
+| 屏幕尺寸 | píngmù chǐcùn | Screen size | [掌机圈 RG-35XX H](https://zhangjiquan.com/handheld/rg-35xx-h) |
+| 屏幕比例 | píngmù bǐlì | Screen aspect ratio | [掌机圈 RG-35XX H](https://zhangjiquan.com/handheld/rg-35xx-h) |
+| 屏幕刷新率 | píngmù shuāxīnlǜ | Screen refresh rate | [掌机圈 RG-35XX H](https://zhangjiquan.com/handheld/rg-35xx-h) |
+| 处理器 | chǔlǐqì | Processor (SoC) | [掌机圈 RG-35XX H](https://zhangjiquan.com/handheld/rg-35xx-h) |
+| 内存 | nèicún | Memory | [掌机圈 RG-35XX H](https://zhangjiquan.com/handheld/rg-35xx-h) |
+| 存储 | cúnchǔ | Storage | [掌机圈 RG-35XX H](https://zhangjiquan.com/handheld/rg-35xx-h) |
+| 电池 | diànchí | Battery | [掌机圈 RG-35XX H](https://zhangjiquan.com/handheld/rg-35xx-h) |
+| 散热 | sànrè | Cooling | [掌机圈 RG-35XX H](https://zhangjiquan.com/handheld/rg-35xx-h) |
+| 连接性 | liánjiēxìng | Wireless and other connectivity | [掌机圈 RG-35XX H](https://zhangjiquan.com/handheld/rg-35xx-h) |
+| 视频输出 | shìpín shūchū | Video output | [掌机圈 RG-35XX H](https://zhangjiquan.com/handheld/rg-35xx-h) |
+| 模拟器支持 | mónǐqì zhīchí | Emulation guide | [掌机圈 RG-35XX H](https://zhangjiquan.com/handheld/rg-35xx-h) |
+| 信息补充或纠错 | xìnxī bǔchōng huò jiūcuò | Add or correct information | [掌机圈 RG-35XX H](https://zhangjiquan.com/handheld/rg-35xx-h) |

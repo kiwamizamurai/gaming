@@ -1,135 +1,137 @@
-# 中国の機種を買う方法
+# How to buy Chinese devices
 
-日本から中国メーカーの携帯ゲーム機を買う方法は、大きく四つあります。中国向けの公式店、海外向けの公式ストア、代行購入サービス、中古の個人売買です。この記事は、2026年10月3日に実際にページを開いて確認できたことを、サイトごとに整理したものです。価格や送料は日々変わるため、購入前に必ず画面で見直してください。
+There are broadly four ways to buy a handheld game console from a Chinese manufacturer from Japan: official stores for China, official stores for overseas customers, proxy buying services, and secondhand sales between individuals. This article sorts out, site by site, what could be confirmed by actually opening the pages on October 3, 2026. Prices and shipping fees change daily, so always recheck them on screen before buying.
 
-確認できなかったことは、その旨を書きました。ログインが必要なサイトでは、ログインを避けたため、検索結果や価格を見ていません。
+Things that could not be confirmed are stated as such. On sites requiring login, login was avoided, so search results and prices were not seen.
 
-## 中国向けの公式の販売経路
+## Official sales channels for China
 
-Retroidの中国の[公式サイト](https://www.retroid.cn/)は、販売の入口として「天猫旗舰店」(天猫の公式店舗)と「淘宝企业店」(淘宝の企業店)を載せています。サイトのトップページには、新製品のRP DUOの予約販売が、「RP DUO预售进行中」(予約販売の実施中)と表示されていました。連絡先のページの記載では、電話窓口は準備中で、販売前後の問い合わせは淘宝のカスタマーサービスに連絡する形です。
+Retroid's [official site](https://www.retroid.cn/) for China lists 天猫旗舰店 (official store on Tmall) and 淘宝企业店 (corporate store on Taobao) as entry points for sales. The top page showed a pre-sale of the new RP DUO, as "RP DUO预售进行中" (pre-sale in progress). According to the contact page, a telephone line is in preparation, and pre-sale and after-sale inquiries go to Taobao customer service.
 
-![Retroid Pocket公式サイトのトップページ](../assets/screenshots/retroid-cn-home.jpg)
+![Top page of the official Retroid Pocket site](../assets/screenshots/retroid-cn-home.jpg)
 
-上部のメニューには、ホーム、商城(ショップ)、社区(コミュニティ)、サービスとサポート、マイページが並びます。ページの下部では、商品が「掌机」と「配件」(アクセサリー)に分かれ、サポートとして「使用指南」(使い方のガイド)と「下载中心」(ダウンロードセンター)が案内されています([retroid.cn](https://www.retroid.cn/))。サイトの著作権表示は、深圳の会社名義でした。
+The top menu has Home, 商城 (shop), 社区 (community), Service and Support, and My Page. At the bottom of the page, products are divided into 掌机 and 配件 (accessories), and 使用指南 (usage guide) and 下载中心 (download center) are offered as support ([retroid.cn](https://www.retroid.cn/)). The site's copyright notice was in the name of a company in Shenzhen.
 
-天猫と淘宝の店は、中国国内の消費者向けです。日本への発送や、日本語での対応があるかどうかは、店のページを見られなかったため、確認できませんでした。日本から注文するなら、次に挙げる海外向けのストアか、代行購入が現実的な選択肢になります。
+The Tmall and Taobao stores are for consumers within China. Whether they ship to Japan or offer support in Japanese could not be confirmed, because the store pages could not be viewed. To order from Japan, the overseas stores below or proxy buying are the realistic options.
 
-## 海外向けの公式ストア
+## Official stores for overseas customers
 
-Retroidには、英語で買える海外向けのストアがあります。[goretroid.com](https://www.goretroid.com/en-jp)にアクセスすると、日本向けの表示(en-jp)に移り、価格は米ドルで表示されました。
+Retroid has an overseas store where you can buy in English. Accessing [goretroid.com](https://www.goretroid.com/en-jp) moved to a display for Japan (en-jp), with prices shown in US dollars.
 
-![Retroidの海外向けストアのトップページ](../assets/screenshots/goretroid-global-store-home.jpg)
+![Top page of Retroid's overseas store](../assets/screenshots/goretroid-global-store-home.jpg)
 
-2026年10月3日の表示では、Retroid Pocket Duoが269ドル、Duo Liteが149ドルから、Novaが239ドルから、Pocket 6が244ドルからでした。Pocket 5はセール価格で179ドル(通常価格209ドル)、Classicはセール価格で99ドル(通常価格149ドル)です([goretroid.com](https://www.goretroid.com/en-jp))。トップのバナーには、Pocket DuoとDuo Liteの発売日が、米国東部時間の9月11日21時30分(北京時間の9月12日9時30分)と書かれていました。
+As displayed on October 3, 2026, the Retroid Pocket Duo was $269, the Duo Lite from $149, the Nova from $239, and the Pocket 6 from $244. The Pocket 5 was $179 on sale (regular price $209), and the Classic was $99 on sale (regular price $149) ([goretroid.com](https://www.goretroid.com/en-jp)). The banner at the top gave the release date of the Pocket Duo and Duo Lite as 9:30 p.m. on September 11, US Eastern Time (9:30 a.m. on September 12, Beijing time).
 
-### Retroidの配送と返品の規定
+### Retroid's shipping and return rules
 
-[配送ポリシー](https://www.goretroid.com/en-jp/policies/shipping-policy)によると、配送業者は4PXとDHLです。4PXの所要日数は約15日から60日で、国によっては45日から90日かかると書かれています。早く受け取りたい場合は、DHLを選ぶよう案内があります。DHLでは、遠隔地の追加料金が約50ドルかかる場合があるという記載です。発送までの目安は1日から7日で、日曜と中国の祝日は出荷しません。荷物の追跡は、サイトが紹介する追跡サービスの[17track](https://www.17track.net/zh-cn)などで行います。
+According to the [shipping policy](https://www.goretroid.com/en-jp/policies/shipping-policy), the carriers are 4PX and DHL. 4PX takes about 15 to 60 days, and the policy says that in some countries it takes 45 to 90 days. Those wanting to receive it sooner are directed to choose DHL. With DHL, a remote area surcharge of about $50 may apply. The guideline until shipment is 1 to 7 days, and nothing ships on Sundays or Chinese holidays. Packages are tracked with services such as [17track](https://www.17track.net/zh-cn), which the site introduces.
 
-[返品ポリシー](https://www.goretroid.com/en-jp/policies/refund-policy)は、購入価格に税が含まれないと明記しています。EUでは20%から24%の税がかかり、米国では800ドルを超える荷物に課税される、という説明です。日本の扱いは、ページに書かれていませんでした。税を払わずに荷物が返送された場合、料金は返金されません。
+The [return policy](https://www.goretroid.com/en-jp/policies/refund-policy) states clearly that purchase prices do not include tax. It explains that tax of 20% to 24% applies in the EU, and that in the US, packages over $800 are taxed. The page says nothing about how Japan is treated. If a package is returned because tax was not paid, the fee is not refunded.
 
-返品は、荷物を受け取ってから15日以内で、未使用かつ元の箱に入った状態が条件です。返送の送料は購入者の負担で、返金から差し引かれます。セール品は返金の対象外で、通常価格の商品だけが返金できると書かれています。交換が認められるのは、初期不良か破損の場合だけです。つまり、セール中の機種は、気に入らなくても返品できない可能性があります。
+Returns must be made within 15 days of receiving the package, and the item must be unused and in its original box. Return shipping is at the buyer's expense and is deducted from the refund. Sale items are not eligible for refund, and the policy says only regular-price items can be refunded. Exchanges are allowed only for initial defects or damage. In other words, a device bought on sale may not be returnable even if you do not like it.
 
-### Anbernicの公式ストア
+### Anbernic's official store
 
-Anbernicの公式サイト[anbernic.com](https://anbernic.com/)は、Shopifyで作られた英語のストアです。トップページには、RG DS PlusやRG 35、RG 55G1などの紹介が並び、支払い方法はクレジットカード、デビットカード、PayPalと書かれていました。保証は購入から12か月です。
+Anbernic's official site [anbernic.com](https://anbernic.com/) is an English store built with Shopify. The top page introduces the RG DS Plus, RG 35, RG 55G1, and others, and gives credit cards, debit cards, and PayPal as payment methods. The warranty is 12 months from purchase.
 
-[配送ポリシー](https://anbernic.com/policies/shipping-policy)では、処理期間は2日から4営業日で、米国、豪州、スペイン、英国には海外倉庫があります。中国からの出荷は、国慶節の休みが9月30日から10月5日までのため、遅れるという告知が出ていました。海外倉庫の商品は、その影響を受けないと書かれています。海外倉庫の商品は、届け先の国が限られ、チェックアウトで配送方法が選べなければ、その国に送れないという意味です。
+According to the [shipping policy](https://anbernic.com/policies/shipping-policy), the processing period is 2 to 4 business days, and there are overseas warehouses in the US, Australia, Spain, and the UK. On October 3, 2026, there was a notice that shipments from China would be delayed because of the National Day holiday from September 30 to October 5, and that items in overseas warehouses would not be affected. On November 2, 2026, that notice was gone, and the page said the pre-order RG DDS is expected to start shipping on December 10, 2026. Items in overseas warehouses can go only to limited destination countries, and if you cannot choose a shipping method at checkout, that means they cannot be sent to that country.
 
-注文のキャンセルは、注文から12時間以内に、サポートのチケットで申し込みます。配送された荷物が届かない場合は、追跡上の配達日から14日以内に連絡しなければ、請求が受け付けられません。荷物が紛失した場合の申し立ては、発送日から30日以内が目安です。
+To cancel an order, apply through a support ticket within 12 hours of ordering. If tracking shows a package as delivered but you did not receive it, a claim is not accepted unless you make contact within 14 days of the delivery date shown. The guideline for claims on lost packages is within 30 days of the shipping date.
 
-[返品ポリシー](https://anbernic.com/policies/refund-policy)は、日本を含む地域に限って、15日以内の返品に対応すると書いています。対象は、米国、EU、カナダ、豪州、英国、日本です。個人的な理由で返品する場合の費用は、注文金額の25%に、返送ラベルの料金を足した額です。25%が35ドルに満たないときは、35ドルとして計算されます。初期不良は、無償で交換や返品を受け付けますが、システムの更新で直る不具合は、初期不良に入りません。15日を過ぎた場合は、12か月の保証の間、交換用の部品を無償で送る形になります。
+The [return policy](https://anbernic.com/policies/refund-policy) says that 15-day returns are accepted only in certain regions, including Japan. The eligible regions are the US, the EU, Canada, Australia, the UK, and Japan. The cost of returning for personal reasons is 25% of the order amount plus the cost of the return label. When 25% is less than $35, it is calculated as $35. For initial defects, Anbernic in principle first sends replacement parts for repair free of charge, and if that does not fix the problem, you can apply for a free return within 15 days. Glitches that a system update fixes do not count as initial defects. After 15 days, replacement parts are sent free of charge during the 12-month warranty.
 
-ここまでを比べると、Retroidの海外ストアは、セール品が返金できず、返送料は購入者の負担です。Anbernicは、日本が返品の対象国に入っていますが、気に入らない場合の返品は、注文金額の25%以上が引かれます。どちらも、返品を前提に気軽に試す買い方には向きません。
+Comparing these so far, Retroid's overseas store does not refund sale items, and return shipping is at the buyer's expense. Anbernic includes Japan among the countries eligible for returns, but returning something you do not like costs at least 25% of the order amount. Neither suits buying casually with the idea of trying and returning.
 
-### AYNの公式サイト
+### AYN's official site
 
-AYNの[公式サイト](https://www.ayntec.com/)では、Thorが予約受付、Odin2 Portalが購入可能という表示でした。Thorは、Snapdragon 8 Gen 2、6インチのAMOLED、Android 13、6000mAhの電池という説明です。ここでは価格、配送、返品の規定のページまでは開いていないため、確認できませんでした。
+AYN's [official site](https://www.ayntec.com/), as opened on November 2, 2026, showed the Thor as accepting pre-orders, with shop links for the Odin3 Portal and the Odin 2. The Thor is described as having a Snapdragon 8 Gen 2, a 6-inch AMOLED, Android 13, and a 6000mAh battery. The pages for price, shipping, and return rules were not opened here, so they could not be confirmed.
 
-### 公式の海外ストアを使うときの注意
+### Cautions when using official overseas stores
 
-三つの公式ストアは、いずれも英語で、日本語の窓口はありません。支払い方法、送料、税、保証の条件は、ストアごとに違います。注文の前に、配送ポリシーと返品ポリシーのページを読み、特に、返品の条件と、関税を誰が払うかを確認する必要があります。日本の関税や消費税の扱いは、この調査では確認していないため、税関や公式の情報で確認してください。
+All three official stores are in English, and none has a Japanese support desk. Payment methods, shipping fees, taxes, and warranty conditions differ by store. Before ordering, you need to read the shipping and return policy pages, and in particular check the return conditions and who pays customs duties. How Japanese customs duties and consumption tax are handled was not checked in this research, so check with customs or official information.
 
-## 中国のECサイトの壁
+## The barrier of Chinese e-commerce sites
 
-中国のECサイトは、検索の段階でログインを求めるものが多くなっています。この調査では、閑魚の商品ページは、ログインなしで見られましたが、検索はログイン画面が表示されて結果が出ませんでした。淘宝も同じで、検索のURLを開くと、パスワードのログインとQRコードのログインのポップアップが出ました。京東は検索の途中で認証のページに移りました。中古サイトの转转(Zhuanzhuan)は、試した検索のURLが404でした。
+Many Chinese e-commerce sites require login at the search stage. In this research, product pages on 闲鱼 could be viewed without login, but search showed a login screen and no results. Taobao was the same: opening a search URL brought up a popup for password login and QR code login. JD.com moved to an authentication page during the search. On the secondhand site 转转 (Zhuanzhuan), the search URL tried returned a 404.
 
-![淘宝の検索ページに出たログインの画面](../assets/screenshots/taobao-search-login-wall.jpg)
+![Login screen shown on the Taobao search page](../assets/screenshots/taobao-search-login-wall.jpg)
 
-ログインを代行することはできないため、これらのサイトでの検索は、自分のアカウントで行う必要があります。また、日本から中国のECサイトで買う場合、アカウントの作成、本人確認、支払い方法、日本への発送の可否は、サイトごとに違います。この調査では、いずれも確認できていません。日本語の説明が必要な人は、次の代行購入サービスのほうが、ハードルが低くなります。
+Logging in cannot be done on your behalf, so searching these sites has to be done with your own account. Also, when buying from Chinese e-commerce sites from Japan, account creation, identity verification, payment methods, and whether shipping to Japan is possible differ by site. None of these could be confirmed in this research. For those who need explanations in Japanese, the proxy buying service below is a lower hurdle.
 
-## 代行購入サービスCNFans
+## The proxy buying service CNFans
 
-CNFansは、淘宝の商品を、ログインなしで検索できる代行購入サービスです。検索のURLは `https://cnfans.com/search?keywords=<中国語のキーワード>&searchType=keywords` の形で、価格は米ドルで表示されます。通貨は、USD、EUR、CNYなどが選べ、日本円はありません。
+On November 2, 2026, cnfans.com showed only a maintenance notice saying the site was under persistent cyberattacks and undergoing maintenance and upgrades, so the descriptions below are as of October 3, 2026. Check the current state before using it.
 
-検索のキーワードは、短いほどよく当たります。「安伯尼克 RG406V」のような短い語では機種の商品が並びましたが、語を足して「安伯尼克 256G 游戏内存卡」のようにすると、ドライブレコーダー用のSDカードのような無関係な商品が混ざりました。商品名は、機械翻訳された英語で表示されるため、中国語の元の名前と、意味がずれることがあります。
+CNFans is a proxy buying service that lets you search Taobao products without logging in. The search URL takes the form `https://cnfans.com/search?keywords=<Chinese keyword>&searchType=keywords`, and prices are shown in US dollars. You can choose currencies such as USD, EUR, and CNY, but not Japanese yen.
 
-商品ページでは、色や容量のオプションを切り替えても、価格の表示が変わりませんでした。そのため、構成ごとの正確な価格は、カートに入れるまで分かりません。
+The shorter the search keyword, the better the matches. Short terms such as "安伯尼克 RG406V" listed products for the device, but adding terms, as in "安伯尼克 256G 游戏内存卡", mixed in unrelated products such as SD cards for dash cams. Product names are shown in machine-translated English, so the meaning can drift from the original Chinese name.
 
-注文の流れは、ページの説明によると、次のとおりです。まず、商品の名前かリンクで検索して、支払いをします。CNFansが購入を代行するのは、中国時間の9時から18時の間です。商品はCNFansの倉庫に届き、検品写真が3〜7枚撮られます。内容を確認したあとは、国際配送の方法を選ぶ流れです。商品ごとに、中国国内の送料が0元と表示されていました。
+On product pages, switching color or capacity options did not change the displayed price. The exact price of each configuration is therefore not known until it is put in the cart.
 
-検品の範囲は限られています。CNFansの商品ページ([検索結果](https://cnfans.com/search?keywords=RP5%E9%A2%84%E8%A3%85%E5%A4%A9%E9%A9%AC&searchType=keywords)から開けます)に載っているアフターサービスの説明は、電子機器とデジタル商品について、外観に問題がないか、付属品がそろっているかを確認するだけで、電源を入れて機能を確認することはできないと書いています。倉庫に着いたあとで不満があれば、5日以内の返品申請が可能です。返品の費用は、1点につき手数料が約0.75ドルで、返送料と合わせて約3ドルです。特注の商品は返品できません。
+According to the page's explanation, the order flow is as follows. First, search by product name or link and pay. CNFans makes the purchase on your behalf between 9:00 and 18:00 China time. The product arrives at the CNFans warehouse, and 3–7 inspection photos are taken. After checking the contents, you choose an international shipping method. Each product showed domestic Chinese shipping as 0 yuan.
 
-送れない品物として、ナイフ類、ライター、液体、食品、種子、磁気部品などが挙げられています。税関の扱いは、国によって違うという記載です。商品の品質や真贋については、CNFansが判断できない旨がページに明記されています。国際配送の方法と料金は、支払い後の画面で選ぶ流れですが、この調査では、支払いに進まなかったため、配送方法の画面は確認できませんでした。
+The scope of inspection is limited. The after-sales description on CNFans product pages (which can be opened from the [search results](https://cnfans.com/search?keywords=RP5%E9%A2%84%E8%A3%85%E5%A4%A9%E9%A9%AC&searchType=keywords)) says that for electronics and digital products, they only check for visible problems and whether accessories are complete, and cannot power on the item to check its functions. If you are dissatisfied after it reaches the warehouse, you can apply for a return within 5 days. The return cost is a fee of about $0.75 per item, about $3 including return shipping. Custom-made items cannot be returned.
 
-## ゲーム入りの商品の扱い
+Items that cannot be sent include knives, lighters, liquids, food, seeds, and magnetic parts. Customs treatment is said to differ by country. The page states clearly that CNFans cannot judge the quality or authenticity of products. International shipping methods and fees are chosen on a screen after payment, but this research did not proceed to payment, so the shipping method screen could not be confirmed.
 
-中国のECサイトには、ゲームを最初から入れた「预装」の商品が多く出ています。2026年10月3日に、Retroid Pocket 5向けの「天馬G入り」の商品を調べたところ、CNFansの扱いが商品ごとに分かれました([検索結果](https://cnfans.com/search?keywords=RP5%E9%A2%84%E8%A3%85%E5%A4%A9%E9%A9%AC&searchType=keywords))。
+## Products with games included
 
-![CNFansでの「RP5预装天马」の検索結果](../assets/screenshots/cnfans-search-rp5-tianma.jpg)
+Chinese e-commerce sites have many 预装 products with games already included. When products for the Retroid Pocket 5 "with Tianma G" were looked up on October 3, 2026, CNFans's handling differed by product ([search results](https://cnfans.com/search?keywords=RP5%E9%A2%84%E8%A3%85%E5%A4%A9%E9%A9%AC&searchType=keywords)).
 
-本体と天馬G入りカードのセットとして出ていた3件のうち、2件は商品ページを開いても購入できず、「商品に権利侵害の疑いがあるため、代行購入できない」という英語のメッセージが表示されました。ほかの1件は、トップページへ戻されました。本体にゲームを入れたセットが、CNFansでは買えない可能性が高い、という結果です。
+![CNFans search results for "RP5预装天马"](../assets/screenshots/cnfans-search-rp5-tianma.jpg)
 
-一方で、RP5向けの天馬Gのメモリカード単体の出品は、ページを開けました。出品の説明には、この商品はメモリカードだけで、手元に届いたあとでチュートリアルに従ってインストールするとあります。オプションは、128GBから2TBまでの6種類で、表示された最安の価格は、298元、米ドルで52.43ドルでした。
+Of the three listings offered as a set of the device and a card with Tianma G, two could not be purchased even when their product pages were opened, showing an English message that "proxy purchase is not possible because the product is suspected of infringing rights". The other one redirected to the top page. The result is that sets of a device with games are likely not purchasable on CNFans.
 
-![メモリカード単体の出品ページ](../assets/screenshots/cnfans-rp5-tianma-card-top.jpg)
+On the other hand, a listing for a Tianma G memory card alone for the RP5 could be opened. The listing description says that this product is only a memory card, and that after it arrives you install according to a tutorial. There are six options from 128GB to 2TB, and the lowest price shown was 298 yuan, or $52.43.
 
-出品の文面には、収録ゲームのタイトルや本数の記載がありません。天馬Gのパックは約2.8TBと、128GBのカードに入らない大きさです([模拟器游戏 篇四](https://zhuanlan.zhihu.com/p/703325151))。購入前に、収録内容を出品者に確認する必要があります。
+![Listing page for the memory card alone](../assets/screenshots/cnfans-rp5-tianma-card-top.jpg)
 
-ここで、権利の面での注意があります。市販のゲームを大量に収録したカードや本体は、収録されたゲームの権利者の許可を得ているとは限りません。CNFansが「権利侵害の疑い」を理由に代行を断った商品があることは、この点を示す一つの事実です。ただし、断られた理由の詳細は、ページに書かれていませんでした。この記事は、ゲーム入りのカードを勧めません。自分で用意したデータを使う方法と、権利の考え方は、[ROMとBIOSの扱い方](12-roms-and-bios.md)と[自分のデータと無料のゲーム](13-own-data-and-free-games.md)にまとめています。
+The listing text does not give the titles or number of included games. The Tianma G pack is about 2.8TB, too large to fit on a 128GB card ([模拟器游戏 篇四](https://zhuanlan.zhihu.com/p/703325151)). Before buying, you need to check the contents with the seller.
 
-## 価格の見方
+Here there is a caution about rights. Cards and devices loaded with large numbers of commercial games do not necessarily have the permission of the rights holders of those games. That CNFans has refused to act as a proxy for some products on grounds of "suspected rights infringement" is one fact showing this. However, the page did not give details of the reason for refusal. This article does not recommend cards with games. How to use data you have prepared yourself and how to think about rights are summarized in [Handling ROMs and BIOS](12-roms-and-bios.md) and [Preparing your own data and rights-free games](13-own-data-and-free-games.md).
 
-[掌机圈](https://zhangjiquan.com/handhelds)は、機種のページに、購入リンクの到手価格(クーポン適用後の実際の価格)を載せています。載っていた金額は、RG-406Vが1048元(100元のクーポン)、RG-556が1199元(100元のクーポン)、RG-40XXHが418元(50元のクーポン)、Retroid Pocket 5が1598元でした。リンクの日付は掲載されていないため、現在の価格とは限りません。ほかの価格帯は [主要機種の違い](02-devices.md) にまとめています。
+## How to read prices
 
-同じRetroid Pocket 5でも、販売元によって価格の通貨と水準が変わります。海外向けの公式ストアでは、2026年10月3日にセール価格で179ドルでした([goretroid.com](https://www.goretroid.com/en-jp))。CNFansで見た「天馬G入り」と書かれた本体の出品は、281.15ドルと298.75ドルでした。構成も付属品も違うため、同じ条件の価格比較にはなりません。
+[掌机圈](https://zhangjiquan.com/handhelds) shows on its device pages the final price of purchase links (the actual price after coupons). The amounts shown were 1048 yuan for the RG-406V (100-yuan coupon), 1199 yuan for the RG-556 (100-yuan coupon), 418 yuan for the RG-40XXH (50-yuan coupon), and 1598 yuan for the Retroid Pocket 5. The links are not dated, so these are not necessarily current prices. On November 2, 2026, these four device pages no longer showed the 到手价 field as page text, leaving only the 起售价格 and 价格区间 fields, so these amounts could not be rechecked. Other price ranges are summarized in [Differences between the main devices](02-devices.md).
 
-CNFansの表示から、換算の比率を計算できます。メモリカードの出品は、298元と52.43ドルが同時に表示されていたため、1元あたり約0.1759ドルです。この比率で、281.15ドルを元に戻すと約1598元、298.75ドルでは約1698元になります。これは、画面の数字から私が計算した値で、CNFansが公表している為替レートではありません。ただ、掌机圈のRetroid Pocket 5の購入リンクの価格(1598元)と一致しているため、この出品の米ドルの価格は、元の価格を同じ比率で換算しただけだと推測できます。ただし、商品が同じかどうかは確認できていません。
+Even for the same Retroid Pocket 5, the currency and level of the price change by seller. On the official overseas store, it was $179 on sale on October 3, 2026 ([goretroid.com](https://www.goretroid.com/en-jp)). Listings on CNFans for the device described as "with Tianma G" were $281.15 and $298.75. The configurations and accessories differ, so this is not a price comparison under the same conditions.
 
-為替の比率は日によって動くため、この数字を今後も当てはめることはできません。日本円に直すときは、購入時点のカード会社や銀行のレートを使ってください。
+A conversion ratio can be calculated from what CNFans displays. The memory card listing showed 298 yuan and $52.43 together, which gives about $0.1759 per yuan. At this ratio, $281.15 converts back to about 1598 yuan, and $298.75 to about 1698 yuan. These are values I calculated from the numbers on screen, not an exchange rate published by CNFans. Still, it matches the price of the purchase link for the Retroid Pocket 5 on 掌机圈 (1598 yuan), so it can be inferred that this listing's dollar price simply converts the yuan price at the same ratio. However, whether the product is the same could not be confirmed.
 
-## 出品者に確認する質問
+Exchange ratios move from day to day, so this number cannot be applied going forward. When converting to Japanese yen, use the rate of your card company or bank at the time of purchase.
 
-中国語の出品者に質問する例を挙げます。「收录游戏列表能发我吗」は「収録ゲームのリストを送れますか」、「PS2和PSP的游戏有多少个」は「PS2とPSPのゲームは何本ありますか」、「内存卡保修多久」は「メモリーカードの保証はどのくらいですか」という意味です。CNFansの経由では出品者に直接質問できないため、淘宝や閑魚のチャットが必要になります。
+## Questions to ask sellers
 
-CNFansの出品には、「需要其他机器的卡请备注」(ほかの機種のカードが必要なら備考に書いてください)という注意書きがありました。備考が実際に出品者へ届くかどうかは、注文に進まなかったため、確認できていません。
+Here are examples of questions for Chinese-speaking sellers. 收录游戏列表能发我吗 means "Can you send me the list of included games?", PS2和PSP的游戏有多少个 means "How many PS2 and PSP games are there?", and 内存卡保修多久 means "How long is the memory card's warranty?". You cannot ask sellers directly through CNFans, so the chat on Taobao or 闲鱼 is needed.
 
-## 買う前に見直す点
+A CNFans listing had the note 需要其他机器的卡请备注 (if you need a card for another device, write it in the remarks). Whether remarks actually reach the seller could not be confirmed, because no order was placed.
 
-ここまでの確認をもとに、買う前に見直す点を整理します。最初に確認するのは機種のOSです。RetroidやAYNのAndroid機は、公式のストアで買えます。Linux系のOSを入れたい場合は、機種ごとの対応状況を、[OSの選択肢](03-os.md)で先に確認できます。
+## Points to review before buying
 
-返品の条件は販売元ごとに違い、Retroidはセール品が返金できず、Anbernicは日本からの返品に対応しても注文金額の25%以上が引かれる仕組みです。CNFansの場合は、返品の申請が倉庫に着いてから5日以内で、機能の検品もありません。税の扱いも見ておく点で、Retroidは価格に税が含まれないと明記し、Anbernicはヨーロッパ宛ての関税を購入者の負担と書いています。日本での税の扱いは、この調査の範囲外でした。
+Based on what has been checked so far, here are the points to review before buying. The first thing to check is the device's OS. Android devices from Retroid and AYN can be bought from the official stores. If you want to install a Linux-based OS, you can first check support for each device in [OS options](03-os.md).
 
-また、レビューサイトの購入リンクには、紹介料が発生するものがあります。[Retro Game Corps](https://retrogamecorps.com/)は、AmazonやeBay、AliExpressなどへのリンクに、紹介のコードが付く場合があると、サイト上に明記しています。リンクを使う前に、こうした表示の有無を見ておくと、収益の仕組みが分かって安心です。AI生成と表示された記事の扱いは、[コミュニティと情報源](10-communities.md)に書きました。
+Return conditions differ by seller: Retroid does not refund sale items, and Anbernic, even though it accepts returns from Japan, deducts at least 25% of the order amount. With CNFans, return applications must be made within 5 days of arrival at the warehouse, and there is no functional inspection. Taxes are also something to look at: Retroid states clearly that prices do not include tax, and Anbernic writes that customs duties for European destinations are borne by the buyer. How taxes are handled in Japan was outside the scope of this research.
 
-## この記事で出てくる中国語
+Also, purchase links on review sites sometimes earn referral fees. [Retro Game Corps](https://retrogamecorps.com/) states clearly on its site that links to Amazon, eBay, AliExpress, and others may carry referral codes. Checking for such notices before using a link lets you see how the site earns money, which is reassuring. How to treat articles labeled as AI-generated is covered in [Communities and information sources](10-communities.md).
 
-本文に出てきた買い物の中国語を、公式サイトや出品ページで確認できたものに限って並べます。
+## Chinese terms in this article
 
-| 中国語(簡体字) | ピンイン | 日本語の意味 | 出典 |
+Shopping-related Chinese words from the text are listed here, limited to those that could be confirmed on official sites and listing pages.
+
+| Chinese (Simplified) | Pinyin | Meaning | Source |
 |---|---|---|---|
-| 掌机 | zhǎngjī | 携帯ゲーム機 | [retroid.cn](https://www.retroid.cn/) |
-| 天猫旗舰店 | tiānmāo qíjiàndiàn | 天猫の公式店舗 | [retroid.cn](https://www.retroid.cn/) |
-| 淘宝企业店 | táobǎo qǐyèdiàn | 淘宝の企業店 | [retroid.cn](https://www.retroid.cn/) |
-| 商城 | shāngchéng | ショップ | [retroid.cn](https://www.retroid.cn/) |
-| 配件 | pèijiàn | アクセサリー | [retroid.cn](https://www.retroid.cn/) |
-| 预售 | yùshòu | 予約販売 | [retroid.cn](https://www.retroid.cn/) |
-| 即将开放 | jíjiāng kāifàng | まもなく開始 | [retroid.cn](https://www.retroid.cn/) |
-| 预装 | yùzhuāng | あらかじめ入れてある | [CNFans](https://cnfans.com/search?keywords=RP5%E9%A2%84%E8%A3%85%E5%A4%A9%E9%A9%AC&searchType=keywords) |
-| 内存卡 | nèicúnkǎ | メモリーカード | [CNFans](https://cnfans.com/search?keywords=RP5%E9%A2%84%E8%A3%85%E5%A4%A9%E9%A9%AC&searchType=keywords) |
-| 机器 | jīqì | 機械、ここでは本体 | [CNFans](https://cnfans.com/search?keywords=RP5%E9%A2%84%E8%A3%85%E5%A4%A9%E9%A9%AC&searchType=keywords) |
-| 备注 | bèizhù | 備考 | [CNFans](https://cnfans.com/search?keywords=RP5%E9%A2%84%E8%A3%85%E5%A4%A9%E9%A9%AC&searchType=keywords) |
-| 天马 | tiānmǎ | 天馬、フロントエンドの名前 | [CNFans](https://cnfans.com/search?keywords=RP5%E9%A2%84%E8%A3%85%E5%A4%A9%E9%A9%AC&searchType=keywords) |
-| 到手价 | dàoshǒujià | クーポン適用後の実際の価格 | [掌机圈](https://zhangjiquan.com/handhelds) |
-| 登录 | dēnglù | ログイン | [淘宝](https://s.taobao.com/search?q=Retroid+Pocket+5) |
-| 使用指南 | shǐyòng zhǐnán | 使い方のガイド | [retroid.cn](https://www.retroid.cn/) |
+| 掌机 | zhǎngjī | Handheld game console | [retroid.cn](https://www.retroid.cn/) |
+| 天猫旗舰店 | tiānmāo qíjiàndiàn | Official store on Tmall | [retroid.cn](https://www.retroid.cn/) |
+| 淘宝企业店 | táobǎo qǐyèdiàn | Corporate store on Taobao | [retroid.cn](https://www.retroid.cn/) |
+| 商城 | shāngchéng | Shop | [retroid.cn](https://www.retroid.cn/) |
+| 配件 | pèijiàn | Accessories | [retroid.cn](https://www.retroid.cn/) |
+| 预售 | yùshòu | Pre-sale | [retroid.cn](https://www.retroid.cn/) |
+| 即将开放 | jíjiāng kāifàng | Opening soon | [retroid.cn](https://www.retroid.cn/) |
+| 预装 | yùzhuāng | Preinstalled | [CNFans](https://cnfans.com/search?keywords=RP5%E9%A2%84%E8%A3%85%E5%A4%A9%E9%A9%AC&searchType=keywords) |
+| 内存卡 | nèicúnkǎ | Memory card | [CNFans](https://cnfans.com/search?keywords=RP5%E9%A2%84%E8%A3%85%E5%A4%A9%E9%A9%AC&searchType=keywords) |
+| 机器 | jīqì | Machine; here, the device | [CNFans](https://cnfans.com/search?keywords=RP5%E9%A2%84%E8%A3%85%E5%A4%A9%E9%A9%AC&searchType=keywords) |
+| 备注 | bèizhù | Remarks | [CNFans](https://cnfans.com/search?keywords=RP5%E9%A2%84%E8%A3%85%E5%A4%A9%E9%A9%AC&searchType=keywords) |
+| 天马 | tiānmǎ | Tianma, name of a frontend | [CNFans](https://cnfans.com/search?keywords=RP5%E9%A2%84%E8%A3%85%E5%A4%A9%E9%A9%AC&searchType=keywords) |
+| 到手价 | dàoshǒujià | Actual price after coupons | [掌机圈](https://zhangjiquan.com/handhelds) |
+| 登录 | dēnglù | Login | [Taobao](https://s.taobao.com/search?q=Retroid+Pocket+5) |
+| 使用指南 | shǐyòng zhǐnán | Usage guide | [retroid.cn](https://www.retroid.cn/) |

@@ -1,33 +1,33 @@
-# CNFansの出品と規約
+# CNFans listings and terms
 
-種類は、淘宝や1688の商品を代行購入する海外向けのサービスです。URLは https://cnfans.com/ で、検索は `https://cnfans.com/search?keywords=<中国語>&searchType=keywords` の形です。信頼度は販売元で、ページの記載を、そのまま事実として扱えます。ただし、商品そのものの品質は、CNFansが保証しないと明記しています。ブラウザの確認は、2026年10月3日に行いました。各商品のURLは、ツールの出力で伏せられたため、検索の画面から開く方法で記録しています。
+The type is an overseas-facing service that buys products from Taobao and 1688 on your behalf. The URL is https://cnfans.com/ and search takes the form `https://cnfans.com/search?keywords=<Chinese>&searchType=keywords`. Reliability is seller, so what the pages state can be treated as fact as it stands. However, CNFans states explicitly that it does not guarantee the quality of the products themselves. The browser check was done on October 3, 2026. On November 2, 2026, the site showed only a maintenance notice citing persistent cyberattacks, so the search and listings could not be rechecked. The URLs of individual products were masked in the tool output, so they are recorded by way of opening them from the search screen.
 
-## 使い方の観察
+## Observations on use
 
-ログインなしで検索でき、結果は米ドルで表示されます。通貨は、AUD、CAD、CHF、EUR、GBP、NZD、PLN、RON、SEK、USD、CNYから選べ、日本円はありません。言語は、英語、ドイツ語、オランダ語、スペイン語、フランス語、イタリア語、ポーランド語、ポルトガル語、ルーマニア語、スウェーデン語、中国語から選べます。検索結果の画面には、「Search using: Chinese」のチェックがあり、中国語のキーワードで検索する設定になっています。商品名は、機械翻訳された英語です。
+You can search without logging in, and results are shown in US dollars. The currency can be chosen from AUD, CAD, CHF, EUR, GBP, NZD, PLN, RON, SEK, USD, and CNY; Japanese yen is not available. The language can be chosen from English, German, Dutch, Spanish, French, Italian, Polish, Portuguese, Romanian, Swedish, and Chinese. The search results screen has a "Search using: Chinese" check, set to search with Chinese keywords. Product names are in machine-translated English.
 
-商品ページには、商品名、価格(元と米ドル)、「After payment, we will purchase for you from 09:00-18:00 (UTC+8)」(支払い後、中国時間の9時から18時の間に代わりに購入します)、「Seller > CNFans Warehouse」の流れ、国内送料、3〜7枚の検品写真、国際配送の選択、オプション(色、容量など)が並びます。オプションを切り替えても、価格の表示は変わりませんでした。商品ページの下には、「Product Detail」、「Specification Parameter」、「Shopping Agent Guidance」、「After Sales Service」、「Service Promise」のタブがあります。
+A product page shows the product name, the price (in yuan and US dollars), "After payment, we will purchase for you from 09:00-18:00 (UTC+8)" (after payment, the purchase is made on your behalf between 9:00 and 18:00 China time), the "Seller > CNFans Warehouse" flow, domestic shipping, 3 to 7 inspection photos, a choice of international shipping, and options (color, capacity, and so on). Switching options did not change the displayed price. Below the product there are the tabs "Product Detail", "Specification Parameter", "Shopping Agent Guidance", "After Sales Service", and "Service Promise".
 
-## アフターサービスの説明
+## After-sales description
 
-電子機器とデジタル商品は、検品の対象が、外観に問題がないか、付属品がそろっているかに限られ、電源を入れて機能を確認することはできません。倉庫に着いたあと、5日以内に返品を申請できます。返品の費用は、1点あたり約0.75ドルの手数料と、返送料で、合計が約3ドルです。特注の商品は返品できません。
+For electronics and digital products, inspection is limited to whether the exterior has any problems and whether accessories are all present; turning the device on to check its functions is not possible. A return can be requested within 5 days after arrival at the warehouse. The cost of a return is a fee of about $0.75 per item plus return shipping, for a total of about $3. Custom-made products cannot be returned.
 
-送れない品物の説明は、ナイフ類、ライター、液体や食品(果汁、酒、チーズ、カニなど)、種子、磁気部品などを挙げています。薬、液体、クリーム、粉、化粧品は、中国の輸出の規制があるという記載です。税関の扱いは、国によって異なると書かれています。
+The description of items that cannot be shipped lists knives, lighters, liquids and food (juice, alcohol, cheese, crab, and so on), seeds, magnetic parts, and more. It states that medicine, liquids, creams, powders, and cosmetics are subject to Chinese export restrictions. It says that customs handling differs by country.
 
-## 天馬G入りのRetroid Pocket 5の出品
+## Listings of the Retroid Pocket 5 with Tianma G
 
-「RP5预装天马」で検索すると、3件が出ました。
+Searching for "RP5预装天马" returned 3 results.
 
-![CNFansの検索結果](../assets/screenshots/cnfans-search-rp5-tianma.jpg)
+![CNFans search results](../assets/screenshots/cnfans-search-rp5-tianma.jpg)
 
-1件目は、題名に、Android 13、天馬G入り、Moonlight Box(月光宝盒)、おまけ付きと書かれた本体の出品(298.75ドル)で、開こうとすると「商品に権利侵害の疑いがあり、代行購入できません」という英語のメッセージが表示されました。同じ検索で、281.15ドルの本体の出品も、同じメッセージでした。701.75ドルの出品は、開くとCNFansのトップページに戻されました。
+The first was a listing for the device ($298.75) with a title mentioning Android 13, Tianma G included, Moonlight Box (月光宝盒), and freebies. Trying to open it displayed a message in English saying "the product is suspected of infringing rights and cannot be purchased on your behalf". A $281.15 device listing showed the same message; it is not among the three results in the screenshot, and how it was reached was not recorded. The second, a $701.75 listing, returned to the CNFans top page when opened.
 
-3件目の、「【メモリーカードのみ】RP5用の天馬Gメモリーカード、ゲームとエミュレーター入り」(52.43ドル、298元)は、ページを開けました。店の名前は「梦回少年电玩工作室」です。画像には、「此链接不包含机器」、「预装RP5天马G专用内存卡」、「需要其他机器的卡请备注」と書かれています。オプションは、Sandisk A1の128GBと256GB、Samsung A2の512GBと1TB、Sandiskの1.5TBと2TBの6種類です。ページの説明は、「此商品链接只有内存卡 请知悉」と書き、玩家が届いたあとで、チュートリアルに従ってインストールすると説明しています。さらに、ほかの機種(Odin 2、Odin 2 mini、RP5、RP4PRO)の専用のカードが必要なら、備考に書くよう案内しています。「Specification Parameter」の欄は、ブランドが「Game Kiddy」、画面サイズが6インチ、対応機種がps1などと、出品者が適当に入力したとみられる値で、RP5の実際の仕様と合いません。
+The third, "[Memory card only] Tianma G memory card for RP5, with games and emulators included" ($52.43, 298 yuan), could be opened. The store name is "梦回少年电玩工作室". The images read "此链接不包含机器", "预装RP5天马G专用内存卡", and "需要其他机器的卡请备注". There are six options: Sandisk A1 128GB and 256GB, Samsung A2 512GB and 1TB, and Sandisk 1.5TB and 2TB. The page description says "此商品链接只有内存卡 请知悉" and explains that the 玩家 installs it following a tutorial after it arrives. It also advises writing in the remarks if a dedicated card is needed for another device (Odin 2, Odin 2 mini, RP5, RP4PRO). The "Specification Parameter" field has values apparently entered carelessly by the seller, with the brand as "Game Kiddy", the screen size as 6 inches, and supported devices as ps1 and so on, which do not match the actual specs of the RP5.
 
-![カード単体の出品ページの上部](../assets/screenshots/cnfans-rp5-tianma-card-top.jpg)
+![Top of the card-only listing page](../assets/screenshots/cnfans-rp5-tianma-card-top.jpg)
 
-![カード単体の出品のオプション](../assets/screenshots/cnfans-rp5-tianma-card-options.jpg)
+![Options of the card-only listing](../assets/screenshots/cnfans-rp5-tianma-card-options.jpg)
 
-## RG406Vの出品
+## RG406V listings
 
-RG406Vの出品には、色と容量のオプションが20種類以上あり、「ゲームなし」と「ゲームカード入り」、フロントエンドの「公式」と「天馬」の組み合わせがありました。ページの画像には、対応機種として、PS2、WII、NGC、3DS、PSP、DC、SS、PS1、NDS、N64、ARCADE、FBA、NEOGEOなどが並び、「支持用户自下载相关格式游戏」(ユーザーが自分でゲームをダウンロードして遊ぶ形式)と書かれています。チップは「虎贲T820」と、画像で確認できました。
+RG406V listings had more than 20 color and capacity options, with combinations of "no games" and "with game card" and of the frontends "official" and "Tianma". Images on the page list PS2, WII, NGC, 3DS, PSP, DC, SS, PS1, NDS, N64, ARCADE, FBA, NEOGEO, and others as supported systems, and read "支持用户自下载相关格式游戏" (a format in which users download games themselves to play). The chip was confirmed in an image as "虎贲T820".

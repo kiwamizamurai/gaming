@@ -1,47 +1,47 @@
 # gaming
 
-中華製の携帯ゲーム機を教材にして、コンピュータとゲーム、ソフトウェアとハードウェアを学び、あわせて中国語も勉強するためのリポジトリです。購入の検討から始めた調査を、順に読める記事としてまとめ直しました。
+This repository uses Chinese-made handheld game consoles as teaching material for learning about computers and games, software and hardware, and for studying Chinese along the way. Research that began as a purchase decision has been reorganized into articles that can be read in order.
 
-本文は、主張のすぐ後ろに、出典のリンクを置いています。公式の文書、仕様のデータベース、個人の記事、掲示板の投稿の順に、信頼度が違うため、出典の種類は [出典ノート](sources/README.md) に書きました。記事の中の数値や引用は、実際に開いたページで確認できたものに限っています。確認できなかったことは、確認できなかったと本文に書きました。
+Each claim is followed immediately by a link to its source. Official documents, specification databases, personal articles, and forum posts differ in reliability, in that order, so the types of sources are described in the [source notes](sources/README.md). Figures and quotations in the articles are limited to those confirmed on pages that were actually opened. Anything that could not be confirmed is stated as unconfirmed in the text.
 
-## 記事
+## Articles
 
-読む順番は、全体像、機種、OS、導入、フロントエンド、動作、改造、ポケモン、買い方、コミュニティ、中国語、ROMとBIOS、自分で用意するデータ、自作ゲームの作り方です。15から20は、RG40XXHを教材にコンピュータの仕組みをたどる連載で、21はその応用です。
+The reading order is: overview, devices, OS, installation, frontends, compatibility, modding, Pokémon, buying, communities, Chinese, ROMs and BIOS, preparing your own data, and making your own games. Articles 15 to 20 are a series that traces how computers work using the RG40XXH as teaching material, and article 21 applies that material.
 
-1. [中華ゲーム機の全体像](articles/01-overview.md)では、ブランドと愛称、SoCの違い、価格帯を扱います。
-2. [主要機種の違い](articles/02-devices.md)では、RG40XXH、RG406V、RG556、Retroid Pocket 4 Pro、5、Novaを比べます。
-3. [OSの選択肢](articles/03-os.md)では、AndroidとLinuxの違いと、ROCKNIX、Knulli、muOSなどを整理します。
-4. [CFWを入れる手順](articles/04-install-cfw.md)は、ROCKNIXとKnulliの導入手順です。
-5. [フロントエンドと天馬G](articles/05-frontend-tianma-g.md)では、Pegasusのメタデータと、天馬Gの構造を説明します。
-6. [何が動くか](articles/06-emulation.md)では、機種ごとの対応状況を整理します。
-7. [改造できること](articles/07-mods.md)では、ソフトの設定から放熱の改造までを扱います。
-8. [ポケモンのROM hack](articles/08-pokemon-hacking.md)では、作り方、ツール、中国語のコミュニティを紹介します。
-9. [中国の機種を買う方法](articles/09-buying.md)では、公式の販売経路と代行購入サービスを扱います。
-10. [コミュニティと情報源](articles/10-communities.md)
-11. [中国語の学び方](articles/11-chinese.md)
-12. [ROMとBIOSの扱い方](articles/12-roms-and-bios.md)では、置き場所、確認の方法、権利の考え方を整理します。
-13. [自分で用意するデータと権利のないゲーム](articles/13-own-data-and-free-games.md)では、吸い出しの機器と価格、ホームブリュー、代替BIOS、オープンソースのツールを扱います。
-14. [自作ゲームを作る方法](articles/14-making-games.md)では、GB Studio、GBDK、GBAのツール、PortMasterでの移植を整理します。
-15. [RG40XXHの全体像](articles/15-rg40xxh-big-picture.md)では、本体、OS、アプリの三つの層と、ファイル、SDカードの中身を扱います。
-16. [エミュレーターとメニュー](articles/16-emulator-and-menu.md)では、メニューがゲームを見つけてエミュレーターに渡す流れを、ROCKNIXの設定ファイルで追います。
-17. [セーブの仕組み](articles/17-save-data.md)では、カートリッジのセーブ用の記憶、`.srm` のファイル、ステートセーブ、セーブの中身を扱います。
-18. [OSの仕組み](articles/18-os.md)では、メニューを起動するsystemd、読み取り専用のOS本体と `/storage` の分け方、書き込みの溜め方を扱います。
-19. [電源を入れてから](articles/19-boot.md)では、BootROMからカーネルまでの起動の順番、SDカードの見えない場所、DTBを扱います。
-20. [CPUと機械語](articles/20-cpu.md)では、命令の中身、ELFとMach-Oの違い、エミュレーターの通訳、最初のポケモンが決まる命令を読みます。
-21. [チートとパススルー](articles/21-cheats-and-passthrough.md)では、動いているゲームのメモリを読み書きするチートと、2つのゲームをつなぐパススルーの改造を、エメラルドとRetroArchのソースで確かめます。
-22. [REAでリバースエンジニアリングを体験する](articles/22-rea-hands-on.md)では、SDカードのイメージの分解、動きの記録と比較、.NETとJavaScriptの版の比較を、REAで試します。
-23. [REAとGhidraで機械語を読む](articles/23-rea-and-ghidra.md)では、文字列から関数をたどり、疑似コードに戻して、1バイトの書き換えまで行います。
-24. [Novaで学ぶAndroid](articles/24-android-nova.md)では、AndroidのAPKを分解して読み、RG40XXHのLinuxと比べる学習計画を立てます。
-25. [初代Switchを、自分のホームブリュー開発機にする](articles/25-switch-cfw.md)では、fusée gelée脆弱性の見分け方、RCM治具とペイロード注入、emuMMC、自作アプリ開発と既存ゲームのMODを、出典つきで整理します。
+1. [Overview of Chinese handhelds](articles/01-overview.md) covers brands and nicknames, differences between SoCs, and price ranges.
+2. [Differences between the main devices](articles/02-devices.md) compares the RG40XXH, RG406V, RG556, Retroid Pocket 4 Pro, 5, and Nova.
+3. [OS options](articles/03-os.md) explains the differences between Android and Linux and sorts out ROCKNIX, Knulli, muOS, and others.
+4. [Installing CFW](articles/04-install-cfw.md) gives the installation steps for ROCKNIX and Knulli.
+5. [Frontends and Tianma G](articles/05-frontend-tianma-g.md) explains Pegasus metadata and the structure of Tianma G.
+6. [What runs](articles/06-emulation.md) sorts out compatibility by device.
+7. [What you can modify](articles/07-mods.md) covers everything from software settings to cooling mods.
+8. [Pokémon ROM hacks](articles/08-pokemon-hacking.md) introduces how they are made, the tools, and the Chinese-speaking community.
+9. [How to buy Chinese devices](articles/09-buying.md) covers official sales channels and proxy buying services.
+10. [Communities and information sources](articles/10-communities.md)
+11. [How to study Chinese](articles/11-chinese.md)
+12. [Handling ROMs and BIOS](articles/12-roms-and-bios.md) sorts out where to place files, how to verify them, and how to think about rights.
+13. [Preparing your own data and rights-free games](articles/13-own-data-and-free-games.md) covers dumping hardware and prices, homebrew, replacement BIOS, and open source tools.
+14. [How to make your own games](articles/14-making-games.md) sorts out GB Studio, GBDK, GBA tools, and porting with PortMaster.
+15. [The big picture of the RG40XXH](articles/15-rg40xxh-big-picture.md) covers the three layers of hardware, OS, and apps, as well as files and the contents of the SD card.
+16. [Emulators and menus](articles/16-emulator-and-menu.md) follows, through ROCKNIX configuration files, how a menu finds a game and hands it to an emulator.
+17. [How saves work](articles/17-save-data.md) covers cartridge save memory, `.srm` files, save states, and what is inside a save.
+18. [How the OS works](articles/18-os.md) covers the systemd setup that launches the menu, the split between the read-only OS and `/storage`, and how writes are buffered.
+19. [After you turn on the power](articles/19-boot.md) covers the boot order from BootROM to kernel, the hidden areas of the SD card, and DTBs.
+20. [CPUs and machine code](articles/20-cpu.md) reads what instructions contain, the differences between ELF and Mach-O, how emulators interpret code, and the instructions that determine your first Pokémon.
+21. [Cheats and passthrough](articles/21-cheats-and-passthrough.md) examines, using the Emerald and RetroArch source code, cheats that read and write the memory of a running game and mods that connect two games through passthrough.
+22. [Trying reverse engineering with REA](articles/22-rea-hands-on.md) uses REA to take apart an SD card image, record and compare behavior, and compare .NET and JavaScript versions.
+23. [Reading machine code with REA and Ghidra](articles/23-rea-and-ghidra.md) traces functions from strings, recovers pseudocode, and goes as far as rewriting a single byte.
+24. [Learning Android with the Nova](articles/24-android-nova.md) sets out a study plan for taking apart and reading Android APKs and comparing them with Linux on the RG40XXH.
+25. [Turning an original Switch into your own homebrew development device](articles/25-switch-cfw.md) sorts out, with sources, how to identify the fusée gelée vulnerability, RCM jigs and payload injection, emuMMC, homebrew app development, and mods for existing games.
 
-動かせる最小のゲームのコードは、[examples](examples/README.md)に置きました。
+Code for minimal working games is in [examples](examples/README.md).
 
-中国語の資料は、[語彙表](chinese/vocabulary.md)、[隠語集](chinese/slang.md)、[検索キーワード](chinese/search-keywords.md)です。引用元の要約は [sources](sources/README.md) にあります。リンクだけを一覧で見たいときは、各記事の本文から辿れます。
+The Chinese materials are the [vocabulary list](chinese/vocabulary.md), the [slang glossary](chinese/slang.md), and the [search keywords](chinese/search-keywords.md). Summaries of the cited sources are in [sources](sources/README.md). There is no separate list of links; follow them from the body of each article.
 
-## 画像
+## Images
 
-本文の画像は、`assets/screenshots` に置いたスクリーンショットと、ROCKNIXやPorymap、Pegasusのリポジトリが公開している画像へのリンクです。スクリーンショットは、調査で開いたページを撮ったもので、学習のために置いています。
+The images in the articles are screenshots stored in `assets/screenshots` and links to images published by the ROCKNIX, Porymap, and Pegasus repositories. The screenshots were taken of pages opened during research and are kept for learning purposes.
 
-## 著作権について
+## Copyright
 
-ゲームのROMとBIOS、それらを大量に収録したパックの配布物は、権利の面で問題がある場合が多くあります。このリポジトリは、ROMとBIOSの入手先、配布のリンク、ダウンロードの手順を記録しません。仕組みの学習と、自分で正規に用意したデータを使うことを前提に書いています。
+Game ROMs and BIOS files, and packs that bundle large numbers of them, are often problematic from a rights standpoint. This repository does not record where to obtain ROMs or BIOS files, distribution links, or download steps. It is written on the premise of learning how things work and using data you have legitimately prepared yourself.

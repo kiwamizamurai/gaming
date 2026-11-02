@@ -1,116 +1,117 @@
-# セーブの仕組み
+# How saves work
 
-[エミュレーターとメニュー](16-emulator-and-menu.md)の続きです。この記事では、ゲームのセーブが、本物のカートリッジではどこに残り、RG40XXHではどのファイルになるのかを扱います。最後に、自作のゲームとポケモン エメラルドのセーブの中身を、ソースコードで確かめます。
+This continues from [Emulators and menus](16-emulator-and-menu.md). This article covers where a game's save is kept on a real cartridge and which file it becomes on the RG40XXH. Finally, it uses source code to check what is inside the saves of a homemade game and Pokémon Emerald.
 
-## セーブは2種類ある
+## There are two kinds of save
 
-遊ぶ人から見たセーブは、2種類です。
+From the player's point of view, there are two kinds of save.
 
-| | ゲームのセーブ | ステートセーブ |
+| | In-game save | Save state |
 |---|---|---|
-| やり方 | ポケモンなら「レポートを書く」 | エミュレーターのメニューから |
-| 誰の機能か | ゲーム | エミュレーター |
-| 本物のゲーム機にあるか | ある | ない |
-| いつ保存できるか | ゲームが許す場面だけ | いつでも(戦闘中でも) |
+| How it is done | In Pokémon, "write a report" | From the emulator's menu |
+| Whose feature it is | The game | The emulator |
+| Exists on real consoles | Yes | No |
+| When you can save | Only when the game allows it | Any time (even during a battle) |
 
-2つの違いを理解するには、本物のカートリッジの中を知るのが近道です。
+The shortest way to understand the difference is to know what is inside a real cartridge.
 
-## カートリッジの中の2種類の記憶
+## The two kinds of memory in a cartridge
 
-カートリッジには、性質の違う2種類の記憶があります。
+A cartridge has two kinds of memory with different properties.
 
-| 記憶 | 中身 | 書き換え |
+| Memory | Contents | Rewriting |
 |---|---|---|
-| ROM | ゲーム本体(命令、絵、音、文字) | できない |
-| セーブ用の記憶 | セーブの内容 | できる |
+| ROM | The game itself (instructions, graphics, sound, text) | Not possible |
+| Save memory | The contents of the save | Possible |
 
-ROMは Read Only Memory の略で、「読むだけの記憶」という意味です。ゲームのファイルを「ROM」と呼ぶのは、ここから来ています。何回遊んでも、ROMの中身は1バイトも変わりません。ゲームの中で何かが変わったことを残すには、書き換えられる別の記憶が要ります。
+ROM is short for Read Only Memory, meaning memory that can only be read. This is where the habit of calling game files "ROMs" comes from. However many times you play, not one byte of the ROM changes. To record that something changed in the game, a separate, rewritable memory is needed.
 
-セーブ用の記憶の作りは、ゲームによって違います。以下は、ソースコードから確かめられる2つの例です。
+How save memory is built differs by game. Below are two examples that can be confirmed from source code.
 
-- ポケモン クリスタルは、カートリッジの種類を `MBC3+TIMER+RAM+BATTERY` と指定しています([pokecrystalのMakefile](https://github.com/pret/pokecrystal/blob/5beda23ffa505f62e1dad7e3d7c214d1737b3358/Makefile))。時計(TIMER)と、電池(BATTERY)で中身を保つRAMを積む種類です。RAMは電気が来ている間だけ中身を覚えている記憶なので、電池が中身を支えています。
-- ポケモン エメラルドのソースには、1Mビット(128KB)のフラッシュメモリを扱う処理があり、セーブはそこに書かれます([agb_flash_1m.c](https://github.com/rh-hideout/pokeemerald-expansion/blob/dfb0f84374230f4d462191601179b742f9f077df/src/agb_flash_1m.c))。フラッシュメモリは、電気が来ていなくても中身を覚えています。
+- Pokémon Crystal specifies its cartridge type as `MBC3+TIMER+RAM+BATTERY` ([pokecrystal Makefile](https://github.com/pret/pokecrystal/blob/5beda23ffa505f62e1dad7e3d7c214d1737b3358/Makefile)). This type carries a clock (TIMER) and RAM whose contents are kept by a battery (BATTERY). RAM remembers its contents only while it has power, so the battery is what keeps them.
+- The Pokémon Emerald source has code that handles 1Mbit (128KB) flash memory, and saves are written there ([agb_flash_1m.c](https://github.com/rh-hideout/pokeemerald-expansion/blob/dfb0f84374230f4d462191601179b742f9f077df/src/agb_flash_1m.c)). Flash memory remembers its contents even without power.
 
-## RG40XXHでは、セーブ用の記憶がファイルになる
+## On the RG40XXH, save memory becomes a file
 
-RG40XXHには、セーブ用のチップがありません。そこでエミュレーターは、セーブ用の記憶のふりをします。ゲームが「セーブ用の記憶に書き込め」と命令すると、エミュレーターはその内容を、SDカードのファイルに書き出します。
+The RG40XXH has no chip for saves. So the emulator pretends to be save memory. When the game orders a write to save memory, the emulator writes the contents out to a file on the SD card.
 
-RetroArchでは、このファイルの拡張子が `.srm` です([file_path_special.h](https://github.com/libretro/RetroArch/blob/015298c2e3bb7361207fc1098d3757f645e58595/file_path_special.h)の `FILE_PATH_SRM_EXTENSION`)。ファイルの名前は、ゲームのファイルと同じ名前で、拡張子だけが変わります。
+In RetroArch, this file's extension is `.srm` (`FILE_PATH_SRM_EXTENSION` in [file_path_special.h](https://github.com/libretro/RetroArch/blob/015298c2e3bb7361207fc1098d3757f645e58595/file_path_special.h)). The file has the same name as the game file, with only the extension changed.
 
-### 置き場所はゲームの隣
+### It sits next to the game
 
-ROCKNIXのH700向けのRetroArchの設定([retroarch.cfg](https://github.com/ROCKNIX/distribution/blob/ae41127cee7e3e81b1ab3b17b676d91be5165e61/projects/ROCKNIX/packages/emulators/libretro/retroarch/sources/H700/retroarch.cfg))には、次の行があります。
+The RetroArch settings for H700 in ROCKNIX ([retroarch.cfg](https://github.com/ROCKNIX/distribution/blob/ae41127cee7e3e81b1ab3b17b676d91be5165e61/projects/ROCKNIX/packages/emulators/libretro/retroarch/sources/H700/retroarch.cfg)) contain the following lines.
 
 ```ini
 savefile_directory = "~/.config/retroarch/saves"
 savefiles_in_content_dir = "true"
 ```
 
-`savefiles_in_content_dir` が `true` なので、セーブのファイルは、ゲームのファイルと同じフォルダに置かれる設定です。ステートセーブの置き場所は、起動のたびに設定を整えるスクリプトが、`/storage/roms/savestates/` の下の機種ごとのフォルダに決めています([setsettings.sh](https://github.com/ROCKNIX/distribution/blob/ae41127cee7e3e81b1ab3b17b676d91be5165e61/projects/ROCKNIX/packages/rocknix/sources/scripts/setsettings.sh)の `SNAPSHOTS="${ROMS_DIR}/savestates"`)。設定どおりなら、GBAのゲームを1本遊んだあとのフォルダは、次のようになるはずです。
+Because `savefiles_in_content_dir` is `true`, the settings put save files in the same folder as the game file. The location of save states is set by a script that arranges the settings at every startup, to a per-system folder under `/storage/roms/savestates/` (`SNAPSHOTS="${ROMS_DIR}/savestates"` in [setsettings.sh](https://github.com/ROCKNIX/distribution/blob/ae41127cee7e3e81b1ab3b17b676d91be5165e61/projects/ROCKNIX/packages/rocknix/sources/scripts/setsettings.sh)). If the settings are followed, the folders after playing one GBA game should look like this.
 
 ```
 /storage/roms/
 ├── gba/
-│   ├── game.gba        ゲーム本体。遊んでも変わらない
-│   └── game.srm        ゲームのセーブ。レポートを書くたびに変わる
+│   ├── game.gba        The game itself. Playing does not change it
+│   └── game.srm        The in-game save. Changes each time you write a report
 └── savestates/
-    └── gba/            ステートセーブ
+    └── gba/            Save states
 ```
 
-実際のファイル名とフォルダは、実機で確かめます。
+The actual file names and folders are to be checked on the device.
 
-### ゲームとセーブが分かれている利点
+### The advantage of separating game and save
 
-ゲームとセーブが別のファイルなので、次のことができます。
+Because the game and the save are separate files, you can do the following.
 
-- セーブだけをMacにコピーして、バックアップを取る
-- `.srm` をゲームと一緒に別の機械へ移し、続きから遊ぶ
-- ゲームのファイルを入れ直しても、セーブはそのまま残る
+- Copy only the save to a Mac as a backup
+- Move the `.srm` with the game to another machine and continue playing
+- Reinstall the game file while the save stays as it is
 
-## ステートセーブは作業台の写真
+## A save state is a photo of the workbench
 
-ステートセーブは、ゲームのセーブとは仕組みがまったく違うものです。
+A save state works in a completely different way from an in-game save.
 
-ゲームのセーブは、ゲームが「残すべき情報」を選んで、セーブ用の記憶に書くものです。手持ちのポケモン、いる場所、持っているバッジのように、ゲームの作り手が決めた情報だけが残ります。
+With an in-game save, the game chooses "the information to keep" and writes it to save memory. Only information the game's makers decided on is kept, such as your party of Pokémon, where you are, and the badges you hold.
 
-ステートセーブは、エミュレーターが、その瞬間のゲーム機の中身をまるごと保存するものです。メモリの中身、画面と音の状態、CPUが次に実行する命令の位置まで含みます。作業台の上を写真に撮っておき、あとで写真のとおりに並べ直すようなものです。だから、戦闘の途中からでも再開できます。
+With a save state, the emulator saves the whole contents of the console at that moment. This includes the contents of memory, the state of the screen and sound, and even the position of the next instruction the CPU will execute. It is like taking a photo of a workbench and later rearranging everything to match the photo. That is why you can resume even from the middle of a battle.
 
-| | ゲームのセーブ | ステートセーブ |
+| | In-game save | Save state |
 |---|---|---|
-| 別のエミュレーターで読めるか | 読める | 多くの場合、読めない(保存の形式がエミュレーターごとに違う) |
-| エミュレーターを更新しても読めるか | 読める | 読めなくなることがある |
-| 本物のカートリッジに戻せるか | 吸い出しの機器があれば戻せる | 戻せない |
+| Readable by another emulator | Yes | In many cases, no (the storage format differs by emulator) |
+| Readable after updating the emulator | Yes | May become unreadable |
+| Can be returned to a real cartridge | Yes, with dumping hardware | No |
 
-長く残したい進行はゲームのセーブで残し、ステートセーブは少しの中断に使う、という使い分けが安全です。
+The safe approach is to keep progress you want to last in in-game saves, and to use save states for short breaks.
 
-## 書いたはずのセーブが消える理由
+## Why a save you thought you wrote disappears
 
-レポートを書いたのに、次に起動したら消えていた、ということが起こり得ます。原因は、書き込みのタイミングにあります。
+You may write a report and find it gone the next time you start up. The cause lies in the timing of writes.
 
-RetroArchのソースの説明では、`autosave_interval` は、セーブ用の記憶を一定の間隔でファイルに書き出す間隔(秒)です。0にすると、この自動の書き出しは止まります([config.def.h](https://github.com/libretro/RetroArch/blob/015298c2e3bb7361207fc1098d3757f645e58595/config.def.h))。ROCKNIXのH700向けの設定では、この値は10です(retroarch.cfg の `autosave_interval = "10"`)。
+According to the description in the RetroArch source, `autosave_interval` is the interval (in seconds) at which save memory is written out to a file. Setting it to 0 stops this automatic writing ([config.def.h](https://github.com/libretro/RetroArch/blob/015298c2e3bb7361207fc1098d3757f645e58595/config.def.h)). In the ROCKNIX settings for H700, this value is 10 (`autosave_interval = "10"` in retroarch.cfg).
 
 ```mermaid
 flowchart TD
-    A[ゲームの中でレポートを書く] --> B[エミュレーターのメモリ上の<br>セーブ用の記憶が変わる]
-    B --> C{10秒ごと、<br>またはゲームの終了}
-    C --> D[.srmファイルに書き出す]
-    D --> E[OSがSDカードに書き込む]
+    A[Write a report in the game] --> B[Save memory in the<br>emulator's memory changes]
+    B --> C{Every 10 seconds,<br>or when the game quits}
+    C --> D[Written out to the .srm file]
+    D --> E[The OS writes to the SD card]
 ```
 
-レポートを書いた直後に電源を切ると、ファイルへの書き出しがまだ済んでいない場合があります。さらに、OSもSDカードへの書き込みを少し溜めてから行います。OSの側の事情は、[OSの仕組み](18-os.md)で扱う話題です。遊び終わったら、ゲームをメニューから終了し、シャットダウンしてから電源を切る習慣をつけておくと安全です。
+If you turn off the power right after writing a report, the write to the file may not have happened yet. The OS also buffers writes to the SD card for a little while before performing them. The OS side of this is a topic for [How the OS works](18-os.md). It is safer to make a habit of quitting the game from the menu when you finish playing, and shutting down before turning off the power.
 
-## セーブの中身を覗く
+## Looking inside a save
 
-セーブのファイルも、中身は数字の並びになっています。中身が分かりやすい例を2つ見ます。
+The contents of a save file are also a sequence of numbers. Here are two examples whose contents are easy to understand.
 
-### 自作のゲームのセーブは2バイト
+### A homemade game's save is 2 bytes
 
-このリポジトリの [gbdk-coin-plus](../examples/gbdk-coin-plus) は、最高点をセーブ用のRAMに保存するゲームで、`main.c` の保存の処理は次のとおりです。
+[gbdk-coin-plus](../examples/gbdk-coin-plus) in this repository is a game that stores its high score in save RAM, and the saving code in `main.c` is as follows.
 
 ```c
 #define SAVE_MAGIC 0x4B
 
 static void save_best(void) {
+    SWITCH_RAM(0);
     ENABLE_RAM;
     *(uint8_t *)0xA000 = SAVE_MAGIC;
     *(uint8_t *)0xA001 = best;
@@ -118,63 +119,64 @@ static void save_best(void) {
 }
 ```
 
-| 行 | していること |
+| Line | What it does |
 |---|---|
-| `ENABLE_RAM` | セーブ用のRAMへの書き込みを許可する |
-| `0xA000` に `SAVE_MAGIC` | 1バイト目に、目印の `0x4B`(75)を書く |
-| `0xA001` に `best` | 2バイト目に、最高点を書く |
-| `DISABLE_RAM` | 書き込みの許可を戻す |
+| `SWITCH_RAM(0)` | Selects RAM bank 0 |
+| `ENABLE_RAM` | Allows writing to save RAM |
+| `SAVE_MAGIC` to `0xA000` | Writes the marker `0x4B` (75) to the first byte |
+| `best` to `0xA001` | Writes the high score to the second byte |
+| `DISABLE_RAM` | Withdraws permission to write |
 
-`0xA000` は、ゲームボーイがセーブ用のRAMに割り当てている番地です。目印を置く理由は、新品のRAMの中身が決まっていないことにあります。読み込むときは、1バイト目が75なら2バイト目を最高点として使い、そうでなければ0点から始めます(`load_best`)。
+`0xA000` is the address the Game Boy assigns to save RAM. The marker is there because the contents of new RAM are undefined. On reading, if the first byte is 75, the second byte is used as the high score; otherwise the score starts from 0 (`load_best`).
 
-`Makefile` の `-Wm-yt0x1B` は、このカートリッジが電池つきのRAMを積むことを、ROMの見出しに書く指定です。エミュレーターは、この見出しを読んで、セーブ用のファイルを用意します。最高点が12点なら、セーブのファイルの先頭は次のようになるはずです。実機かエミュレーターで遊んで確かめると、自分の点数が数字として見えます。
+`-Wm-yt0x1B` in the `Makefile` is an option that writes into the ROM header that this cartridge carries battery-backed RAM. The emulator reads this header and prepares a save file. If the high score is 12, the start of the save file should look like this. If you play on a device or an emulator and check, you can see your own score as a number.
 
 ```
-先頭のバイト  75  12  ...
-              目印 最高点
+First bytes   75      12      ...
+              marker  high score
 ```
 
-### エメラルドのセーブは、壊れにくい作り
+### Emerald's save is built to resist corruption
 
-ポケモン エメラルドのセーブは、もっと慎重に作られています。[save.h](https://github.com/rh-hideout/pokeemerald-expansion/blob/dfb0f84374230f4d462191601179b742f9f077df/include/save.h)の定義を読むと、次の表のとおりでした。
+Pokémon Emerald's save is built more carefully. Reading the definitions in [save.h](https://github.com/rh-hideout/pokeemerald-expansion/blob/dfb0f84374230f4d462191601179b742f9f077df/include/save.h) gives the following table.
 
-| 定義 | 値 | 意味 |
+| Definition | Value | Meaning |
 |---|---|---|
-| `SECTORS_COUNT` | 32 | セーブの領域は32個のセクター(区画)に分かれる |
-| `NUM_SAVE_SLOTS` | 2 | セーブの枠は2つある |
-| `NUM_SECTORS_PER_SLOT` | 14 | 1つの枠は14セクター |
-| `SECTOR_SIGNATURE` | `0x8012025` | 正しいセクターに付く目印 |
+| `SECTORS_COUNT` | 32 | The save area is divided into 32 sectors |
+| `NUM_SAVE_SLOTS` | 2 | There are two save slots |
+| `NUM_SECTORS_PER_SLOT` | 14 | One slot is 14 sectors |
+| `SECTOR_SIGNATURE` | `0x8012025` | The marker on a valid sector |
 
-各セクターの末尾には、検算用のチェックサム、目印、何回目に書いたかのカウンターが付きます。
+The end of each sector carries a checksum for verification, the marker, and a counter of how many writes have been made.
 
 ```mermaid
 flowchart LR
-    subgraph FLASH[フラッシュメモリ 32セクター]
-        A[枠A<br>14セクター]
-        B[枠B<br>14セクター]
-        O[殿堂入りなど<br>残りのセクター]
+    subgraph FLASH[Flash memory, 32 sectors]
+        A[Slot A<br>14 sectors]
+        B[Slot B<br>14 sectors]
+        O[Hall of Fame and others<br>remaining sectors]
     end
-    R[レポートを書く] -->|1回目| A
-    R -->|2回目| B
-    R -->|3回目| A
+    R[Write a report] -->|1st time| A
+    R -->|2nd time| B
+    R -->|3rd time| A
 ```
 
-レポートを書くたびに、2つの枠へ交互に書きます。書いている途中で電源が切れても、もう一方の枠には、前回のレポートが無事に残る仕組みです。読み込むときは、目印とチェックサムが正しく、カウンターが大きいほうの枠を使います。「レポートを書いています。電源を切らないでください」という表示の裏には、この仕組みがあります。
+Each time you write a report, it is written to the two slots in turn. Even if the power goes off during a write, the other slot still holds the previous report intact. On reading, the game uses the slot whose marker and checksum are correct and whose counter is larger. This mechanism is behind the Japanese version's message, which translates as "Writing your report. Do not turn off the power."
 
-## この記事で出てくる中国語
+## Chinese terms in this article
 
-中国語は、このリポジトリのほかの記事で出典を確認した語から、この記事の話題に関わるものを選びました。
+The Chinese terms here were selected for their relevance to this article's topic from words whose sources were confirmed in other articles in this repository.
 
-| 中国語 | ピンイン | 日本語の意味 | 出典 |
+| Chinese | Pinyin | Meaning | Source |
 |---|---|---|---|
-| 备份 | bèifèn | バックアップ | [百度の検索結果](https://www.baidu.com/s?wd=RG40XXH%20%E5%88%B7%E6%9C%BA%20%E5%9B%BA%E4%BB%B6%20Knulli%20%E6%95%99%E7%A8%8B) |
-| 内存卡 | nèicúnkǎ | メモリーカード | [CNFansの検索結果](https://cnfans.com/search?keywords=RP5%E9%A2%84%E8%A3%85%E5%A4%A9%E9%A9%AC&searchType=keywords) |
-| 电池 | diànchí | 電池 | [掌机圈 RG-35XX H](https://zhangjiquan.com/handheld/rg-35xx-h) |
-| 金手指 | jīn shǒu zhǐ | チートコード | [口袋改版资源吧](https://tieba.baidu.com/f?kw=%E5%8F%A3%E8%A2%8B%E6%94%B9%E7%89%88%E8%B5%84%E6%BA%90) |
-| 口袋妖怪 | kǒudài yāoguài | ポケモン | [口袋妖怪改版吧](https://tieba.baidu.com/f?kw=%E5%8F%A3%E8%A2%8B%E5%A6%96%E6%80%AA%E6%94%B9%E7%89%88) |
+| 备份 | bèifèn | Backup | [Baidu search results](https://www.baidu.com/s?wd=RG40XXH%20%E5%88%B7%E6%9C%BA%20%E5%9B%BA%E4%BB%B6%20Knulli%20%E6%95%99%E7%A8%8B) |
+| 内存卡 | nèicúnkǎ | Memory card | [CNFans search results](https://cnfans.com/search?keywords=RP5%E9%A2%84%E8%A3%85%E5%A4%A9%E9%A9%AC&searchType=keywords) |
+| 电池 | diànchí | Battery | [掌机圈 RG-35XX H](https://zhangjiquan.com/handheld/rg-35xx-h) |
+| 金手指 | jīn shǒu zhǐ | Cheat code | [口袋改版资源吧](https://tieba.baidu.com/f?kw=%E5%8F%A3%E8%A2%8B%E6%94%B9%E7%89%88%E8%B5%84%E6%BA%90) |
+| 口袋妖怪 | kǒudài yāoguài | Pokémon | [口袋妖怪改版吧](https://tieba.baidu.com/f?kw=%E5%8F%A3%E8%A2%8B%E5%A6%96%E6%80%AA%E6%94%B9%E7%89%88) |
 
-金手指(チートコード)は、セーブとは別の仕組みで、遊んでいる最中のメモリの値を書き換えるものです。
+金手指 (cheat codes) are a mechanism separate from saves that rewrite values in memory while the game is being played.
 
-## 学べること
+## What you learn
 
-カートリッジには、変わらないROMと、書き換えられるセーブ用の記憶があります。エミュレーターは、セーブ用の記憶を `.srm` のファイルとして扱い、ROCKNIXのH700向けの設定では、ゲームと同じフォルダに置き、10秒ごとに書き出します。ステートセーブは、エミュレーターがゲーム機の中身をまるごと保存する、別の仕組みです。セーブの中身も数字の並びで、自作のゲームなら2バイト、エメラルドなら壊れにくいように枠を2つ交互に使う作りでした。次の [OSの仕組み](18-os.md) では、ファイルの書き込みを実際に行っているOSの層に降ります。
+A cartridge has an unchanging ROM and rewritable save memory. The emulator treats save memory as an `.srm` file, and under the ROCKNIX settings for H700 it places that file in the same folder as the game and writes it out every 10 seconds. A save state is a separate mechanism in which the emulator saves the whole contents of the console. The contents of a save are also a sequence of numbers: 2 bytes for a homemade game, and for Emerald a design that uses two slots in turn to resist corruption. The next article, [How the OS works](18-os.md), goes down to the OS layer, which actually performs the file writes.
