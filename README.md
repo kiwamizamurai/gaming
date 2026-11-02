@@ -33,6 +33,12 @@ The reading order is: overview, devices, OS, installation, frontends, compatibil
 23. [Reading machine code with REA and Ghidra](articles/23-rea-and-ghidra.md) traces functions from strings, recovers pseudocode, and goes as far as rewriting a single byte.
 24. [Learning Android with the Nova](articles/24-android-nova.md) sets out a study plan for taking apart and reading Android APKs and comparing them with Linux on the RG40XXH.
 25. [Turning an original Switch into your own homebrew development device](articles/25-switch-cfw.md) sorts out, with sources, how to identify the fusée gelée vulnerability, RCM jigs and payload injection, emuMMC, homebrew app development, and mods for existing games.
+26. [A GBA counter in Rust: setup and the smallest program](articles/26-gba-rust-setup.md) starts a series that builds a counter in Rust with agb.
+27. [Counter logic and tests](articles/27-gba-counter-logic.md) covers the rules, buttons, the game loop, and testing on a normal computer.
+28. [CPU, memory, and registers on the GBA](articles/28-gba-hardware.md) covers the memory map and reading a button directly.
+29. [Drawing on the screen](articles/29-gba-graphics.md) covers tiles, backgrounds, palettes, and VBlank.
+30. [From Rust code to a GBA ROM](articles/30-rust-to-gba-rom.md) reads each file a build produces, from object files to `.gba`.
+31. [Startup and where things live](articles/31-gba-startup-and-memory.md) covers the code before `main` and measures where values are placed.
 
 Code for minimal working games is in [examples](examples/README.md).
 

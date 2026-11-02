@@ -1,6 +1,6 @@
 # From Rust code to a GBA ROM
 
-[CPUs and machine code](20-cpu.md) looked at what a CPU reads. This article follows how a Rust program becomes something a Game Boy Advance can run, by building one and reading each file it produces. The experiments were run on an Apple Silicon Mac with mGBA 0.10.5. The project is commit `99ee807` of [agbrs/template](https://github.com/agbrs/template), which uses [agb](https://github.com/agbrs/agb) 0.25.0. Nothing was tried on a real GBA.
+[CPUs and machine code](20-cpu.md) looked at what a CPU reads. This article, the fifth in the GBA counter series that starts at [article 26](26-gba-rust-setup.md), follows how a Rust program becomes something a Game Boy Advance can run, by building one and reading each file it produces. The experiments were run on an Apple Silicon Mac with mGBA 0.10.5. The project is commit `99ee807` of [agbrs/template](https://github.com/agbrs/template), which uses [agb](https://github.com/agbrs/agb) 0.25.0. Nothing was tried on a real GBA.
 
 ```mermaid
 flowchart LR
@@ -89,7 +89,7 @@ llvm-objdump -h target/thumbv4t-none-eabi/debug/agb_template
 
 `0x08000000` is the cartridge ROM, `0x03000000` is IWRAM, and `0x02000000` is EWRAM, as in the memory map in [article 21](21-cheats-and-passthrough.md).
 
-The last two address columns are the important part. `.iwram` and `.ewram` have different stored and run addresses. They wait in ROM, and something has to copy them to RAM before the game uses them. That is the startup code, covered in the next article of this series.
+The last two address columns are the important part. `.iwram` and `.ewram` have different stored and run addresses. They wait in ROM, and something has to copy them to RAM before the game uses them. That is the startup code, covered in [article 31](31-gba-startup-and-memory.md).
 
 ## ELF: the box that records the layout
 
@@ -153,7 +153,7 @@ In `counter.gba`, the same area is filled in, and the file name appears as the t
  8000000: ea00002e     	b	0x80000c0 <.Initialise>
 ```
 
-The first instruction jumps over the header area, because that area is data and not code. The value `96` at `0xb2` and the `6c` at `0xbd` are header fields written by the tool. `.gba` also has no section table, debug information, or symbol names, which is why it is much smaller. When opened in mGBA, the window title became `agb_template`, whereas for the ELF the title was empty.
+The first instruction jumps over the header area, because that area is data and not code. [GBATEK](https://problemkaputt.de/gbatek.htm) gives the layout: the entry point at `000h`, the 156-byte Nintendo logo at `004h`, the title at `0A0h`, a fixed value that must be `96h` at `0B2h`, and a complement check at `0BDh`. These match the bytes above (`96` at `0xb2`, `6c` at `0xbd`). agb's [entrypoint.s](https://github.com/agbrs/agb/blob/v0.25.0/agb/src/entrypoint.s) leaves this area with the comment "Filled in by gbafix". `.gba` also has no section table, debug information, or symbol names, which is why it is much smaller. When opened in mGBA, the window title became `agb_template`, whereas for the ELF the title was empty.
 
 ## Why these files do not open in Finder
 
@@ -167,7 +167,7 @@ Every one of these files is a sequence of bytes, as in [article 15](15-rg40xxh-b
 
 ## What has not been tested
 
-The header bytes were compared but not all fields were matched against a specification. Whether `counter.gba` boots on a real GBA has not been tested. In this article the program only shows agb's built-in screen, and the counter game has not been written yet.
+Whether `counter.gba` boots on a real GBA has not been tested.
 
 ## Chinese terms in this article
 

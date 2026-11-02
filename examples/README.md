@@ -11,3 +11,5 @@ These are minimal examples of homemade games. For both, the article [How to make
 [gbdk-coin-plus](gbdk-coin-plus) is an extended version of the GBDK game. It adds tile graphics, a map with walls, sound effects, and saving the high score to battery-backed RAM. `make GBDK_HOME=$HOME/gbdk` produces `coin_plus.gb`.
 
 [rea-lab](rea-lab) contains the files used in [article 22](../articles/22-rea-hands-on.md) through [article 24](../articles/24-android-nova.md). It includes C, Python, C# (two versions), JavaScript (two versions), and LÖVE versions of the coin-collecting game, Ghidra scripts, and steps for reading the Android APK of LÖVE with REA. Details are in [rea-lab/README.md](rea-lab/README.md).
+
+[agb-counter](agb-counter) is a counter for the Game Boy Advance in Rust, built with agb. A adds 1, B subtracts 1, and START resets it. See [article 26](../articles/26-gba-rust-setup.md). The font in `assets` is under the SIL Open Font License (`assets/OFL.txt`).
