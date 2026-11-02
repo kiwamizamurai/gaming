@@ -1,19 +1,19 @@
-# 什么值得买のAI生成記事
+# AI-Generated Articles on 什么值得买
 
-種類は、什么值得买の社区に載った記事で、ページの上部に「AIGC文章詳細」と表示されます。信頼度はAI生成です。記事の末尾に「内容由AI生成」と書かれ、本文の根拠として、複数の参考ページが並べられます。数値と評価の裏づけとしては、そのまま使えません。この調査で読んだのは、次の2本です。
+The type is articles published in the 社区 of 什么值得买, with "AIGC文章詳細" displayed at the top of the page. Reliability is AI-generated. "内容由AI生成" is written at the end of each article, and multiple reference pages are listed as the basis for the text. They cannot be used as they stand to support figures and evaluations. The two articles read in this research are the following.
 
 ## 2026开源掌机红黑榜
 
-URLは https://post.smzdm.com/p/aww5ev54/ で、題名は「2026开源掌机红黑榜:百元R36S到旗舰RG556,真实体验告诉你谁值得买」、日付は7月2日です。「源自9位全网作者」の表示があり、複数の情報源をAIがまとめた文章だと分かります。
+The URL is https://post.smzdm.com/p/aww5ev54/ , the title is "2026开源掌机红黑榜:百元R36S到旗舰RG556,真实体验告诉你谁值得买", and the date is July 2. There is a "源自9位全网作者" label, which shows that it is text in which AI summarized multiple information sources.
 
-![什么值得买のAI生成記事](../assets/screenshots/smzdm-ranking-aigc.jpg)
+![AI-generated article on 什么值得买](../assets/screenshots/smzdm-ranking-aigc.jpg)
 
-内容は6つの節です。ブランドの位置づけ、チップの比較、OSの選択、価格帯、評判、比較の観点です。ブランドの説明は、Miyooを小型で200元以内の機種で人気のブランド(生産が少なく「猴里谢」と呼ばれる)、Anbernicを品ぞろえの広いブランド(2017年に、IPS画面のRG350を出した)、老張(GKD)をOSの最適化に強いブランド、R36Sを百元の入門機としています。チップは、H700とRK3566が中堅、RK3326が入門で、RG556とRetroid Pocket 5が上位という内容です。OSは、Miyoo Mini PlusにOnion OS、H700のAnbernic機にmuOSとKnulli、R36SにArkOSとRocknixが向くとし、2026年6月のROCKNIXの安定版で、SteamとVita3Kが加わり、対応機種が49から66に増えたと書いています。価格帯は、100〜200元(R36S)、300〜500元(RG35XX、PowKiddy X55)、1000〜3000元(Retroid Pocket 5、RG556)に分けています。
+The contents are six sections: brand positioning, chip comparison, OS choice, price ranges, reputation, and points of comparison. In its brand descriptions, it calls Miyoo a brand popular for small devices under 200 yuan (called "猴里谢" for its low production), Anbernic a brand with a wide lineup (it released the RG350 with an IPS screen in 2017), and 老張 (GKD) a brand strong in OS optimization, and it calls the R36S an entry-level device at around 100 yuan. On chips, it says the H700 and RK3566 are mid-range, the RK3326 is entry-level, and the RG556 and Retroid Pocket 5 are high-end. On OSes, it says Onion OS suits the Miyoo Mini Plus, muOS and Knulli suit H700 Anbernic devices, and ArkOS and Rocknix suit the R36S, and it writes that the June 2026 stable release of ROCKNIX added Steam and Vita3K and that supported devices increased from 49 to 66. It divides price ranges into 100–200 yuan (R36S), 300–500 yuan (RG35XX, PowKiddy X55), and 1000–3000 yuan (Retroid Pocket 5, RG556).
 
 ## FC/SFC/GBA/PS1通吃!400块复古掌机横版RG40XXH实测
 
-URLは https://post.smzdm.com/p/aqrg0rx2/ で、日付は7月4日、「源自11位全网作者」です。
+The URL is https://post.smzdm.com/p/aqrg0rx2/ , the date is July 4, and it is labeled "源自11位全网作者".
 
-![什么值得买のRG40XXH記事](../assets/screenshots/smzdm-rg40xxh-review-aigc.jpg)
+![RG40XXH article on 什么值得买](../assets/screenshots/smzdm-rg40xxh-review-aigc.jpg)
 
-RG40XXHを、2024年7月に出たAnbernicの横型で、市価が300〜500元の機種と紹介しています。H700、1GB、4インチIPS、電池3200mAhで、公式は30以上のエミュレーターに対応するとしています。FC、SFC、GBA、GB、PS1は問題なく動き、PSPとN64は一部が遊べるという内容です。画面は4インチ640×480で200PPI、重さは208g、ボタンは導電ゴムです。横型でMini HDMI出力とWi-Fiと蓝牙を持つ点を、PowKiddy RGB30とRGB20SXとの比較で挙げています。参考の一覧は、搜狐の記事、掌机圈のページ、Alibabaの英語の記事、Amazonの商品ページなどです。ページの下のコメントには、「200出头,PSP的三国无双,实况足球都挺好,流畅」というものがあり、折りたたまれています。
+It introduces the RG40XXH as a horizontal Anbernic device released in July 2024 with a market price of 300–500 yuan. It has an H700, 1GB of memory, a 4-inch IPS screen, and a 3200mAh battery, and it says that officially more than 30 emulators are supported. It says FC, SFC, GBA, GB, and PS1 run without problems, and some PSP and N64 games are playable. The screen is 4-inch 640×480 at 200PPI, the weight is 208g, and the buttons are conductive rubber. It points out the horizontal form, Mini HDMI output, Wi-Fi, and 蓝牙 in comparison with the PowKiddy RGB30 and RGB20SX. The reference list includes a 搜狐 article, a 掌机圈 page, an English article from Alibaba, and an Amazon product page. Among the comments at the bottom of the page is "200出头,PSP的三国无双,实况足球都挺好,流畅", which is collapsed.
