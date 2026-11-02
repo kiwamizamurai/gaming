@@ -58,9 +58,44 @@ components = ["rust-src", "clippy", "rustfmt", "llvm-tools"]
 
 ## Object files: parts before they are joined
 
-The compiler does not produce the finished program directly. It first produces object files (`.o`), which hold machine code plus notes on what still has to be connected.
+Think of a program split across two chapters of a book, where chapter 1 says "see the section on `increment`". While chapter 1 is being printed, nobody knows what page that section will land on. An object file (`.o`) is a chapter in that state: the machine code is ready, but it still carries a note saying "fill in this page number later".
 
-This build shows that a `.o` does not correspond to one `.rs` file. The dependencies, including agb, were stored as 23 `.rlib` files. The project's own object file had a generated name.
+This can be seen with a tiny experiment in [examples/link-demo](../examples/link-demo). It runs on the Mac rather than the GBA, because that makes the result easy to run. `game.rs` calls a function that lives in `counter.rs`.
+
+```rust
+// counter.rs
+pub extern "C" fn increment(value: i32) -> i32 {
+    value + 1
+}
+
+// game.rs
+pub extern "C" fn main() -> i32 {
+    unsafe { increment(41) }
+}
+```
+
+Each file is compiled by itself with `rustc --emit=obj`. Listing the names in each object with `llvm-nm` shows what each one has and what it still needs.
+
+```
+$ llvm-nm game.o
+                 U _increment
+0000000000000000 T _main
+
+$ llvm-nm counter.o
+0000000000000000 T _increment
+```
+
+`T` means "defined here", and `U` means "undefined: needed, but not here". The instruction for the call in `game.o` is unfinished. It jumps to itself, with a note attached.
+
+```
+       0: 52800520     	mov	w0, #0x29               ; =41
+       4: 14000000     	b	0x4 <ltmp0+0x4>
+		0000000000000004:  ARM64_RELOC_BRANCH26	_increment
+```
+
+So an object file is machine code, plus a list of names, plus notes on what to fill in. Each address also starts from 0, because no final location has been decided.
+
+In the GBA build, the same thing happens at a larger scale. A `.o` does not correspond to one `.rs` file, though. The dependencies, including agb, were stored as 23 `.rlib` files, and the project's own object file had a generated name.
 
 ```
 target/thumbv4t-none-eabi/debug/incremental/agb_template-16da6nlkhw16x/.../64z6d7dbsr0p92oz58lpjnjdm.o
@@ -68,11 +103,42 @@ target/thumbv4t-none-eabi/debug/incremental/agb_template-16da6nlkhw16x/.../64z6d
 
 Rust divides its work by crate and by internal compilation units, so you should not expect `main.rs` to become `main.o`.
 
-## The linker decides addresses
+## The linker joins the parts
 
-A CPU does not know names like `main` or `counter`. It reads instructions and data at numbered memory addresses. Deciding those addresses is what "placement" means, and it is the linker's job. The linker also joins the object files and fills in where each call jumps to.
+The linker takes the object files and finishes the job. Giving it only `game.o` fails, because nothing provides the missing name.
 
-The result can be read with `llvm-objdump`, which comes from Rust's `llvm-tools` component.
+```
+$ cc game.o -o a
+Undefined symbols for architecture arm64:
+  "_increment", referenced from:
+      _main in game.o
+```
+
+This is the error you see when a function is declared but its code is not there. Giving it both works, and the program returns 42.
+
+```
+$ cc game.o counter.o -o demo
+$ ./demo; echo $?
+42
+```
+
+The unfinished jump is now filled in with a real address.
+
+```
+1000002d8: 52800520    	mov	w0, #0x29               ; =41
+1000002dc: 14000001    	b	0x1000002e0 <_increment>
+
+1000002e0: 11000400    	add	w0, w0, #0x1
+1000002e4: d65f03c0    	ret
+```
+
+The linker does three things: it joins the parts, decides where each one goes, and fills in the notes.
+
+## Placement: deciding addresses
+
+A CPU does not know names like `main` or `counter`. It reads instructions and data at numbered memory addresses, the way a library shelf has numbered positions. "Placement" means deciding which address each piece goes to. On a Mac, the system decides what is suitable. On the GBA, it has to match the hardware, so the template passes the linker a layout file with `-Tgba.ld`. Its contents say that ROM starts at `0x08000000`, among other things.
+
+The result for the GBA build can be read with `llvm-objdump`, which comes from Rust's `llvm-tools` component.
 
 ```sh
 llvm-objdump -h target/thumbv4t-none-eabi/debug/agb_template
@@ -155,15 +221,37 @@ In `counter.gba`, the same area is filled in, and the file name appears as the t
 
 The first instruction jumps over the header area, because that area is data and not code. [GBATEK](https://problemkaputt.de/gbatek.htm) gives the layout: the entry point at `000h`, the 156-byte Nintendo logo at `004h`, the title at `0A0h`, a fixed value that must be `96h` at `0B2h`, and a complement check at `0BDh`. These match the bytes above (`96` at `0xb2`, `6c` at `0xbd`). agb's [entrypoint.s](https://github.com/agbrs/agb/blob/v0.25.0/agb/src/entrypoint.s) leaves this area with the comment "Filled in by gbafix". `.gba` also has no section table, debug information, or symbol names, which is why it is much smaller. When opened in mGBA, the window title became `agb_template`, whereas for the ELF the title was empty.
 
-## Why these files do not open in Finder
+## Why these files do not open like a text file or a picture
 
-Every one of these files is a sequence of bytes, as in [article 15](15-rg40xxh-big-picture.md). A `.rs` file holds bytes meant to be read as text, so a text editor can show it. A `.png` has an image viewer. `.o`, ELF, and `.gba` also have viewers, but they are tools for programmers.
+In Finder, a `.rs` file and a `.png` both open with a double click, while `.o`, ELF, and `.gba` do not show anything useful. The reason is not that they are a special kind of file. Every file is a sequence of bytes, as in [article 15](15-rg40xxh-big-picture.md). What differs is whether your Mac has an app that knows how to read those bytes.
 
-| File | Tool used in this article | What it shows |
+A text editor treats bytes as letters. Here is the same number 10, saved as text and saved as a number.
+
+```
+$ xxd t.txt      (the characters "1" and "0")
+00000000: 3130                                     10
+$ xxd b.bin      (the number 10 in one byte)
+00000000: 0a                                       .
+```
+
+`.rs` is the first kind, so a text editor shows it. A CPU works with the second kind, so programs are stored that way, and a text editor shows them as garbled characters. A `.png` is also the second kind, but every Mac has an image viewer that understands it. `.o`, ELF, and `.gba` have viewers too. They are just tools for programmers rather than apps that come with Finder.
+
+| File | What opens it | What you see |
 |---|---|---|
 | `.rs` | A text editor | The source |
-| `.o`, ELF | `llvm-objdump`, `file`, [Ghidra](23-rea-and-ghidra.md) | Sections, addresses, instructions, symbol names |
-| `.gba` | `xxd`, mGBA | Raw bytes and the running game |
+| `.png` | An image viewer | The picture |
+| `.o` | `llvm-nm`, `llvm-objdump` | Names, unfinished instructions |
+| ELF | `llvm-objdump`, [Ghidra](23-rea-and-ghidra.md) | Sections, addresses, instructions |
+| `.gba` | mGBA, `xxd` | The running game, raw bytes |
+
+The file name's extension is only a label. Programs look at the first bytes, called a magic number, to tell what a file is. The `file` command does this.
+
+```
+$ file counter.gba
+counter.gba: Game Boy Advance ROM image: "agb_template" (, Rev.00)
+$ file src/counter.rs
+src/counter.rs: ASCII text
+```
 
 ## What has not been tested
 
@@ -181,4 +269,4 @@ The Chinese terms here were selected for their relevance to this article's topic
 
 ## What you can learn
 
-The compiler turns Rust into machine code in object files, and the linker joins them and decides every address. The ELF records that layout, including sections that are stored in ROM but run from RAM. mGBA can load an ELF directly, while a real GBA needs the cartridge image that `agb-gbafix` makes. A nightly compiler can also break a build through no fault of your project, so pin the date.
+The compiler turns Rust into machine code in object files, which still have unfinished calls. The linker joins them, decides every address, and fills in those calls. The ELF records that layout, including sections that are stored in ROM but run from RAM. mGBA can load an ELF directly, while a real GBA needs the cartridge image that `agb-gbafix` makes. A nightly compiler can also break a build through no fault of your project, so pin the date.
