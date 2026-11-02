@@ -6,7 +6,7 @@ Continuing from [article 30](30-rust-to-gba-rom.md), this article follows what r
 
 The CPU does not know the name `main`. [GBATEK](https://problemkaputt.de/gbatek.htm) lists the BIOS at `0x00000000` and the cartridge at `0x08000000`, and the header entry point is what the game supplies. [Article 19](19-boot.md) followed the same idea on the RG40XXH. The ELF's start address is `0x08000000`, and the first instruction jumps past the header.
 
-mGBA's source also has a `GBASkipBIOS` function ([gba.c](https://github.com/mgba-emu/mgba/blob/master/src/gba/gba.c)), so an emulator run may not go through the BIOS. Which path these runs took was not checked.
+mGBA can skip this. Its `GBASkipBIOS` function sets the program counter straight to the cartridge start ([gba.c at 0.10.5](https://github.com/mgba-emu/mgba/blob/0.10.5/src/gba/gba.c)), and `core.c` calls it when the `skipBios` option is on and a ROM is loaded. Which path the runs in this series took was not checked, so the BIOS logo and the header check were not observed.
 
 ## agb's startup code
 
@@ -18,7 +18,11 @@ mGBA's source also has a `GBASkipBIOS` function ([gba.c](https://github.com/mgba
 | `str r0, [r1]` with `0x03007FFC` | Set the interrupt handler |
 | `swi 0x000B0000` | Ask the BIOS (`CpuSet`) to copy `.ewram` from ROM to RAM |
 | `bss_loop` | Fill `.bss` with zeros |
-| `CommonInit` | Set the cartridge wait states, and continue |
+| `CommonInit` | Set the cartridge wait states (`0x04000204`) |
+| `swi 0x000B0000` again | Copy `.iwram` from ROM to RAM |
+| Write 1 to `0x04000208` | Enable interrupts |
+| `ldr r2, =main`, `bx r2` | Put 0 in `r0`, `r1`, and `r7`, then jump to `main` |
+| `1: b 1b` | Loop forever if `main` ever returned |
 
 This explains the table in [article 30](30-rust-to-gba-rom.md), where `.ewram` is stored in ROM but runs at `0x02000000`. The disassembly of the build shows the same loop.
 
@@ -31,7 +35,7 @@ This explains the table in [article 30](30-rust-to-gba-rom.md), where `.ewram` i
 
 A comment in the source says this zero fill is not needed on real hardware or most emulators, because the BIOS clears RAM, but one flash cart's quick boot does not.
 
-The part after `CommonInit` up to your `main` was not traced in this article.
+The `main` it jumps to is your function. The `#[agb::entry]` macro exports it under that name with `#[unsafe(export_name = "main")]` ([agb-macros](https://github.com/agbrs/agb/blob/v0.25.0/agb-macros/src/lib.rs)). This is why `#![no_main]` is needed and why the name reaches the assembly.
 
 ## Measuring where values live
 
