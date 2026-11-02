@@ -1,25 +1,25 @@
-# Knulliの公式ドキュメント
+# Knulli Official Documentation
 
-種類は、カスタムファームウェアKnulliのドキュメントのソースです。URLは https://github.com/knulli-cfw/knulli.org です。公開サイトの https://knulli.org は、この調査のブラウザでは読み取れなかったため、GitHubのソースを `gh` コマンドで読みました。信頼度は公式です。プロジェクトの本体は https://github.com/knulli-cfw/knulli-linux で、旧リポジトリのREADMEには、新しいリポジトリへの案内があります。
+The type is the source of the documentation for the custom firmware Knulli. The URL is https://github.com/knulli-cfw/knulli.org . The public site https://knulli.org could not be read by the browser used in this research, so the GitHub source was read with the `gh` command. Reliability is official. The project itself is at https://github.com/knulli-cfw/knulli-linux , and the README of the old repository points to the new repository.
 
-## プロジェクトの説明
+## Project description
 
-[About Knulli](https://github.com/knulli-cfw/knulli.org/blob/main/docs/about-knulli.md)は、Knulliを、Batoceraをフォークしたカスタムファームウェアと説明しています。標準のLinuxカーネルと互換性がない携帯機や、特別な対応が必要な機種向けに合わせたものです。エミュレーターの設定を、各エミュレーターの画面ではなく、EmulationStationで、機種ごとまたはゲームごとに行うのが特徴です。RetroArchの画面は使わないよう勧めています。必要な人向けの方法は、オーバーライドとリマップのファイルを、機種ごとまたはゲームごとに使うことです。フォルダの構造は厳格で、大文字と小文字を区別します。
+[About Knulli](https://github.com/knulli-cfw/knulli.org/blob/main/docs/about-knulli.md) describes Knulli as custom firmware forked from Batocera. It is tailored to handhelds that are not compatible with the standard Linux kernel and to devices needing special support. Its distinguishing feature is that emulator settings are made in EmulationStation, per system or per game, rather than in each emulator's own interface. It recommends not using the RetroArch interface. The method for those who need it is to use override and remap files per system or per game. The folder structure is strict and case-sensitive.
 
-内蔵の機能は、エミュレーターとポート(PortMasterを含む)、PICO-8のネイティブ版への対応、ScreenScraper、TheGamesDB、ArcadeDBからの情報取得、RetroAchievements、Bluetooth、HDMI出力、SMBによる無線のファイル追加、画面の枠(ベゼル)、テーマ、動的なコレクションと手作りのコレクション、Syncthing、RGB LED、SSH、クラムシェル型の機種での蓋を閉じたときの動作です。
+The built-in features are emulators and ports (including PortMaster), support for the native version of PICO-8, fetching information from ScreenScraper, TheGamesDB, and ArcadeDB, RetroAchievements, Bluetooth, HDMI output, adding files wirelessly over SMB, screen frames (bezels), themes, dynamic and handmade collections, Syncthing, RGB LEDs, SSH, and behavior when the lid is closed on clamshell devices.
 
-## 導入
+## Installation
 
-[Quick Start Guide](https://github.com/knulli-cfw/knulli.org/blob/main/docs/play/quick-start.md)は、機種ごとの準備、イメージの書き込み、保存先の設定、Wi-Fi、ゲームとBIOSの追加、PortMasterの導入、スクレイピング、RetroAchievementsの順に説明しています。RetroidのPocket 5、Flip 2、Mini、Mini V2とMiyooのFlipは、書き込みの前に準備が必要です。
+The [Quick Start Guide](https://github.com/knulli-cfw/knulli.org/blob/main/docs/play/quick-start.md) explains, in order, per-device preparation, writing the image, setting the storage location, Wi-Fi, adding games and BIOS files, installing PortMaster, scraping, and RetroAchievements. Retroid's Pocket 5, Flip 2, Mini, and Mini V2 and Miyoo's Flip need preparation before writing.
 
-[導入](https://github.com/knulli-cfw/knulli.org/blob/main/docs/play/install.md)のページは、機種用のイメージを取得し、複数の部分に分かれていれば7zipで解凍して、SDカードに書き込み、機種に挿して起動する流れを書いています。書き込み後に、Windowsが読めないパーティションの初期化を勧めても、してはいけません。
+The [installation](https://github.com/knulli-cfw/knulli.org/blob/main/docs/play/install.md) page describes the flow of getting the image for the device, extracting it with 7zip if it is split into multiple parts, writing it to an SD card, inserting it into the device, and booting. If Windows recommends initializing partitions it cannot read after writing, you must not do so.
 
-[パーティションの解説](https://github.com/knulli-cfw/knulli.org/blob/main/docs/guides/partitioning.md)は、書き込み後のSDカードが6つの区画になることを書いています。約36MBの未割り当て領域、20MBと16MBのLinux用領域、4GBでFAT32の `BATOCERA`、512MBの `SHARE`、そして残りの空き領域です。`SHARE` は、初回の起動で最大まで広がり、exFATで初期化されます。Knulli Gladiatorのリリースより前は、ext4で初期化されていました。
+The [partitioning explanation](https://github.com/knulli-cfw/knulli.org/blob/main/docs/guides/partitioning.md) says that an SD card after writing has six sections: about 36MB of unallocated space, 20MB and 16MB areas for Linux, a 4GB FAT32 `BATOCERA`, a 512MB `SHARE`, and the remaining free space. `SHARE` expands to the maximum on first boot and is initialized as exFAT. Before the Knulli Gladiator release, it was initialized as ext4.
 
-## 機種のページ
+## Device pages
 
-[対応機種の一覧](https://github.com/knulli-cfw/knulli.org/blob/main/docs/devices/index.md)は、Anbernic(RG Arc S、RG28XX、RG34XX、RG35XX Plus、2024、H、SP、RG40XX H/V、RGCubeXX)、GoRetroid(Retroid Pocket 5、Mini)、Miyoo(Flip)、Powkiddy(RGB30、X55)、TrimUI(Brick、Smart Pro)を載せています。
+The [supported device list](https://github.com/knulli-cfw/knulli.org/blob/main/docs/devices/index.md) includes Anbernic (RG Arc S, RG28XX, RG34XX, RG35XX Plus, 2024, H, SP, RG40XX H/V, RGCubeXX), GoRetroid (Retroid Pocket 5, Mini), Miyoo (Flip), Powkiddy (RGB30, X55), and TrimUI (Brick, Smart Pro).
 
-[RG40XX H](https://github.com/knulli-cfw/knulli.org/blob/main/docs/devices/anbernic/rg40xx-h.md)は、Allwinner H700、カーネルはAllwinner BSP 4.9.170、GPUはMali G31です。機能は、Wi-Fi、Bluetooth、サスペンド(電源ボタンの短押し)、HDMI、互換のUSB Wi-Fiドングルです。[Retroid Pocket 5](https://github.com/knulli-cfw/knulli.org/blob/main/docs/devices/goretroid/retroid-pocket-5.md)は、SDカードから起動する手順を書いています。
+The [RG40XX H](https://github.com/knulli-cfw/knulli.org/blob/main/docs/devices/anbernic/rg40xx-h.md) has an Allwinner H700, the Allwinner BSP 4.9.170 kernel, and a Mali G31 GPU. Its features are Wi-Fi, Bluetooth, suspend (short press of the power button), HDMI, and compatible USB Wi-Fi dongles. The [Retroid Pocket 5](https://github.com/knulli-cfw/knulli.org/blob/main/docs/devices/goretroid/retroid-pocket-5.md) page describes the steps for booting from an SD card.
 
-[BIOSの説明](https://github.com/knulli-cfw/knulli.org/blob/main/docs/play/bioses.md)は、BIOSに著作権があるため、Knulliには付属しないと書いています。必要なBIOSは、ゲーム設定の「Missing BIOS check」で確認する形です。
+The [BIOS explanation](https://github.com/knulli-cfw/knulli.org/blob/main/docs/play/bioses.md) says that BIOS files are copyrighted, so they are not included with Knulli. The needed BIOS files are checked with "Missing BIOS check" in the game settings.
