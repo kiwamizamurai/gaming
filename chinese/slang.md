@@ -28,16 +28,3 @@ These are nicknames and expressions seen on forums, specification databases, and
 | 懒人包 | lǎnrénbāo | A simple, low-effort pack | Confirmed. [模拟器游戏 篇四](https://zhuanlan.zhihu.com/p/703325151) |
 | 信息差 | xìnxīchā | The information gap between those who know and those who do not | Confirmed. The same article |
 | 傻瓜式操作 | shǎguāshì cāozuò | Simple operation that anyone can do | Confirmed. A [CNFans listing](https://cnfans.com/search?keywords=RP5%E9%A2%84%E8%A3%85%E5%A4%A9%E9%A9%AC&searchType=keywords) |
-
-## Terms seen only in search result excerpts
-
-The following terms appeared in search result excerpts, but the original pages were not opened to check them.
-
-| Expression | Inferred meaning |
-|---|---|
-| 小黄鱼 | Nickname for 闲鱼 |
-| 割韭菜 | Exploiting consumers, like reaping scallions |
-| 寨机 | A device that is not a genuine branded product (short for 山寨机) |
-| 黄牛 | Scalper |
-| 大水杯 | A slang term for a frontend. A listing image read "大水杯ES前端" |
-| 吃细糠 | Meaning unknown. It appeared in the heading of an article about GBA packs |

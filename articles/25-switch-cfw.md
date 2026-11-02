@@ -439,7 +439,7 @@ For firmware updates on the early products, a procedure is reported of connectin
 
 If it is not recognized as a USB drive on a PC, it is likely a new imitation that cannot be rewritten in the first place ([GBAtemp](https://gbatemp.net/threads/rcm-loader-not-being-detected-on-pc.682629/)). Even with early products, there are reports of the built-in battery degrading and no longer holding a charge (same source).
 
-There are also reports of the screen showing noise (static) after updating the CFW on the Switch side. The payload in the dongle may be old or the built-in flash may be broken, and for early products, suggested remedies include rewriting the payload or pressing the reset button inside a small hole on the bottom ([GBAtemp](https://gbatemp.net/threads/rcm-loader-bootup-showing-static-on-switch.638508/)).
+There are also reports of the screen showing noise (static) after updating the CFW on the Switch side. The payload in the dongle may be old or the built-in flash may be broken, and for early products, suggested remedies include rewriting the payload or pressing the reset button ([GBAtemp](https://gbatemp.net/threads/rcm-loader-bootup-showing-static-on-switch.638508/)).
 
 With early products, nothing happens unless the file is placed in the correct folder under the name `payload.bin` ([GBAtemp](https://gbatemp.net/threads/rcm-loader-oneb-update-firmware.594251/)).
 
@@ -719,7 +719,7 @@ For this kind of mod, the ARCropolis FAQ cites as a general community agreement 
 
 #### An example from another game: CTGP Deluxe for Mario Kart 8 Deluxe
 
-As an example other than Smash Ultimate, there is CTGP Deluxe, which adds original courses to Mario Kart 8 Deluxe. It is a mod in the lineage of the Wii "CTGP Revolution" and the 3DS "CTGP-7." According to the GameBrew page (updated June 2025), the version is 1.1.1, and the prerequisites are a Switch with CFW and Mario Kart 8 Deluxe updated to the latest version (3.0.3). When installing, delete all other Mario Kart 8 Deluxe mods (including older versions of CTGP Deluxe), and then extract the contents of the zip to the root of the SD card. Playing on emuMMC is strongly recommended ([GameBrew: CTGP Deluxe Switch](https://www.gamebrew.org/wiki/CTGP_Deluxe_Switch)).
+As an example other than Smash Ultimate, there is CTGP Deluxe, which adds original courses to Mario Kart 8 Deluxe. It is a mod in the lineage of the Wii "CTGP Revolution" and the 3DS "CTGP-7." According to the GameBrew page, whose Last Updated field reads March 23, 2025, the version is 1.1.1, and the prerequisites are a Switch with CFW and Mario Kart 8 Deluxe updated to the latest version (3.0.3). When installing, delete all other Mario Kart 8 Deluxe mods (including older versions of CTGP Deluxe), and then extract the contents of the zip to the root of the SD card. Playing on emuMMC is strongly recommended ([GameBrew: CTGP Deluxe Switch](https://www.gamebrew.org/wiki/CTGP_Deluxe_Switch)).
 
 The credits and update history include the name Skyline (the same foundation for modifying executable code as Smash Ultimate's ARCropolis), and v1.1.0 records the addition of a "Skyline patch."
 
@@ -822,9 +822,9 @@ Technically, it is possible. With the homebrew app [nxdumptool](https://github.c
 
 This article does not go as far as specific operating steps (what to select on which screen). The first reason is that no established procedure exists yet. nxdumptool's older stable version has stopped development, and only a rewritten version is now under main development. The developer of that rewritten version states explicitly in the official README that "at this time it has no proper UI and is experimental code" ([official GitHub](https://github.com/DarkMatterCore/nxdumptool)). The new UI (using a foundation called borealis) is at the "partially implemented" stage on the development checklist and is not complete.
 
-The second reason is that the legal position is not as simple as it looks. Article 30(1) of Japan's Copyright Act permits copying within a personal or home setting (private copying), but there is a legal expert's opinion that copying by circumventing copy protection (technological protection measures) can fall outside this exception. Since dumping a cartridge involves circumvention of protection through CFW as a prerequisite, you cannot simply say "it is my property, so I may copy it." The US DMCA also has no general exception permitting circumvention for personal backup purposes (exceptions are limited to very narrow cases such as optical drive repair).
+The second reason is that the legal position is not as simple as it looks. Article 30(1) of Japan's Copyright Act permits copying within a personal or home setting (private copying), but item (ii) excludes copying made possible by circumventing technological protection measures when the person knows that fact ([Copyright Act, e-Gov](https://laws.e-gov.go.jp/law/345AC0000000048)). Since dumping a cartridge involves circumvention of protection through CFW as a prerequisite, you cannot simply say "it is my property, so I may copy it."
 
-For both Japan and the United States, no court precedents or administrative decisions dealing with dumping Switch cartridges themselves could be found. "Hardly ever hearing of personal dumping actually being prosecuted" and "being legal" should be treated as separate matters.
+This article gives no legal judgment. Check the law where you live.
 
 Furthermore, the practice of "continuing to play without using the cartridge after dumping" is out of scope for this article, regardless of ownership. Continuing to run a game from dumped data without physical media is technically indistinguishable from the pattern of use generally understood as piracy. The line this article has consistently drawn, "limited to your own homebrew apps and materials you own; piracy is out of scope," applies equally to the dumping function.
 
