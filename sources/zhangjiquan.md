@@ -15,7 +15,7 @@ The top menu is 掌机新闻和资讯 (news), 掌机图片 (photos), 待发布�
 | OS | 开源系统 | Not listed | 安卓 |
 | Dimensions | 163×79×16mm | 105×145×29mm | 223×90×15–25mm |
 | Weight | 208g | 289g | 331g |
-| Screen | 4.0-inch, 200PPI, 4:3, 60Hz | 4.0-inch, 300PPI, 4:3, 60Hz | 5.48-inch, 400PPI, 16:9, 60Hz |
+| Screen | 4.0-inch, 200PPI, 4:3, 60Hz | 4.0-inch, 300PPI, 4:3, 60Hz | 5.48-inch, 402PPI, 16:9, 60Hz |
 | SoC | 全志H700, quad-core 1.5GHz Cortex-A53 | 虎贲T820, eight Cortex-A76 and A55 cores, 2.1–2.7GHz | 虎贲T820 |
 | GPU | Mali-G31 MP2, 650MHz | Mali-G57 MP4, 850MHz | Mali-G57 MP4, 850MHz |
 | Memory | 1GB LPDDR4 | 8GB LPDDR4X | 8GB LPDDR4X |

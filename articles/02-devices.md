@@ -8,7 +8,7 @@ This page compares six devices that were candidates for play, based on their pag
 |---|---|---|---|---|---|---|
 | Release | Jul 2024 | Sep 2024 | Mar 2024 | Jan 2024 | Sep 2024 | Jul 2026 |
 | Screen | 4.0-inch 4:3 | 4.0-inch 4:3 | 5.48-inch 16:9 | 4.7-inch 16:9 | 5.5-inch 16:9 | 4.5-inch 4:3 |
-| Pixel density | 200 | 300 | 400 | 325.61 | 400.5 | 355.6 |
+| Pixel density | 200 | 300 | 402 | 325.61 | 400.5 | 355.6 |
 | Refresh rate | 60Hz | 60Hz | 60Hz | 60Hz | 60Hz | 120Hz |
 | SoC | H700 | T820 | T820 | Dimensity 1100 | Snapdragon 865 | Snapdragon 8 Gen 2 |
 | Memory | 1GB LPDDR4 | 8GB LPDDR4X | 8GB LPDDR4X | 8GB LPDDR4x | 6/8GB LPDDR4 | 8–12GB LPDDR5X |
@@ -50,7 +50,7 @@ The screen is 4 inches with a pixel density of 300. Because it is a 4:3 screen, 
 
 ## Anbernic RG556
 
-A horizontal device with a large 5.48-inch screen. The SoC is the same T820 as the RG406V, and 掌机圈 lists a weight of 331g, a pixel density of 400, and Hall sticks and Hall triggers. On supported games, 掌机圈 says that N64, Dreamcast, and PSP all run at satisfactory frame rates, most GameCube and Wii games are playable, some PS2 games are playable, and only simple games work on Switch.
+A horizontal device with a large 5.48-inch screen. The SoC is the same T820 as the RG406V, and 掌机圈 lists a weight of 331g, a pixel density of 402 (400 when checked on October 3, 2026), and Hall sticks and Hall triggers. On supported games, 掌机圈 says that N64, Dreamcast, and PSP all run at satisfactory frame rates, most GameCube and Wii games are playable, some PS2 games are playable, and only simple games work on Switch.
 
 ![The RG-556 page on 掌机圈](../assets/screenshots/zhangjiquan-rg556.jpg)
 
