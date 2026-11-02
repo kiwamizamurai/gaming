@@ -92,6 +92,8 @@ On a GitHub release page, choose the file name in the `Assets` section at the bo
 
 *Atmosphère's Assets section. Choose the first one, the zip. `fusee.bin` is Atmosphère's own bootloader and is not used in these steps (October 2026, 1.12.0)*
 
+Atmosphère 1.12.1 came out on October 16, 2026, after these images were taken, so choose the latest release when you download. Its release notes say that on firmware 23.0.0, host redirection was not being applied at all, with no warning, and that 1.12.1 fixes this in `dns.mitm`. The `emummc.txt` in the table above relies on that redirection, so do not use an older Atmosphère with this firmware ([Atmosphère 1.12.1 release notes](https://github.com/Atmosphere-NX/Atmosphere/releases/tag/1.12.1)).
+
 Besides the hekate zip, `hekate_ctcaer_6.5.4.bin` is also listed on its own, but this is a payload-only file. In these steps, OmniRCM fetches the hekate payload automatically, so there is no need to download it by hand. `nyx_usb_max_rate__run_only_once_per_windows_pc.reg` is a settings file for Windows, and the release notes also say it is "not needed on Linux/Mac OS" ([hekate v6.5.4 release notes](https://github.com/CTCaer/hekate/releases/tag/v6.5.4)).
 
 Atmosphère also has its own bootloader called `fusee`, but the Switch Guide's steps use hekate, which offers functions such as NAND backup ([Switch Guide: SD Preparation](https://switch.hacks.guide/user_guide/all/sd_preparation)).
