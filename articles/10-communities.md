@@ -6,7 +6,7 @@ Information sources divide broadly into five: Chinese forums, device databases, 
 
 ## Chinese forums
 
-The largest amount of Chinese-language information gathers on Baidu Tieba. According to the page, [开源掌机吧](https://tieba.baidu.com/f?kw=%E5%BC%80%E6%BA%90%E6%8E%8C%E6%9C%BA) has 79,000 followers and 1,431,000 posts, and was created on March 7, 2014. The community description says that "an 开源掌机 is a 掌机 whose system and content are open source", and prohibits malicious posts and blatant advertising. The tabs on the top page are divided into Popular, Latest, mutual help among members, hardware discussion, software exchange, questions and answers, and others.
+The largest amount of Chinese-language information gathers on Baidu Tieba. According to the page, [开源掌机吧](https://tieba.baidu.com/f?kw=%E5%BC%80%E6%BA%90%E6%8E%8C%E6%9C%BA) had 79,000 followers and 1,431,000 posts on October 3, 2026 (81,000 and 1,467,000 on November 2, 2026), and was created on March 7, 2014. The community description says that "an 开源掌机 is a 掌机 whose system and content are open source", and prohibits malicious posts and blatant advertising. The tabs on the top page are divided into Popular, Latest, mutual help among members, hardware discussion, software exchange, questions and answers, and others.
 
 ![Top page of 开源掌机吧](../assets/screenshots/tieba-open-source-handheld-bar.jpg)
 

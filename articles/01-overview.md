@@ -4,7 +4,7 @@ This repository deals with handheld game consoles made by Chinese manufacturers 
 
 This article is a map for reading the articles that follow. It sorts out the available devices along four axes: brand, SoC, price range, and form factor. Only figures written on the source pages are used. Where pages disagree, the disagreement is left as is.
 
-Chinese-language information gathers on the Baidu Tieba forum [开源掌机吧](https://tieba.baidu.com/f?kw=%E5%BC%80%E6%BA%90%E6%8E%8C%E6%9C%BA). According to the page, this community has 79,000 followers and 1,431,000 posts, and was created in March 2014.
+Chinese-language information gathers on the Baidu Tieba forum [开源掌机吧](https://tieba.baidu.com/f?kw=%E5%BC%80%E6%BA%90%E6%8E%8C%E6%9C%BA). According to the page on November 2, 2026, this community has 81,000 followers and 1,467,000 posts (79,000 and 1,431,000 on October 3, 2026), and it was created in March 2014.
 
 ![Top page of 开源掌机吧](../assets/screenshots/tieba-open-source-handheld-bar.jpg)
 
