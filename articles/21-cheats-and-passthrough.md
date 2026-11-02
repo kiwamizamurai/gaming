@@ -18,6 +18,8 @@ The explanation proceeds by checking the following source code and guides at fix
 | [ai-game-modding-guides](https://github.com/trevaintdead/ai-game-modding-guides) | `54a9809` | How to proceed with passthrough mods, rules to follow |
 | [SkyCraft](https://github.com/chasmlol/SkyCraft) | `bfcaf17` | Design of a passthrough mod |
 
+On November 2, 2026, the ai-game-modding-guides repository returned a 404 page on GitHub, so its links in this article and in articles 22 and 23 could not be opened. The descriptions of it are based on what was read at the commit above before it disappeared, and could not be rechecked.
+
 ## Three ways of investigating
 
 Chapter 13 ([13-reverse-engineering-and-the-law.md](https://github.com/trevaintdead/ai-game-modding-guides/blob/54a980970606f71996e6f25723d42fb9a95aaae5/guides/13-reverse-engineering-and-the-law.md)) of ai-game-modding-guides, a collection of guides for people modding games with AI, divides ways of investigating a game into three.
@@ -270,7 +272,7 @@ The address in this command is a console address. The description in command.h a
 
 ### Making two games into one
 
-A passthrough mod runs two games at the same time and connects them so that they look like one game. The representative example, [SkyCraft](https://github.com/chasmlol/SkyCraft), lets you play Minecraft inside Skyrim. The first principle in its design document ([DESIGN.md](https://github.com/chasmlol/SkyCraft/blob/bfcaf178524b92c2cdeb88e4ce0f13ef9ded6f32/docs/DESIGN.md)) is "don't rebuild either game." Minecraft runs its own movement, collision detection, and combat calculations as they are, unmodified.
+A passthrough mod runs two games at the same time and connects them so that they look like one game. The representative example, [SkyCraft](https://github.com/chasmlol/SkyCraft), lets you play Minecraft inside Skyrim. The design document ([DESIGN.md](https://github.com/chasmlol/SkyCraft/blob/bfcaf178524b92c2cdeb88e4ce0f13ef9ded6f32/docs/DESIGN.md)) states the principle as "Neither game is rewritten." Minecraft runs its own movement, collision detection, and combat calculations as they are, unmodified.
 
 | Role | Game in charge |
 |---|---|
