@@ -20,7 +20,7 @@ Screen aspect ratios also differ by device. A 4:3 device matches the video of ol
 
 The lists of devices supported by each OS offer a clue to which brands make these products. The [ROCKNIX supported device list](https://rocknix.org/devices/) includes Anbernic, AYANEO, AYN, GameForce, Hardkernel, MagicX, Mangmi, Powkiddy, and Retroid. The [Knulli supported device list](https://github.com/knulli-cfw/knulli.org/blob/main/docs/devices/index.md) differs in also including Miyoo and TrimUI.
 
-Counting the ROCKNIX list gives 15 entries for Anbernic, 12 for Powkiddy, 5 each for AYANEO, AYN, and Retroid, 3 each for Hardkernel and unnamed devices, and 1 each for GameForce, MagicX, and Mangmi, for a total of 51 ([ROCKNIX supported device list](https://rocknix.org/devices/)). An AI-generated article on 什么值得买 says the number of supported devices grew from 49 to 66. This does not match that count, and the reason could not be confirmed.
+Counting the ROCKNIX list on November 2, 2026 gives 16 entries for Anbernic, 12 for Powkiddy, 5 each for AYANEO, AYN, and Retroid, 3 each for Hardkernel and unbranded devices, and 1 each for GameForce, MagicX, and Mangmi, for a total of 52 ([ROCKNIX supported device list](https://rocknix.org/devices/)). The count on October 3, 2026 was 51, with 15 for Anbernic. An AI-generated article on 什么值得买 says the number of supported devices grew from 49 to 66. This does not match that count, and the reason could not be confirmed.
 
 ![ROCKNIX supported device list](../assets/screenshots/rocknix-devices-index.jpg)
 
