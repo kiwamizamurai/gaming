@@ -36,7 +36,7 @@ This database is based on user posts, so it is not an official spec sheet. Purch
 
 ## Articles
 
-Articles on 什么值得买, Zhihu, CSDN, and bilibili carry installation steps and device reviews. Among 什么值得买 articles, there are AI-generated ones with "AIGC文章详细" displayed at the top of the page. The two read in this research, [2026开源掌机红黑榜](https://post.smzdm.com/p/aww5ev54/) and [RG40XXH hands-on](https://post.smzdm.com/p/aqrg0rx2/), were both of this kind. At the end of the article are "内容由AI生成" and a list of the original articles referred to. With this type of article, figures and evaluations need to be checked against the original articles or a spec database before being cited.
+Articles on 什么值得买, Zhihu, CSDN, and bilibili carry installation steps and device reviews. Among 什么值得买 articles, there are AI-generated ones with "AIGC文章详情" displayed at the top of the page. The two read in this research, [2026开源掌机红黑榜](https://post.smzdm.com/p/aww5ev54/) and [RG40XXH hands-on](https://post.smzdm.com/p/aqrg0rx2/), were both of this kind. At the end of the article are "内容由AI生成" and a list of the original articles referred to. With this type of article, figures and evaluations need to be checked against the original articles or a spec database before being cited.
 
 Zhihu and CSDN articles are written by individuals. Articles such as [天马G前端的使用](https://blog.csdn.net/fanged/article/details/152960565), which give steps the author tried in their own environment and even fragments of source code, are materials that are easy to reproduce. However, they depend on the OS and app versions at the time of writing, so check the date.
 
