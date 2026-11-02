@@ -1,112 +1,112 @@
-# ROMとBIOSの扱い方
+# Handling ROMs and BIOS
 
-エミュレーターで遊ぶには、ゲームのデータ(ROM)と、機種によっては、元のゲーム機の起動用データ(BIOS)が必要です。このページでは、ROMとBIOSの置き方、正しいデータかを確かめる方法、メタデータの整え方、権利の考え方を、公式の文書から整理します。入手先の案内や、配布のリンク、ダウンロードの手順は書きません。ROMとBIOSには著作権があり、配布されているものの多くが、権利者の許可を得ていないためです。
+To play on an emulator, you need the game data (ROM) and, for some systems, the boot data of the original console (BIOS). This page sorts out, from official documents, where to place ROMs and BIOS files, how to check that the data is correct, how to organize metadata, and how to think about rights. It does not give guidance on where to obtain them, distribution links, or download steps. ROMs and BIOS files are copyrighted, and much of what is distributed lacks the rights holders' permission.
 
-## ファイルの種類と拡張子
+## File types and extensions
 
-ROMの形式は、機種ごとに違います。ROCKNIXのWikiは、機種ごとのページに、ゲームを置くフォルダと、対応する拡張子を表にしています。たとえば、ゲームボーイアドバンスは `roms/gba` で、拡張子は `.gba`、`.zip`、`.7z` です([GBAのページ](https://rocknix.org/systems/gba/))。PlayStationは `roms/psx` で、`.bin`、`.cue`、`.chd`、`.iso` など11種類が並びます([PSXのページ](https://rocknix.org/systems/psx/))。PlayStation 2は `roms/ps2` で、`.chd`、`.iso`、`.mdf`、`.cso`、`.gz` です([PS2のページ](https://rocknix.org/systems/ps2/))。ドリームキャストは `roms/dreamcast` で、`.lst`、`.bin`、`.dat`、`.zip`、`.7z` が挙がっています([ドリームキャストのページ](https://rocknix.org/systems/dreamcast/))。
+ROM formats differ by system. The ROCKNIX wiki has a page for each system with a table of the folder where games go and the supported extensions. For example, the Game Boy Advance uses `roms/gba`, with the extensions `.gba`, `.zip`, and `.7z` ([GBA page](https://rocknix.org/systems/gba/)). The PlayStation uses `roms/psx`, and 11 types are listed, including `.bin`, `.cue`, `.chd`, and `.iso` ([PSX page](https://rocknix.org/systems/psx/)). The PlayStation 2 uses `roms/ps2`, with `.chd`, `.iso`, `.mdf`, `.cso`, and `.gz` ([PS2 page](https://rocknix.org/systems/ps2/)). The Dreamcast uses `roms/dreamcast`, and `.lst`, `.bin`, `.dat`, `.zip`, and `.7z` are listed ([Dreamcast page](https://rocknix.org/systems/dreamcast/)).
 
-![ROCKNIX WikiのGBAのページ。ゲームの置き場所と対応する拡張子の表がある](../assets/screenshots/rocknix-gba-system-page.jpg)
+![The GBA page on the ROCKNIX wiki, with a table of game locations and supported extensions](../assets/screenshots/rocknix-gba-system-page.jpg)
 
-同じ表には、使えるエミュレーターやコアの一覧もあり、GBAではmGBAが既定です。ROCKNIXの文書は、機種ごとに必要なファイルが違うため、詳しくは機種別のページを見るように案内しています([ゲームの追加](https://rocknix.org/play/add-games/))。
+The same table also lists the available emulators and cores, and for the GBA, mGBA is the default. The ROCKNIX documentation says that the required files differ by system and directs readers to the page for each system for details ([Adding games](https://rocknix.org/play/add-games/)).
 
-RetroArchの文書は、ディスクを使う機種のデータを、zipにまとめないのが一般的な目安だと書いています([ROMs, Playlists, and Thumbnails](https://docs.libretro.com/guides/roms-playlists-thumbnails/))。拡張子の対応は、エミュレーターごとに違うため、迷ったときは、使うOSの機種別ページで確かめてください。
+The RetroArch documentation says that a general rule of thumb is not to put the data of disc-based systems into zip files ([ROMs, Playlists, and Thumbnails](https://docs.libretro.com/guides/roms-playlists-thumbnails/)). Extension support differs by emulator, so if in doubt, check the system page of the OS you use.
 
-## BIOSとは何か
+## What a BIOS is
 
-Knulliの[BIOSの説明](https://github.com/knulli-cfw/knulli.org/blob/main/docs/play/bioses.md)では、BIOSはコンピューターのハードウェアに低水準でアクセスする基本的なソフトウェアです。一部のゲーム機にもBIOSがあり、エミュレーションで必要になる場合があります。BIOSもゲームと同じく著作権で保護されるため、KNULLIには付属しません。利用者が自分で用意する決まりだと、同じ文書は説明しています。
+According to Knulli's [explanation of BIOS](https://github.com/knulli-cfw/knulli.org/blob/main/docs/play/bioses.md), a BIOS is basic software that accesses a computer's hardware at a low level. Some game consoles also have a BIOS, and it may be needed for emulation. Like games, BIOS files are protected by copyright, so they are not included with KNULLI. The same document explains that users are expected to prepare them themselves.
 
-RetroArchの文書では、BIOSは、コアが再現する機器のOSのコピーです。コアによって、BIOSが必須のものと、任意のものがあります。同じ文書の例では、Beetle PSX HWとSwanStationは必須、mGBAとPCSX ReARMedは任意です([BIOS](https://docs.libretro.com/guides/bios/))。BIOSがなくても動くコアがあるのは、HLE(高水準エミュレーション)という方法があるためです。HLEは、機器の実際の動作ではなく、出力を再現しようとする方法で、不具合や表示の乱れがよく起きると、同じ文書にあります。
+In the RetroArch documentation, a BIOS is a copy of the OS of the device a core reproduces. Depending on the core, the BIOS is either required or optional. In that document's examples, Beetle PSX HW and SwanStation require it, and for mGBA and PCSX ReARMed it is optional ([BIOS](https://docs.libretro.com/guides/bios/)). Some cores run without a BIOS because of a method called HLE (high-level emulation). The same document says that HLE tries to reproduce the output rather than the actual behavior of the device, and that bugs and display glitches often occur.
 
-RetroArchとlibretroは、著作権のあるシステムファイルやゲームの内容を配布しないと、この文書は明記しています。利用者が自分で、BIOSとゲームを、お住まいの地域の法に従って用意する決まりです。
+This document states clearly that RetroArch and libretro do not distribute copyrighted system files or game content. Users are expected to prepare BIOS files and games themselves, in accordance with the law where they live.
 
-## 置き場所と名前
+## Locations and names
 
-ROCKNIXでは、ゲームを `roms` フォルダに入れ、BIOSは `roms/bios` の下に置きます。たとえば、[Retroid Pocket 5のページ](https://rocknix.org/devices/retroid/retroid-pocket-5/)は、PS2のエミュレーターに必要なBIOSのファイル名と置き場所を `/roms/bios/aethersx2/bios`、XboxのxemuのBIOSを `/roms/bios/xemu/bios`、PS1のDuckStationのBIOSを `/roms/bios` とのことです。ファイル名は決まっています。Knulliは、エミュレーターがBIOSのファイルを、非常に決まった名前で、ときには決まったサブフォルダの中に期待すると説明しています。Knulliは大文字と小文字を区別するため、名前の大文字と小文字も合わせることが必要です。
+In ROCKNIX, games go in the `roms` folder, and BIOS files go under `roms/bios`. For example, the [Retroid Pocket 5 page](https://rocknix.org/devices/retroid/retroid-pocket-5/) gives the file names and location of the BIOS needed by the PS2 emulator as `/roms/bios/aethersx2/bios`, the BIOS for xemu on the Xbox as `/roms/bios/xemu/bios`, and the BIOS for DuckStation on the PS1 as `/roms/bios`. The file names are fixed. Knulli explains that emulators expect BIOS files under very specific names, sometimes in specific subfolders. Knulli is case-sensitive, so the case of the names must also match.
 
-ROCKNIXの機種別ページは、BIOSの置き場所も明記しています。GBAのページは、ファイル名、MD5の値、置き場所の表です。PS2のページは、表のファイルのうち、少なくとも1つが必要だと書いています。ドリームキャストのページは、必要なファイルの一覧を、libretroのFlycastの文書に任せています([Flycast](https://docs.libretro.com/library/flycast/))。
+The ROCKNIX system pages also state BIOS locations clearly. The GBA page has a table of file names, MD5 values, and locations. The PS2 page says that at least one of the files in the table is required. The Dreamcast page leaves the list of required files to libretro's Flycast documentation ([Flycast](https://docs.libretro.com/library/flycast/)).
 
-Knulliの置き場所は、ROCKNIXとは違う形です。Knulliは、すべてのデータを `/userdata` に置きます。その中に、BIOSの `bios`、ゲームの `roms`、セーブの `saves`、スクリーンショットの `screenshots`、テーマの `themes` などがあります。`roms` の中には、機種ごとのサブフォルダがあり、たとえば、スーパーファミコンは `snes`、ゲームボーイは `gb` です。Knulliは、`roms` のサブフォルダの中のゲームだけを探します。ほかの場所に置いたゲームは、ゲームとして認識されません。保存先の仕組みの詳細は、[ゲームの保存先](https://github.com/knulli-cfw/knulli.org/blob/main/docs/play/add-games/game-storage.md)にあります。
+Knulli's locations take a different form from ROCKNIX's. Knulli places all data in `/userdata`. Inside are `bios` for BIOS files, `roms` for games, `saves` for saves, `screenshots` for screenshots, `themes` for themes, and so on. Inside `roms` are subfolders for each system, for example `snes` for the Super Famicom and `gb` for the Game Boy. Knulli only looks for games in the subfolders of `roms`. Games placed anywhere else are not recognized as games. Details of how storage works are in [Game storage](https://github.com/knulli-cfw/knulli.org/blob/main/docs/play/add-games/game-storage.md).
 
-RetroArchの場合は、事情が違います。ROMは、RetroArchが読める場所なら、どこに置いてもかまいません。機種名のフォルダに分ける置き方は、よくある例ですが、必須ではありません。BIOSは、ふつう、RetroArchの「system」ディレクトリに置きます。設定の「ディレクトリ」の項目と、コアの文書で、場所を確かめるよう案内されています。OSごとに置き場所が違うため、使う環境の文書を先に読んでください。
+RetroArch is a different case. ROMs can go anywhere RetroArch can read. Dividing them into folders named after systems is a common example but is not required. BIOS files usually go in RetroArch's "system" directory. Readers are directed to check the location in the "Directory" settings and the core's documentation. Locations differ by OS, so read the documentation for your environment first.
 
-ROCKNIXの保存先は、2つの方式です。ext4でフォーマットしたmicroSDを使うと、内蔵ストレージと外部ストレージを合わせて使う「Merged Storage」を選べます。この方式は、初期状態では無効で、有効にした場合の既定の保存先は外部です。無効のときと、ExFATやFAT32のときは、「Simple Storage」になり、外部カードの `roms` フォルダの内容が、`/storage/roms` に見えます。フォルダが表示されないときは、microSDに `roms` ディレクトリがあるかを確かめて、再起動する、という案内です。競合が起きたときのための、`/usr/bin/cleanup_overlay` というコマンドもあり、実行すると端末が再起動します([ゲームの追加](https://rocknix.org/play/add-games/))。
+ROCKNIX has two storage methods. With a microSD formatted as ext4, you can choose "Merged Storage", which combines internal and external storage. This method is disabled by default, and when enabled, the default destination is external. When it is disabled, and with ExFAT or FAT32, you get "Simple Storage", in which the contents of the `roms` folder on the external card appear in `/storage/roms`. If the folder does not appear, the guidance is to check that the microSD has a `roms` directory and reboot. For when conflicts occur, there is also a command, `/usr/bin/cleanup_overlay`, and running it reboots the device ([Adding games](https://rocknix.org/play/add-games/)).
 
-## ファイルの転送
+## Transferring files
 
-ROCKNIXは、ファイルを転送する方法を、複数用意しています。ネットワーク経由は、HTTP、SMB、SFTPの3つです。USBでつなぐ方法は、ネットワークとして見せるモードと、ファイル転送のモードの2通りです。SDカードを抜いてパソコンで開く方法、リカバリーモード、USBドライブ、Linuxパソコン、NFSの方法も説明されています。ゲームを追加したあとは、STARTボタンからゲーム設定を開き、ツールの「Update Gamelists」を実行すると、一覧に反映されます。ネットワークの接続には、ユーザー名とパスワードが必要で、パスワードは、設定の「Security」で変更できます([ゲームの追加](https://rocknix.org/play/add-games/))。
+ROCKNIX offers several ways to transfer files. Over the network there are three: HTTP, SMB, and SFTP. Connecting by USB has two modes: one that presents the device as a network, and a file transfer mode. Also described are taking out the SD card and opening it on a PC, recovery mode, USB drives, a Linux PC, and NFS. After adding games, open the game settings from the START button and run "Update Gamelists" under tools to reflect them in the list. A network connection requires a username and password, and the password can be changed under "Security" in the settings ([Adding games](https://rocknix.org/play/add-games/)).
 
-Knulliも、SMBによる無線の転送、USB接続、SDカードの直接の操作を用意しています([ゲームの追加](https://github.com/knulli-cfw/knulli.org/blob/main/docs/play/add-games/index.md))。どちらのOSも、転送のあとに一覧の更新が必要な点は、同じです。
+Knulli also offers wireless transfer by SMB, USB connection, and direct handling of the SD card ([Adding games](https://github.com/knulli-cfw/knulli.org/blob/main/docs/play/add-games/index.md)). Both OSes are the same in needing the list to be updated after a transfer.
 
-## 正しいデータかを確かめる
+## Checking that data is correct
 
-Knulliには、BIOSが足りているかを調べる機能があります。STARTボタンのメニューから、ゲーム設定の「Missing BIOS check」を開くと、足りないBIOSと、チェックサムが合わないBIOSが分かります。チェックサムが合わなくても、実際には動く場合があるため、置き場所が正しければ、ゲームを起動して試すこと、という案内です。Windowsでは、ファイルの拡張子を表示させておくと、`.bin.bin` のような二重の拡張子や、`.bin.zip` のような間違いを防げます。ゲームを起動するときに、BIOSの不足を警告する機能もあり、設定で切ることも可能です。
+Knulli has a function for checking whether BIOS files are all present. Opening "Missing BIOS check" in the game settings from the START button menu shows missing BIOS files and BIOS files whose checksums do not match. Even if a checksum does not match, the file may actually work, so the guidance is that if the location is correct, you should launch a game and try it. On Windows, showing file extensions prevents double extensions like `.bin.bin` and mistakes like `.bin.zip`. There is also a function that warns about missing BIOS files when launching a game, and it can be turned off in the settings.
 
-このチェックでは、見る点が4つあります。ファイルの置き場所が、`bios/ファイル名` か、`bios/サブフォルダ/ファイル名` か。名前が、空白やアンダースコアまで含めて正確か。大文字と小文字が合っているか。そして、ファイルが本当にないのか、チェックサムだけが違うのか、の4点です。チェックサムが違うだけなら、別のファイルが入っている可能性があり、見つからない場合とは対処が別物です。
+This check involves four points to look at. Whether the file location is `bios/filename` or `bios/subfolder/filename`. Whether the name is exact, including spaces and underscores. Whether the case matches. And whether the file is really absent, or only the checksum differs. If only the checksum differs, a different file may be there, and the remedy is different from when the file cannot be found.
 
-ROMの内容が正しいかも、チェックサムで確かめられます。pretの[pokeemerald](https://github.com/pret/pokeemerald)のREADMEには、ビルドで作れるROMのSHA1の値が載っています。それぞれに、ROMのデータベース「No-Intro」の記録へのリンク付きです。ビルドしたROMのSHA1がこの値と同じなら、期待どおりのデータだと確認できます。
+Whether the content of a ROM is correct can also be checked by checksum. The README of pret's [pokeemerald](https://github.com/pret/pokeemerald) lists the SHA1 values of the ROMs the build can produce. Each comes with a link to its record in the ROM database No-Intro. If the SHA1 of the ROM you built matches this value, you can confirm that it is the expected data.
 
-RetroArchでは、チェックサムを、ゲームの一覧を作る場面で使うのが特徴です。コンテンツのスキャナーは、既知の正しいコピーのデータベースと照合します。照合の鍵は、ディスク以前の小さなデータではCRCのチェックサム、ディスクのゲームでは、データの中に埋め込まれたシリアル番号です。SHA1などのハッシュは、データベースに情報として入っていますが、照合には使いません。既定の「strict」のスキャンは、データベースにないファイルを一覧に入れず、「loose」にすると、入れます。照合に成功すると、ファイル名とは別に、データベースの名前が付きます。サムネイルは、その名前をもとに探されます([Databases](https://docs.libretro.com/guides/databases/))。
+A feature of RetroArch is that it uses checksums when creating game lists. The content scanner checks against a database of known good copies. The key for matching is a CRC checksum for small pre-disc data, and for disc games, a serial number embedded in the data. Hashes such as SHA1 are in the database as information but are not used for matching. The default "strict" scan leaves files not in the database out of the list, and "loose" puts them in. When matching succeeds, the database name is attached, separately from the file name. Thumbnails are looked up based on that name ([Databases](https://docs.libretro.com/guides/databases/)).
 
-このデータベースの元になっているのは、clrmameproの形式の.datファイルです。上流のグループとして、No-Intro、Redump、GameTDBなどが挙げられています。No-Introの公式サイトは、自分たちを、ROMやデジタルゲームの最良のコピーを記録し、ROM管理ソフト向けのDATファイルとオンラインのデータベースを提供する団体と説明しています。同じページは、配布や共有には関わらず、一覧のデータを入手する手助けもしない、と明記しています([No-Intro](https://no-intro.org/))。
+This database is based on .dat files in clrmamepro format. No-Intro, Redump, GameTDB, and others are named as upstream groups. No-Intro's official site describes itself as a group that records the best copies of ROMs and digital games and provides DAT files for ROM management software and an online database. The same page states clearly that it is not involved in distribution or sharing and does not help anyone obtain the listed data ([No-Intro](https://no-intro.org/)).
 
-チェックサムの値を計算する方法は、この調査で読んだ文書には、書かれていませんでした。OSごとの計算の手順は、確認できていません。
+How to calculate checksum values was not written in the documents read in this research. The steps for calculating them on each OS have not been confirmed.
 
-## ゲームの管理とメタデータ
+## Game management and metadata
 
-ROMを増やすと、一覧の見た目を整える作業が必要になります。Knulliは、ScreenScraper、TheGamesDB、ArcadeDBから、カバー画像や説明を自動で取得する機能付きです。ROCKNIXにも、同じ目的のスクレイパーがあります。Pegasusは、ゲームごとの情報を `metadata.pegasus.txt` に書き、カバーや動画を、`media/<ゲーム名>/` の決まった名前のファイルで探します([Pegasusのメタデータ](https://github.com/mmatyas/pegasus-docs/blob/master/docs/user-guide/meta-files.md))。仕組みは [フロントエンドと天馬G](05-frontend-tianma-g.md) に書きました。
+As ROMs increase, work is needed to tidy up the look of the list. Knulli has a function that automatically fetches cover images and descriptions from ScreenScraper, TheGamesDB, and ArcadeDB. ROCKNIX also has a scraper for the same purpose. Pegasus has information for each game written in `metadata.pegasus.txt`, and looks for covers and videos as files with fixed names in `media/<game name>/` ([Pegasus metadata](https://github.com/mmatyas/pegasus-docs/blob/master/docs/user-guide/meta-files.md)). How this works is written in [Frontends and Tianma G](05-frontend-tianma-g.md).
 
-Knulliの文書によると、内蔵のスクレイパーは、ROMのファイル名を手がかりに、情報を探します。名前に `(U)` や `(EU)` のような地域の表記があれば、それも考慮されます。名前が正しくないと、ゲームを特定できません。ScreenScraperは、アカウントでのログインが必要で、無料で登録できると、Knulliの文書にあります。1日に取得できる量に上限を設ける取得元があるため、設定を整えてから実行するよう勧められています。1本ずつ取得する場合の操作は、ゲームを起動するボタンの長押しと、ゲームメニューの「Scrape」の選択です。名前が違って見つからないときは、「Input」で、ゲームの名前を手で入れます。多くのゲームをまとめて取得するときは、メインメニューの「Scraper」で、対象の機種や、最近取得したゲームを除くかなどを絞ってから、「Scrape now」を選びます。取得のあとは、「Update gamelists」で、一覧に反映します([Scraping](https://github.com/knulli-cfw/knulli.org/blob/main/docs/play/scraping.md))。
+According to the Knulli documentation, the built-in scraper looks for information using the ROM's file name as a clue. If the name has a region marker such as `(U)` or `(EU)`, that is taken into account too. If the name is not correct, the game cannot be identified. The Knulli documentation says that ScreenScraper requires logging in with an account, and that registration is free. Some sources put a limit on the amount that can be fetched per day, so it is recommended to get the settings in order before running it. To fetch games one at a time, long-press the button that launches a game and select "Scrape" in the game menu. When a game cannot be found because of a different name, enter the game's name by hand under "Input". To fetch many games at once, use "Scraper" in the main menu to narrow things down, such as the target systems and whether to exclude recently fetched games, and then select "Scrape now". After fetching, use "Update gamelists" to reflect the results in the list ([Scraping](https://github.com/knulli-cfw/knulli.org/blob/main/docs/play/scraping.md)).
 
-ほかのEmulationStation系の端末で取得した情報を移すときは、機種のフォルダごとコピーし、`gamelist.xml` も差し替えます。`gamelist.xml` には、取得した画像への参照が入っているため、これがないと、画像が表示されません。ROCKNIXの文書は、スクレイピングに、インターネット接続とScreenScraperのアカウントが必要だと書いています。ユーザー名とパスワードを、メインメニューの「Scraper」に入れ、取得する項目をチェックボックスで選ぶ手順です。プレビュー画像と、題名、発売日、開発元などは、自動で取得されます([Scraping](https://rocknix.org/configure/scraper/))。ログインの情報は、各自で入力するもので、このリポジトリには書きません。
+To move information fetched on another EmulationStation-based device, copy the whole system folder and replace `gamelist.xml` as well. `gamelist.xml` contains references to the fetched images, so without it the images are not displayed. The ROCKNIX documentation says scraping requires an internet connection and a ScreenScraper account. The steps are to enter the username and password in "Scraper" in the main menu and select the items to fetch with checkboxes. Preview images, titles, release dates, developers, and so on are fetched automatically ([Scraping](https://rocknix.org/configure/scraper/)). Login details are for each person to enter and are not written in this repository.
 
-Pegasusのアセットの探し方は、優先順位があります。ゲームごとにメタデータファイルで指定したもの、コレクションの既定として指定したもの、`media/<ゲーム名>/` の中の決まった名前のファイル、第三者のデータソースの順です。多くのゲームには、Universal XML Scraper、Steven Selph's Scraper、Skraper.net、Skyscraperなどのスクレイパーを使えると、公式の文書が紹介しています([meta-assets.md](https://github.com/mmatyas/pegasus-docs/blob/master/docs/user-guide/meta-assets.md))。
+Pegasus's way of finding assets has an order of priority. The order is: what is specified for each game in the metadata file, what is specified as the default for a collection, files with fixed names in `media/<game name>/`, and third-party data sources. The official documentation introduces scrapers such as Universal XML Scraper, Steven Selph's Scraper, Skraper.net, and Skyscraper as usable for many games ([meta-assets.md](https://github.com/mmatyas/pegasus-docs/blob/master/docs/user-guide/meta-assets.md)).
 
-RetroArchは、プレイリストと、サムネイルの仕組みを持っています。ROMは、機種ごとのフォルダに分けると管理しやすいものの、必須ではありません。プレイリストは、スキャナーで作るほか、手で編集することもできます。サムネイルは、ゲーム内のスナップショット、タイトル画面、ボックスアートの3種類で、オンラインアップデーターから、プレイリスト単位で取得します。ただし、この一括の取得は、ユーザーが自分で設定したサムネイルを上書きする場合があると、警告があります([ROMs, Playlists, and Thumbnails](https://docs.libretro.com/guides/roms-playlists-thumbnails/))。
+RetroArch has its own system of playlists and thumbnails. Dividing ROMs into folders by system makes them easier to manage but is not required. Playlists can be created with the scanner or edited by hand. Thumbnails come in three types, in-game snapshots, title screens, and box art, and are fetched per playlist from the online updater. However, there is a warning that this bulk fetching may overwrite thumbnails users have set themselves ([ROMs, Playlists, and Thumbnails](https://docs.libretro.com/guides/roms-playlists-thumbnails/)).
 
-## 改造とパッチ
+## Mods and patches
 
-ゲームの改造では、元のROMを書き換えた完成品を配る代わりに、差分のパッチを使う方法があります。[HexManiacAdvance](https://github.com/haven1433/HexManiacAdvance)は、IPSとUPSのパッチの作成と適用が可能です。パッチだけを共有し、利用者が自分のROMに当てる形なら、原作のデータそのものの再配布を避けられます。詳細は [ポケモンのROM hack](08-pokemon-hacking.md) に書きました。
+In game modding, there is a method of using a difference patch instead of distributing a finished product made by rewriting the original ROM. [HexManiacAdvance](https://github.com/haven1433/HexManiacAdvance) can create and apply IPS and UPS patches. If only the patch is shared and users apply it to their own ROMs, redistribution of the original game's data itself can be avoided. Details are written in [Pokémon ROM hacks](08-pokemon-hacking.md).
 
-RetroArchは、パッチを、起動時に自動で当てる「ソフトパッチ」に対応しています。対応する形式は、UPS、IPS、BPS、xdeltaです。`rom.bin` を読み込むときに、同じ名前の `rom.ups`、`rom.ips`、`rom.bps` があれば、自動でパッチが当たります。複数のパッチを当てたいときは、`rom.ips`、`rom.ips1`、`rom.ips2` のように、拡張子の末尾に数字を付け、この順で適用される仕組みです。ただし、自動のパッチは、コアがROMをメモリから読み込む場合に限られます。コアごとの対応表があり、たとえば、GBAではmGBA、VBA-M、VBA Next、Meteorが対応で、ゲームボーイのSameBoyは非対応です。メガドライブのGenesis Plus GXは対応しますが、マスターシステムでは非対応と、機種によって違います([Softpatching ROMs](https://docs.libretro.com/guides/softpatching/))。
+RetroArch supports "soft patching", which applies patches automatically at launch. The supported formats are UPS, IPS, BPS, and xdelta. When loading `rom.bin`, if `rom.ups`, `rom.ips`, or `rom.bps` with the same name exists, the patch is applied automatically. To apply several patches, add a number to the end of the extension, as in `rom.ips`, `rom.ips1`, and `rom.ips2`, and they are applied in this order. However, automatic patching is limited to cases where the core loads the ROM from memory. There is a support table by core; for example, on the GBA, mGBA, VBA-M, VBA Next, and Meteor support it, and on the Game Boy, SameBoy does not. Genesis Plus GX supports it on the Mega Drive but not on the Master System, so it differs by system ([Softpatching ROMs](https://docs.libretro.com/guides/softpatching/)).
 
-## 中国語の記事でROMとBIOSに触れる箇所
+## Where Chinese articles touch on ROMs and BIOS
 
-中国語の記事は、ROMの話題に、率直な表現を使います。CSDNの天馬Gの記事の筆者は、ROMの内容を「比较敏感」と書き、合法と非法の区別があるため、エミュレーターの制作者や各工房は、少なくとも表向きには、ROMを提供しない、と説明しています。「敏感」は、扱いに注意が要る、という意味の語です。続けて、国内には「跳坑者联盟」の整合包があり、中身は充実していると書いています。このリポジトリでは、こうしたパックの入手方法は扱いません([天马G前端的使用](https://blog.csdn.net/fanged/article/details/152960565))。
+Chinese articles use frank expressions on the topic of ROMs. The author of the CSDN article on Tianma G writes that the content of ROMs is 比较敏感, and explains that because there is a distinction between legal and illegal, emulator makers and the various studios do not provide ROMs, at least on the surface. 敏感 is a word meaning that care is needed in handling something. The author goes on to write that within China there are 整合包 from 跳坑者联盟, with substantial contents. This repository does not cover how to obtain such packs ([天马G前端的使用](https://blog.csdn.net/fanged/article/details/152960565)).
 
-同じ記事は、天馬Gを、ROMの管理ソフトとエミュレーターの起動ソフトを合わせたものだと説明しています。「配置文件」(設定ファイル)、「ROM 路径」(ROMのパス)、「启动脚本」(起動スクリプト)といった語は、天馬Gの複数のアプリが設定やパスを共有する仕組みを説明する文で出てくる語です。Linux系のOSの欠点としては、「BIOS / Core 手动配置」が必要だと書かれています。「手动」は、手作業の意味です。
+The same article describes Tianma G as combining ROM management software and emulator launcher software. 配置文件 (configuration file), ROM 路径 (ROM path), and 启动脚本 (launch script) are words that appear in the sentences explaining how Tianma G's several apps share settings and paths. As a drawback of Linux-based OSes, it writes that BIOS / Core 手动配置 is needed. 手动 means by hand.
 
-また、記事は、ROMのファイルに加えて、主画像、副画像、紹介動画、メタデータが必要だと説明しています。メタデータは「精简包」に入っているものを使えばよく、「跳坑者联盟」の発表物なら、最初から用意されているそうです。仕組みは、前の節の、スクレイパーやPegasusのメタデータと同じ考え方です。
+The article also explains that in addition to the ROM file, you need a main image, a secondary image, an introductory video, and metadata. It says the metadata can simply be what is in a 精简包, and that releases by 跳坑者联盟 come with it prepared from the start. The mechanism follows the same idea as the scrapers and Pegasus metadata in the previous section.
 
-ROM hackの掲示板は、「口袋改版资源吧」のように、名前に「资源」(リソース)と「改版」(改造版)を含みます。掲示板の説明は、ゲームのファイル、エミュレーター、チートコード、ツールなどを含む、資源の目次を挙げています([口袋改版资源吧](https://tieba.baidu.com/f?kw=%E5%8F%A3%E8%A2%8B%E6%94%B9%E7%89%88%E8%B5%84%E6%BA%90))。ここにある語を知っておくと、ゲームの改造の情報を、中国語で探しやすくなります。ただし、ROMそのものの入手は、このリポジトリの対象外です。
+ROM hack forums have 资源 (resources) and 改版 (modified version) in their names, as in 口袋改版资源吧. The forum's description lists a table of contents of resources including game files, emulators, cheat codes, and tools ([口袋改版资源吧](https://tieba.baidu.com/f?kw=%E5%8F%A3%E8%A2%8B%E6%94%B9%E7%89%88%E8%B5%84%E6%BA%90)). Knowing these words makes it easier to look for game modding information in Chinese. However, obtaining ROMs themselves is outside the scope of this repository.
 
-## 権利の考え方
+## How to think about rights
 
-このリポジトリで確認できた公式の文書は、どれも、ROMとBIOSを付属させないと書いています。KnulliはBIOSを同梱せず、pretは、ビルドの手順と、確認用のSHA1だけを公開しています。RetroArchとlibretroも、システムファイルとゲームの内容を共有しないと明記し、利用者が自分で用意する決まりです。No-Introも、ROMの一覧のデータを作る団体であって、入手の手助けはしないと書いています。
+The official documents confirmed in this repository all say that ROMs and BIOS files are not included. Knulli does not bundle BIOS files, and pret publishes only the build steps and SHA1 values for checking. RetroArch and libretro also state clearly that they do not share system files and game content, and users are expected to prepare them themselves. No-Intro also writes that it is a group that creates list data for ROMs and does not help anyone obtain them.
 
-天馬Gのパックは、CSDNの記事によると、エミュレーターの制作者や工房が公式には提供しない種類のデータが入っていて、国内のコミュニティが整理したものです([天马G前端的使用](https://blog.csdn.net/fanged/article/details/152960565))。こうしたパックの入手は、権利の面で問題があるため、このリポジトリでは扱いません。
+According to the CSDN article, Tianma G packs contain a type of data that emulator makers and studios do not officially provide, and were organized by a community within China ([天马G前端的使用](https://blog.csdn.net/fanged/article/details/152960565)). Obtaining such packs is problematic from a rights standpoint, so this repository does not cover it.
 
-何が適法かは、国と地域で違います。この調査では、日本を含む各国の法律の条文や、公的な解説は、開いて確認していません。そのため、このリポジトリは、法的な判断を示しません。確認できたのは、各公式の文書が、ROMとBIOSを自分で用意するよう求めていることだけです。
+What is lawful differs by country and region. In this research, the legal texts and official commentaries of each country, including Japan, were not opened and confirmed. This repository therefore gives no legal judgment. All that could be confirmed is that each official document asks you to prepare ROMs and BIOS files yourself.
 
-自分で用意する方法として、手元に持っているゲームのカートリッジやディスクから、データを取り出す方法があります。必要な機器と価格、オープンソースのツール、権利のないゲームの遊び方、BIOSの代替は、[自分で用意するデータと権利のないゲーム](13-own-data-and-free-games.md)にまとめました。
+One way to prepare them yourself is to extract the data from game cartridges and discs you have on hand. The equipment and prices needed, open source tools, how to play rights-free games, and BIOS alternatives are collected in [Preparing your own data and rights-free games](13-own-data-and-free-games.md).
 
-## この記事で出てくる中国語
+## Chinese terms in this article
 
-次の表は、この記事の中国語の節で触れた語を、ピンインと意味とあわせてまとめたものです。
+The following table collects the words touched on in the Chinese section of this article, along with their pinyin and meaning.
 
-| 中国語(簡体字) | ピンイン | 日本語の意味 | 出典 |
+| Chinese (Simplified) | Pinyin | Meaning | Source |
 |---|---|---|---|
-| 敏感 | mǐngǎn | 扱いに注意が要る、敏感な | [天马G前端的使用](https://blog.csdn.net/fanged/article/details/152960565) |
-| 合法 | héfǎ | 適法である | [天马G前端的使用](https://blog.csdn.net/fanged/article/details/152960565) |
-| 非法 | fēifǎ | 違法である | [天马G前端的使用](https://blog.csdn.net/fanged/article/details/152960565) |
-| 提供 | tígōng | 提供する | [天马G前端的使用](https://blog.csdn.net/fanged/article/details/152960565) |
-| 工作室 | gōngzuòshì | 工房、スタジオ | [天马G前端的使用](https://blog.csdn.net/fanged/article/details/152960565) |
-| 跳坑者联盟 | Tiàokēzhě Liánméng | 天馬Gのパックを作る国内のグループの名前 | [天马G前端的使用](https://blog.csdn.net/fanged/article/details/152960565) |
-| 精简包 | jīngjiǎnbāo | 軽量化したパック | [天马G前端的使用](https://blog.csdn.net/fanged/article/details/152960565) |
-| 配置文件 | pèizhì wénjiàn | 設定ファイル | [天马G前端的使用](https://blog.csdn.net/fanged/article/details/152960565) |
-| 路径 | lùjìng | パス、ファイルの場所 | [天马G前端的使用](https://blog.csdn.net/fanged/article/details/152960565) |
-| 启动脚本 | qǐdòng jiǎoběn | 起動スクリプト | [天马G前端的使用](https://blog.csdn.net/fanged/article/details/152960565) |
-| 手动 | shǒudòng | 手作業の | [天马G前端的使用](https://blog.csdn.net/fanged/article/details/152960565) |
-| 管理器 | guǎnlǐqì | 管理ソフト | [天马G前端的使用](https://blog.csdn.net/fanged/article/details/152960565) |
-| 资源 | zīyuán | 資源、リソース | [口袋改版资源吧](https://tieba.baidu.com/f?kw=%E5%8F%A3%E8%A2%8B%E6%94%B9%E7%89%88%E8%B5%84%E6%BA%90) |
-| 改版 | gǎibǎn | 改造版 | [口袋改版资源吧](https://tieba.baidu.com/f?kw=%E5%8F%A3%E8%A2%8B%E6%94%B9%E7%89%88%E8%B5%84%E6%BA%90) |
+| 敏感 | mǐngǎn | Requiring care in handling; sensitive | [天马G前端的使用](https://blog.csdn.net/fanged/article/details/152960565) |
+| 合法 | héfǎ | Lawful | [天马G前端的使用](https://blog.csdn.net/fanged/article/details/152960565) |
+| 非法 | fēifǎ | Illegal | [天马G前端的使用](https://blog.csdn.net/fanged/article/details/152960565) |
+| 提供 | tígōng | To provide | [天马G前端的使用](https://blog.csdn.net/fanged/article/details/152960565) |
+| 工作室 | gōngzuòshì | Workshop, studio | [天马G前端的使用](https://blog.csdn.net/fanged/article/details/152960565) |
+| 跳坑者联盟 | Tiàokēzhě Liánméng | Name of a group within China that makes Tianma G packs | [天马G前端的使用](https://blog.csdn.net/fanged/article/details/152960565) |
+| 精简包 | jīngjiǎnbāo | Lightweight pack | [天马G前端的使用](https://blog.csdn.net/fanged/article/details/152960565) |
+| 配置文件 | pèizhì wénjiàn | Configuration file | [天马G前端的使用](https://blog.csdn.net/fanged/article/details/152960565) |
+| 路径 | lùjìng | Path, file location | [天马G前端的使用](https://blog.csdn.net/fanged/article/details/152960565) |
+| 启动脚本 | qǐdòng jiǎoběn | Launch script | [天马G前端的使用](https://blog.csdn.net/fanged/article/details/152960565) |
+| 手动 | shǒudòng | By hand | [天马G前端的使用](https://blog.csdn.net/fanged/article/details/152960565) |
+| 管理器 | guǎnlǐqì | Management software | [天马G前端的使用](https://blog.csdn.net/fanged/article/details/152960565) |
+| 资源 | zīyuán | Resources | [口袋改版资源吧](https://tieba.baidu.com/f?kw=%E5%8F%A3%E8%A2%8B%E6%94%B9%E7%89%88%E8%B5%84%E6%BA%90) |
+| 改版 | gǎibǎn | Modified version | [口袋改版资源吧](https://tieba.baidu.com/f?kw=%E5%8F%A3%E8%A2%8B%E6%94%B9%E7%89%88%E8%B5%84%E6%BA%90) |
