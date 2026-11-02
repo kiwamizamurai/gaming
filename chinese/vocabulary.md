@@ -29,14 +29,13 @@ This collects only terms that could be confirmed on pages that were actually ope
 | 陀螺仪 | tuóluóyí | Gyro sensor | [RG-406V](https://zhangjiquan.com/handheld/rg-406v) |
 | 霍尔摇杆 | Huò'ěr yáogǎn | Hall effect stick | [RG-406V](https://zhangjiquan.com/handheld/rg-406v) |
 | 霍尔扳机 | Huò'ěr bānjī | Hall effect trigger | [RG-556](https://zhangjiquan.com/handheld/rg-556) |
-| 模拟器支持 | mónǐqì zhīchí | Emulator support status | [RG-556](https://zhangjiquan.com/handheld/rg-556) |
+| 模拟器游戏支持 | mónǐqì yóuxì zhīchí | Emulator support status | [RG-556](https://zhangjiquan.com/handheld/rg-556) |
 | 起售价格 | qǐshòu jiàgé | Price at start of sales | [RG-406V](https://zhangjiquan.com/handheld/rg-406v) |
 | 价格区间 | jiàgé qūjiān | Price range | [RG-40XXH](https://zhangjiquan.com/handheld/rg-40xxh) |
-| 到手价 | dàoshǒujià | Actual price after coupons and the like | [RG-406V](https://zhangjiquan.com/handheld/rg-406v) |
-| 券面额 | quànmiàn'é | Coupon value | [RG-406V](https://zhangjiquan.com/handheld/rg-406v) |
-| 下单链接 | xiàdān liànjiē | Order link | [RG-406V](https://zhangjiquan.com/handheld/rg-406v) |
+| 到手价 | dàoshǒujià | Actual price after coupons and the like (not shown on the page on November 2, 2026) | [RG-406V](https://zhangjiquan.com/handheld/rg-406v) |
+| 券面额 | quànmiàn'é | Coupon value (not shown on the page on November 2, 2026) | [RG-406V](https://zhangjiquan.com/handheld/rg-406v) |
+| 下单链接 | xiàdān liànjiē | Order link (not shown on the page on November 2, 2026) | [RG-406V](https://zhangjiquan.com/handheld/rg-406v) |
 | 优惠购机 | yōuhuì gòujī | Buy at a discount | [RG-406V](https://zhangjiquan.com/handheld/rg-406v) |
-| 玩家实拍图 | wánjiā shípāitú | Photos of the actual device taken by users | [RG-406V](https://zhangjiquan.com/handheld/rg-406v) |
 | 信息补充或纠错 | xìnxī bǔchōng huò jiūcuò | Adding to or correcting information | [RG-406V](https://zhangjiquan.com/handheld/rg-406v) |
 
 ## Terms in listings
@@ -161,7 +160,7 @@ This table collects the "Chinese terms in this article" section of each article,
 | 散热 | sànrè | Cooling | [02-devices](../articles/02-devices.md), 06, [07-mods](../articles/07-mods.md), [11-chinese](../articles/11-chinese.md) |
 | 连接性 | liánjiēxìng | Wireless and other connections | [02-devices](../articles/02-devices.md) |
 | 视频输出 | shìpín shūchū | Video output | [02-devices](../articles/02-devices.md) |
-| 模拟器支持 | mónǐqì zhīchí | Emulation guideline | [02-devices](../articles/02-devices.md), 06 |
+| 模拟器游戏支持 | mónǐqì yóuxì zhīchí | Emulation guideline | [02-devices](../articles/02-devices.md), 06 |
 | 信息补充或纠错 | xìnxī bǔchōng huò jiūcuò | Adding to or correcting information | [02-devices](../articles/02-devices.md) |
 | 复古掌机 | fùgǔ zhǎngjī | Retro handheld | [03-os](../articles/03-os.md) |
 | 开源掌机 | kāiyuán zhǎngjī | Open source handheld | [03-os](../articles/03-os.md), [10-communities](../articles/10-communities.md) |
@@ -185,7 +184,6 @@ This table collects the "Chinese terms in this article" section of each article,
 | TF卡 | TF kǎ | microSD card | [04-install-cfw](../articles/04-install-cfw.md) |
 | 格式化 | géshìhuà | Formatting | [04-install-cfw](../articles/04-install-cfw.md) |
 | 备份 | bèifèn | Backup | [04-install-cfw](../articles/04-install-cfw.md) |
-| 变砖 | biànzhuān | A device no longer booting (so-called bricking) | [04-install-cfw](../articles/04-install-cfw.md) |
 | 下载 | xiàzài | Download | [04-install-cfw](../articles/04-install-cfw.md) |
 | 安伯尼克 | Ānbóníkè | Chinese name for Anbernic | [04-install-cfw](../articles/04-install-cfw.md) |
 | 汉化 | hànhuà | Localizing into Chinese | 05, [08-pokemon-hacking](../articles/08-pokemon-hacking.md), [10-communities](../articles/10-communities.md), [11-chinese](../articles/11-chinese.md) |

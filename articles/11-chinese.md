@@ -50,7 +50,7 @@ Chinese words can be used as they are for searching sales sites. CNFans has a "S
 
 ## Vocabulary to learn from spec tables
 
-The device pages on 掌机圈 have fixed spec table fields, which makes them good for learning device vocabulary. The [RG-406V page](https://zhangjiquan.com/handheld/rg-406v) is laid out with fields such as 发布时间 (release date), 外观尺寸 (external dimensions), 外壳材质 (casing material), 屏幕尺寸, 屏幕分辨率 (screen resolution), 屏幕比例 (aspect ratio), 屏幕刷新率, 处理器, CPU核心和线程数, GPU, 连接性, 视频输出, 音频输出, 扬声器 (speaker), 起售价格, 价格区间, and 模拟器支持. On the value side as well there are words such as 散热管,散热风扇 (heat pipe and fan), 霍尔摇杆 (Hall effect stick), 陀螺仪 (gyro), and 双立体声 (stereo speakers).
+The device pages on 掌机圈 have fixed spec table fields, which makes them good for learning device vocabulary. The [RG-406V page](https://zhangjiquan.com/handheld/rg-406v) is laid out with fields such as 发布时间 (release date), 外观尺寸 (external dimensions), 外壳材质 (casing material), 屏幕尺寸, 屏幕分辨率 (screen resolution), 屏幕比例 (aspect ratio), 屏幕刷新率, 处理器, CPU核心和线程数, GPU, 连接性, 视频输出, 音频输出, 扬声器 (speaker), 起售价格, 价格区间, and 模拟器游戏支持. On the value side as well there are words such as 散热管,散热风扇 (heat pipe and fan), 霍尔摇杆 (Hall effect stick), 陀螺仪 (gyro), and 双立体声 (stereo speakers).
 
 ![The RG-556 page on 掌机圈, with both field names and values listed in Chinese](../assets/screenshots/zhangjiquan-rg556-spec-rows.png)
 

@@ -171,7 +171,7 @@ The Chinese words were selected from those whose sources were confirmed in other
 | Chinese | Pinyin | Meaning | Source |
 |---|---|---|---|
 | 模拟器 | mónǐqì | Emulator | [模拟器游戏 篇四](https://zhuanlan.zhihu.com/p/703325151) |
-| 模拟器支持 | mónǐqì zhīchí | Emulator support | [RG-556](https://zhangjiquan.com/handheld/rg-556) |
+| 模拟器游戏支持 | mónǐqì yóuxì zhīchí | Emulator support | [RG-556](https://zhangjiquan.com/handheld/rg-556) |
 | 前端 | qiánduān | Frontend | [模拟器游戏 篇四](https://zhuanlan.zhihu.com/p/703325151) |
 | 配置 | pèizhì | Settings | [天马G前端的使用](https://blog.csdn.net/fanged/article/details/152960565) |
 | 启动脚本 | qǐdòng jiǎoběn | Launch script | [天马G前端的使用](https://blog.csdn.net/fanged/article/details/152960565) |

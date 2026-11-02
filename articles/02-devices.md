@@ -22,7 +22,7 @@ The sources are the pages for the [RG40XXH](https://zhangjiquan.com/handheld/rg-
 
 ## How to read the spec table fields
 
-Device pages on 掌机圈 present specs in a table, field by field. The field names are in Chinese: 发布时间 (release date), 机身颜色 (body color), 外观尺寸 (external dimensions), 重量 (weight), 屏幕尺寸 (screen size), 屏幕比例 (aspect ratio), 屏幕刷新率 (refresh rate), 处理器 (SoC), 内存 (memory), 存储 (storage), 电池 (battery), 散热 (cooling), 连接性 (wireless), 视频输出 (video output), and 模拟器支持 (emulation guide) ([RG-35XX H page](https://zhangjiquan.com/handheld/rg-35xx-h)).
+Device pages on 掌机圈 present specs in a table, field by field. The field names are in Chinese: 发布时间 (release date), 机身颜色 (body color), 外观尺寸 (external dimensions), 重量 (weight), 屏幕尺寸 (screen size), 屏幕比例 (aspect ratio), 屏幕刷新率 (refresh rate), 处理器 (SoC), 内存 (memory), 存储 (storage), 电池 (battery), 散热 (cooling), 连接性 (wireless), 视频输出 (video output), and 模拟器游戏支持 (emulation guide) ([RG-35XX H page](https://zhangjiquan.com/handheld/rg-35xx-h)).
 
 Some devices have blank fields. This is why the list above shows "Not listed" for the RG40XXH's cooling. At the bottom of the page is a button labeled 信息补充或纠错 (add or correct information), which lets users send corrections. A note on the page cautions that the listed specs are collected from information online and may contain omissions or errors.
 
@@ -159,5 +159,5 @@ Here are the field names in the spec tables, along with their pronunciation.
 | 散热 | sànrè | Cooling | [掌机圈 RG-35XX H](https://zhangjiquan.com/handheld/rg-35xx-h) |
 | 连接性 | liánjiēxìng | Wireless and other connectivity | [掌机圈 RG-35XX H](https://zhangjiquan.com/handheld/rg-35xx-h) |
 | 视频输出 | shìpín shūchū | Video output | [掌机圈 RG-35XX H](https://zhangjiquan.com/handheld/rg-35xx-h) |
-| 模拟器支持 | mónǐqì zhīchí | Emulation guide | [掌机圈 RG-35XX H](https://zhangjiquan.com/handheld/rg-35xx-h) |
+| 模拟器游戏支持 | mónǐqì yóuxì zhīchí | Emulation guide | [掌机圈 RG-35XX H](https://zhangjiquan.com/handheld/rg-35xx-h) |
 | 信息补充或纠错 | xìnxī bǔchōng huò jiūcuò | Add or correct information | [掌机圈 RG-35XX H](https://zhangjiquan.com/handheld/rg-35xx-h) |

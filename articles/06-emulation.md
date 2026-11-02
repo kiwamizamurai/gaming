@@ -4,13 +4,13 @@ Which console's software runs on which device is determined by the SoC's perform
 
 ## Guide by device
 
-The specification database [掌机圈](https://zhangjiquan.com/handhelds) has a 模拟器支持 field for each device. Because it allows comparison in the same format, it was the most useful material in this research. However, the entries include user posts and are not confirmations on actual hardware.
+The specification database [掌机圈](https://zhangjiquan.com/handhelds) has a 模拟器游戏支持 field for each device. Because it allows comparison in the same format, it was the most useful material in this research. However, the entries include user posts and are not confirmations on actual hardware.
 
 The RG-40XXH field names many supported formats, including PSP, DOS, NDS, N64, PS1, DC, arcade, GBA, GBC, GB, SFC, FC, MAME, and MD ([RG-40XXH](https://zhangjiquan.com/handheld/rg-40xxh)). This is a list of supported formats, and whether they run comfortably is another matter. In a Baidu Tieba post about modifying the RG40XXH's cooling, the poster replies that PS1 at double resolution on the H700 does not stutter if filters and masks are turned off. The Dreamcast emulator also does not stutter when set to 640×480 ([给RG40XXH改造散热](https://tieba.baidu.com/p/10191425150)). The same thread also has the opposite opinion, that "even PS1 at double resolution is heavy on the H700", so results differ depending on the settings.
 
 The RG-406V field lists only "N64, DC, PSP" and does not mention PS2 or GameCube ([RG-406V](https://zhangjiquan.com/handheld/rg-406v)). The field for the RG-556, with the same T820, is somewhat more specific. It says N64, Dreamcast, and PSP all run at satisfactory frame rates, most GameCube and Wii games are playable, some PS2 games are playable, and only simple games work on Switch ([RG-556](https://zhangjiquan.com/handheld/rg-556)). Even with the same SoC, the amount written differs by entry. This difference is better seen as a difference between writers rather than between the two devices.
 
-![The RG-556 page on 掌机圈, showing the 模拟器支持 field](../assets/screenshots/zhangjiquan-rg556-spec-rows.png)
+![The RG-556 page on 掌机圈, showing the 模拟器游戏支持 field](../assets/screenshots/zhangjiquan-rg556-spec-rows.png)
 
 The Retroid Pocket 4 Pro field says it runs at most up to GameCube, Wii, and PS2, with only simple, small games on Switch ([RP4 Pro](https://zhangjiquan.com/handheld/retroid-pocket-4-pro)). The Retroid Pocket 5 entry says up to GameCube, Wii, and PS2, with a small number of Switch games also running ([RP5](https://zhangjiquan.com/handheld/retroid-pocket-5)). The Retroid Pocket Nova goes up to some Switch games, and a buyer's comment says PS3 and PC emulators can also be played ([Nova](https://zhangjiquan.com/handheld/retroid-pocket-nova)).
 
@@ -128,7 +128,7 @@ Words confirmed in the device database and forum threads are organized in the ta
 |---|---|---|---|
 | 掌机 | zhǎngjī | Handheld game console | [RG-556 page on 掌机圈](https://zhangjiquan.com/handheld/rg-556) |
 | 掌机圈 | zhǎngjīquān | Name of a device database site | [RG-556 page on 掌机圈](https://zhangjiquan.com/handheld/rg-556) |
-| 模拟器支持 | mónǐqì zhīchí | Emulator support | [RG-556 page on 掌机圈](https://zhangjiquan.com/handheld/rg-556) |
+| 模拟器游戏支持 | mónǐqì yóuxì zhīchí | Emulator support | [RG-556 page on 掌机圈](https://zhangjiquan.com/handheld/rg-556) |
 | 处理器 | chǔlǐqì | Processor (SoC) | [RG-556 page on 掌机圈](https://zhangjiquan.com/handheld/rg-556) |
 | 屏幕尺寸 | píngmù chǐcùn | Screen size | [RG-556 page on 掌机圈](https://zhangjiquan.com/handheld/rg-556) |
 | 屏幕比例 | píngmù bǐlì | Screen aspect ratio | [RG-556 page on 掌机圈](https://zhangjiquan.com/handheld/rg-556) |
