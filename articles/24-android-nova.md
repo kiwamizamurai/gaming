@@ -343,7 +343,7 @@ The saved high score also has the same form as in the C version. It is two bytes
 love.filesystem.write("best.sav", string.char(game.SAVE_MAGIC, best))
 ```
 
-`conf.lua` sets the screen to 640×480. This is 4:3, exactly half of the Nova's 1280×960. The RG40XXH's screen resolution has not been verified in this series.
+`conf.lua` sets the screen to 640×480. This is 4:3, exactly half of the Nova's 1280×960. The [ROCKNIX RG40XX H page](https://rocknix.org/devices/anbernic/rg40xx-h/) lists the RG40XXH's screen as 640×480 as well, though this series has not checked it on the device.
 
 ### Does it produce the same screen as the original game?
 
