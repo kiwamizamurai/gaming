@@ -56,7 +56,7 @@ The device pages on 掌机圈 have fixed spec table fields, which makes them goo
 
 屏幕 (screen) appears repeatedly in the field names. 屏幕尺寸, 屏幕分辨率, 屏幕比例, and 屏幕刷新率 are all 屏幕 plus a word that is also understandable in Japanese. Finding such shared components lets you expand your vocabulary with less effort than memorizing words one at a time.
 
-The purchase link field lists 到手价 (actual price after coupons and the like), 券面额 (coupon value), and 下单链接 (order link). These are words you can use as they are when reading actual listings.
+The purchase link field lists 到手价 (actual price after coupons and the like), 券面额 (coupon value), and 下单链接 (order link). These are words you can use as they are when reading actual listings. On November 2, 2026, the field was no longer shown as page text on the device pages checked.
 
 ## Vocabulary to learn from listings
 

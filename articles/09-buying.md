@@ -92,7 +92,7 @@ Here there is a caution about rights. Cards and devices loaded with large number
 
 ## How to read prices
 
-[掌机圈](https://zhangjiquan.com/handhelds) shows on its device pages the final price of purchase links (the actual price after coupons). The amounts shown were 1048 yuan for the RG-406V (100-yuan coupon), 1199 yuan for the RG-556 (100-yuan coupon), 418 yuan for the RG-40XXH (50-yuan coupon), and 1598 yuan for the Retroid Pocket 5. The links are not dated, so these are not necessarily current prices. Other price ranges are summarized in [Differences between the main devices](02-devices.md).
+[掌机圈](https://zhangjiquan.com/handhelds) shows on its device pages the final price of purchase links (the actual price after coupons). The amounts shown were 1048 yuan for the RG-406V (100-yuan coupon), 1199 yuan for the RG-556 (100-yuan coupon), 418 yuan for the RG-40XXH (50-yuan coupon), and 1598 yuan for the Retroid Pocket 5. The links are not dated, so these are not necessarily current prices. On November 2, 2026, these four device pages no longer showed the 到手价 field as page text, leaving only the 起售价格 and 价格区间 fields, so these amounts could not be rechecked. Other price ranges are summarized in [Differences between the main devices](02-devices.md).
 
 Even for the same Retroid Pocket 5, the currency and level of the price change by seller. On the official overseas store, it was $179 on sale on October 3, 2026 ([goretroid.com](https://www.goretroid.com/en-jp)). Listings on CNFans for the device described as "with Tianma G" were $281.15 and $298.75. The configurations and accessories differ, so this is not a price comparison under the same conditions.
 
