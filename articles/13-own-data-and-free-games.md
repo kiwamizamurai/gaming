@@ -35,7 +35,7 @@ DuckStation requires a PS1 BIOS, and its policy is for you to extract one from a
 
 ## Playing rights-free games
 
-Homebrew refers to games made by individuals or teams and freely distributed. [Homebrew Hub](https://hh.gbdev.io/) is a database collecting homebrew, demos, music cartridges, and tools for the Game Boy, Game Boy Advance, and Famicom. According to the top page, it has 1629 entries, and it comes with an emulator that runs in the browser. The data is managed in public repositories: [gbdev/database](https://github.com/gbdev/database) for the Game Boy, [gbadev-org/games](https://github.com/gbadev-org/games) for the Game Boy Advance, and [nesdev-org/homebrew-db](https://github.com/nesdev-org/homebrew-db) for the Famicom.
+Homebrew refers to games made by individuals or teams and freely distributed. [Homebrew Hub](https://hh.gbdev.io/) is a database collecting homebrew, demos, music cartridges, and tools for the Game Boy, Game Boy Advance, and Famicom. According to the top page on November 2, 2026, it has 1,642 entries, and it comes with an emulator that runs in the browser. The data is managed in public repositories: [gbdev/database](https://github.com/gbdev/database) for the Game Boy, [gbadev-org/games](https://github.com/gbadev-org/games) for the Game Boy Advance, and [nesdev-org/homebrew-db](https://github.com/nesdev-org/homebrew-db) for the Famicom.
 
 ![The top page of Homebrew Hub](../assets/screenshots/homebrew-hub-home.jpg)
 
@@ -59,7 +59,7 @@ Learning to read this page lets you check the license and distribution terms bef
 
 ### Free games officially distributed by ScummVM
 
-According to the README, ScummVM needs game data files to run, and there is also "Mass Add" for adding several games at once. The official ScummVM site has a [download page for free games](https://www.scummvm.org/games/). When opened on October 3, 2026, the page's heading was "Game downloads for ScummVM version 2026.3.0".
+According to the README, ScummVM needs game data files to run, and there is also "Mass Add" for adding several games at once. The official ScummVM site has a [download page for free games](https://www.scummvm.org/games/). When opened on October 3, 2026, the page's heading was "Game downloads for ScummVM version 2026.3.0". On November 2, 2026, it was "2026.4.0".
 
 The page's description says it currently has 11 free games: Beneath a Steel Sky, Broken Sword 2.5, DreamWeb, Flight of the Amazon Queen, Lure of the Temptress, Drascula: The Vampire Strikes Back, Soltys, Sfinx, The Griffon Legend, Nippon Safes, Inc., and Mystery House. Also listed are God of Thunder, many works made with the SLUDGE engine, a collection of WAGE works, and Helga Deep In Trouble. Mystery House is labeled as the public domain edition of the Apple II version.
 
