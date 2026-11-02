@@ -12,12 +12,12 @@ When the screenshot was taken, there were 2 popular posts. One mocks Anbernic, a
 
 ## 口袋改版资源吧
 
-The URL is https://tieba.baidu.com/f?kw=%E5%8F%A3%E8%A2%8B%E6%94%B9%E7%89%88%E8%B5%84%E6%BA%90 (the form in which "口袋改版资源" is expressed in character codes). It has 261,000 followers and 1,645,000 posts. The tabs include 精华, popular, latest, 吧友互助, 图文攻略, 汉化发布, 改版发布, and 改版教程. The pinned post is "本吧资源导航", dated March 26, 2021, described as a table of contents of resources in the forum. Its contents include game files, walkthroughs, 秘籍, emulators, cheat codes, helper tools, modding 教程, tools, and materials. An example of a popular post is the release of "宝可梦 水银" (FC), a non-commercial ROM mod based on FireRed.
+The URL is https://tieba.baidu.com/f?kw=%E5%8F%A3%E8%A2%8B%E6%94%B9%E7%89%88%E8%B5%84%E6%BA%90 (the form in which "口袋改版资源" is expressed in character codes). It has 263,000 followers and 1,665,000 posts. The tabs include 精华, popular, latest, 吧友互助, 图文攻略, 汉化发布, 改版发布, and 改版教程. The pinned post is "本吧资源导航", dated March 26, 2021, described as a table of contents of resources in the forum. Its contents include game files, walkthroughs, 秘籍, emulators, cheat codes, helper tools, modding 教程, tools, and materials. An example of a popular post is the release of "宝可梦 水银" (FC), a non-commercial ROM mod based on FireRed.
 
 ![Top page of 口袋改版资源吧](../assets/screenshots/tieba-pokemon-hack-resource-bar.jpg)
 
 ## 口袋妖怪改版吧
 
-The URL is https://tieba.baidu.com/f?kw=%E5%8F%A3%E8%A2%8B%E5%A6%96%E6%80%AA%E6%94%B9%E7%89%88 (the form in which "口袋妖怪改版" is expressed in character codes). It has 49,000 followers and 127,000 posts, and the forum was created on March 29, 2012. The tabs are 精华, popular, latest, 吧友互助, NDS教程, GBA教程, resource downloads, and videos. The side description has sentences to the effect that "改版 technology is the source of future vitality" and "all kinds of 改版 versions are on the forum, for those who need them to take".
+The URL is https://tieba.baidu.com/f?kw=%E5%8F%A3%E8%A2%8B%E5%A6%96%E6%80%AA%E6%94%B9%E7%89%88 (the form in which "口袋妖怪改版" is expressed in character codes). It has 50,000 followers and 127,000 posts, and the forum was created on March 29, 2012. The tabs are 精华, popular, latest, 吧友互助, NDS教程, GBA教程, resource downloads, and videos. The side description has sentences to the effect that "改版 technology is the source of future vitality" and "all kinds of 改版 versions are on the forum, for those who need them to take".
 
 ![Top page of 口袋妖怪改版吧](../assets/screenshots/tieba-pokemon-hack-bar.jpg)
