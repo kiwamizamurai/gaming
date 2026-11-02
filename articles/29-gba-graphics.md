@@ -6,7 +6,7 @@ Continuing from [article 28](28-gba-hardware.md), this article shows the counter
 
 ## Why not store every pixel?
 
-The screen is 240×160 pixels. In the usual video modes, the picture is made from 8×8 tiles rather than individual pixels. A separate map says which tile goes where, so one tile can be reused many times.
+The screen is 240×160 pixels and shows 32768 (15-bit) colors ([Tonc](https://www.coranac.com/tonc/text/video.htm)), which is 38,400 pixels. In the tiled video modes, the picture is made from 8×8 tiles rather than individual pixels. A separate map says which tile goes where, so one tile can be reused many times.
 
 Colors are stored as numbers into a palette. According to [GBATEK](https://problemkaputt.de/gbatek.htm), with 4-bit depth there are 16 palettes of 16 colors, and each tile takes 32 bytes (8 × 8 × 4 bits). 100 tiles therefore take 3,200 bytes.
 
@@ -62,19 +62,15 @@ In agb, `frame.commit()` handles the wait. Its source calls `wait_for_vblank` ([
 
 Sprites, the other backgrounds, and writing to VRAM directly were not tried. Tearing was not observed.
 
-## Check your understanding
+## Chinese terms in this article
 
-**How many bytes is one 4-bit tile?**
+The Chinese terms here were selected for their relevance to this article's topic from words whose sources were confirmed in other articles in this repository.
 
-32. It has 8 × 8 pixels at 4 bits each, which is 256 bits.
-
-**What does a tile map hold?**
-
-Which tile goes where. The pictures themselves are stored separately, so one tile can be used many times.
-
-**Does the VBlank take about 1.23ms?**
-
-No. GBATEK gives 68 lines, 83,776 cycles, and 4.994ms.
+| Chinese | Pinyin | Meaning | Source |
+|---|---|---|---|
+| 屏幕分辨率 | píngmù fēnbiànlǜ | Screen resolution | [RG-406V](https://zhangjiquan.com/handheld/rg-406v) |
+| 刷新率 | shuāxīnlǜ | Refresh rate | [RG-406V](https://zhangjiquan.com/handheld/rg-406v) |
+| 模拟器 | mónǐqì | Emulator | [模拟器游戏 篇四](https://zhuanlan.zhihu.com/p/703325151) |
 
 ## What you can learn
 

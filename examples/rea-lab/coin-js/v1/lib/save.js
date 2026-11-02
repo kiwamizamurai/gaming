@@ -1,4 +1,4 @@
-// 最高点を best.sav に2バイト(目印0x4B、点数)で保存する。
+// Saves the best score to best.sav as 2 bytes (marker 0x4B, score).
 const fs = require('node:fs');
 const SAVE_MAGIC = 0x4b;
 

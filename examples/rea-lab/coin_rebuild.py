@@ -1,7 +1,7 @@
-# 記録(操作A)だけを見て作り直したコイン集め。
-# 分かったこと: 幅10、@は0から、$は7から。dで右へ。$を取ると10点、次の$は2。
-#               終了時に best.sav へ 0x4B と点数の2バイトを書く。
-# 分からないこと: 壁での動き。ここでは「反対側へ回り込む」と推測した。
+# The coin game, rebuilt by looking only at the record of input A.
+# Known: width 10, @ starts at 0, $ starts at 7. d moves right. Taking $ gives 10 points, and the next $ is at 2.
+#        On exit, writes 2 bytes to best.sav: 0x4B and the score.
+# Unknown: behavior at a wall. Here it is guessed to wrap around to the other side.
 import sys
 
 x, coin, score, best = 0, 7, 0, 0
@@ -19,10 +19,10 @@ while True:
         break
     if c not in 'ad':
         continue
-    x = (x - 1) % 10 if c == 'a' else (x + 1) % 10   # 推測: 回り込む
+    x = (x - 1) % 10 if c == 'a' else (x + 1) % 10   # Guess: wraps around
     if x == coin:
         score += 10
-        coin = 2 if coin == 7 else 7                  # 観測: 7の次は2
+        coin = 2 if coin == 7 else 7                  # Observed: 2 comes after 7
     draw()
 if score > best:
     open('best.sav', 'wb').write(bytes([0x4B, score]))

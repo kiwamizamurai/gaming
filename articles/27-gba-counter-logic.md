@@ -66,6 +66,13 @@ The button names are `Button::A`, `Button::B`, and `Button::Start`. `Button::STA
 error[E0599]: no variant, associated function, or constant named `START` found for enum `Button`
 ```
 
+| Method | True when | Holding A for 30 frames adds |
+|---|---|---|
+| `is_pressed` | The button is down | 30 |
+| `is_just_pressed` | The button went down in this frame | 1 |
+
+The last column is what the definitions imply, and only `is_just_pressed` was run.
+
 ## What repeats every frame?
 
 A game repeats the same steps every frame: read input, update the state, draw.
@@ -118,21 +125,22 @@ counter = 2 KEYINPUT = 0b1111111110
 counter = 0 KEYINPUT = 0b1111110111
 ```
 
-The second column is explained in [article 28](28-gba-hardware.md).
+The second column is explained in [article 28](28-gba-hardware.md). These are the screens from the first and third states: at startup, and after going below zero. They were saved with mGBA's screenshot key.
 
-## Check your understanding
+![The counter at startup, showing Count: 0](../assets/screenshots/agb-counter-start.png)
 
-**How can a GBA game's rules be tested on a Mac?**
+![The counter after pressing A three times, showing Count: 3](../assets/screenshots/agb-counter-after-a.png)
 
-`counter.rs` uses nothing from the GBA, so it compiles for the Mac by itself.
+![The counter after pressing B five more times, showing Count: -2](../assets/screenshots/agb-counter-below-zero.png)
 
-**What is the difference between `&self` and `&mut self`?**
+## Chinese terms in this article
 
-`&self` only reads, as in `value()`. `&mut self` can change the value, as in `increment()`.
+The Chinese terms here were selected for their relevance to this article's topic from words whose sources were confirmed in other articles in this repository.
 
-**What would happen if the loop added 1 whenever A was down instead of just pressed?**
-
-The count would rise every frame while A is held, roughly 60 times a second.
+| Chinese | Pinyin | Meaning | Source |
+|---|---|---|---|
+| 模拟器 | mónǐqì | Emulator | [模拟器游戏 篇四](https://zhuanlan.zhihu.com/p/703325151) |
+| 配置 | pèizhì | Settings | [天马G前端的使用](https://blog.csdn.net/fanged/article/details/152960565) |
 
 ## What you can learn
 

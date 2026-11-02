@@ -1,4 +1,4 @@
--- コイン集めのルール。coin_term.c と同じ。画面にも、ターミナルにも依存しない。
+-- Rules of the coin game, the same as coin_term.c. Depends on neither the screen nor the terminal.
 local M = {}
 
 M.WIDTH = 10
@@ -20,7 +20,7 @@ function M.move(g, key)
   return true
 end
 
--- 1行の文字にする。coin_term.c の draw() と同じ形。
+-- Makes one line of text, in the same form as draw() in coin_term.c.
 function M.row(g, best)
   local cells = {}
   for i = 0, M.WIDTH - 1 do cells[i] = "." end

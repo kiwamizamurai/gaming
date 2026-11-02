@@ -1,4 +1,4 @@
-// 指定アドレスに関数がなければ作り、Ghidraのデコンパイラで擬似Cを出力する
+// Creates a function at the given address if there is none, and prints pseudo C from Ghidra's decompiler
 import ghidra.app.script.GhidraScript;
 import ghidra.app.decompiler.*;
 import ghidra.program.model.address.Address;

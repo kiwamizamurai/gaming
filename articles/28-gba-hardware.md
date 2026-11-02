@@ -55,19 +55,14 @@ All 10 button bits are 1 except the one being pressed. A is bit 0, B is bit 1, a
 
 The other 7 button bits were not checked one by one. Writing to registers directly was not tried in this series.
 
-## Check your understanding
+## Chinese terms in this article
 
-**Is `0x04000130` a place to store data?**
+The Chinese terms here were selected for their relevance to this article's topic from words whose sources were confirmed in other articles in this repository.
 
-No. It looks like memory to the CPU, but reading it gives the current state of the buttons.
-
-**Why is `read_volatile` needed?**
-
-The value changes without the program writing to it, so the compiler must not assume it can reuse an earlier read.
-
-**`KEYINPUT` reads `0b1111111101`. Which button is down?**
-
-B. Bit 1 is the only 0, and a pressed button is 0.
+| Chinese | Pinyin | Meaning | Source |
+|---|---|---|---|
+| 处理器 | chǔlǐqì | Processor (SoC) | [RG-406V](https://zhangjiquan.com/handheld/rg-406v) |
+| 内存 | nèicún | Memory | [掌机圈 RG-35XX H](https://zhangjiquan.com/handheld/rg-35xx-h) |
 
 ## What you can learn
 

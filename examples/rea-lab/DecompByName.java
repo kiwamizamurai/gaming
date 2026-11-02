@@ -1,4 +1,4 @@
-// 名前で関数を探し、Ghidraのデコンパイラで擬似Cを出力する
+// Finds a function by name and prints pseudo C from Ghidra's decompiler
 import ghidra.app.script.GhidraScript;
 import ghidra.app.decompiler.*;
 import ghidra.program.model.listing.Function;

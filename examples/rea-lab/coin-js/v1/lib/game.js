@@ -1,4 +1,4 @@
-// コイン集めのルール。幅10マス、a/dで動き、コインを取ると10点。
+// Rules of the coin game. 10 cells wide, a/d to move, 10 points per coin.
 const WIDTH = 10;
 
 function createGame() {

@@ -1,6 +1,6 @@
 #!/bin/sh
-# LÖVE 11.5のAndroid版APKを、REAで読む。APKは実行しない。
-# 使い方:
+# Reads the Android APK of LÖVE 11.5 with REA. The APK is not run.
+# Usage:
 #   export REA_JADX_MCP_JAR=/path/to/jadx-headless-mcp-0.7.1-all.jar
 #   sh android-love.sh love-11.5-android.apk out
 set -eu
