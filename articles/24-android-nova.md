@@ -1,231 +1,231 @@
-# Novaで学ぶAndroid:RG40XXHと比べる学習計画
+# Learning Android with the Nova: A Study Plan Compared with the RG40XXH
 
-[REAとGhidraで機械語を読む](23-rea-and-ghidra.md)までは、RG40XXHの中身を、Linuxの機械として読んできました。この記事では、次の1台に、Androidの携帯ゲーム機のRetroid Pocket Nova(以下、Nova)を選び、届いたあとに何をどの順で学ぶかを計画します。
+Up to [Reading machine code with REA and Ghidra](23-rea-and-ghidra.md), we have read the insides of the RG40XXH as a Linux machine. In this article, I choose the Android handheld Retroid Pocket Nova (the Nova from here on) as the next device and plan what to learn, and in what order, after it arrives.
 
-計画だけでは、届くまで中身を確かめられません。そこで、Novaに入れるものと同じ種類のファイルを、先に読んでおくことにしました。LÖVEの公式のAndroid版(APK)をREAで分解し、アプリが起動してからゲームが動くまでの流れを、コードで追っています。さらに、[記事22](22-rea-hands-on.md)のコイン集めをLÖVEで作り直し、元のC言語版と同じ画面が出ることも確認しました。
+A plan alone cannot verify anything inside the device before it arrives. So I decided to read files of the same kind as those that will go on the Nova in advance. I took apart the official Android version (APK) of LÖVE with REA and traced in the code the flow from app launch to the game running. I also rebuilt the coin collecting game from [article 22](22-rea-hands-on.md) in LÖVE and confirmed that it produces the same screen as the original C version.
 
-## この記事の方針
+## Approach of this article
 
-方針は、次の4つに決めました。
+I settled on the following four points.
 
-- Androidの仕組みを学ぶこと
-- 学んだことを、RG40XXHのLinuxと比べること
-- NovaにLinux系のOSは入れず、AndroidだけでRG40XXHと比べること
-- ゲームを入れたカードは買わず、遊ぶデータは自分で用意すること
+- Learn how Android works
+- Compare what I learn with Linux on the RG40XXH
+- Do not put a Linux-based OS on the Nova; compare with the RG40XXH using Android only
+- Do not buy cards loaded with games; prepare the data to play myself
 
-Novaそのものは、まだ手元にありません。実機で確かめたことは1つもなく、確かめたのは、公式の資料、メーカーのページ、リポジトリ、そして、この環境(x86_64のUbuntu 24.04)で動かした実験の結果です。確かめていないことは、最後の欄にまとめました。
+I do not have the Nova itself yet. Nothing has been verified on a real device. What I verified is official documents, manufacturer pages, repositories, and the results of experiments run in this environment (Ubuntu 24.04 on x86_64). What has not been verified is collected in the last section.
 
-## Novaの仕様
+## Nova specifications
 
-| 項目 | 内容 | 出典 |
+| Item | Details | Source |
 |---|---|---|
-| チップ | QCS8550。Snapdragon 8 Gen 2から、携帯電話の通信部分を除いたもの | [LineageOS](https://wiki.lineageos.org/devices/RPN)、[Notebookcheck](https://www.notebookcheck.net/Retroid-Pocket-Nova-launches-as-4-3-Android-handheld-with-a-229-starting-price.1328608.0.html) |
+| Chip | QCS8550. A Snapdragon 8 Gen 2 with the cellular communication part removed | [LineageOS](https://wiki.lineageos.org/devices/RPN), [Notebookcheck](https://www.notebookcheck.net/Retroid-Pocket-Nova-launches-as-4-3-Android-handheld-with-a-229-starting-price.1328608.0.html) |
 | GPU | Adreno 740 | [掌机圈](https://zhangjiquan.com/handheld/retroid-pocket-nova) |
-| メモリ | 8GBまたは12GB | [Retroid公式](https://www.goretroid.com/products/retroid-pocket-nova-handheld) |
-| 保存領域 | 128GB(UFS 3.1)とmicroSDカードの差し込み口 | [Notebookcheck](https://www.notebookcheck.net/Retroid-Pocket-Nova-launches-as-4-3-Android-handheld-with-a-229-starting-price.1328608.0.html) |
-| 画面 | 4.5インチ、4:3、AMOLED、1280×960、120Hz | [Notebookcheck](https://www.notebookcheck.net/Retroid-Pocket-Nova-launches-as-4-3-Android-handheld-with-a-229-starting-price.1328608.0.html) |
-| 重さ | 255g | [掌机圈](https://zhangjiquan.com/handheld/retroid-pocket-nova) |
-| 値段 | 8GB版が239ドルから(2026年10月3日の公式ショップの表示) | [購入ガイド](09-buying.md) |
+| Memory | 8GB or 12GB | [Retroid official](https://www.goretroid.com/products/retroid-pocket-nova-handheld) |
+| Storage | 128GB (UFS 3.1) and a microSD card slot | [Notebookcheck](https://www.notebookcheck.net/Retroid-Pocket-Nova-launches-as-4-3-Android-handheld-with-a-229-starting-price.1328608.0.html) |
+| Screen | 4.5-inch, 4:3, AMOLED, 1280×960, 120Hz | [Notebookcheck](https://www.notebookcheck.net/Retroid-Pocket-Nova-launches-as-4-3-Android-handheld-with-a-229-starting-price.1328608.0.html) |
+| Weight | 255g | [掌机圈](https://zhangjiquan.com/handheld/retroid-pocket-nova) |
+| Price | 8GB version from $239 (as shown in the official shop on October 3, 2026) | [Buying guide](09-buying.md) |
 
-画面の縦横比は、RG40XXHと同じ4:3です。同じゲームを、同じ画面の形のまま、2台で動かして比べられます。
+The screen's aspect ratio is 4:3, the same as the RG40XXH. The same game can be run and compared on both devices with the same screen shape.
 
-## 用意するもの
+## What you need
 
-Novaの本体のほかに必要なのは、MacとNovaをつなぐUSBケーブルです。microSDカードは、自作のゲームやデータを置く程度の使い道なので、空のカードで足ります。
+Besides the Nova itself, what you need is a USB cable to connect the Mac and the Nova. The microSD card is only for holding your own games and data, so a blank card is enough.
 
-ゲームを入れたカードは、買いません。中身は、天馬Gというメニューの画面と、市販ゲームのデータです([天馬Gの記事](05-frontend-tianma-g.md))。権利者の許可を得ていないデータが多いと考えられ、勉強にも要りません。[購入ガイド](09-buying.md)で見たとおり、中国の代行サービスの中には、この種類の商品を「権利侵害の疑い」で断るところもありました。
+I will not buy a card loaded with games. Such cards contain a menu screen called Tianma G and data from commercial games ([article on Tianma G](05-frontend-tianma-g.md)). Much of that data is thought to lack permission from the rights holders, and it is not needed for study either. As seen in the [buying guide](09-buying.md), some Chinese proxy services refused this kind of product on grounds of "suspected rights infringement."
 
-### メモリーカードの役目
+### The role of the memory card
 
-RG40XXHでは、SDカードがすべてでした。OS、ゲーム、セーブが、1枚のカードに入っています([OSの記事](18-os.md)、[起動の記事](19-boot.md))。Novaは、OSが本体の内蔵ストレージに入っています。microSDカードは、追加のデータの置き場所です。
+On the RG40XXH, the SD card was everything. The OS, games, and saves are all on one card ([article on the OS](18-os.md), [article on booting](19-boot.md)). On the Nova, the OS is on the device's internal storage. The microSD card is a place for additional data.
 
 | | RG40XXH | Nova |
 |---|---|---|
-| OSの置き場所 | SDカード | 本体の内蔵ストレージ |
-| 中を調べる方法 | SDカードをパソコンにつなぐ。SSHで入る方法もある([記事14](14-making-games.md)) | USBケーブルでMacとつなぎ、adbを使う |
+| Where the OS is | SD card | Internal storage of the device |
+| How to look inside | Connect the SD card to a computer. You can also get in over SSH ([article 14](14-making-games.md)) | Connect to the Mac with a USB cable and use adb |
 
-そのため、Androidの勉強の中心は、SDカードへの書き込みではありません。MacとNovaをUSBケーブルでつないで、Macから操作することです。
+So the center of Android study is not writing to an SD card. It is connecting the Mac and the Nova with a USB cable and operating the device from the Mac.
 
-## 学習の全体像
+## The big picture of the study plan
 
-学ぶ順番は、外側から内側へ進む5段階です。
+The learning order is five stages that move from the outside in.
 
 ```mermaid
 flowchart TD
-  s1["1. adbで外から見る"] --> s2["2. APKを分解して読む"]
-  s2 --> s3["3. 自作ゲームを2つの形で動かす"]
-  s3 --> s4["4. Switchのエミュレーターのソースを読む"]
-  s4 --> s5["5. OSを入れ替えて比べる"]
+  s1["1. Look from outside with adb"] --> s2["2. Take apart and read an APK"]
+  s2 --> s3["3. Run your own game in two forms"]
+  s3 --> s4["4. Read the source of Switch emulators"]
+  s4 --> s5["5. Replace the OS and compare"]
 ```
 
-| 段階 | 学ぶこと | RG40XXHで対応する学習 |
+| Stage | What to learn | Corresponding study on the RG40XXH |
 |---|---|---|
-| 1 | adbで、Novaの中を外から見る | SDカードの中身を調べる([OSの記事](18-os.md)、[起動の記事](19-boot.md)) |
-| 2 | APKの中身を読む | ELFを読む([記事22](22-rea-hands-on.md)、[記事23](23-rea-and-ghidra.md)) |
-| 3 | 同じゲームを、LinuxとAndroidで動かす | PortMasterでLÖVEを動かす([記事14](14-making-games.md)) |
-| 4 | CPUが同じARMで、GPUが違うときの翻訳を読む | CPUと機械語([記事20](20-cpu.md)) |
-| 5 | 元のAndroidと、ソースが公開されたAndroidを比べる | 起動の仕組みを読む([記事19](19-boot.md)) |
+| 1 | Look inside the Nova from outside with adb | Examine the contents of the SD card ([article on the OS](18-os.md), [article on booting](19-boot.md)) |
+| 2 | Read the contents of an APK | Read ELF ([article 22](22-rea-hands-on.md), [article 23](23-rea-and-ghidra.md)) |
+| 3 | Run the same game on Linux and Android | Run LÖVE with PortMaster ([article 14](14-making-games.md)) |
+| 4 | Read the translation when the CPU is the same ARM but the GPU differs | CPUs and machine code ([article 20](20-cpu.md)) |
+| 5 | Compare the original Android with an Android whose source is public | Read how booting works ([article 19](19-boot.md)) |
 
-## Androidの全体像:RG40XXHのLinuxと並べる
+## The big picture of Android: side by side with Linux on the RG40XXH
 
-細部に入る前に、2台の積み重なりを並べます。RG40XXHは、[記事15](15-rg40xxh-big-picture.md)で、本体、OS、アプリの3層に分けました。Androidの公式の説明([Platform architecture](https://developer.android.com/guide/platform))は、もう少し細かく分けています。
+Before going into detail, I will line up the stacks of the two devices. In [article 15](15-rg40xxh-big-picture.md), the RG40XXH was divided into three layers: hardware, OS, and apps. Android's official description ([Platform architecture](https://developer.android.com/guide/platform)) divides things somewhat more finely.
 
 ```mermaid
 flowchart TB
-  subgraph R["RG40XXH(ROCKNIX)"]
+  subgraph R["RG40XXH (ROCKNIX)"]
     direction TB
-    r3["アプリ<br>EmulationStation、RetroArchとコア"]
-    r2["OS<br>systemd、sway など"]
-    r1["Linuxカーネル"]
-    r0["ハードウェア<br>H700、Mali-G31"]
+    r3["Apps<br>EmulationStation, RetroArch and cores"]
+    r2["OS<br>systemd, sway, etc."]
+    r1["Linux kernel"]
+    r0["Hardware<br>H700, Mali-G31"]
     r3 --- r2 --- r1 --- r0
   end
-  subgraph N["Nova(Android)"]
+  subgraph N["Nova (Android)"]
     direction TB
-    n4["アプリ<br>APK"]
-    n3["Java APIフレームワーク"]
-    n2["Android Runtime(ART)とネイティブライブラリ"]
-    n1["HAL(ハードウェア抽象化層)"]
-    n0["Linuxカーネル"]
-    n5["ハードウェア<br>QCS8550、Adreno 740"]
+    n4["Apps<br>APK"]
+    n3["Java API framework"]
+    n2["Android Runtime (ART) and native libraries"]
+    n1["HAL (hardware abstraction layer)"]
+    n0["Linux kernel"]
+    n5["Hardware<br>QCS8550, Adreno 740"]
     n4 --- n3 --- n2 --- n1 --- n0 --- n5
   end
 ```
 
-公式の説明から、読み取れることは次のとおりです。
+The official description tells us the following.
 
-- Androidの下の層も、Linuxカーネルです。ARTは、スレッドやメモリの低レベルの処理を、カーネルに頼っています。
-- HALは、カメラやBluetoothのような部品ごとに、標準の窓口を用意する層です。フレームワークが部品を使うとき、システムがその部品用のライブラリを読み込みます。
-- ARTは、アプリを、DEXという専用のバイトコードで実行します。Java(やKotlin)のソースは、d8のような道具で、DEXに変換されます。
-- Android 5.0以降では、アプリごとに、自分のプロセスと自分のARTが用意されます。
+- The bottom layer of Android is also a Linux kernel. ART relies on the kernel for low-level handling of threads and memory.
+- The HAL is a layer that provides a standard interface for each component, such as the camera or Bluetooth. When the framework uses a component, the system loads the library for that component.
+- ART runs apps in a dedicated bytecode called DEX. Java (or Kotlin) source is converted to DEX by tools such as d8.
+- On Android 5.0 and later, each app gets its own process and its own ART.
 
-つまり、カーネルまでは、RG40XXHもNovaも同じLinuxです。違いは、その上に何を載せるかにあります。RG40XXHは、LinuxのままのOSの上で、メニューとエミュレーターが動く作りです。Androidは、カーネルとアプリのあいだにHAL、ART、フレームワークを挟み、アプリを「APKという形」で扱う作りです。この記事の後半は、その「形」を実物で確かめる話になります。
+In other words, up to the kernel, both the RG40XXH and the Nova are the same Linux. The difference is in what goes on top. The RG40XXH is built so that a menu and emulators run on an OS that remains plain Linux. Android places the HAL, ART, and framework between the kernel and the apps, and handles apps in the "form of an APK." The second half of this article checks that "form" on a real file.
 
-## 段階1:adbで外から見る
+## Stage 1: Looking from outside with adb
 
-adbは、Androidの端末にパソコンからつないで、操作する道具です([adbの公式の説明](https://developer.android.com/tools/adb))。使うには、端末の設定で「開発者向けオプション」を出し、USBデバッグを有効にします。LineageOSの[インストールの案内](https://wiki.lineageos.org/devices/RPN/install/)も、準備として、adbとfastbootが使えるパソコンと、USBデバッグの有効化を挙げています。
+adb is a tool for connecting to an Android device from a computer and operating it ([official description of adb](https://developer.android.com/tools/adb)). To use it, you reveal "Developer options" in the device's settings and enable USB debugging. LineageOS's [installation instructions](https://wiki.lineageos.org/devices/RPN/install/) also list, as preparation, a computer that can use adb and fastboot, and enabling USB debugging.
 
-最初に使うのは、次の4つです。公式の説明に書かれている使い方で、Novaでは、まだ試していません。
+The first four commands to use are below. These are uses written in the official description, and I have not yet tried them on the Nova.
 
-| 命令 | 何をするか | 根拠 |
+| Command | What it does | Basis |
 |---|---|---|
-| `adb devices` | つながっている端末の一覧を出す。つながっていれば、端末の名前が「device」として出る | [adbの説明](https://developer.android.com/tools/adb) |
-| `adb shell` | 端末の中で、Unixのコマンドを打つ。使える道具は `adb shell ls /system/bin` で調べられる | [adbの説明](https://developer.android.com/tools/adb) |
-| `adb push 手元のファイル 端末の場所` | ファイルを端末へ送る | [adbの説明](https://developer.android.com/tools/adb) |
-| `adb logcat` | 端末のログを出す。自分のアプリが `Log` クラスで書いたメッセージも含まれる | [logcatの説明](https://developer.android.com/tools/logcat) |
+| `adb devices` | Lists connected devices. If connected, the device's name is shown as "device" | [Description of adb](https://developer.android.com/tools/adb) |
+| `adb shell` | Lets you type Unix commands inside the device. Available tools can be checked with `adb shell ls /system/bin` | [Description of adb](https://developer.android.com/tools/adb) |
+| `adb push local-file device-location` | Sends a file to the device | [Description of adb](https://developer.android.com/tools/adb) |
+| `adb logcat` | Outputs the device's log. This includes messages your own app wrote with the `Log` class | [Description of logcat](https://developer.android.com/tools/logcat) |
 
-RG40XXHでは、SDカードを抜いて、中身を見ました。Androidでは、USBケーブルをつないだまま、同じ種類のことを行います。
+On the RG40XXH, I pulled the SD card and looked at the contents. On Android, the same kind of thing is done with the USB cable left connected.
 
-RG40XXHでSSHを使うときと、いちばん違うのは、Androidのアプリの隔離でしょう。[公式の説明](https://developer.android.com/guide/components/fundamentals)によると、Androidはマルチユーザーの仕組みを持つLinuxで、アプリごとに別のユーザーが割り当てられます。システムがアプリごとに固有のユーザーIDを決め、そのアプリのファイルは、そのIDだけが読めるように権限が設定される、という説明です。アプリは基本的に、自分のプロセスと自分の仮想マシンで動きます。adbでつないだとき、他のアプリのデータがどこまで見えるかは、この隔離の影響を受けるはずで、どう見えるかはNovaで確かめます。
+The biggest difference from using SSH on the RG40XXH is probably Android's app isolation. According to the [official description](https://developer.android.com/guide/components/fundamentals), Android is a multi-user Linux in which each app is assigned a different user. The system decides a unique user ID for each app, and permissions on that app's files are set so that only that ID can read them. Apps basically run in their own process and their own virtual machine. How much of other apps' data is visible when connected with adb should be affected by this isolation, and I will check how it looks on the Nova.
 
-## 段階2:APKを分解して読む
+## Stage 2: Taking apart and reading an APK
 
-届くのを待たず、Novaに入れるものと同じ種類のファイルを、先に読んでおきます。題材は、LÖVEの公式のAndroid版、`love-11.5-android.apk` です。[LÖVEのリリースのページ](https://github.com/love2d/love/releases/tag/11.5)から取得したもので、SHA-256は `10a804f8…`、大きさは7,719,206バイトでした。RG40XXHのPortMasterもLÖVE 11.5を使うため、同じ版の2つの姿を比べられます。
+Without waiting for the delivery, I read files of the same kind as those that will go on the Nova in advance. The material is the official Android version of LÖVE, `love-11.5-android.apk`. It was obtained from the [LÖVE release page](https://github.com/love2d/love/releases/tag/11.5); its SHA-256 is `10a804f8…` and its size was 7,719,206 bytes. PortMaster on the RG40XXH also uses LÖVE 11.5, so two forms of the same version can be compared.
 
-### ファイルの形を見る
+### Looking at the file's form
 
-APKは、zipファイルです。`unzip -l` で、中身を並べられます。
+An APK is a zip file. `unzip -l` lists the contents.
 
-| 中のもの | 大きさや特徴 |
+| Inside | Size and characteristics |
 |---|---|
-| `AndroidManifest.xml` | 10,172バイト。アプリの名前、権限、受け付ける操作を書いた表 |
-| `classes.dex` | 1,048,564バイト。Javaのコードを変換した、DEXのバイトコード |
-| `lib/arm64-v8a/` | 4つの共有ライブラリ(`liblove.so` など)。64ビットARM向け |
-| `lib/armeabi-v7a/` | 同じ4つ。32ビットARM向け |
-| `assets/dexopt/` | `baseline.prof` など。名前からDEXの最適化に関わるファイルと思われるが、中身は読んでいない |
-| `res/` ほか | 画像や文字などの資源 |
+| `AndroidManifest.xml` | 10,172 bytes. A table listing the app's name, permissions, and accepted operations |
+| `classes.dex` | 1,048,564 bytes. DEX bytecode converted from Java code |
+| `lib/arm64-v8a/` | Four shared libraries (such as `liblove.so`). For 64-bit ARM |
+| `lib/armeabi-v7a/` | The same four. For 32-bit ARM |
+| `assets/dexopt/` | Such as `baseline.prof`. Judging by the name, probably files related to DEX optimization, but the contents have not been read |
+| `res/` and others | Resources such as images and text |
 
-全体では427個のファイルがあり、展開すると16,553,372バイトです。x86向けのライブラリは入っていません。NovaのCPUはARMなので、64ビットARM向けの `arm64-v8a` が使われるはずです。どちらが選ばれるかは、実機で確かめます。
+In total there are 427 files, which come to 16,553,372 bytes when extracted. Libraries for x86 are not included. Since the Nova's CPU is ARM, `arm64-v8a` for 64-bit ARM should be used. Which one is selected will be checked on the real device.
 
-[記事20](20-cpu.md)で、「箱の形」を、先頭のバイトで見分けました。同じことを、APKの中身でも行いました。
+In [article 20](20-cpu.md), we identified the "shape of the box" from the leading bytes. I did the same with the contents of the APK.
 
-| ファイル | 先頭のバイト | 読み取れること |
+| File | Leading bytes | What this tells us |
 |---|---|---|
-| `lib/arm64-v8a/liblove.so` | `7f 45 4c 46`、18バイト目が `b7 00`(183) | ELFで、arm64向け |
-| `lib/armeabi-v7a/liblove.so` | `7f 45 4c 46`、18バイト目が `28 00`(40) | ELFで、32ビットARM向け |
-| `classes.dex` | `64 65 78 0a 30 33 35 00`(`dex\n035`) | DEX形式の目印 |
-| `AndroidManifest.xml` | `03 00 08 00 …` | 文字のXMLではなく、バイナリのXML |
+| `lib/arm64-v8a/liblove.so` | `7f 45 4c 46`, 18th byte is `b7 00` (183) | ELF, for arm64 |
+| `lib/armeabi-v7a/liblove.so` | `7f 45 4c 46`, 18th byte is `28 00` (40) | ELF, for 32-bit ARM |
+| `classes.dex` | `64 65 78 0a 30 33 35 00` (`dex\n035`) | Marker of the DEX format |
+| `AndroidManifest.xml` | `03 00 08 00 …` | Binary XML, not text XML |
 
-RG40XXHのゲームは、ELFの実行ファイルです。AndroidのAPKは、その中に、ELFの部品(`.so`)と、ARTが読むDEXの両方を、zipで包んでいます。
+Games on the RG40XXH are ELF executables. An Android APK wraps in a zip both ELF components (`.so`) and the DEX that ART reads.
 
-`liblove.so`(arm64版)が読み込む部品も、`readelf -d` で確かめました。`libGLESv2.so`と`libGLESv1_CM.so`があり、LÖVEが、AndroidでOpenGL ESを使うことが分かります。ほかに、`libopenal.so`、`libmpg123.so`、`libc++_shared.so`、`liblog.so`、`libandroid.so` などが並びます。
+I also checked with `readelf -d` the components that `liblove.so` (arm64 version) loads. They include `libGLESv2.so` and `libGLESv1_CM.so`, which shows that LÖVE uses OpenGL ES on Android. Others listed include `libopenal.so`, `libmpg123.so`, `libc++_shared.so`, `liblog.so`, and `libandroid.so`.
 
-### REAでマニフェストを読む
+### Reading the manifest with REA
 
-[記事23](23-rea-and-ghidra.md)のREAには、APKを読む命令があります([REAの説明](https://github.com/morluto/rea/blob/472b72a53068a8e2ec78fe239d687023482daaa7/docs/android-analysis.md))。前提は、Java 17以上と、JADXをもとにした[jadx-headless-mcp](https://github.com/1013503897/jadx-headless-mcp)の0.7.1です。REAは、これらを自分では入れません。今回は、REAが指定する公開のJARを取得し、SHA-256(`6e5eacf5…`)がREAの記録と一致することを確かめてから使いました。使ったJDKは、OpenJDK 21です。
+REA from [article 23](23-rea-and-ghidra.md) has commands for reading APKs ([REA's description](https://github.com/morluto/rea/blob/472b72a53068a8e2ec78fe239d687023482daaa7/docs/android-analysis.md)). The prerequisites are Java 17 or later and version 0.7.1 of [jadx-headless-mcp](https://github.com/1013503897/jadx-headless-mcp), which is based on JADX. REA does not install these itself. This time, I obtained the public JAR that REA specifies, confirmed that its SHA-256 (`6e5eacf5…`) matched REA's record, and then used it. The JDK used was OpenJDK 21.
 
 ```sh
 export REA_JADX_MCP_JAR=/path/to/jadx-headless-mcp-0.7.1-all.jar
 rea inspect-android-package love-11.5-android.apk --json
 ```
 
-1回の命令に、約10秒かかりました。結果の要点は、次のとおりです。
+One command took about 10 seconds. The key points of the result are as follows.
 
-| 項目 | 結果 |
+| Item | Result |
 |---|---|
-| パッケージ名 | `org.love2d.android` |
-| 版 | `11.5a`(版番号32) |
-| 最小のAndroid | API 16 |
-| 対象のAndroid | API 34(Android 14) |
-| クラスの数 | 928 |
-| 資源の数 | 427 |
-| 署名の検証 | 行っていない(`not_performed`) |
+| Package name | `org.love2d.android` |
+| Version | `11.5a` (version code 32) |
+| Minimum Android | API 16 |
+| Target Android | API 34 (Android 14) |
+| Number of classes | 928 |
+| Number of resources | 427 |
+| Signature verification | Not performed (`not_performed`) |
 
-宣言された権限は、7つです。
+Seven permissions are declared.
 
-| 権限 | 補足 |
+| Permission | Notes |
 |---|---|
-| `READ_EXTERNAL_STORAGE`、`WRITE_EXTERNAL_STORAGE` | `maxSdkVersion` が28。Android 9(API 28)までの端末だけで使う |
-| `INTERNET` | 通信 |
-| `VIBRATE` | 振動 |
+| `READ_EXTERNAL_STORAGE`, `WRITE_EXTERNAL_STORAGE` | `maxSdkVersion` is 28. Used only on devices up to Android 9 (API 28) |
+| `INTERNET` | Network communication |
+| `VIBRATE` | Vibration |
 | `BLUETOOTH` | Bluetooth |
-| `RECORD_AUDIO` | 録音 |
-| `org.love2d.android.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION` | このアプリ自身が定義した権限。`protectionLevel` は `signature` |
+| `RECORD_AUDIO` | Audio recording |
+| `org.love2d.android.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION` | A permission defined by this app itself. `protectionLevel` is `signature` |
 
-マニフェストには、必須でない機能の宣言も並んでいます。タッチ画面、ゲームパッド、Bluetooth、USBホストは、いずれも `required="false"` で、なくても入れられるという宣言です。OpenGL ESの版は、`glEsVersion` が `0x20000`(2.0以上)でした。
+The manifest also lists declarations of non-required features. Touchscreen, gamepad, Bluetooth, and USB host are all `required="false"`, a declaration that the app can be installed without them. For the OpenGL ES version, `glEsVersion` was `0x20000` (2.0 or later).
 
-### 受け付ける操作の宣言
+### Declarations of accepted operations
 
-`GameActivity`(ゲームを動かす画面)には、受け付ける操作(インテントフィルター)が、いくつか書かれています([インテントフィルターの公式の説明](https://developer.android.com/guide/topics/manifest/intent-filter-element)によると、アプリの部品が応えられる種類の操作を宣言するものです)。
+`GameActivity` (the screen that runs the game) lists several accepted operations (intent filters). (According to the [official description of intent filters](https://developer.android.com/guide/topics/manifest/intent-filter-element), they declare the kinds of operations an app component can respond to.)
 
-| 受け付けるもの | 条件 |
+| What it accepts | Condition |
 |---|---|
-| ファイルを開く操作(VIEW) | `file://` で、名前が `.love` で終わるもの |
-| ファイルを開く操作 | `content://` で、種類が `application/x-love-game` のもの |
-| ファイルを開く操作 | `content://` で、種類が `application/octet-stream` のもの |
-| アプリの一覧から起動する操作(MAIN、LAUNCHER) | ランチャーの一覧に出る |
-| USB機器をつないだ操作 | `USB_DEVICE_ATTACHED` |
+| Operation to open a file (VIEW) | `file://`, with a name ending in `.love` |
+| Operation to open a file | `content://`, with type `application/x-love-game` |
+| Operation to open a file | `content://`, with type `application/octet-stream` |
+| Operation to launch from the app list (MAIN, LAUNCHER) | Appears in the launcher list |
+| Operation of connecting a USB device | `USB_DEVICE_ATTACHED` |
 
-つまり、ファイル管理アプリで `.love` を開くと、LÖVEのAndroid版が、「このファイルを開ける」と名乗り出る仕組みです。[love-androidのREADME](https://github.com/love2d/love-android/blob/4c65fff4f8b38693aca5d91bc06f254f86a97adf/README.md)の説明、「ファイル管理アプリで `.love` を開けば動く」は、この宣言に支えられています。
+In other words, when you open a `.love` in a file manager app, the Android version of LÖVE steps forward and says "I can open this file." The explanation in the [love-android README](https://github.com/love2d/love-android/blob/4c65fff4f8b38693aca5d91bc06f254f86a97adf/README.md), "it runs if you open a `.love` in a file manager app," is backed by this declaration.
 
-別の部品の `DownloadActivity` は、`http` と `https` で `.love` で終わるURLを開く操作を、受け付けます。
+Another component, `DownloadActivity`, accepts operations to open URLs over `http` and `https` that end in `.love`.
 
-### 名前が残るもの、消えるもの
+### Names that remain and names that disappear
 
-REAでクラスを検索すると、`org.love2d.android` の下に14個ありました。
+Searching for classes with REA found 14 under `org.love2d.android`.
 
 ```sh
 rea search-android-classes love-11.5-android.apk org.love2d.android --json
 ```
 
-`DownloadActivity`、`DownloadService`、`GameActivity`、`R`、`SelectorActivity` は、名前が残っています。残りは、`a`、`b`、`c`、…、`i` という1文字の名前です。SDLの部品も、90個のうち、`SDLActivity` のように名前が残るものと、`a`、`a0`、`b1` のように消えたものに分かれます。
+`DownloadActivity`, `DownloadService`, `GameActivity`, `R`, and `SelectorActivity` keep their names. The rest have one-letter names: `a`, `b`, `c`, …, `i`. The 90 SDL components likewise divide into those that keep their names, like `SDLActivity`, and those whose names disappeared, like `a`, `a0`, and `b1`.
 
-名前が残っているのは、マニフェストに書かれたクラスと、資源の `R` です。残りは、変換のときに短い名前に置き換えられたと考えられます。[記事23](23-rea-and-ghidra.md)で、名前を消したELFで、`FUN_00401e50` のような名前になったのと同じ種類の出来事です。読む人が、役目から名前を付け直します。
+What keeps its name is the classes written in the manifest and the resource class `R`. The rest are thought to have been replaced with short names during conversion. This is the same kind of event as in [article 23](23-rea-and-ghidra.md), where an ELF with its names stripped showed names like `FUN_00401e50`. The reader renames things based on their role.
 
-## 段階2の続き:アプリが起動してからゲームが動くまで
+## Stage 2, continued: From app launch to the game running
 
-`GameActivity` の中身を、REAで読みました。メソッドは33個、変数は17個あります。
+I read the contents of `GameActivity` with REA. It has 33 methods and 17 variables.
 
 ```sh
 rea inspect-android-class love-11.5-android.apk org.love2d.android.GameActivity --json
 rea inspect-android-method love-11.5-android.apk org.love2d.android.GameActivity handleIntent --json
 ```
 
-### 親のクラスと、ライブラリの読み込み
+### The parent class and loading libraries
 
-`GameActivity` の親は、SDLActivityです。SDLActivityには100個のメソッドがあり、`loadLibraries`、`getMainFunction`、`nativeRunMain` などが入っています。
+The parent of `GameActivity` is SDLActivity. SDLActivity has 100 methods, including `loadLibraries`, `getMainFunction`, and `nativeRunMain`.
 
-`GameActivity` が書き換えているのは、読み込むライブラリの一覧です。
+What `GameActivity` overrides is the list of libraries to load.
 
 ```java
 protected String[] getLibraries() {
@@ -233,7 +233,7 @@ protected String[] getLibraries() {
 }
 ```
 
-SDLActivityの側は、この一覧を順に読み込みます。
+SDLActivity loads this list in order.
 
 ```java
 public void loadLibraries() {
@@ -243,7 +243,7 @@ public void loadLibraries() {
 }
 ```
 
-最後の「love」が、`liblove.so` にあたります。起動する関数の名前は、SDLActivityの側で `"SDL_main"` と決まっています。`liblove.so` を `strings` で見ると、`SDL_main` の文字も見つかりました。SDLの `SDLMain` クラスの `run` は、ここまでに集めた名前を、ネイティブの `nativeRunMain` に渡す役目を持ちます。
+The last one, "love," corresponds to `liblove.so`. The name of the function to start is set to `"SDL_main"` on the SDLActivity side. Looking at `liblove.so` with `strings` also turned up the string `SDL_main`. The `run` method of SDL's `SDLMain` class has the role of passing the names gathered so far to the native `nativeRunMain`.
 
 ```java
 String mainSharedObject = SDLActivity.mSingleton.getMainSharedObject();
@@ -252,76 +252,76 @@ String mainFunction = SDLActivity.mSingleton.getMainFunction();
 SDLActivity.nativeRunMain(mainSharedObject, mainFunction, arguments);
 ```
 
-これで、APKの中の鎖がつながりました。
+This connects the chain inside the APK.
 
 ```mermaid
 flowchart LR
-  a["Androidシステム<br>MAINの操作"] --> b["GameActivity<br>DEX。ARTが実行"]
+  a["Android system<br>MAIN operation"] --> b["GameActivity<br>DEX. Run by ART"]
   b --> c["SDLActivity<br>loadLibraries"]
-  c --> d["liblove.so<br>ELF。arm64"]
+  c --> d["liblove.so<br>ELF. arm64"]
   d --> e["SDL_main"]
   e --> f["LÖVE"]
-  f --> g["あなたのmain.lua"]
+  f --> g["Your main.lua"]
 ```
 
-RG40XXHでは、PortMasterの起動スクリプトが、LÖVEの実行ファイルを呼び、LÖVEが `main.lua` を動かしました。Androidでは、Android側のJavaの層が1枚多く、そこから同じLÖVE(`liblove.so`)に渡されます。
+On the RG40XXH, PortMaster's launch script called the LÖVE executable, and LÖVE ran `main.lua`. On Android, there is one more layer, the Java layer on the Android side, and from there control passes to the same LÖVE (`liblove.so`).
 
-### ゲームのデータを、どう見つけるか
+### How the game data is found
 
-`GameActivity.onCreate` は、`handleIntent` を呼びます。REAの `trace-android-references` で、`handleIntent` の呼び出し元を調べると、`onCreate` と `onNewIntent` の2つでした。
+`GameActivity.onCreate` calls `handleIntent`. Checking the callers of `handleIntent` with REA's `trace-android-references` showed two: `onCreate` and `onNewIntent`.
 
 ```sh
 rea trace-android-references love-11.5-android.apk org.love2d.android.GameActivity --method-name handleIntent --json
 ```
 
-`handleIntent` の中身は、次の分岐になっています(要点だけを抜き出します)。
+The contents of `handleIntent` are the following branches (only the key points are extracted).
 
 ```java
 String scheme = data.getScheme();
 if (scheme.equals("file")) {
-    // main.lua を指していれば、その親のフォルダ。そうでなければ、そのファイル
+    // If it points to main.lua, its parent folder. Otherwise, that file
     gamePath = ...;
 } else if (scheme.equals("content")) {
-    // アプリのキャッシュの場所へ、ファイルをコピーして使う
-    String str = getCacheDir().getPath() + "/" + (最後の名前 または "game.love")...;
+    // Copy the file to the app's cache location and use it
+    String str = getCacheDir().getPath() + "/" + (the last name or "game.love")...;
     if (copyAssetFile(getContentResolver().openInputStream(data), str)) {
         gamePath = str;
         this.storagePermissionUnnecessary = true;
     }
 } else {
-    // 対応していない形。エラーの画面を出す
+    // Unsupported form. Show an error screen
 }
 ```
 
-操作でゲームが渡されなかったときは、`getGamePath` が、別の2つの道を試します。
+When no game was passed by an operation, `getGamePath` tries two other paths.
 
-| 順番 | 条件 | 動き |
+| Order | Condition | Behavior |
 |---|---|---|
-| 1 | 操作でファイルが渡された | 上の `handleIntent` の分岐 |
-| 2 | APKの中にゲームを埋め込んである(`embed` が真) | `assets` の `game.love` を、キャッシュへコピーして使う(`copyGameInsideArchive`) |
-| 3 | どちらでもない | `getExternalFilesDir("games")` の下の `lovegame/main.lua` を探す(`checkLovegameFolder`) |
+| 1 | A file was passed by an operation | The `handleIntent` branches above |
+| 2 | A game is embedded in the APK (`embed` is true) | Copies `game.love` from `assets` to the cache and uses it (`copyGameInsideArchive`) |
+| 3 | Neither | Looks for `lovegame/main.lua` under `getExternalFilesDir("games")` (`checkLovegameFolder`) |
 
-3番目の `getExternalFilesDir` は、アプリ専用の外部ストレージの場所です。[公式の説明](https://developer.android.com/training/data-storage/app-specific)によると、そこに置いたファイルは、アプリをアンインストールすると、消えます。Android 9(API 28)までの端末では、`/sdcard/lovegame/main.lua` も探します。
+The `getExternalFilesDir` in the third is an app-specific location on external storage. According to the [official description](https://developer.android.com/training/data-storage/app-specific), files placed there disappear when the app is uninstalled. On devices up to Android 9 (API 28), it also looks for `/sdcard/lovegame/main.lua`.
 
-この3つの条件は、そのまま、Novaで自作のゲームを動かす3つの道に対応します。
+These three conditions correspond directly to three paths for running your own game on the Nova.
 
-| 道 | やること | 向いている場面 |
+| Path | What to do | Good for |
 |---|---|---|
-| ファイル管理アプリから開く | `.love` を、ファイル管理アプリで開く | 手軽に試す |
-| adbで置く | `adb push` で、`lovegame/main.lua` を、アプリ専用の場所へ送る | 開発中に、何度も入れ替える |
-| APKに埋め込む | `game.love` を `assets` に入れて、APKを作り直す | 完成したゲームを配る |
+| Open from a file manager app | Open the `.love` in a file manager app | Trying things easily |
+| Place with adb | Send `lovegame/main.lua` to the app-specific location with `adb push` | Replacing it repeatedly during development |
+| Embed in the APK | Put `game.love` in `assets` and rebuild the APK | Distributing a finished game |
 
-どの場所に置かれるかは、Novaで `adb` を使って確かめます。
+Where things end up will be checked on the Nova using `adb`.
 
-この読み方は、「コードを読む前に、どこに何があるかを、先に当てる」練習になります。マニフェストの `.love` の宣言を見て、`handleIntent` の分岐を予想し、その予想が、コードと合っていました。
+This way of reading is practice in "guessing where things are before reading the code." I looked at the `.love` declaration in the manifest, predicted the branches in `handleIntent`, and the prediction matched the code.
 
-## 段階3:自作ゲームを2つの形で動かす
+## Stage 3: Running your own game in two forms
 
-LÖVEのAndroid版の読み方が分かったので、動かすゲームを用意します。[記事22](22-rea-hands-on.md)のコイン集めを、LÖVEで作り直しました。ルールと、画面の文字の形を、元のC言語版に合わせてあります([coin-love](../examples/rea-lab/coin-love))。
+Now that I understand how to read the Android version of LÖVE, I will prepare a game to run. I rebuilt the coin collecting game from [article 22](22-rea-hands-on.md) in LÖVE. The rules and the shape of the on-screen text match the original C version ([coin-love](../examples/rea-lab/coin-love)).
 
-### 作り直した
+### The rebuild
 
-ゲームのルールは、`game.lua` に分けました。画面にも、ターミナルにも頼らない部分です。
+The game's rules are separated into `game.lua`. This is the part that depends on neither the screen nor the terminal.
 
 ```lua
 function M.move(g, key)
@@ -337,23 +337,23 @@ function M.move(g, key)
 end
 ```
 
-最高点の保存も、C言語版と同じ形にしました。目印の `0x4B` と点数の、2バイトです。
+The saved high score also has the same form as in the C version. It is two bytes: the marker `0x4B` and the score.
 
 ```lua
 love.filesystem.write("best.sav", string.char(game.SAVE_MAGIC, best))
 ```
 
-`conf.lua` で、画面を640×480にしました。4:3で、Novaの1280×960のちょうど半分です。RG40XXHの画面の大きさは、この連載では確かめていません。
+`conf.lua` sets the screen to 640×480. This is 4:3, exactly half of the Nova's 1280×960. The screen size of the RG40XXH has not been verified in this series.
 
-### 元のゲームと、同じ画面が出るか
+### Does it produce the same screen as the original game?
 
-画面を使わずに確かめられるように、`love . selftest ddddddd` のように、キー列を引数で渡す試験用の入り口を作りました。LÖVE 11.5(Ubuntuのパッケージ)を、仮想の画面(Xvfb)の上で動かしました。
+So it can be checked without a screen, I made a test entry point that takes a key sequence as an argument, as in `love . selftest ddddddd`. I ran LÖVE 11.5 (the Ubuntu package) on a virtual screen (Xvfb).
 
 ```sh
 xvfb-run -a love coin-love selftest ddddddd
 ```
 
-出力は、記事22の操作A(右に7歩進んで、終わる)と、1行ずつ同じでした。
+The output matched operation A from article 22 (move seven steps right, then end) line by line.
 
 ```
 [@......$..] score=0 best=0
@@ -364,52 +364,52 @@ xvfb-run -a love coin-love selftest ddddddd
 bye score=10
 ```
 
-C言語版の出力と、`diff` で比べて、画面の行はすべて一致しました。記事22で、元のゲームは左の壁で止まり、作り直しのPython版は回り込んで、操作Bで食い違いました。今回のLÖVE版は、記事23で疑似コードから読み取った、壁で止まる動きを写してあります。操作B(左に2歩、右に1歩)の最後の行も、C言語版と同じ `[.@.....$..]` でした。
+Compared with the output of the C version using `diff`, all screen lines matched. In article 22, the original game stopped at the left wall while the rebuilt Python version wrapped around, and they diverged on operation B. This LÖVE version copies the stopping-at-the-wall behavior read from the pseudocode in article 23. The last line of operation B (two steps left, one step right) was also `[.@.....$..]`, the same as the C version.
 
-保存した `best.sav` は、`4b 0a`(目印と10点)で、C言語版が書いたものと同じ形です。
+The saved `best.sav` is `4b 0a` (the marker and 10 points), the same form as what the C version writes.
 
-### 包んで、2つの形にする
+### Wrapping it into two forms
 
-LÖVEのゲームは、zipに包むと、`.love` というファイルになります。
+A LÖVE game wrapped in a zip becomes a file called `.love`.
 
 ```sh
 zip -r -X coin-love.love conf.lua game.lua main.lua save.lua
 xvfb-run -a love coin-love.love selftest ddddddd
 ```
 
-ここで、落とし穴を1つ確かめました。フォルダごとzipにすると、`main.lua` が1階層深くなります。その `.love` は、起動しませんでした(10秒待っても、出力はなく、終了しませんでした)。LÖVEの本体には、「`No code to run`、パッケージが間違っているかもしれない、`main.lua` はzipの一番上にあること」という文言が入っています。画面に出るエラーのため、この環境では、文言そのものは見ていません。
+Here I checked one pitfall. Zipping the whole folder puts `main.lua` one level deeper. That `.love` did not start (after waiting 10 seconds, there was no output and it did not exit). The LÖVE binary contains the text "`No code to run`, the package may be wrong, `main.lua` must be at the top of the zip." Because this is an error shown on the screen, I have not seen the text itself in this environment.
 
 ```mermaid
 flowchart LR
-  src["conf.lua、main.lua など"] --> love["coin-love.love"]
-  love --> pm["RG40XXH<br>PortMasterのLÖVE 11.5"]
-  love --> apk["Nova<br>LÖVEのAndroid版"]
+  src["conf.lua, main.lua, etc."] --> love["coin-love.love"]
+  love --> pm["RG40XXH<br>LÖVE 11.5 from PortMaster"]
+  love --> apk["Nova<br>Android version of LÖVE"]
 ```
 
-### RG40XXHの側:PortMasterの実例
+### The RG40XXH side: a PortMaster example
 
-PortMasterに登録されたLÖVEのゲームの作りを、1つ読みました。[100 Lil Jumps](https://github.com/PortsMaster/PortMaster-New/blob/82be96be2a0cca803990e9ac7ef57f8d2c017fa0/ports/100liljumps/100%20Lil%20Jumps.sh)の起動スクリプトです。フォルダは、次の形です。
+I read how one LÖVE game registered with PortMaster is put together: the launch script of [100 Lil Jumps](https://github.com/PortsMaster/PortMaster-New/blob/82be96be2a0cca803990e9ac7ef57f8d2c017fa0/ports/100liljumps/100%20Lil%20Jumps.sh). The folder has the following form.
 
 ```
-100 Lil Jumps.sh          起動スクリプト
+100 Lil Jumps.sh          Launch script
 100liljumps/
-  100liljumps.love        ゲーム本体(.love)
-  100liljumps.ini         ボタンの割り当て
-  conf/love/100 lil jumps/savefile.lua   セーブ
+  100liljumps.love        The game itself (.love)
+  100liljumps.ini         Button assignments
+  conf/love/100 lil jumps/savefile.lua   Save
 ```
 
-起動スクリプトの要点は、次の4行に絞れます。
+The key points of the launch script come down to the following four lines.
 
 ```sh
-export XDG_DATA_HOME="$CONFDIR"                       # セーブの場所を、ゲームのフォルダの中へ
-source $controlfolder/runtimes/"love_11.5"/love.txt   # LÖVE 11.5の実行環境を読み込む
-$GPTOKEYB2 "$LOVE_GPTK" -c "./100liljumps.ini" &      # ボタンを、キーボードの入力に変える
-$LOVE_RUN "$GAMEDIR/100liljumps.love"                 # .love を動かす
+export XDG_DATA_HOME="$CONFDIR"                       # Put the save location inside the game's folder
+source $controlfolder/runtimes/"love_11.5"/love.txt   # Load the LÖVE 11.5 runtime
+$GPTOKEYB2 "$LOVE_GPTK" -c "./100liljumps.ini" &      # Convert buttons to keyboard input
+$LOVE_RUN "$GAMEDIR/100liljumps.love"                 # Run the .love
 ```
 
-1行目の `XDG_DATA_HOME` で、セーブの場所が決まる仕組みを、手元でも確かめました。`coin-love` を、`XDG_DATA_HOME=/tmp/xdgtest` で動かすと、`best.sav` は `/tmp/xdgtest/love/coin-love/best.sav` にできました。PortMasterのゲームのフォルダに `conf/love/<ゲームの名前>/` ができるのは、この仕組みによるものです。
+I also checked locally how the `XDG_DATA_HOME` in the first line determines the save location. Running `coin-love` with `XDG_DATA_HOME=/tmp/xdgtest` created `best.sav` at `/tmp/xdgtest/love/coin-love/best.sav`. This mechanism is why `conf/love/<game name>/` appears in a PortMaster game's folder.
 
-もう1つ、気になる箇所があります。ROCKNIXでは、このゲームがPanfrostというグラフィックスドライバーに対応していません。スクリプトは、`glxinfo` が `OpenGL version string` を表示すると、Panfrostが使われていると判断し、「libMaliに切り替えてください」と表示して終了します。
+One more point is worth noting. On ROCKNIX, this game does not support the graphics driver called Panfrost. If `glxinfo` shows `OpenGL version string`, the script concludes that Panfrost is in use, displays a message telling you to switch to libMali, and exits.
 
 ```sh
 if [[ "$CFW_NAME" = "ROCKNIX" ]]; then
@@ -417,119 +417,119 @@ if [[ "$CFW_NAME" = "ROCKNIX" ]]; then
     pm_message "This port does not support the Panfrost graphics driver. Switch to libMali to play."
 ```
 
-同じLÖVEでも、GPUのドライバーの選び方で動くかどうかが変わる、という実例です。Android側でも、LÖVEは `libGLESv2.so` を使います。NovaのGPUドライバーの話は、段階4でもう一度出てきます。
+This is an example of how, even with the same LÖVE, whether a game runs changes with the choice of GPU driver. On the Android side too, LÖVE uses `libGLESv2.so`. The topic of the Nova's GPU drivers comes up again in stage 4.
 
-### Androidの側
+### The Android side
 
-NovaでのLÖVEの動かし方は、段階2で読んだ3つの道のどれかです。まず、LÖVEのAndroid版を入れ、`coin-love.love` を、ファイル管理アプリから開きます。保存先は、アプリ専用の場所になるはずですが、どこにできるかは、`adb` で確かめます。
+Running LÖVE on the Nova is one of the three paths read in stage 2. First, install the Android version of LÖVE and open `coin-love.love` from a file manager app. The save location should be the app-specific location, but exactly where it ends up will be checked with `adb`.
 
-入力の面では、`coin-love` が、キーボードの `a` と `d` のほかに、ゲームパッドの十字キー(`dpleft`、`dpright`)も受け付けます。RG40XXHでは、`gptokeyb` がボタンをキーボードの入力に変えていました。Androidで十字キーの入力がLÖVEに届くかどうかは、実機で確かめるまで分かりません。マニフェストが宣言しているのは、ゲームパッドがなくても入れられること(`required="false"`)だけで、十字キーの扱いまでは読み取れないからです。
+For input, `coin-love` accepts the gamepad's D-pad (`dpleft`, `dpright`) as well as the keyboard's `a` and `d`. On the RG40XXH, `gptokeyb` converted buttons to keyboard input. Whether D-pad input reaches LÖVE on Android will not be known until it is checked on the real device. What the manifest declares is only that the app can be installed without a gamepad (`required="false"`), and how the D-pad is handled cannot be determined from it.
 
-## 段階4:Switchのエミュレーターのソースを読む
+## Stage 4: Reading the source of Switch emulators
 
-NovaのSnapdragon 8 Gen 2相当のチップは、Switch初代のTegra X1より、ずっと新しいものです。それでも、Switchのエミュレーターで、全部のゲームが動くわけではありません。エミュレーターが通訳だからです。
+The Nova's Snapdragon 8 Gen 2-equivalent chip is much newer than the Tegra X1 of the original Switch. Even so, not every game runs on a Switch emulator. That is because an emulator is an interpreter.
 
-| 部品 | Switch初代 | Nova |
+| Component | Original Switch | Nova |
 |---|---|---|
-| CPU | ARMのCortex-A57とA53 | ARMの高性能なコア |
-| GPU | NVIDIAのMaxwell、256コア | QualcommのAdreno 740 |
+| CPU | ARM Cortex-A57 and A53 | High-performance ARM cores |
+| GPU | NVIDIA Maxwell, 256 cores | Qualcomm Adreno 740 |
 
-表の出典は、[Switchのチップの解説](https://guru3d.com/story/nintendo-switch-houses-a-nvidia-tegra-x1-soc)と、[掌机圈のNovaのページ](https://zhangjiquan.com/handheld/retroid-pocket-nova)です。
+The sources for the table are an [explanation of the Switch's chip](https://guru3d.com/story/nintendo-switch-houses-a-nvidia-tegra-x1-soc) and the [Nova page on 掌机圈](https://zhangjiquan.com/handheld/retroid-pocket-nova).
 
-CPUは、どちらもARMの仲間です。Switchのエミュレーターの[Eden](https://github.com/eden-emulator/mirror)には、AndroidでNCE(Native Code Execution)という方式があります。ゲームのCPUの命令を、ほとんど翻訳せず、そのまま実行する方式のことです。
+Both CPUs belong to the ARM family. The Switch emulator [Eden](https://github.com/eden-emulator/mirror) has a method on Android called NCE (Native Code Execution). It is a method that runs the game's CPU instructions as they are, with almost no translation.
 
-GPUは、会社も設計も違うので、NVIDIA向けの絵の描き方を、Adreno向けに翻訳し直す必要があります。Edenの[説明](https://github.com/eden-emulator/mirror/blob/10bcd2d849843b146a79c61a21df615e1bdcfcde/docs/user/Architectures.md)も、NCEが使えるときは、GPUが性能の限界になりやすいと書いています。とくにAndroidでは、Adreno、Maliなどが、CPUに比べて弱いからです。
+The GPUs differ in both company and design, so drawing methods for NVIDIA have to be retranslated for Adreno. Eden's [documentation](https://github.com/eden-emulator/mirror/blob/10bcd2d849843b146a79c61a21df615e1bdcfcde/docs/user/Architectures.md) also says that when NCE is available, the GPU tends to become the performance limit. In particular, on Android, Adreno, Mali, and others are weak compared with the CPU.
 
-ROCKNIXの[Novaのページ](https://rocknix.org/devices/retroid/retroid-pocket-nova/)には、GPUのドライバーとして、FreedrenoとTurnipが書かれています。ドライバーは、翻訳した命令をGPUに渡す部品です。段階3で見たPanfrostとlibMaliの話と同じ種類の違いが、Adrenoにもあります。
+The ROCKNIX [Nova page](https://rocknix.org/devices/retroid/retroid-pocket-nova/) lists Freedreno and Turnip as GPU drivers. A driver is the component that passes translated instructions to the GPU. Adreno has the same kind of difference as the Panfrost and libMali topic seen in stage 3.
 
-### ソースの大きさ
+### Size of the source
 
-Edenのリポジトリのうち、この話に関わる4つのフォルダの、ファイルの数を数えました。比べたのは、2026年10月5日のEdenと、yuzuの最後の時期(2024年3月3日、コミット `c280f95b1a4b2a415a26a7db9f2b9823042f2781`)です。
+I counted the number of files in the four folders of the Eden repository relevant to this topic. The comparison is between Eden on October 5, 2026, and the final period of yuzu (March 3, 2024, commit `c280f95b1a4b2a415a26a7db9f2b9823042f2781`).
 
-| フォルダ | 役目 | Eden | yuzuの最後 |
+| Folder | Role | Eden | Final yuzu |
 |---|---|---|---|
-| `src/android` | Android版のアプリ | 583 | 413 |
-| `src/dynarmic` | CPUの命令の翻訳 | 439 | 0 |
-| `src/shader_recompiler` | GPUのシェーダーの翻訳 | 238 | 241 |
-| `src/video_core` | 絵を描く部分 | 438 | 370 |
+| `src/android` | Android app | 583 | 413 |
+| `src/dynarmic` | Translation of CPU instructions | 439 | 0 |
+| `src/shader_recompiler` | Translation of GPU shaders | 238 | 241 |
+| `src/video_core` | Drawing | 438 | 370 |
 
-`src/dynarmic` は、yuzuの最後の時期の `src` には、ありませんでした。この記事では、その理由までは調べていません。
+`src/dynarmic` was not in `src` in the final period of yuzu. This article did not investigate the reason.
 
-### 読めるソース
+### Source you can read
 
-Switchのエミュレーターは、削除要請で、リポジトリが消えたり移ったりしてきました。ここには、この環境から中身を確かめられたものだけを載せます。
+Switch emulator repositories have disappeared or moved because of takedown requests. Only those whose contents could be checked from this environment are listed here.
 
-| もの | 場所 | 確かめたこと |
+| Item | Location | What was checked |
 |---|---|---|
-| Eden | [GitHubのミラー](https://github.com/eden-emulator/mirror) | GPLv3以降。Androidを含む。2024年3月3日までのyuzuの履歴が入っている |
-| Ryujinx | [GitLabの保存用コピー](https://gitlab.com/dragonloverlord/ryujinxbackup) | MITライセンス。2024年10月1日に作られたコピー |
-| Kenji-NX | [GitLab](https://gitlab.com/kenji-nx/Ryujinx) | MITライセンス。Ryujinxの2018年からの履歴が入っている |
+| Eden | [GitHub mirror](https://github.com/eden-emulator/mirror) | GPLv3 or later. Includes Android. Contains yuzu's history up to March 3, 2024 |
+| Ryujinx | [Archival copy on GitLab](https://gitlab.com/dragonloverlord/ryujinxbackup) | MIT license. A copy made on October 1, 2024 |
+| Kenji-NX | [GitLab](https://gitlab.com/kenji-nx/Ryujinx) | MIT license. Contains Ryujinx's history from 2018 |
 
-yuzuは、2024年3月に、任天堂との和解で開発を終えました([The Sixth Axis](https://www.thesixthaxis.com/2024/03/05/switch-emulator-yuzu-shuts-down-in-2-4-million-settlement-with-nintendo/))。Edenのリポジトリで、`c280f95b1a4b2a415a26a7db9f2b9823042f2781` に切り替えると、終了直前のソースを読めます。
+yuzu ended development in March 2024 in a settlement with Nintendo ([The Sixth Axis](https://www.thesixthaxis.com/2024/03/05/switch-emulator-yuzu-shuts-down-in-2-4-million-settlement-with-nintendo/)). In the Eden repository, switching to `c280f95b1a4b2a415a26a7db9f2b9823042f2781` lets you read the source from just before the end.
 
-Switchのエミュレーターを使うには、自分のSwitchから取り出した鍵、ファームウェア、ゲームが必要です([Edenの手順](https://github.com/eden-emulator/mirror/blob/10bcd2d849843b146a79c61a21df615e1bdcfcde/docs/user/QuickStart.md))。Switchを持っていない間は、ソースを読む勉強だけにとどめます。
+Using a Switch emulator requires keys, firmware, and games taken from your own Switch ([Eden's steps](https://github.com/eden-emulator/mirror/blob/10bcd2d849843b146a79c61a21df615e1bdcfcde/docs/user/QuickStart.md)). While I do not own a Switch, I will limit this to studying by reading the source.
 
-## 段階5:OSを入れ替えて比べる
+## Stage 5: Replacing the OS and comparing
 
-NovaのメーカーのAndroidと、LineageOSを、入れ替えて比べます。LineageOSは、ソースコードが公開されているAndroidで、Novaは公式の対応機種です(コード名は `RPN`)。[インストールの案内](https://wiki.lineageos.org/devices/RPN/install/)の準備には、型番が `RPN` と一致すること、一度は元のOSを起動すること、Googleアカウントを外しておくことが書かれています。
+I will swap between the Nova manufacturer's Android and LineageOS and compare them. LineageOS is an Android whose source code is public, and the Nova is an officially supported device (code name `RPN`). The preparation in the [installation instructions](https://wiki.lineageos.org/devices/RPN/install/) says that the model number must match `RPN`, that the original OS must be booted at least once, and that the Google account must be removed.
 
-案内の本文は、公式ページを直接開けなかったため、検索で取得した要約を使っています。作業するときは、公式ページを最初から読んでください。
+Because the official page could not be opened directly, a summary obtained through search was used for the body of the instructions. When doing the work, please read the official page from the beginning.
 
-この段階は、いちばん最後に回します。入れ替えは、本体の中へ書き込む作業で、RG40XXHのようにSDカードを差し替えるだけでは、元に戻せません。元のAndroidで、段階1から4を済ませてからにします。比べたいことは、次の3つです。
+This stage is left for the very end. Replacing the OS is work that writes to the inside of the device, and unlike the RG40XXH, you cannot go back just by swapping an SD card. I will do it only after finishing stages 1 to 4 on the original Android. There are three things I want to compare.
 
-- 入っているアプリの一覧と、その権限の違い
-- 同じAPKの動き方の違い
-- 同じ `coin-love` の、動作と保存の違い
+- The list of installed apps and differences in their permissions
+- Differences in how the same APK behaves
+- Differences in the behavior and saving of the same `coin-love`
 
-## 届いたら最初にすること
+## First things to do when it arrives
 
-実機が届いたら、次の順で、「試せていないこと」を埋めます。
+When the device arrives, I will fill in "what has not been tested" in the following order.
 
-| 順番 | やること | 確かめる内容 |
+| Order | What to do | What to check |
 |---|---|---|
-| 1 | 型番と、Androidの版を調べる | 出品の「Android 13」の記載が正しいか |
-| 2 | 開発者向けオプションを出し、USBデバッグを有効にする | `adb devices` で、Macに端末が出るか |
-| 3 | `adb shell` で入り、`ls /system/bin` を見る | 使える道具の一覧 |
-| 4 | `adb logcat` を流しながら、ゲームのアプリを起動する | 起動のときのログ |
-| 5 | LÖVEのAndroid版を入れ、`coin-love.love` を開く | 動くか。十字キーが届くか。`best.sav` の場所 |
-| 6 | `adb push` で、`lovegame/main.lua` を置く | 段階2で読んだ3番目の道が、実際に動くか |
+| 1 | Look up the model number and Android version | Whether the listing's "Android 13" is correct |
+| 2 | Reveal Developer options and enable USB debugging | Whether the device appears on the Mac with `adb devices` |
+| 3 | Go in with `adb shell` and look at `ls /system/bin` | The list of available tools |
+| 4 | Launch a game app while running `adb logcat` | The log at launch |
+| 5 | Install the Android version of LÖVE and open `coin-love.love` | Whether it runs. Whether the D-pad input arrives. The location of `best.sav` |
+| 6 | Place `lovegame/main.lua` with `adb push` | Whether the third path read in stage 2 actually works |
 
-## RG40XXHと比べた全体の表
+## Overall comparison with the RG40XXH
 
-| 比べること | RG40XXH | Nova |
+| What to compare | RG40XXH | Nova |
 |---|---|---|
-| OSの置き場所 | SDカード | 内蔵ストレージ |
-| OSの入れ替え | SDカードを書き換える | adbとfastbootを使い、本体の中へ書き込む |
-| アプリの形 | ELF([CPUと機械語](20-cpu.md)) | APK。zipの中にDEXとELFを包む |
-| 中身を読む道具 | REAでELFを読む | REAのAndroid用の命令でAPKを読む |
-| LÖVEの動かし方 | PortMasterの起動スクリプトが、実行環境を呼ぶ | AndroidのGameActivityが、`liblove.so` を呼ぶ |
-| セーブの場所 | `XDG_DATA_HOME` で、ゲームのフォルダの中へ | アプリ専用の場所(実機で確認) |
-| GPU | Mali-G31 MP2。ドライバーの選び方で動かないゲームがある | Adreno 740。FreedrenoとTurnipが書かれている |
-| 遊べるエミュレーター | 8〜16ビット機とPS1、一部のDCとPSPまで([エミュレーションの記事](06-emulation.md)) | 一部のSwitchまで |
+| Where the OS is | SD card | Internal storage |
+| Replacing the OS | Rewrite the SD card | Use adb and fastboot to write to the inside of the device |
+| App form | ELF ([CPUs and machine code](20-cpu.md)) | APK. A zip that wraps DEX and ELF |
+| Tool for reading the contents | Read ELF with REA | Read APKs with REA's Android commands |
+| How LÖVE is run | PortMaster's launch script calls the runtime | Android's GameActivity calls `liblove.so` |
+| Save location | Inside the game's folder via `XDG_DATA_HOME` | App-specific location (to be checked on the real device) |
+| GPU | Mali-G31 MP2. Some games do not run depending on the driver choice | Adreno 740. Freedreno and Turnip are listed |
+| Emulators you can play | 8- to 16-bit consoles and PS1, up to some DC and PSP ([article on emulation](06-emulation.md)) | Up to some Switch |
 
-## 試せていないこと
+## What has not been tested
 
-Novaの実機での動作は、手元にまだないため、すべて未確認です。具体的には、純正のAndroidの版、adbの4つの命令、LÖVEのAndroid版の動作、ゲームパッドの入力、`best.sav` の保存先が当たります。LineageOSのインストール手順の全文も、公式ページを直接開けなかったため、確かめていません。
+Since I do not have one yet, all behavior on a real Nova is unconfirmed. Specifically, this means the version of the stock Android, the four adb commands, the behavior of the Android version of LÖVE, gamepad input, and the save location of `best.sav`. The full text of the LineageOS installation steps has also not been verified, because the official page could not be opened directly.
 
-読み取りの面では、LÖVEのAndroid版のAPKを、実行せずに読んだだけです。署名の検証は、REAが行っていません。APKの実際の動作は、確かめていません。REAのAndroid用の命令を、Macで動かせるかどうかも、未確認です。今回の読み取りは、Linux(x86_64のUbuntu)で行いました。
+On the reading side, I only read the Android APK of LÖVE without running it. REA did not perform signature verification. The APK's actual behavior has not been verified. Whether REA's Android commands can run on a Mac is also unconfirmed. This reading was done on Linux (Ubuntu on x86_64).
 
-`coin-love` は、Linux上のLÖVE 11.5で動かしました。RG40XXHのPortMasterと、Androidでは、動かしていません。公式ショップから日本へ送るときの、送料と税を含めた総額も、まだ調べていません。
+`coin-love` was run on LÖVE 11.5 on Linux. It has not been run on PortMaster on the RG40XXH or on Android. The total cost of shipping to Japan from the official shop, including shipping and taxes, has also not been researched yet.
 
-## 守ること
+## Ground rules
 
-この記事で書いた作業の対象は、自分が持っている機械と、自分で用意したデータだけです。読んだAPKは、LÖVEの公式の配布物で、中身を書き換えたり、再配布したりはしていません。Switchのエミュレーターに使うデータも、自分のSwitchから取り出したものに限ります。
+The work described in this article applies only to machines I own and data I prepared myself. The APK I read is an official LÖVE distribution, and I have not modified or redistributed its contents. Data used with Switch emulators is also limited to what was taken from my own Switch.
 
-## この記事で出てくる中国語
+## Chinese terms in this article
 
-| 中国語 | ピンイン | 日本語の意味 | 出典 |
+| Chinese | Pinyin | Meaning | Source |
 |---|---|---|---|
 | 安卓 | ānzhuō | Android | [掌机圈 RG-556](https://zhangjiquan.com/handheld/rg-556) |
-| 模拟器 | mónǐqì | エミュレーター | [模拟器游戏 篇四](https://zhuanlan.zhihu.com/p/703325151) |
-| 内存 | nèicún | メモリ | [掌机圈 RG-35XX H](https://zhangjiquan.com/handheld/rg-35xx-h) |
-| 天马 | tiānmǎ | 天馬、メニューの画面の名前 | [CNFans](https://cnfans.com/search?keywords=RP5%E9%A2%84%E8%A3%85%E5%A4%A9%E9%A9%AC&searchType=keywords) |
+| 模拟器 | mónǐqì | Emulator | [模拟器游戏 篇四](https://zhuanlan.zhihu.com/p/703325151) |
+| 内存 | nèicún | Memory | [掌机圈 RG-35XX H](https://zhangjiquan.com/handheld/rg-35xx-h) |
+| 天马 | tiānmǎ | Tianma, the name of a menu screen | [CNFans](https://cnfans.com/search?keywords=RP5%E9%A2%84%E8%A3%85%E5%A4%A9%E9%A9%AC&searchType=keywords) |
 
-## 学べること
+## What you can learn
 
-NovaをRG40XXHと並べると、同じ「ゲームを動かす機械」が、LinuxとAndroidで別の作りになっていることを、実物で比べられます。カーネルまでは同じLinuxで、その上に、HAL、ART、フレームワークを挟んで、アプリをAPKという形で扱うのがAndroidです。APKは、zipの中に、マニフェスト、DEX、ELFの共有ライブラリを包んだ箱でした。名前が残るのはマニフェストに書かれたものだけで、残りは1文字の名前になる点は、名前を消したELFと同じです。LÖVEのAndroid版では、マニフェストの宣言から、`GameActivity`、SDL、`liblove.so`、`main.lua` へと、起動の鎖を追えました。ゲームの置き場所の3つの道も、コードから読めました。
+Lining up the Nova with the RG40XXH lets you compare on real devices how the same "machine for running games" is built differently on Linux and Android. Up to the kernel they are the same Linux, and Android is what places the HAL, ART, and framework on top and handles apps in the form of an APK. An APK turned out to be a box that wraps a manifest, DEX, and ELF shared libraries in a zip. Only names written in the manifest remain, and the rest become one-letter names, which is the same as an ELF with its names stripped. In the Android version of LÖVE, we could trace the launch chain from the manifest's declarations through `GameActivity`, SDL, and `liblove.so` to `main.lua`. The three paths for where a game is placed could also be read from the code.
 
-自作のコイン集めは、C言語版とLÖVE版(Linux)で、同じ画面と同じセーブになりました。次の課題は、NovaのAndroidで、その同じゲームを動かすことです。Switchのエミュレーターが一部しか動かない理由は、CPUが同じARMでも、GPUの翻訳が重いことにありました。その大きさは、ソースの規模からも確かめられます。実機が届いたら、「届いたら最初にすること」の表を、上から順に埋めていきましょう。
+The coin collecting game I made produced the same screen and the same save in the C version and the LÖVE version (Linux). The next task is to run that same game on the Nova's Android. The reason Switch emulators only partly work was that, even with the same ARM CPU, GPU translation is heavy. Its size can also be confirmed from the scale of the source. When the device arrives, let's fill in the "First things to do when it arrives" table from the top.
