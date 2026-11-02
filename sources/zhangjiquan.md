@@ -49,3 +49,5 @@ The top menu is 掌机新闻和资讯 (news), 掌机图片 (photos), 待发布�
 ## Supplementary notes
 
 The PassMark multi-core score for the T820 shown in the RG-406V and RG-556 fields is 5577. The RG-40XXH page also has links to comparison pages with the RG-35XX H, RGB10X, Retroid Pocket 2S, and others. Images of the pages are included in the body text as screenshots.
+
+On November 2, 2026, the 到手价 field was no longer shown as page text on the RG-406V, RG-556, RG-40XXH, and Retroid Pocket 5 pages. The 到手价 amounts above are records from the earlier check and could not be rechecked.
