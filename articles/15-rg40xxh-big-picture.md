@@ -1,144 +1,144 @@
-# RG40XXHの全体像
+# The Big Picture of the RG40XXH
 
-この記事から20番までの6本は、RG40XXHでゲームを遊ぶ流れを、目に見えるところから順にたどる連載です。コンピュータサイエンスを学んでいない読み手を想定し、用語は出てきたところで説明します。この記事では、機械の全体を三つの層に分けて眺め、ゲームのファイルとSDカードの中身までを扱います。
+The six articles from this one through number 20 are a series that traces the process of playing games on the RG40XXH, in order, starting from what you can see. The series assumes readers who have not studied computer science, and terms are explained where they appear. This article looks at the whole machine divided into three layers, and covers game files and the contents of the SD card.
 
-| 番号 | 記事 | 扱う層 |
+| No. | Article | Layer covered |
 |---|---|---|
-| 15 | RG40XXHの全体像(この記事) | 全体、ファイル、SDカード |
-| 16 | [エミュレーターとメニュー](16-emulator-and-menu.md) | アプリ |
-| 17 | [セーブの仕組み](17-save-data.md) | アプリとファイル |
-| 18 | [OSの仕組み](18-os.md) | OS |
-| 19 | [電源を入れてから](19-boot.md) | OSと本体の境目 |
-| 20 | [CPUと機械語](20-cpu.md) | 本体 |
+| 15 | The big picture of the RG40XXH (this article) | The whole, files, SD card |
+| 16 | [Emulators and menus](16-emulator-and-menu.md) | Apps |
+| 17 | [How saves work](17-save-data.md) | Apps and files |
+| 18 | [How the OS works](18-os.md) | OS |
+| 19 | [After you turn on the power](19-boot.md) | The boundary between the OS and the hardware |
+| 20 | [CPUs and machine code](20-cpu.md) | Hardware |
 
-仕組みの説明は、ROCKNIXのソースコードを読んで確かめました。参照したのは、[ROCKNIX/distribution](https://github.com/ROCKNIX/distribution)のコミット `ae41127` です。実機での確認はまだしていません。実機で確かめるべき点は、本文の中でその都度書きます。
+The explanations of how things work were checked by reading the ROCKNIX source code. The reference is commit `ae41127` of [ROCKNIX/distribution](https://github.com/ROCKNIX/distribution). Nothing has yet been checked on real hardware. Points that should be checked on real hardware are noted in the text as they come up.
 
-## 昔のゲーム機との違い
+## How it differs from older consoles
 
-GBAやDS、PSPは、その機種のソフトを動かすために作られた専用の機械でした。カートリッジやUMDを差し込むと、本体の中の専用の部品が、ソフトを読んで動かします。
+The GBA, DS, and PSP were dedicated machines built to run software for that system. When you insert a cartridge or UMD, dedicated parts inside the unit read the software and run it.
 
-RG40XXHは作りが違います。中身は、スマートフォンに近い汎用の部品です。GBAの部品もDSの部品も入っていません。その代わりに、GBAやDSのふりをするソフトを動かして、昔のゲームを遊びます。昔のゲーム機のふりができる小さなコンピュータ、と考えると近いでしょう。
+The RG40XXH is built differently. Inside are general-purpose parts close to those of a smartphone. It contains neither GBA parts nor DS parts. Instead, it runs software that pretends to be a GBA or DS, and plays old games that way. It is close to thinking of it as a small computer that can pretend to be old consoles.
 
-部品の主な仕様は、[主要機種の違い](02-devices.md)にまとめた掌机圈の数値で次のとおりです。
+The main specs of the parts, using the figures from 掌机圈 collected in [Differences between the main devices](02-devices.md), are as follows.
 
-| 項目 | RG40XXH |
+| Item | RG40XXH |
 |---|---|
-| 画面 | 4.0インチ、縦横比4:3 |
-| SoC(CPUなどをまとめたチップ) | Allwinner H700 |
-| メモリ | 1GB LPDDR4 |
-| ストレージ | SDカード(スロットは2つ) |
-| 無線 | Wi-Fi 5、Bluetooth 4.2 |
-| 重さ | 208g |
+| Screen | 4.0-inch, 4:3 aspect ratio |
+| SoC (a chip combining the CPU and other parts) | Allwinner H700 |
+| Memory | 1GB LPDDR4 |
+| Storage | SD card (2 slots) |
+| Wireless | Wi-Fi 5, Bluetooth 4.2 |
+| Weight | 208g |
 
-## 三つの層で見る
+## Looking at three layers
 
-コンピュータは、三つの層に分けて考えると分かりやすくなります。スマートフォンと並べると、次のようになります。
+A computer is easier to understand when thought of as divided into three layers. Set beside a smartphone, it looks like this.
 
-| 層 | スマートフォン | RG40XXH |
+| Layer | Smartphone | RG40XXH |
 |---|---|---|
-| アプリ | LINE、カメラ、ゲーム | ゲーム一覧のメニュー、エミュレーター、ゲームのファイル |
-| OS | iOS、Android | Linux(純正のもの、またはROCKNIXなど) |
-| 本体 | CPU、メモリ、画面 | H700、1GBのメモリ、4インチの画面、ボタン、Wi-Fi |
+| Apps | LINE, camera, games | Game list menu, emulators, game files |
+| OS | iOS, Android | Linux (the stock one, or ROCKNIX or similar) |
+| Hardware | CPU, memory, screen | H700, 1GB of memory, 4-inch screen, buttons, Wi-Fi |
 
-下の層ほど、機械に近い層です。
+The lower the layer, the closer it is to the machine.
 
-- 本体は、手で触れる部品の集まりです。
-- OSは、部品をまとめて動かす基本のソフトです。画面に何を出すか、電池をどう使うか、SDカードのどこに何を書くかを管理しています。
-- アプリは、遊ぶために使うソフトです。RG40XXHでは、ゲームの一覧を出すメニューと、昔のゲーム機のふりをするエミュレーターが中心になります。
+- The hardware is the collection of parts you can touch.
+- The OS is the basic software that runs the parts together. It manages what to show on the screen, how to use the battery, and what to write where on the SD card.
+- Apps are the software you use to play. On the RG40XXH, the center of this is the menu that shows the game list and the emulators that pretend to be old consoles.
 
-上の層は、下の層に支えられて動いています。メニューはOSに画面を出してもらい、OSは本体の部品に命令を送ります。連載は、この順番で上から降りていく構成です。
+The upper layers run supported by the lower layers. The menu has the OS show things on the screen, and the OS sends commands to the hardware parts. The series is structured to descend from the top in this order.
 
-## OSはSDカードに入っている
+## The OS is on the SD card
 
-スマートフォンでは、OSは本体の中の記憶の部品に入っています。RG40XXHには、内蔵のストレージがありません。OSもゲームも、SDカードに入っています。
+On a smartphone, the OS is in a storage part inside the unit. The RG40XXH has no built-in storage. Both the OS and the games are on SD cards.
 
-このため、カードを差し替えるだけで、OSが入れ替わります。純正のカードを抜いてROCKNIXを書き込んだカードを挿せば、ROCKNIXの機械として起動し、純正のカードに戻せば元の機械に戻る仕組みです。
+Because of this, just swapping the card swaps the OS. If you take out the stock card and insert a card with ROCKNIX written to it, the unit boots as a ROCKNIX machine, and if you go back to the stock card it returns to the original machine.
 
 ```mermaid
 flowchart LR
-    A[RG40XXHの本体] --- B[スロット1<br>OSのカード]
-    A --- C[スロット2<br>ゲームのカード]
-    B -.差し替え.-> D[純正OSのカード]
-    B -.差し替え.-> E[ROCKNIXのカード]
+    A[RG40XXH unit] --- B[Slot 1<br>OS card]
+    A --- C[Slot 2<br>Game card]
+    B -.swap.-> D[Stock OS card]
+    B -.swap.-> E[ROCKNIX card]
 ```
 
-OSを入れ替えることや、入れ替えるためのOSを、CFW(カスタムファームウェア)と呼びます。[CFWを入れる手順](04-install-cfw.md)は、別のOSをSDカードに書き込む手順のことです。失敗しても、本体の部品が壊れるわけではありません。カードを書き直せば、やり直せます。この性質は、OSを学ぶ教材として大きな利点です。
+Replacing the OS, or the OS used as the replacement, is called CFW (custom firmware). The [steps for installing CFW](04-install-cfw.md) are the steps for writing a different OS to an SD card. Even if this fails, the hardware parts are not damaged. You can start over by rewriting the card. This property is a big advantage as teaching material for learning about OSes.
 
-2枚のカードの使い分けとしては、1枚目をOS用、2枚目をゲーム用にする形が考えられます。ROCKNIXは、2枚目のSDカードを、ext4、FAT32、exFATのどれでも起動時に認識します([CFWを入れる手順](04-install-cfw.md))。ゲームを入れ替えるときに、OSのカードを触らずに済みます。
+As for using the two cards, one possible arrangement is the first for the OS and the second for games. ROCKNIX recognizes a second SD card at boot whether it is ext4, FAT32, or exFAT ([steps for installing CFW](04-install-cfw.md)). When changing games, you don't have to touch the OS card.
 
-## ゲームのファイルは数字の並び
+## Game files are rows of numbers
 
-ゲームのソフトは、写真や音楽と同じファイルです。ファイルの正体は0から255までの数が一列に並んだもので、この1つの数を1バイトと呼びます。
+Game software is a file, just like photos and music. A file is, in essence, numbers from 0 to 255 lined up in a row, and each such number is called a byte.
 
-| ファイル | 数字が表しているもの | 読むもの |
+| File | What the numbers represent | What reads it |
 |---|---|---|
-| 写真(`.jpg`) | 点の色 | 写真のアプリ |
-| 音楽(`.mp3`) | 音の波の形 | 音楽のアプリ |
-| ゲーム(`.gba`) | ゲーム機への命令と、絵や文字などのデータ | GBA、またはGBAのふりをするエミュレーター |
+| Photo (`.jpg`) | The colors of dots | A photo app |
+| Music (`.mp3`) | The shape of sound waves | A music app |
+| Game (`.gba`) | Commands to the console, and data such as graphics and text | A GBA, or an emulator pretending to be a GBA |
 
-ファイルの種類が違っても、中身はどれも数字の並びです。違いは、数字を誰がどう読むかだけです。ファイル名の末尾の `.gba` や `.jpg` は拡張子と呼び、数字の並びを何として読むかの目印になります。
+Even when the file types differ, the contents are all rows of numbers. The only difference is who reads the numbers and how. The `.gba` or `.jpg` at the end of a file name is called an extension, and it is a marker for what to read the row of numbers as.
 
-ゲームのファイルは、人が書いた設計図から作られます。このリポジトリの [gbdk-coin](../examples/gbdk-coin) では、`main.c` という文章が、その設計図です。`main.c` は人が読めるC言語で書かれ、変換の道具(コンパイラ)を通すと、ゲームボーイが読める数字の並び `coin.gb` になります。変換の中身は、[CPUと機械語](20-cpu.md)で扱います。
+Game files are made from blueprints written by people. In this repository's [gbdk-coin](../examples/gbdk-coin), a text called `main.c` is that blueprint. `main.c` is written in the human-readable C language, and passing it through a conversion tool (compiler) makes it `coin.gb`, a row of numbers the Game Boy can read. What goes on in the conversion is covered in [CPUs and machine code](20-cpu.md).
 
-## SDカードの中のフォルダ
+## Folders on the SD card
 
-SDカードの中を整理しているのは、フォルダとファイルです。本棚にたとえると、SDカードが本棚、フォルダが仕切り、ファイルが本です。
+The contents of the SD card are organized by folders and files. To compare it to a bookshelf, the SD card is the bookshelf, folders are the dividers, and files are the books.
 
-ROCKNIXでは、ゲームを機種ごとのフォルダに分けて置きます。GBAのゲームは `/storage/roms/gba`、ゲームボーイのゲームは `/storage/roms/gb` です([gba.conf](https://github.com/ROCKNIX/distribution/blob/ae41127cee7e3e81b1ab3b17b676d91be5165e61/config/emulators/gba.conf)、[gb.conf](https://github.com/ROCKNIX/distribution/blob/ae41127cee7e3e81b1ab3b17b676d91be5165e61/config/emulators/gb.conf))。
+In ROCKNIX, games are divided into folders for each system. GBA games go in `/storage/roms/gba`, and Game Boy games in `/storage/roms/gb` ([gba.conf](https://github.com/ROCKNIX/distribution/blob/ae41127cee7e3e81b1ab3b17b676d91be5165e61/config/emulators/gba.conf), [gb.conf](https://github.com/ROCKNIX/distribution/blob/ae41127cee7e3e81b1ab3b17b676d91be5165e61/config/emulators/gb.conf)).
 
 ```
 /storage/roms/
 ├── gb/
 │   └── coin.gb
 ├── gba/
-│   └── (GBAのゲーム)
+│   └── (GBA games)
 └── ports/
-    └── (PortMasterのゲームの起動スクリプト)
+    └── (launch scripts for PortMaster games)
 ```
 
-決まったフォルダに置く理由は、ゲームの一覧を出すメニューが、フォルダの場所でゲーム機の種類を判断するためです。違うフォルダに置いたゲームは、一覧に出ないか、正しく開けません。仕組みは [エミュレーターとメニュー](16-emulator-and-menu.md) で説明します。
+The reason for placing them in fixed folders is that the menu showing the game list determines the type of console from the location of the folder. Games placed in the wrong folder don't appear in the list or can't be opened correctly. How this works is explained in [Emulators and menus](16-emulator-and-menu.md).
 
-先頭の `/storage` は、OSの中から見た場所の名前です。SDカードの中の、書き換えてよい領域を指しています。なぜ「書き換えてよい領域」と「そうでない領域」があるのかは、[OSの仕組み](18-os.md)で扱います。純正のOSでのフォルダの名前は、実機で確かめる予定です。
+The leading `/storage` is the name of a location as seen from inside the OS. It refers to the rewritable area of the SD card. Why there are a "rewritable area" and an area that isn't is covered in [How the OS works](18-os.md). The folder names on the stock OS are to be checked on real hardware.
 
-## 同じカードをMacでもRG40XXHでも読める理由
+## Why the same card can be read by both a Mac and the RG40XXH
 
-SDカードの中には、どのファイルがカードのどこにあるかを記録した目次があります。目次の書き方の決まりを、ファイルシステムと呼びます。FAT32やexFATが代表的なもので、Mac、Windows、Linuxのどれもが知っている書き方です。
+The SD card contains a table of contents recording where on the card each file is. The rules for how this table of contents is written are called a file system. FAT32 and exFAT are typical examples, and they are ways of writing that Mac, Windows, and Linux all know.
 
 ```mermaid
 flowchart LR
-    M[Mac] -->|同じ目次の決まりで読む| SD[(SDカード<br>FAT32やexFAT)]
+    M[Mac] -->|Reads with the same table of contents rules| SD[(SD card<br>FAT32 or exFAT)]
     W[Windows] --> SD
     R[RG40XXH] --> SD
 ```
 
-デジタルカメラのSDカードをパソコンで読めるのと同じ理由です。ただし、ファイルシステムには種類があり、どのOSでも読めるとは限りません。たとえばROCKNIXがOSの領域に使うext4は、Macでは標準では読めません([CFWを入れる手順](04-install-cfw.md))。
+It is the same reason a digital camera's SD card can be read on a PC. However, there are various file systems, and not every OS can read every one. For example, ext4, which ROCKNIX uses for its OS area, cannot be read on a Mac by default ([steps for installing CFW](04-install-cfw.md)).
 
-## 遊ぶまでの流れ
+## The flow up to playing
 
-電源を入れてからゲームを遊ぶまでの流れを、層と結びつけると次のようになります。それぞれの段階を、続きの記事で一つずつ掘り下げます。
+Connecting the flow from turning on the power to playing a game with the layers gives the following. The following articles dig into each stage one at a time.
 
-| 段階 | 起きていること | 詳しい記事 |
+| Stage | What is happening | Detailed article |
 |---|---|---|
-| 電源を入れる | 小さなプログラムから順にOSを読み込む | [電源を入れてから](19-boot.md) |
-| メニューが出る | OSがメニューのアプリを起動する | [OSの仕組み](18-os.md) |
-| ゲームを選ぶ | メニューがフォルダを調べて一覧を作り、担当のエミュレーターに渡す | [エミュレーターとメニュー](16-emulator-and-menu.md) |
-| 遊ぶ | エミュレーターがゲーム機のふりをして、命令を実行する | [CPUと機械語](20-cpu.md) |
-| セーブする | エミュレーターがセーブの内容をファイルに書く | [セーブの仕組み](17-save-data.md) |
+| Turn on the power | The OS is loaded in order, starting from a small program | [After you turn on the power](19-boot.md) |
+| The menu appears | The OS launches the menu app | [How the OS works](18-os.md) |
+| Choose a game | The menu checks folders, makes a list, and hands off to the responsible emulator | [Emulators and menus](16-emulator-and-menu.md) |
+| Play | The emulator pretends to be the console and executes commands | [CPUs and machine code](20-cpu.md) |
+| Save | The emulator writes the save contents to a file | [How saves work](17-save-data.md) |
 
-## この記事で出てくる中国語
+## Chinese terms in this article
 
-中国語は、このリポジトリのほかの記事で出典を確認した語から、この記事の話題に関わるものを選びました。
+The Chinese words were selected from those whose sources were confirmed in other articles in this repository, choosing ones related to this article's topics.
 
-| 中国語 | ピンイン | 日本語の意味 | 出典 |
+| Chinese | Pinyin | Meaning | Source |
 |---|---|---|---|
-| 掌机 | zhǎngjī | 携帯ゲーム機 | [掌机圈](https://zhangjiquan.com/handhelds) |
-| 处理器 | chǔlǐqì | プロセッサー(SoC) | [RG-406V](https://zhangjiquan.com/handheld/rg-406v) |
-| 内存 | nèicún | メモリ | [掌机圈 RG-35XX H](https://zhangjiquan.com/handheld/rg-35xx-h) |
-| 存储 | cúnchǔ | ストレージ | [掌机圈 RG-35XX H](https://zhangjiquan.com/handheld/rg-35xx-h) |
+| 掌机 | zhǎngjī | Handheld game console | [掌机圈](https://zhangjiquan.com/handhelds) |
+| 处理器 | chǔlǐqì | Processor (SoC) | [RG-406V](https://zhangjiquan.com/handheld/rg-406v) |
+| 内存 | nèicún | Memory | [掌机圈 RG-35XX H](https://zhangjiquan.com/handheld/rg-35xx-h) |
+| 存储 | cúnchǔ | Storage | [掌机圈 RG-35XX H](https://zhangjiquan.com/handheld/rg-35xx-h) |
 | 操作系统 | cāozuò xìtǒng | OS | [RG-556](https://zhangjiquan.com/handheld/rg-556) |
-| TF卡 | TF kǎ | microSDカード | [百度の検索結果](https://www.baidu.com/s?wd=RG40XXH%20%E5%88%B7%E6%9C%BA%20%E5%9B%BA%E4%BB%B6%20Knulli%20%E6%95%99%E7%A8%8B) |
-| 根目录 | gēnmùlù | ルートフォルダ | [模拟器游戏 篇四](https://zhuanlan.zhihu.com/p/703325151) |
+| TF卡 | TF kǎ | microSD card | [Baidu search results](https://www.baidu.com/s?wd=RG40XXH%20%E5%88%B7%E6%9C%BA%20%E5%9B%BA%E4%BB%B6%20Knulli%20%E6%95%99%E7%A8%8B) |
+| 根目录 | gēnmùlù | Root folder | [模拟器游戏 篇四](https://zhuanlan.zhihu.com/p/703325151) |
 
-## 学べること
+## What you can learn
 
-RG40XXHを、本体、OS、アプリの三つの層に分けると、それぞれの部品やソフトの役割が見えてきます。OSがSDカードに入っているので、カードを差し替えて違うOSを試し、同じ本体がどう変わるかを比べられます。ファイルが数字の並びであること、フォルダの場所と拡張子が意味を持つこと、ファイルシステムが機械の間の共通の決まりであることは、この先のすべての記事の前提です。次の [エミュレーターとメニュー](16-emulator-and-menu.md) では、アプリの層を掘り下げます。
+Dividing the RG40XXH into the three layers of hardware, OS, and apps shows the role of each part and piece of software. Because the OS is on the SD card, you can swap cards to try different OSes and compare how the same hardware changes. That files are rows of numbers, that folder locations and extensions have meaning, and that file systems are shared rules between machines are the premises of all the articles to come. The next article, [Emulators and menus](16-emulator-and-menu.md), digs into the app layer.
