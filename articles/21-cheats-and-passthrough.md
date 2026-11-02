@@ -1,4 +1,4 @@
-# Cheats and Passthrough
+# Cheats and passthrough
 
 The series up to [CPUs and machine code](20-cpu.md) read game files and programs in a stopped state. This article is about reading and rewriting the memory of a running game from outside. The first half covers cheats, and the second half covers the mods called passthrough. Both are techniques for reaching in from outside to the numbers of a game while it is being played.
 
@@ -264,7 +264,7 @@ Send:   READ_CORE_MEMORY 30051c4 4
 Reply:  READ_CORE_MEMORY 30051c4 XX XX XX XX
 ```
 
-The address in this command is a console address. The description in command.h also distinguishes it from another command that uses achievement addresses (`READ_CORE_RAM`), saying `READ_CORE_MEMORY` uses a "system address." As seen in an earlier section, the mGBA core used by ROCKNIX marks IWRAM and EWRAM as system RAM, and on the GBA these areas are at `0x03000000` and `0x02000000`. It should therefore be possible to read them with GBA addresses, although this article has not confirmed the addresses the core reports. Behavior on the actual device has not yet been checked.
+The address in this command is a console address. The description in command.h also distinguishes it from another command that uses achievement addresses (`READ_CORE_RAM`), saying `READ_CORE_MEMORY` uses a "system address." The mGBA core used by ROCKNIX reports IWRAM from `GBA_BASE_IWRAM` (`0x03000000`) and EWRAM from `GBA_BASE_EWRAM` (`0x02000000`), passing GBA addresses to RetroArch as they are ([libretro.c](https://github.com/libretro/mgba/blob/e31759b24e7a4e3899285ff720d7b573ac328ae7/src/platform/libretro/libretro.c)). It should therefore be possible to read them with GBA addresses. Behavior on the actual device has not yet been checked.
 
 ## Passthrough mods
 

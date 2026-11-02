@@ -1,4 +1,4 @@
-# Search Keywords
+# Search keywords
 
 These are terms that were actually searched, with the results checked. The search sites are Baidu (baidu.com) and CNFans (cnfans.com).
 

@@ -159,7 +159,7 @@ flowchart LR
     R -->|3rd time| A
 ```
 
-Each time you write a report, it is written to the two slots in turn. Even if the power goes off during a write, the other slot still holds the previous report intact. On reading, the game uses the slot whose marker and checksum are correct and whose counter is larger. This mechanism is behind the message "Writing your report. Do not turn off the power."
+Each time you write a report, it is written to the two slots in turn. Even if the power goes off during a write, the other slot still holds the previous report intact. On reading, the game uses the slot whose marker and checksum are correct and whose counter is larger. This mechanism is behind the Japanese version's message, which translates as "Writing your report. Do not turn off the power."
 
 ## Chinese terms in this article
 

@@ -1,4 +1,4 @@
-# What Runs
+# What runs
 
 Which console's software runs on which device is determined by the SoC's performance, emulator support, and the shape of the screen. This article sorts this out based on the evaluations published for each device and the OS support tables.
 

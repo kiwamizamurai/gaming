@@ -1,4 +1,4 @@
-# Pokémon ROM Hacks
+# Pokémon ROM hacks
 
 Modified versions of Pokémon are called 口袋妖怪改版 in Chinese and have formed a large community. The tools for making them are mainly published as open source, and there are two approaches: building from source and directly editing ROM data. This article sorts out the role of each tool and the minimal steps, as far as could be confirmed from official READMEs and documentation.
 
@@ -79,7 +79,7 @@ The [FAQ](https://github.com/haven1433/HexManiacAdvance/wiki/Hex-Maniac-Advance-
 
 Diff patches come in formats such as IPS, UPS, and BPS. HexManiacAdvance can make two kinds of patches: IPS and UPS. On the player side, RetroArch supports "soft patching", which applies patches automatically. According to the [Libretro documentation](https://docs.libretro.com/guides/softpatching/), when `rom.bin` is loaded, if `rom.ups`, `rom.ips`, or `rom.bps` is in the same place, it is applied automatically at launch. Supported formats are UPS, IPS, and BPS, and XDelta depends on compile-time settings. Multiple patches are applied in order if numbers are added to the extension, as in `rom.ips`, `rom.ips1`, and `rom.ips2`. Among Game Boy Advance cores, the support table lists mGBA as a supported core. There is also a condition that automatic patching works only in implementations that can load the ROM in memory.
 
-Apply patches only to original ROMs you have prepared yourself. A patch contains only diff information, not the original data. This research did not look into where to obtain ROMs and patches, and no links are given. On handling your own data, see [Own data and free games](13-own-data-and-free-games.md).
+Apply patches only to original ROMs you have prepared yourself. A patch contains only diff information, not the original data. This research did not look into where to obtain ROMs and patches, and no links are given. On handling your own data, see [Preparing your own data and rights-free games](13-own-data-and-free-games.md).
 
 ## Chinese-speaking communities
 

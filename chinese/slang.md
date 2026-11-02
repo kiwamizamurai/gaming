@@ -1,4 +1,4 @@
-# Slang Glossary
+# Slang glossary
 
 These are nicknames and expressions seen on forums, specification databases, and listings. Confidence is given in three levels. "Confirmed" means the usage could be confirmed on a page that was actually opened, "Inferred" means it was inferred from context, and "Unknown" means the meaning has not been confirmed.
 

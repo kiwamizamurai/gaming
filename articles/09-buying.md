@@ -86,7 +86,7 @@ On the other hand, a listing for a Tianma G memory card alone for the RP5 could 
 
 The listing text does not give the titles or number of included games. The Tianma G pack is about 2.8TB, too large to fit on a 128GB card ([模拟器游戏 篇四](https://zhuanlan.zhihu.com/p/703325151)). Before buying, you need to check the contents with the seller.
 
-Here there is a caution about rights. Cards and devices loaded with large numbers of commercial games do not necessarily have the permission of the rights holders of those games. That CNFans has refused to act as a proxy for some products on grounds of "suspected rights infringement" is one fact showing this. However, the page did not give details of the reason for refusal. This article does not recommend cards with games. How to use data you have prepared yourself and how to think about rights are summarized in [Handling ROMs and BIOS](12-roms-and-bios.md) and [Own data and free games](13-own-data-and-free-games.md).
+Here there is a caution about rights. Cards and devices loaded with large numbers of commercial games do not necessarily have the permission of the rights holders of those games. That CNFans has refused to act as a proxy for some products on grounds of "suspected rights infringement" is one fact showing this. However, the page did not give details of the reason for refusal. This article does not recommend cards with games. How to use data you have prepared yourself and how to think about rights are summarized in [Handling ROMs and BIOS](12-roms-and-bios.md) and [Preparing your own data and rights-free games](13-own-data-and-free-games.md).
 
 ## How to read prices
 

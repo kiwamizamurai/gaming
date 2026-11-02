@@ -1,8 +1,8 @@
-# Source Notes
+# Source notes
 
 These notes record, one by one, a summary of the content, the date checked, and the reliability of the sources cited in the articles. Unless otherwise noted, the date checked is October 3, 2026.
 
-Reliability was assigned by the following criteria. Official means material published by the developer or seller itself. Personal means articles or posts written by an individual based on their own experience. Aggregated means a database that collects user submissions. AI-generated means a page labeled as AI-generated.
+Reliability was assigned by the following criteria. Official means material published by the developer or seller itself. Personal means articles or posts written by an individual based on their own experience. Aggregated means a database that collects user submissions. AI-generated means a page labeled as AI-generated. Seller means a page published by a store or service about what it sells. News means reporting by a media outlet.
 
 | Note | Type and reliability | Main use in the articles |
 |---|---|---|

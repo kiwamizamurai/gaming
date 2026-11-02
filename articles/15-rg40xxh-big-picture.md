@@ -1,4 +1,4 @@
-# The Big Picture of the RG40XXH
+# The big picture of the RG40XXH
 
 The six articles from this one through number 20 are a series that traces the process of playing games on the RG40XXH, in order, starting from what you can see. The series assumes readers who have not studied computer science, and terms are explained where they appear. This article looks at the whole machine divided into three layers, and covers game files and the contents of the SD card.
 

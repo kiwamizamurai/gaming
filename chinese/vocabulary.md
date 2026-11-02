@@ -1,4 +1,4 @@
-# Vocabulary List
+# Vocabulary list
 
 This collects only terms that could be confirmed on pages that were actually opened. The pinyin was added from the author's own knowledge, so please correct any mistakes. The source column lets you open the page where each term appeared.
 
