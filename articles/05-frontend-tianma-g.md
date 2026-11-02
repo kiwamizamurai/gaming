@@ -1,151 +1,151 @@
-# フロントエンドと天馬G
+# Frontends and Tianma G
 
-フロントエンドは、ゲームの一覧を表示して、選んだゲームを対応するエミュレーターで起動するアプリです。中国の出品でよく見かける「天馬G」も、フロントエンドの一種です。この記事では、元になったPegasusの仕組みから順に、天馬Gの構造と導入の流れを整理します。
+A frontend is an app that displays a list of games and launches the selected game in the matching emulator. "Tianma G", often seen in Chinese listings, is one kind of frontend. This article starts from how Pegasus, on which it is based, works, and then sorts out the structure of Tianma G and how to install it.
 
 ## Pegasus
 
-Pegasusは、ゲームのコレクションを閲覧して、さまざまなエミュレーターを同じ場所から起動するためのグラフィカルなフロントエンドです。[公式のREADME](https://github.com/mmatyas/pegasus-frontend)は、カスタマイズ性、複数のプラットフォームへの対応、高い性能を特徴に挙げています。Windows、Linux、Mac、Android、Raspberry Pi、Odroidで動き、ライセンスはGPLv3です。テーマで画面の見た目を変えられ、EmulationStationのgamelistファイルも使えます。
+Pegasus is a graphical frontend for browsing game collections and launching various emulators from one place. The [official README](https://github.com/mmatyas/pegasus-frontend) names customizability, support for multiple platforms, and high performance as its features. It runs on Windows, Linux, Mac, Android, Raspberry Pi, and Odroid, and its license is GPLv3. Themes can change the look of the screen, and EmulationStation gamelist files can also be used.
 
-Pegasusの方針は、公式の入門ページに書かれています。ゲーム、エミュレーター、ゲームのデータや画像のどれも、Pegasus自身は同梱もダウンロードもしません。そのかわり、利用者が自分で用意したものを自由に組み合わせられます。ほかの外部ツールで足りる機能は取り込まず、組み合わせて使う設計です([Getting started](https://github.com/mmatyas/pegasus-docs/blob/master/docs/user-guide/getting-started.md))。
+Pegasus's policy is set out on the official getting started page. Pegasus itself neither bundles nor downloads games, emulators, or game data and images. Instead, users can freely combine what they have prepared themselves. It is designed not to take in features that other external tools already provide, and to be used in combination with them ([Getting started](https://github.com/mmatyas/pegasus-docs/blob/master/docs/user-guide/getting-started.md)).
 
-この方針は、中国の出品を読むときにも関係します。Pegasus本体は画面と起動の役目だけを持つので、動作の良し悪しは、組み合わせるエミュレーターと設定で決まります。ゲームのパックを付けたものを「Pegasusの機能」と見なすことはできません。
+This policy also matters when reading Chinese listings. Pegasus itself only handles the screen and launching, so how well things run is determined by the emulators and settings it is combined with. Something bundled with a game pack cannot be regarded as a "Pegasus feature".
 
-入門ページが挙げる公式のリリース対象は、Windows 7以降、Ubuntu 18.04かDebian Buster以降のLinux、Raspbian Buster以降のRaspberry Pi、Ubuntu 18.04以降のOdroid、Android 5以降、macOS 10.13以降です。リリースには、最新の修正を含む「latest」と、公開から数週間たって問題が出ていない「stable」の2つの系統があります。AndroidはAPKで配るため、設定の「提供元不明のアプリ」を許可してからファイル管理アプリで開く手順です。初回の起動では、ゲームを見つけるために、ストレージへの権限を求められます([同上](https://github.com/mmatyas/pegasus-docs/blob/master/docs/user-guide/getting-started.md))。
+The official release targets listed on the getting started page are Windows 7 and later, Linux on Ubuntu 18.04 or Debian Buster and later, Raspberry Pi on Raspbian Buster and later, Odroid on Ubuntu 18.04 and later, Android 5 and later, and macOS 10.13 and later. There are two release lines: "latest", which includes the newest fixes, and "stable", which has gone several weeks after publication without problems. Android gets an APK, so the steps are to allow "unknown sources" in the settings and then open it in a file manager app. On first launch, it asks for storage permission in order to find games ([same source](https://github.com/mmatyas/pegasus-docs/blob/master/docs/user-guide/getting-started.md)).
 
-## 画面の操作と設定
+## Screen controls and settings
 
-Pegasusの操作は、キーボード、ゲームパッド、マウス、タッチのどれでもできます。メインメニューは、Escキー、ゲームパッドのBまたは丸のボタンで開き、画面の右端からメニューを引き出す方法もあります([Getting started](https://github.com/mmatyas/pegasus-docs/blob/master/docs/user-guide/getting-started.md))。
+Pegasus can be operated by keyboard, gamepad, mouse, or touch. The main menu opens with the Esc key or the B or circle button on a gamepad, and it can also be pulled out from the right edge of the screen ([Getting started](https://github.com/mmatyas/pegasus-docs/blob/master/docs/user-guide/getting-started.md)).
 
-既定の割り当ては、公式の操作表にまとまっています。決定はEnterキーかゲームパッドのA(または×)、戻るはEscキーかB(または○)です。ゲームの詳細はIキーかX(または□)、絞り込みと検索はFキーかY(または△)に割り当てられています。L1とR1は、前後のコレクションへの切り替えです。L2とR2は、ゲーム一覧を1ページずつ進めます。キーボードなら、Altキーと文字キーで、その文字から始まるゲームに移動できます([Default controls](https://github.com/mmatyas/pegasus-docs/blob/master/docs/user-guide/controls.md))。
+The default assignments are collected in the official controls table. Confirm is the Enter key or A (or ×) on a gamepad, and back is the Esc key or B (or ○). Game details are assigned to the I key or X (or □), and filtering and search to the F key or Y (or △). L1 and R1 switch to the previous and next collection. L2 and R2 move through the game list one page at a time. On a keyboard, Alt and a letter key move to games starting with that letter ([Default controls](https://github.com/mmatyas/pegasus-docs/blob/master/docs/user-guide/controls.md)).
 
-設定画面では、表示言語や全画面のオンオフ、テーマの選択ができます。ゲームを探す動作は、設定の「Gaming」にある2つの項目で決めます。1つは「Set game directories」で、メタデータファイルを探すフォルダの一覧を編集する項目です。もう1つは「Enable/disable data sources」で、ほかのソフトのゲーム一覧を取り込むかどうかを切り替えます([Getting started](https://github.com/mmatyas/pegasus-docs/blob/master/docs/user-guide/getting-started.md))。
+On the settings screen, you can choose the display language, turn full screen on or off, and select a theme. How games are found is determined by two items under "Gaming" in the settings. One is "Set game directories", which edits the list of folders searched for metadata files. The other is "Enable/disable data sources", which switches whether game lists from other software are imported ([Getting started](https://github.com/mmatyas/pegasus-docs/blob/master/docs/user-guide/getting-started.md)).
 
-![Pegasusのスクリーンショット。出典はPegasusのリポジトリ](https://raw.githubusercontent.com/mmatyas/pegasus-frontend/master/etc/promo/screenshot_alpha10.jpg)
+![Screenshot of Pegasus. Source: the Pegasus repository](https://raw.githubusercontent.com/mmatyas/pegasus-frontend/master/etc/promo/screenshot_alpha10.jpg)
 
-## メタデータファイルとアセット
+## Metadata files and assets
 
-Pegasusは、ゲームの一覧と起動方法を、`metadata.pegasus.txt` というテキストファイルで管理します。[公式のドキュメント](https://github.com/mmatyas/pegasus-docs/blob/master/docs/user-guide/meta-files.md)によると、このファイルは `名前: 値` の形式です。書くグループは、コレクションとゲームの2種類を書きます。
+Pegasus manages the game list and how to launch games in a text file called `metadata.pegasus.txt`. According to the [official documentation](https://github.com/mmatyas/pegasus-docs/blob/master/docs/user-guide/meta-files.md), this file uses the format `name: value`. There are two kinds of groups to write: collections and games.
 
-コレクションは、機種などの分類です。`collection` でコレクションの名前を決め、`extension` で対象にする拡張子、`launch` で共通の起動コマンドを指定します。ゲームは、`game` で表示名を決め、`file` でファイル名、`developer` で開発元を書く形です。ゲームごとに起動コマンドを変えるなら、そのゲームに `launch` を書く方法もあります。ファイルを含める条件は `extension`、`file`、`regex`、`directory` で指定でき、除外する条件は先頭に `ignore-` を付けた同じ名前で指定する仕組みです。除外は、含める条件より優先されます。
+A collection is a category such as a system. `collection` sets the collection's name, `extension` the file extensions to include, and `launch` the common launch command. For a game, `game` sets the display name, `file` the file name, and `developer` the developer. To change the launch command for one game, you can also write `launch` for that game. Conditions for including files can be specified with `extension`, `file`, `regex`, and `directory`, and conditions for excluding them with the same names prefixed by `ignore-`. Exclusion takes priority over inclusion.
 
-起動コマンドの中では、`{file.path}` のような変数を使えます。`{file.path}` はゲームのファイルの絶対パス、`{file.name}` はファイル名、`{file.basename}` は拡張子を除いたファイル名、`{file.dir}` はそのファイルがあるフォルダです。
+Variables such as `{file.path}` can be used in launch commands. `{file.path}` is the absolute path of the game file, `{file.name}` is the file name, `{file.basename}` is the file name without the extension, and `{file.dir}` is the folder containing the file.
 
-メタデータファイルの書式には、細かい決まりがあります。名前の大文字と小文字は区別されません。値は複数行にでき、2行目以降は空白かタブで始める決まりです。`#` で始まる行はコメントで、空行は無視されます。説明文の中では、点だけの行が段落の区切りです。ファイルの名前は `metadata.pegasus.txt` が基本で、これがなければ `metadata.txt` を探します。`MarioGames.metadata.pegasus.txt` のように拡張子の前に名前を付ければ、同じフォルダに複数のファイルを置けます。また、設定フォルダの `metafiles` に置けば、ゲームとは別の場所でまとめて管理できます([meta-files.md](https://github.com/mmatyas/pegasus-docs/blob/master/docs/user-guide/meta-files.md))。
+The metadata file format has some detailed rules. Names are not case-sensitive. Values can span multiple lines, with the second and later lines starting with a space or tab. Lines starting with `#` are comments, and blank lines are ignored. In descriptions, a line with only a dot separates paragraphs. The basic file name is `metadata.pegasus.txt`, and if it is not found, `metadata.txt` is searched for. Adding a name before the extension, as in `MarioGames.metadata.pegasus.txt`, allows several files in the same folder. Placing them in `metafiles` in the settings folder also lets you manage them together, apart from the games ([meta-files.md](https://github.com/mmatyas/pegasus-docs/blob/master/docs/user-guide/meta-files.md)).
 
-同じ名前のコレクションは、複数のメタデータファイルにまたがって1つにまとまります。1つのゲームを、複数のコレクションに入れることも可能です。コレクションの `shortname` は、テーマがロゴなどの画像を探すときの手がかりに使われます。公式の表では、ゲームボーイアドバンスが `gba`、PlayStationが `psx`、PlayStation Portableが `psp`、Nintendo 64が `n64`、Sega Dreamcastが `dreamcast` となっています([同上](https://github.com/mmatyas/pegasus-docs/blob/master/docs/user-guide/meta-files.md))。
+Collections with the same name merge into one across multiple metadata files. One game can also be placed in several collections. A collection's `shortname` is used as a clue when a theme looks for images such as logos. In the official table, Game Boy Advance is `gba`, PlayStation is `psx`, PlayStation Portable is `psp`, Nintendo 64 is `n64`, and Sega Dreamcast is `dreamcast` ([same source](https://github.com/mmatyas/pegasus-docs/blob/master/docs/user-guide/meta-files.md)).
 
-ゲームの項目には、`developer`、`publisher`、`genre`、`players`、`release`、`rating` などの情報も書けます。`players` は `2` や `1-4` の形、`release` は `1985-05-22` の形で、月や日が不明なら省略できます。`rating` は `70%` か `0.7` の形です。ゲームが一覧に出る条件は、少なくとも1つのコレクションに属し、実在するファイルを1つ以上持つことです([同上](https://github.com/mmatyas/pegasus-docs/blob/master/docs/user-guide/meta-files.md))。
+Game entries can also carry information such as `developer`, `publisher`, `genre`, `players`, `release`, and `rating`. `players` takes the form `2` or `1-4`, and `release` the form `1985-05-22`, where the month or day can be omitted if unknown. `rating` takes the form `70%` or `0.7`. For a game to appear in the list, it must belong to at least one collection and have at least one file that exists ([same source](https://github.com/mmatyas/pegasus-docs/blob/master/docs/user-guide/meta-files.md)).
 
-公式の例では、スーパーファミコンのゲームを `C:/games/snes` に置き、そこに `metadata.pegasus.txt` を作ります。`extensions` に `smc, sfc` などの拡張子を並べ、`launch` に `snes9x "{file.path}"` と書くだけです。その後、設定でこのフォルダを検索対象に加えれば、次の起動から一覧に出ます。`regex` を使うと、`\d+.in.1` のような名前の規則で、ゲームを別のコレクションに集めることもできます([同上](https://github.com/mmatyas/pegasus-docs/blob/master/docs/user-guide/meta-files.md))。
+In the official example, Super Famicom games are placed in `C:/games/snes`, and `metadata.pegasus.txt` is created there. You just list extensions such as `smc, sfc` in `extensions` and write `snes9x "{file.path}"` in `launch`. After that, add this folder to the search targets in the settings, and the games appear in the list from the next launch. With `regex`, games can also be gathered into a separate collection by a naming rule such as `\d+.in.1` ([same source](https://github.com/mmatyas/pegasus-docs/blob/master/docs/user-guide/meta-files.md)).
 
-カバー画像や動画は、`assets.box_front` のように、ゲームごとに指定できます。指定しなかった場合、Pegasusは、ゲームのフォルダの `media/<ゲーム名>/` の中から、`boxFront`、`logo`、`video` などの決まった名前のファイルを探します。画像はPNGとJPG、動画はWEBMとMP4とAVIが対象です([ドキュメント](https://github.com/mmatyas/pegasus-docs/blob/master/docs/user-guide/meta-assets.md))。
+Cover images and videos can be specified per game, as in `assets.box_front`. If they are not specified, Pegasus looks in `media/<game name>/` in the game's folder for files with fixed names such as `boxFront`, `logo`, and `video`. Images can be PNG and JPG, and videos WEBM, MP4, and AVI ([documentation](https://github.com/mmatyas/pegasus-docs/blob/master/docs/user-guide/meta-assets.md)).
 
-画像や動画の探し方には、優先順位があります。1番目はメタデータでゲームごとに指定したファイルです。2番目はコレクションの既定として指定したファイル、3番目は `<フォルダ>/media/<ゲーム名>/` の中の決まった名前のファイル、4番目はEmulationStationやSteamなど第三者のデータです。コレクションの既定の画像を使うかどうかは、テーマの作者が決めます([meta-assets.md](https://github.com/mmatyas/pegasus-docs/blob/master/docs/user-guide/meta-assets.md))。
+The search for images and videos has an order of priority. First are files specified per game in the metadata. Second are files specified as collection defaults, third are files with fixed names in `<folder>/media/<game name>/`, and fourth is third-party data such as EmulationStation and Steam. Whether collection default images are used is up to the theme author ([meta-assets.md](https://github.com/mmatyas/pegasus-docs/blob/master/docs/user-guide/meta-assets.md)).
 
-`<ゲーム名>` の部分は、ゲームのタイトルでも、ファイル名から拡張子を除いたものでも構いません。認識される名前には、箱の表の `boxFront`、ロゴの `logo`、カートリッジやディスクの `cartridge` と `disc`、背景の `background`、スクリーンショットの `screenshot`、動画の `video` などがあります。音声はMP3、OGG、WAVを探します([同上](https://github.com/mmatyas/pegasus-docs/blob/master/docs/user-guide/meta-assets.md))。
+The `<game name>` part can be either the game's title or the file name without the extension. Recognized names include `boxFront` for the front of the box, `logo` for the logo, `cartridge` and `disc` for cartridges and discs, `background` for the background, `screenshot` for screenshots, and `video` for video. For audio, it looks for MP3, OGG, and WAV ([same source](https://github.com/mmatyas/pegasus-docs/blob/master/docs/user-guide/meta-assets.md)).
 
-大量のゲームの画像を自分で集めるのは大変です。公式のドキュメントは、スクレイパーと呼ぶソフトの利用を勧めています。例として、Universal XML Scraper、Steven Selph's Scraper、Skraper.net、Skyscraperの4つが紹介されています([同上](https://github.com/mmatyas/pegasus-docs/blob/master/docs/user-guide/meta-assets.md))。Skraperが作る `media` フォルダの構成は、Pegasusが直接読めます。`box2dfront` や `videos` といったフォルダに、ゲームのファイル名と同じ名前で画像や動画を置く形です([Other data sources](https://github.com/mmatyas/pegasus-docs/blob/master/docs/user-guide/meta-sources.md))。
+Collecting images for a large number of games yourself is hard work. The official documentation recommends using software called scrapers. It introduces four examples: Universal XML Scraper, Steven Selph's Scraper, Skraper.net, and Skyscraper ([same source](https://github.com/mmatyas/pegasus-docs/blob/master/docs/user-guide/meta-assets.md)). Pegasus can read the `media` folder structure made by Skraper directly. Images and videos go in folders such as `box2dfront` and `videos`, with the same names as the game files ([Other data sources](https://github.com/mmatyas/pegasus-docs/blob/master/docs/user-guide/meta-sources.md)).
 
-## ほかのソフトのデータを使う
+## Using data from other software
 
-Pegasusは、メタデータファイルを書かなくても、ほかのソフトのゲーム一覧を取り込めます。公式のドキュメントが挙げる取り込み元は、Steam、GOG、Androidのアプリ、Lutris、EmulationStation、LaunchBox、Skraperの画像です。Androidのアプリは、インストール済みで起動できるものが、ほかのランチャーと同じように並びます。ネットワークにつながっていれば、Google Playから情報と画像も取得します([Other data sources](https://github.com/mmatyas/pegasus-docs/blob/master/docs/user-guide/meta-sources.md))。
+Pegasus can import game lists from other software without writing metadata files. The import sources listed in the official documentation are Steam, GOG, Android apps, Lutris, EmulationStation, LaunchBox, and Skraper images. Android apps that are installed and launchable are listed as in any other launcher. If connected to a network, it also gets information and images from Google Play ([Other data sources](https://github.com/mmatyas/pegasus-docs/blob/master/docs/user-guide/meta-sources.md)).
 
-この記事の主題に近いのは、EmulationStationとの互換性です。EmulationStationが入っていれば、Pegasusは `es_systems.cfg` に書かれたフォルダを調べ、その中の `gamelist.xml` の情報と画像を使います。ただし、EmulationStationには互いに互換性のない派生版が多く、Pegasusが対応するのは、公式の最後のリリースだけです。変換ツールも用意されていて、`metadata.pegasus.txt` は、機種の情報を持つ `es_systems.cfg` と、ゲームの情報を持つ `gamelist.xml` を合わせたものに近い、と説明されています([同上](https://github.com/mmatyas/pegasus-docs/blob/master/docs/user-guide/meta-sources.md))。
+Closest to this article's subject is compatibility with EmulationStation. If EmulationStation is installed, Pegasus checks the folders written in `es_systems.cfg` and uses the information and images in `gamelist.xml` inside them. However, EmulationStation has many mutually incompatible forks, and Pegasus supports only the last official release. A conversion tool is also available, and `metadata.pegasus.txt` is described as close to a combination of `es_systems.cfg`, which holds system information, and `gamelist.xml`, which holds game information ([same source](https://github.com/mmatyas/pegasus-docs/blob/master/docs/user-guide/meta-sources.md)).
 
-## 設定の場所、テーマ、スクリプト
+## Settings locations, themes, and scripts
 
-Pegasusの設定ファイルは、機種ごとに決まった場所に置かれます。公式の一覧では、Linuxが `~/.config/pegasus-frontend/`、Windowsが `C:\Users\[username]\AppData\Local\pegasus-frontend\`、macOSが `~/Library/Preferences/pegasus-frontend/` です。Androidは `<storage>/Android/data/org.pegasus_frontend.android/files/pegasus-frontend/` と書かれ、プログラムと同じ場所の `config` フォルダは全機種で使えます([Configuration directories](https://github.com/mmatyas/pegasus-docs/blob/master/docs/user-guide/config-dirs.md))。なお、Androidのプラットフォーム別の注意では、設定フォルダは `<ストレージ>/pegasus-frontend` で、内蔵ストレージがなければSDカードになると説明されています。2つの記述が食い違う理由は、確認できませんでした([platform-android.md](https://github.com/mmatyas/pegasus-docs/blob/master/docs/user-guide/platform-android.md))。
+Pegasus's settings files go in a fixed location for each platform. In the official list, Linux uses `~/.config/pegasus-frontend/`, Windows uses `C:\Users\[username]\AppData\Local\pegasus-frontend\`, and macOS uses `~/Library/Preferences/pegasus-frontend/`. Android is given as `<storage>/Android/data/org.pegasus_frontend.android/files/pegasus-frontend/`, and a `config` folder in the same place as the program can be used on all platforms ([Configuration directories](https://github.com/mmatyas/pegasus-docs/blob/master/docs/user-guide/config-dirs.md)). The platform-specific notes for Android, however, say that the settings folder is `<storage>/pegasus-frontend`, and on the SD card if there is no internal storage. The reason the two statements disagree could not be confirmed ([platform-android.md](https://github.com/mmatyas/pegasus-docs/blob/master/docs/user-guide/platform-android.md)).
 
-`--portable` を付けて起動するか、実行ファイルの隣に `portable.txt` を置くと、ポータブルモードになります。この場合、Pegasusは自分のフォルダの中にだけ書き込もうとするので、USBメモリなどへの持ち運びが楽になります。Linuxでは、USBドライブやNTFSからプログラムを実行できないことがある、という注意も書かれています([Portable mode](https://github.com/mmatyas/pegasus-docs/blob/master/docs/user-guide/portable.md))。
+Launching with `--portable`, or placing `portable.txt` next to the executable, enables portable mode. In this mode, Pegasus tries to write only inside its own folder, which makes it easy to carry on a USB memory stick or similar. There is also a caution that on Linux, programs sometimes cannot be run from USB drives or NTFS ([Portable mode](https://github.com/mmatyas/pegasus-docs/blob/master/docs/user-guide/portable.md)).
 
-テーマは、設定フォルダの `themes` に、テーマのフォルダごと解凍して入れ、設定画面から選びます。フォルダがなければ手動で作ります([Installing themes](https://github.com/mmatyas/pegasus-docs/blob/master/docs/user-guide/installing-themes.md))。さらに、設定フォルダに `scripts` を作り、その下にイベント名のフォルダを置く仕組みもあります。イベントには、`game-start`(ゲームの開始前)、`game-end`(ゲームの終了後)、`quit`、`reboot`、`shutdown` などがあり、中の実行ファイルはアルファベット順に呼ばれます([Scripting](https://github.com/mmatyas/pegasus-docs/blob/master/docs/user-guide/scripting.md))。
+Themes are installed by extracting the theme's folder into `themes` in the settings folder and selecting it on the settings screen. If the folder does not exist, create it manually ([Installing themes](https://github.com/mmatyas/pegasus-docs/blob/master/docs/user-guide/installing-themes.md)). There is also a mechanism where you create `scripts` in the settings folder and place folders named after events under it. Events include `game-start` (before a game starts), `game-end` (after a game ends), `quit`, `reboot`, and `shutdown`, and the executables inside are called in alphabetical order ([Scripting](https://github.com/mmatyas/pegasus-docs/blob/master/docs/user-guide/scripting.md)).
 
-## Androidでの起動
+## Launching on Android
 
-Androidでは、ほかのアプリの起動方法が、パソコンとは違います。公式のドキュメントによると、プログラムを直接呼び出す代わりに、Activity Managerの `am start` で、ファイルを開くアプリを指定します([Android向けの注意](https://github.com/mmatyas/pegasus-docs/blob/master/docs/user-guide/platform-android.md))。Android 11以降は、アプリのファイルアクセスが制限されるため、ほかのアプリがゲームのフォルダを読めるよう、あらかじめ権限を与える必要がある場合があります。
+On Android, other apps are launched differently from on a computer. According to the official documentation, instead of calling a program directly, you use the Activity Manager's `am start` to specify the app that opens the file ([notes for Android](https://github.com/mmatyas/pegasus-docs/blob/master/docs/user-guide/platform-android.md)). On Android 11 and later, app file access is restricted, so you may need to grant permissions in advance so that other apps can read the game folder.
 
-具体的な書き方は、公式の例にあります。ファイルを既定のアプリで開くなら、`am start --user 0 -a android.intent.action.VIEW -d {file.path}` の形です。`--user 0` は、これを付けないと権限エラーが出た、という筆者の注記つきの指定です。特定のアプリで開きたいときは、`-n` でアプリのActivity名を指定します。PPSSPPなら `org.ppsspp.ppsspp/.PpssppActivity` です。Activity名は、アプリの `AndroidManifest.xml` を読むか、開発者に聞いて調べるしかない、と説明されています([platform-android.md](https://github.com/mmatyas/pegasus-docs/blob/master/docs/user-guide/platform-android.md))。
+The official examples show how to write this. To open a file in the default app, the form is `am start --user 0 -a android.intent.action.VIEW -d {file.path}`. `--user 0` comes with the author's note that a permission error occurred without it. To open in a specific app, specify the app's Activity name with `-n`. For PPSSPP, it is `org.ppsspp.ppsspp/.PpssppActivity`. The documentation explains that the only ways to find an Activity name are to read the app's `AndroidManifest.xml` or ask the developer ([platform-android.md](https://github.com/mmatyas/pegasus-docs/blob/master/docs/user-guide/platform-android.md)).
 
-ファイルを直接開けないアプリもあります。公式のドキュメントは、RetroArchをその例に挙げています。起動には、`-e ROM`、`-e LIBRETRO`、`-e CONFIGFILE` のような独自の引数を、多く使う形です。`LIBRETRO` にはコアのファイルのパス、`CONFIGFILE` には設定ファイルのパスを指定するので、自分の機種の保存先に合わせて書き換える必要があります。内蔵ストレージのパスも、機種によって異なる点に注意が必要です([同上](https://github.com/mmatyas/pegasus-docs/blob/master/docs/user-guide/platform-android.md))。公式は、起動コマンドを作るオンラインのツールも案内しています。
+Some apps cannot open files directly. The official documentation gives RetroArch as an example. Launching it uses many custom arguments such as `-e ROM`, `-e LIBRETRO`, and `-e CONFIGFILE`. `LIBRETRO` takes the path of the core file and `CONFIGFILE` the path of the settings file, so these need to be rewritten to match where things are stored on your device. Note that internal storage paths also differ by device ([same source](https://github.com/mmatyas/pegasus-docs/blob/master/docs/user-guide/platform-android.md)). The official documentation also points to an online tool for making launch commands.
 
-ファイルを開ける既知のエミュレーターの一覧には、Dolphin(`org.dolphinemu.dolphinemu/.activities.AppLinkActivity`)、PPSSPP、DraSticなどがあります。一方、Citraは「対応なし」、ePSXeは「直接は不可で回避策あり」という記載です。リストは不完全と断ってあり、書かれた時点の情報です([同上](https://github.com/mmatyas/pegasus-docs/blob/master/docs/user-guide/platform-android.md))。そのほかの注意として、動画の再生は電池の消費が大きく、メモリを多く使うアプリを起動するとAndroidがPegasusを終了させることがあり、再起動と電源オフはAndroidの制限でできません([同上](https://github.com/mmatyas/pegasus-docs/blob/master/docs/user-guide/platform-android.md))。
+The list of known emulators that can open files includes Dolphin (`org.dolphinemu.dolphinemu/.activities.AppLinkActivity`), PPSSPP, and DraStic. On the other hand, Citra is listed as "not supported" and ePSXe as "not directly, with a workaround". The list is stated to be incomplete and reflects the time of writing ([same source](https://github.com/mmatyas/pegasus-docs/blob/master/docs/user-guide/platform-android.md)). Other cautions are that video playback uses a lot of battery, that launching a memory-heavy app can cause Android to close Pegasus, and that restart and power-off are not possible because of Android restrictions ([same source](https://github.com/mmatyas/pegasus-docs/blob/master/docs/user-guide/platform-android.md)).
 
-Pegasusをホーム画面のアプリ(既定のランチャー)に設定すれば、端末の起動と同時にPegasusが始まります。元に戻すには、Androidの設定の「既定のアプリ」から選び直します([同上](https://github.com/mmatyas/pegasus-docs/blob/master/docs/user-guide/platform-android.md))。公式の例では、SDカードの `Roms/NES` と `Roms/PSP` の2つのフォルダにそれぞれメタデータファイルを置き、NESはRetroArchのコア、PSPは単体のPPSSPPで起動します([Android example setup](https://github.com/mmatyas/pegasus-docs/blob/master/docs/user-guide/platform-android-example.md))。
+If you set Pegasus as the home screen app (default launcher), it starts when the device boots. To undo this, choose again under "Default apps" in Android's settings ([same source](https://github.com/mmatyas/pegasus-docs/blob/master/docs/user-guide/platform-android.md)). In the official example, metadata files are placed in two folders on the SD card, `Roms/NES` and `Roms/PSP`, with NES launched through a RetroArch core and PSP through standalone PPSSPP ([Android example setup](https://github.com/mmatyas/pegasus-docs/blob/master/docs/user-guide/platform-android-example.md)).
 
-## EmulationStation系の考え方
+## The EmulationStation approach
 
-Pegasusのほかに、携帯機のカスタムファームウェアで広く使われるフロントエンドが、EmulationStationです。Knulliの公式ドキュメントによると、Knulliの既定のフロントエンドはEmulationStationで、既定のテーマはArt Book Nextです。CarbonとKnulliのテーマも同梱され、3つともリリースごとに更新されます([Themes](https://github.com/knulli-cfw/knulli.org/blob/main/docs/configure/customization/themes.md))。ROCKNIXの機種ページも、メインラインLinuxの上でSwayとEmulationStationを使うと書いています([ROCKNIX Retroid Pocket 5](https://rocknix.org/devices/retroid/retroid-pocket-5/))。
+Besides Pegasus, the frontend widely used in custom firmware for handhelds is EmulationStation. According to the official Knulli documentation, Knulli's default frontend is EmulationStation and its default theme is Art Book Next. The Carbon and Knulli themes are also bundled, and all three are updated with each release ([Themes](https://github.com/knulli-cfw/knulli.org/blob/main/docs/configure/customization/themes.md)). ROCKNIX device pages also say that Sway and EmulationStation are used on top of mainline Linux ([ROCKNIX Retroid Pocket 5](https://rocknix.org/devices/retroid/retroid-pocket-5/)).
 
-EmulationStation系のOSは、Pegasusと考え方が違います。Pegasusは、エミュレーターの起動コマンドを利用者が書きます。Knulliは、各エミュレーターの設定を、EmulationStationの画面から行う方式です。ゲームを起動するたび、エミュレーター固有の設定ファイルはすべて消されて、EmulationStationでの設定から作り直されます。そのため、RetroArchの画面で変えた設定は、次の起動で失われます([Game Settings](https://github.com/knulli-cfw/knulli.org/blob/main/docs/play/game-settings.md))。
+EmulationStation-based OSes take a different approach from Pegasus. In Pegasus, the user writes the emulator launch commands. In Knulli, each emulator is configured from the EmulationStation screen. Every time a game is launched, all emulator-specific settings files are erased and recreated from the settings in EmulationStation. Settings changed on the RetroArch screen are therefore lost at the next launch ([Game Settings](https://github.com/knulli-cfw/knulli.org/blob/main/docs/play/game-settings.md)).
 
-設定には階層があります。上から順に、Knulliの既定、全体の設定、機種ごとの設定、ゲームごとの設定です。多くの項目は「auto」になっていて、1つ上の階層の値を引き継ぎます。変えたいときは、できるだけ下の階層で変えるのが公式の勧めです。たとえば、特定の1本だけに効かせたいなら、そのゲームの設定で変えます。機種ごとの設定は、ゲーム一覧で「Select」を押して開き、ゲームごとの設定は、起動のボタンを長押しして開きます([同上](https://github.com/knulli-cfw/knulli.org/blob/main/docs/play/game-settings.md))。
+Settings have a hierarchy. From the top, these are the Knulli defaults, global settings, per-system settings, and per-game settings. Many items are set to "auto" and inherit the value from the level above. The official recommendation is to make changes at as low a level as possible. For example, to affect just one particular game, change that game's settings. Per-system settings are opened by pressing "Select" in the game list, and per-game settings by holding the launch button ([same source](https://github.com/knulli-cfw/knulli.org/blob/main/docs/play/game-settings.md)).
 
-エミュレーターの切り替えは、機種ごとの階層とゲームごとの階層だけでできます。全体の階層で選べないのは、すべての機種を1つでまかなえるエミュレーターがないためです。Knulliは、機種ごとに、多くのゲームと低性能の携帯機に向く既定のエミュレーターを選んでいます。ゲームの動作がおかしければ、別のエミュレーターに替える方法を試すよう勧めています。公式は、N64のように再現が難しい機種では、ゲームによって向くエミュレーターが違うと書いています([同上](https://github.com/knulli-cfw/knulli.org/blob/main/docs/play/game-settings.md))。
+Emulators can be switched only at the per-system and per-game levels. They cannot be chosen at the global level because no emulator can cover every system. For each system, Knulli has chosen a default emulator suited to most games and low-performance handhelds. If a game behaves oddly, it recommends trying a switch to another emulator. The official documentation says that on systems that are hard to reproduce, such as N64, the best emulator differs by game ([same source](https://github.com/knulli-cfw/knulli.org/blob/main/docs/play/game-settings.md)).
 
-エミュレーターには、RetroArchの「コア」と、単体のエミュレーターの2種類があります。単体のエミュレーターの多くは、オートセーブとロードに対応せず、セーブデータの画像も付かず、セーブをEmulationStationの画面に出せないものもあります。公式の例では、N64のMupen64plus: Riceを使うと、状態のセーブとロードはできても、その記録がEmulationStationには表示されません([同上](https://github.com/knulli-cfw/knulli.org/blob/main/docs/play/game-settings.md))。
+There are two kinds of emulator: RetroArch "cores" and standalone emulators. Many standalone emulators do not support auto save and load, do not attach images to save data, and in some cases cannot show saves on the EmulationStation screen. In the official example, with N64's Mupen64plus: Rice, save states can be saved and loaded, but the records are not displayed in EmulationStation ([same source](https://github.com/knulli-cfw/knulli.org/blob/main/docs/play/game-settings.md)).
 
-画像や説明の付け方も、Pegasusと違います。Knulliには、ScreenScraper、TheGamesDB、ArcadeDBから情報を取る内蔵のスクレイパーがあり、既定はScreenScraperです。ScreenScraperを使うにはアカウントへのログインが必要です。スクレイパーは、ROMのファイル名をもとにゲームを探すので、名前が整っていないと見つけられません。地域の表記(`(U)` など)があれば、それも手がかりになります。他の機種で作った `gamelist.xml` と画像のフォルダをそのまま移せば、スクレイプし直さずに使えます。表示されないときは、「Update gamelists」を実行します([Scraping](https://github.com/knulli-cfw/knulli.org/blob/main/docs/play/scraping.md))。
+Adding images and descriptions also differs from Pegasus. Knulli has a built-in scraper that gets information from ScreenScraper, TheGamesDB, and ArcadeDB, with ScreenScraper as the default. Using ScreenScraper requires logging in to an account. The scraper searches for games based on ROM file names, so it cannot find them if the names are not tidy. A region marker (such as `(U)`) also serves as a clue. If you move `gamelist.xml` and the image folders made on another device as they are, they can be used without scraping again. If they do not appear, run "Update gamelists" ([Scraping](https://github.com/knulli-cfw/knulli.org/blob/main/docs/play/scraping.md)).
 
-EmulationStationの「コレクション」には、3つの種類があります。直近に遊んだゲームなどを自動で集める「自動」、利用者がゲームを1本ずつ追加する「編集可能」、ジャンルなどの条件で自動的に集める「動的」です。Knulliには、遊びたいゲームを積んでおく「Now Playing」というコレクションの使い方も案内されています([Collections](https://github.com/knulli-cfw/knulli.org/blob/main/docs/configure/collections.md))。
+"Collections" in EmulationStation come in three kinds: "automatic", which automatically gathers things such as recently played games; "editable", to which the user adds games one by one; and "dynamic", which automatically gathers games by conditions such as genre. Knulli also describes a way of using a collection called "Now Playing" to stack up games you want to play ([Collections](https://github.com/knulli-cfw/knulli.org/blob/main/docs/configure/collections.md)).
 
-電源を切るときの扱いも、設定で変えられます。「Quick Resume Mode」と「Auto Save/Load」を有効にすると、電源を落とす時点の進行が自動で保存され、次の起動では最後のゲームがそのまま始まる設定です。公式の説明では、携帯機のスリープは電池の消費が大きいので、長時間の維持には頼らず、電源を落とす使い方が勧められています。エミュレーターによってはオートセーブに対応しないため、その場合は自分でセーブする必要があります([Quick Resume](https://github.com/knulli-cfw/knulli.org/blob/main/docs/configure/quick-resume.md))。
+What happens at power-off can also be changed in the settings. Enabling "Quick Resume Mode" and "Auto Save/Load" automatically saves progress at the time of power-off, and the last game starts straight away at the next boot. The official explanation is that sleep on handhelds uses a lot of battery, so it recommends powering off rather than relying on sleep for long periods. Some emulators do not support auto save, in which case you need to save yourself ([Quick Resume](https://github.com/knulli-cfw/knulli.org/blob/main/docs/configure/quick-resume.md)).
 
 
-## 天馬Gとは
+## What Tianma G is
 
-天馬Gは、Pegasusを中国語化して、ゲームのパックを付けたものです。知乎に転載された什么值得买の紹介記事は、PegasusをもとにしたGの前端を、中国のコミュニティ「跳坑者联盟」が汉化(中国語化)し、汉化したゲームのパックも作った、と説明しています([模拟器游戏 篇四](https://zhuanlan.zhihu.com/p/703325151))。記事によると、パックはGBA、NDS、3DS、PSP、PS1、PS2、Wii、アーケードなどを含み、総量は約2.8TBです。ストレージの容量に合わせて内容を選べて、記事が使ったのは220GBの精簡版でした。ゲームごとに、カバー、名前、紹介動画が付き、テーマも8種類が内蔵されています。
+Tianma G is Pegasus localized into Chinese, with a game pack attached. A 什么值得买 introductory article reposted on Zhihu explains that the Chinese community 跳坑者联盟 did the 汉化 (Chinese localization) of the G frontend based on Pegasus and also made a pack of 汉化 games ([模拟器游戏 篇四](https://zhuanlan.zhihu.com/p/703325151)). According to the article, the pack includes GBA, NDS, 3DS, PSP, PS1, PS2, Wii, arcade, and more, for a total of about 2.8TB. The content can be chosen to fit the storage capacity, and the article used a 220GB trimmed version. Each game comes with a cover, a name, and an introductory video, and 8 themes are built in.
 
-構造は、CSDNの記事が整理しています。前端はPegasusで、カバーの壁とメニューの表示が役割です。実際にゲームを動かすのは、RetroArchや単体のエミュレーターのAPKです。そして、ROM、BIOS、カバー画像、動画、中国語のメタデータが、資源の層です([天马G前端的使用](https://blog.csdn.net/fanged/article/details/152960565))。この記事の筆者が、Android版のPegasusのソースを読んだところ、AndroidでエミュレーターのAPKを起動する処理は、`am start` に相当するIntentの呼び出しを組み立てて、JNIから `startActivity` を実行するだけでした。天馬Gが提供するのは、ゲームの管理と起動のためのUIです。
+The CSDN article sorts out the structure. The frontend is Pegasus, whose role is to display the cover wall and menus. What actually runs the games is RetroArch or standalone emulator APKs. ROMs, BIOS files, cover images, videos, and Chinese metadata form the resource layer ([天马G前端的使用](https://blog.csdn.net/fanged/article/details/152960565)). When the author of this article read the source of the Android version of Pegasus, the process for launching an emulator APK on Android only assembled an Intent call equivalent to `am start` and ran `startActivity` from JNI. What Tianma G provides is a UI for managing and launching games.
 
-知乎の記事は、闲鱼で、この天馬Gのパックを20元程度で売る商家がいると書いています。パックの入手が簡単な分、出品の価値は、手間賃にあたる部分が大きいと考えられます。
+The Zhihu article says that on 闲鱼 there are 商家 selling this Tianma G pack for around 20 yuan. Since the pack is easy to obtain, it is thought that much of the listing's value lies in what amounts to a handling fee.
 
-2020年の百度貼吧の投稿にも、同じ前端の紹介が見つかりました。投稿者は、手元のゲームのROMを、リストから選んで起動したいという動機から、このPC用のフロントエンドを使い始めたと書き、検索するときの名前は「天马模拟器前端」だそうです。パックの大きさは、当時で約15GBでした([给大家分享一个PC上的模拟器前端](https://tieba.baidu.com/p/6671136635))。
+An introduction to the same frontend was also found in a 2020 Baidu Tieba post. The poster writes of starting to use this PC frontend out of a wish to choose ROMs of games on hand from a list and launch them, and says the name to search for is 天马模拟器前端. The pack was about 15GB at the time ([给大家分享一个PC上的模拟器前端](https://tieba.baidu.com/p/6671136635)).
 
-## PC版の導入
+## Installing the PC version
 
-知乎の記事は、PC版の導入を3段階に分けています。1つ目は、エミュレーター本体の導入です。ダウンロードしたフォルダの「安装包」から、環境に合うアーカイブを選び、ドライブの一番上のフォルダに解凍します。一番上でないと、エミュレーターが正しく動きません。解凍すると「Pegasus G」というフォルダができます。起動時に落ちるのを防ぐために、「解決閃退工具」フォルダの映像プラグインも入れます。
+The Zhihu article divides installing the PC version into three stages. The first is installing the emulator itself. From 安装包 in the downloaded folder, choose the archive that fits your environment and extract it to the top-level folder of a drive. If it is not at the top level, the emulator does not run correctly. Extraction creates a folder called "Pegasus G". To prevent crashes at launch, also install the video plugin from the "解決閃退工具" folder.
 
-2つ目は、ゲームのROMの配置です。パックの `roms` フォルダの中身を、「Pegasus G」の下の `roms` に解凍します。ファイル名は変えてはいけません。天馬Gは、`roms` を自動で走査して、ゲームの名前と紹介を認識します。
+The second is placing the game ROMs. Extract the contents of the pack's `roms` folder to `roms` under "Pegasus G". File names must not be changed. Tianma G automatically scans `roms` and recognizes game names and descriptions.
 
-3つ目は起動で、天馬Gのランチャーを起動すると、ゲームの一覧が表示されます。記事に書かれた困りごとと解決策は、次のとおりです。音が出ないときは、3DMのゲーム用ランタイムを入れて解決しました。Wiiのゲームが落ちたときは、解決用フォルダの任意のドライバをすべて入れて解決しました。エミュレーターごとにキー操作が違い、PPSSPPでは、Escで設定が開きます。
+The third is launching: start the Tianma G launcher, and the game list appears. The problems and solutions described in the article are as follows. When there was no sound, installing the 3DM game runtime solved it. When Wii games crashed, installing all the optional drivers in the solutions folder solved it. Key controls differ by emulator, and in PPSSPP, Esc opens the settings.
 
-## Android版の導入
+## Installing the Android version
 
-CSDNの記事は、Android版の導入を、APK、設定ファイル、ROMの3段階で書いています。まずAPKとして、天馬G本体、RetroArch、ファイル管理アプリのMT管理器などの導入が最初の手順です。筆者はadbでインストールしました。インストール後は一度起動して、権限を与える流れです。
+The CSDN article describes installing the Android version in three stages: APKs, settings files, and ROMs. The first step is installing APKs: Tianma G itself, RetroArch, and a file manager app such as MT管理器. The author installed them with adb. After installation, launch each once and grant permissions.
 
-次に設定ファイルです。天馬Gの主題パックと設定ファイル、それに `Android` フォルダを配置します。Android 11以降は、各アプリのデータフォルダ(`Android/data/<パッケージ名>`)が保護されていて、ファイル管理アプリから書き込めないため、この部分は手動で配置する必要があります。天馬Gは、Pegasus、RetroArch、AetherSX2のような複数のアプリで、設定ファイルとROMのパスを共有するからです。
+Next are the settings files. Place Tianma G's theme pack and settings files, along with the `Android` folder. On Android 11 and later, each app's data folder (`Android/data/<package name>`) is protected and cannot be written to from file manager apps, so this part has to be placed manually. This is because Tianma G shares settings files and ROM paths among several apps, such as Pegasus, RetroArch, and AetherSX2.
 
-最後がROMです。ROMのファイルに加えて、天馬Gの画面のために、主画像、副画像、紹介動画、そしてメタデータのファイルを用意し、スマホのルートにある `Roms` フォルダに置きます。「跳坑者联盟」のパックを使う場合は、これらは精簡包の中にあらかじめ用意されています。
+Last are the ROMs. In addition to the ROM files, prepare main images, secondary images, introductory videos, and metadata files for the Tianma G screen, and place them in the `Roms` folder at the root of the phone. If you use the 跳坑者联盟 pack, these are already prepared in the trimmed pack.
 
-筆者は、手元の古いスマホ(Snapdragon 855)で試し、画面の見た目は華やかで、USB接続のコントローラーも遅延なく使えたそうです。一方で、4:3のゲームの左右に黒い帯が入ることが、スマホの欠点でもあるそうです。
+The author tried this on an old phone (Snapdragon 855) and reports that the screen looked gorgeous and that a USB-connected controller could be used without lag. On the other hand, the author says black bars on the left and right of 4:3 games are also a drawback of phones.
 
-## 出品の「預装天馬G」を読むときの注意
+## Cautions when reading "preinstalled Tianma G" listings
 
-CNFansで見つけたRetroid Pocket 5向けの出品の画像には、「预装RP5天马G专用内存卡」と書かれていました。ページの説明には、この商品はメモリカードだけで、手元に届いてから、チュートリアルに従ってインストールすると書かれています。オプションは、Sandisk 128GBから、2TBまでの6種類です([CNFansの検索結果](https://cnfans.com/search?keywords=RP5%E9%A2%84%E8%A3%85%E5%A4%A9%E9%A9%AC&searchType=keywords))。
+An image in a listing for the Retroid Pocket 5 found on CNFans read "预装RP5天马G专用内存卡". The page description says that this product is only a memory card, and that after it arrives you install according to a tutorial. There are six options, from Sandisk 128GB up to 2TB ([CNFans search results](https://cnfans.com/search?keywords=RP5%E9%A2%84%E8%A3%85%E5%A4%A9%E9%A9%AC&searchType=keywords)).
 
-![CNFansの検索結果。RP5向けの天馬Gの出品が並ぶ](../assets/screenshots/cnfans-search-rp5-tianma.jpg)
+![CNFans search results, showing Tianma G listings for the RP5](../assets/screenshots/cnfans-search-rp5-tianma.jpg)
 
-![カード単体の出品ページの上部](../assets/screenshots/cnfans-rp5-tianma-card-top.jpg)
+![Top of a listing page for the card alone](../assets/screenshots/cnfans-rp5-tianma-card-top.jpg)
 
-![カード単体の出品のオプション](../assets/screenshots/cnfans-rp5-tianma-card-options.jpg)
+![Options in the listing for the card alone](../assets/screenshots/cnfans-rp5-tianma-card-options.jpg)
 
-出品の文面からは、収録されるゲームのタイトル、本数、機種ごとの内訳が分かりませんでした。天馬Gのパックの全体は約2.8TBなので、128GBのカードに入る分は一部です。パックにはROMが含まれ、権利の面で問題がある場合が多いです。出品を購入するときは、収録内容を出品者に確認する必要があります。
+From the listing text, the titles of the included games, their number, and the breakdown by system could not be determined. The whole Tianma G pack is about 2.8TB, so what fits on a 128GB card is only part of it. The pack includes ROMs and is often problematic from a rights standpoint. When buying from a listing, you need to check the contents with the seller.
 
-## この記事で出てくる中国語
+## Chinese terms in this article
 
-天馬Gの紹介や出品の文面に出てきた語を、本文で触れた順を目安に表へ整理しました。
+Words from Tianma G introductions and listing text are organized in the table below, roughly in the order they are mentioned in the text.
 
-| 中国語(簡体字) | ピンイン | 日本語の意味 | 出典 |
+| Chinese (Simplified) | Pinyin | Meaning | Source |
 |---|---|---|---|
-| 前端 | qiánduān | フロントエンド。ゲームの一覧を出して起動するアプリ | [知乎の記事](https://zhuanlan.zhihu.com/p/703325151) |
-| 汉化 | hànhuà | 中国語化すること | [知乎の記事](https://zhuanlan.zhihu.com/p/703325151) |
-| 精简版 | jīngjiǎnbǎn | 内容を減らして容量を小さくした版 | [知乎の記事](https://zhuanlan.zhihu.com/p/703325151) |
-| 跳坑者联盟 | tiàokēngzhě liánméng | 天馬Gのパックを作ったコミュニティの名前 | [知乎の記事](https://zhuanlan.zhihu.com/p/703325151) |
-| 安装包 | ānzhuāngbāo | インストール用のファイルを入れたフォルダ | [知乎の記事](https://zhuanlan.zhihu.com/p/703325151) |
-| 闪退 | shǎntuì | アプリが突然終了すること | [知乎の記事](https://zhuanlan.zhihu.com/p/703325151) |
-| 商家 | shāngjiā | 出店者、販売業者 | [知乎の記事](https://zhuanlan.zhihu.com/p/703325151) |
-| 闲鱼 | xiányú | 中古品の売買アプリ | [知乎の記事](https://zhuanlan.zhihu.com/p/703325151) |
-| 模拟器 | mónǐqì | エミュレーター | [貼吧の投稿](https://tieba.baidu.com/p/6671136635) |
-| 预装 | yùzhuāng | あらかじめ入れてあること | [CNFansの出品](https://cnfans.com/search?keywords=RP5%E9%A2%84%E8%A3%85%E5%A4%A9%E9%A9%AC&searchType=keywords) |
-| 专用 | zhuānyòng | 専用 | [CNFansの出品](https://cnfans.com/search?keywords=RP5%E9%A2%84%E8%A3%85%E5%A4%A9%E9%A9%AC&searchType=keywords) |
-| 内存卡 | nèicúnkǎ | メモリーカード | [CNFansの出品](https://cnfans.com/search?keywords=RP5%E9%A2%84%E8%A3%85%E5%A4%A9%E9%A9%AC&searchType=keywords) |
+| 前端 | qiánduān | Frontend. An app that shows a list of games and launches them | [Zhihu article](https://zhuanlan.zhihu.com/p/703325151) |
+| 汉化 | hànhuà | Localizing into Chinese | [Zhihu article](https://zhuanlan.zhihu.com/p/703325151) |
+| 精简版 | jīngjiǎnbǎn | Version with reduced content and smaller size | [Zhihu article](https://zhuanlan.zhihu.com/p/703325151) |
+| 跳坑者联盟 | tiàokēngzhě liánméng | Name of the community that made the Tianma G pack | [Zhihu article](https://zhuanlan.zhihu.com/p/703325151) |
+| 安装包 | ānzhuāngbāo | Folder containing installation files | [Zhihu article](https://zhuanlan.zhihu.com/p/703325151) |
+| 闪退 | shǎntuì | An app suddenly closing | [Zhihu article](https://zhuanlan.zhihu.com/p/703325151) |
+| 商家 | shāngjiā | Shop owner, seller | [Zhihu article](https://zhuanlan.zhihu.com/p/703325151) |
+| 闲鱼 | xiányú | Secondhand marketplace app | [Zhihu article](https://zhuanlan.zhihu.com/p/703325151) |
+| 模拟器 | mónǐqì | Emulator | [Tieba post](https://tieba.baidu.com/p/6671136635) |
+| 预装 | yùzhuāng | Preinstalled | [CNFans listing](https://cnfans.com/search?keywords=RP5%E9%A2%84%E8%A3%85%E5%A4%A9%E9%A9%AC&searchType=keywords) |
+| 专用 | zhuānyòng | Dedicated | [CNFans listing](https://cnfans.com/search?keywords=RP5%E9%A2%84%E8%A3%85%E5%A4%A9%E9%A9%AC&searchType=keywords) |
+| 内存卡 | nèicúnkǎ | Memory card | [CNFans listing](https://cnfans.com/search?keywords=RP5%E9%A2%84%E8%A3%85%E5%A4%A9%E9%A9%AC&searchType=keywords) |
