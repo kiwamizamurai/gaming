@@ -2,7 +2,7 @@
 
 Continuing from [article 26](26-gba-rust-setup.md), this article writes the counter's rules, connects the buttons, and tests the rules on a normal computer.
 
-## Rules that know nothing about the GBA
+## Why keep the rules apart from the GBA?
 
 The rules go in [counter.rs](../examples/agb-counter/src/counter.rs). This file imports nothing from agb.
 
@@ -56,7 +56,7 @@ test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 
 A plain `cargo test` was not used, because the project's target is the GBA. agb has its own test runner, seen in the template's settings, which was not tried here.
 
-## Buttons
+## Why does holding A add only 1?
 
 agb's `ButtonController` remembers the previous and current state ([input.rs](https://github.com/agbrs/agb/blob/v0.25.0/agb/src/input.rs)). `is_just_pressed` is true only in the frame a button goes down, so holding A adds 1 once.
 
@@ -66,7 +66,7 @@ The button names are `Button::A`, `Button::B`, and `Button::Start`. `Button::STA
 error[E0599]: no variant, associated function, or constant named `START` found for enum `Button`
 ```
 
-## The game loop
+## What repeats every frame?
 
 A game repeats the same steps every frame: read input, update the state, draw.
 
@@ -119,6 +119,20 @@ counter = 0 KEYINPUT = 0b1111110111
 ```
 
 The second column is explained in [article 28](28-gba-hardware.md).
+
+## Check your understanding
+
+**How can a GBA game's rules be tested on a Mac?**
+
+`counter.rs` uses nothing from the GBA, so it compiles for the Mac by itself.
+
+**What is the difference between `&self` and `&mut self`?**
+
+`&self` only reads, as in `value()`. `&mut self` can change the value, as in `increment()`.
+
+**What would happen if the loop added 1 whenever A was down instead of just pressed?**
+
+The count would rise every frame while A is held, roughly 60 times a second.
 
 ## What you can learn
 

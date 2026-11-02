@@ -11,7 +11,7 @@ This series builds a counter for the Game Boy Advance in Rust and uses it to rea
 | 30 | [From Rust code to a GBA ROM](30-rust-to-gba-rom.md) | Cross compilation, the linker, ELF, `.gba` |
 | 31 | [Startup and where things live](31-gba-startup-and-memory.md) | BIOS, startup code, stack, BSS, heap |
 
-## Which language?
+## Can it be something other than C?
 
 C has the longest history on the GBA, and [article 14](14-making-games.md) lists its tools. The [gbadev guide](https://gbadev.net/getting-started.html) says the GBA does not support languages like C#, Python, or Java, and lists Nim and Rust options. This series uses Rust with agb because its types make the hardware rules easy to see.
 
@@ -42,7 +42,7 @@ channel = "nightly-2026-07-22"
 components = ["rust-src", "clippy", "rustfmt", "llvm-tools"]
 ```
 
-## The smallest program
+## What is the smallest program?
 
 This is the template's program, without its comments and test settings.
 
@@ -76,6 +76,20 @@ fn main(gba: agb::Gba) -> ! {
 ## What has not been tested
 
 Nothing was run on a real GBA. The setup was tried only on one Mac.
+
+## Check your understanding
+
+**Why can't a GBA program use `println!`?**
+
+`println!` belongs to the standard library, which assumes an OS. The GBA has none, so the program uses `#![no_std]`, and `agb::println!` writes to mGBA's log instead.
+
+**Why does `main` have the return type `!`?**
+
+A game keeps running until the power goes off, so the function never returns.
+
+**Why write a date in `rust-toolchain.toml`?**
+
+Nightly compilers change. Here, the newest one could not build agb 0.25.0, and the one from its release date could.
 
 ## What you can learn
 

@@ -4,7 +4,7 @@ Continuing from [article 28](28-gba-hardware.md), this article shows the counter
 
 ![The counter in mGBA, showing Count: 11 in white on a blue background](../assets/screenshots/agb-counter-mgba.png)
 
-## Tiles, maps, and palettes
+## Why not store every pixel?
 
 The screen is 240×160 pixels. In the usual video modes, the picture is made from 8×8 tiles rather than individual pixels. A separate map says which tile goes where, so one tile can be reused many times.
 
@@ -44,7 +44,7 @@ The counter starts at `0`, so nothing was drawn. The example now draws `Count: 0
 
 **The renderer must stay alive.** `RegularBackgroundTextRenderer` holds the letter tiles in its `tiles` field ([tiled.rs](https://github.com/agbrs/agb/blob/v0.25.0/agb/src/display/font/tiled.rs)), and those tiles are `DynamicTile16` values. So `draw` returns it, and the loop keeps it as `_renderer` even though it is never read. Whether dropping it clears the picture was not tested by itself, because the first bug hid the result.
 
-## Frames and VBlank
+## Why about 60 frames a second?
 
 The screen is drawn line by line. GBATEK gives 160 visible lines and 228 lines in total. The remaining 68 lines are the vertical blank (VBlank), when nothing is being drawn.
 
@@ -61,6 +61,20 @@ In agb, `frame.commit()` handles the wait. Its source calls `wait_for_vblank` ([
 ## What has not been tested
 
 Sprites, the other backgrounds, and writing to VRAM directly were not tried. Tearing was not observed.
+
+## Check your understanding
+
+**How many bytes is one 4-bit tile?**
+
+32. It has 8 × 8 pixels at 4 bits each, which is 256 bits.
+
+**What does a tile map hold?**
+
+Which tile goes where. The pictures themselves are stored separately, so one tile can be used many times.
+
+**Does the VBlank take about 1.23ms?**
+
+No. GBATEK gives 68 lines, 83,776 cycles, and 4.994ms.
 
 ## What you can learn
 

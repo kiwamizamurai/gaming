@@ -2,7 +2,7 @@
 
 Continuing from [article 30](30-rust-to-gba-rom.md), this article follows what runs before `main` and measures where the counter's values end up.
 
-## What runs before main
+## Does the CPU start at `main`?
 
 The CPU does not know the name `main`. [GBATEK](https://problemkaputt.de/gbatek.htm) lists the BIOS at `0x00000000` and the cartridge at `0x08000000`, and the header entry point is what the game supplies. [Article 19](19-boot.md) followed the same idea on the RG40XXH. The ELF's start address is `0x08000000`, and the first instruction jumps past the header.
 
@@ -37,7 +37,7 @@ A comment in the source says this zero fill is not needed on real hardware or mo
 
 The `main` it jumps to is your function. The `#[agb::entry]` macro exports it under that name with `#[unsafe(export_name = "main")]` ([agb-macros](https://github.com/agbrs/agb/blob/v0.25.0/agb-macros/src/lib.rs)). This is why `#![no_main]` is needed and why the name reaches the assembly.
 
-## Measuring where values live
+## Where do the values actually go?
 
 The counter prints the address of each kind of value.
 
@@ -80,6 +80,20 @@ The stack holds local variables and return addresses for function calls, and shr
 ## What has not been tested
 
 The stack's start value and how CPU modes use it were not checked. How much memory the counter uses in total was not measured.
+
+## Check your understanding
+
+**Why does `.ewram` need copying at startup?**
+
+ROM keeps its contents with the power off, and RAM does not. Initial values wait in ROM and are copied to RAM before `main`.
+
+**Why was `STEP` in ROM and `PRESSES` in EWRAM?**
+
+`STEP` never changes. `PRESSES` is `mut`, so it has to be in writable memory.
+
+**Why does `Counter::increment` have an odd address?**
+
+On ARM, the lowest bit of a function's address marks it as Thumb code.
 
 ## What you can learn
 

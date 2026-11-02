@@ -14,7 +14,7 @@ flowchart LR
   H --> G
 ```
 
-## Building on a Mac for a different machine
+## How can a Mac build for a GBA?
 
 A Mac and a GBA have different CPUs, so the Mac has to produce instructions it cannot run itself. This is called cross compilation. The template selects the target in `.cargo/config.toml`.
 
@@ -56,7 +56,7 @@ channel = "nightly-2026-07-22"
 components = ["rust-src", "clippy", "rustfmt", "llvm-tools"]
 ```
 
-## Object files: parts before they are joined
+## What is an object file?
 
 Think of a program split across two chapters of a book, where chapter 1 says "see the section on `increment`". While chapter 1 is being printed, nobody knows what page that section will land on. An object file (`.o`) is a chapter in that state: the machine code is ready, but it still carries a note saying "fill in this page number later".
 
@@ -103,7 +103,7 @@ target/thumbv4t-none-eabi/debug/incremental/agb_template-16da6nlkhw16x/.../64z6d
 
 Rust divides its work by crate and by internal compilation units, so you should not expect `main.rs` to become `main.o`.
 
-## The linker joins the parts
+## What does the linker do?
 
 The linker takes the object files and finishes the job. Giving it only `game.o` fails, because nothing provides the missing name.
 
@@ -134,7 +134,7 @@ The unfinished jump is now filled in with a real address.
 
 The linker does three things: it joins the parts, decides where each one goes, and fills in the notes.
 
-## Placement: deciding addresses
+## What does "placement" mean?
 
 A CPU does not know names like `main` or `counter`. It reads instructions and data at numbered memory addresses, the way a library shelf has numbered positions. "Placement" means deciding which address each piece goes to. On a Mac, the system decides what is suitable. On the GBA, it has to match the hardware, so the template passes the linker a layout file with `-Tgba.ld`. Its contents say that ROM starts at `0x08000000`, among other things.
 
@@ -157,7 +157,7 @@ llvm-objdump -h target/thumbv4t-none-eabi/debug/agb_template
 
 The last two address columns are the important part. `.iwram` and `.ewram` have different stored and run addresses. They wait in ROM, and something has to copy them to RAM before the game uses them. That is the startup code, covered in [article 31](31-gba-startup-and-memory.md).
 
-## ELF: the box that records the layout
+## What is an ELF?
 
 The linker's output is an ELF, the same kind of box seen in [article 20](20-cpu.md). The file's first bytes are the same marker.
 
@@ -182,7 +182,7 @@ On a Mac with mGBA installed through the Homebrew cask, `mgba-qt` was not on the
 /Applications/mGBA.app/Contents/MacOS/mGBA target/thumbv4t-none-eabi/debug/agb_template
 ```
 
-## agb-gbafix: making a cartridge image
+## What does agb-gbafix add?
 
 A real GBA has no ELF loader. It expects a cartridge image. The [template's README](https://github.com/agbrs/template) describes `agb-gbafix` as the step for shipping to real hardware, and as not required for an emulator.
 
@@ -221,7 +221,7 @@ In `counter.gba`, the same area is filled in, and the file name appears as the t
 
 The first instruction jumps over the header area, because that area is data and not code. [GBATEK](https://problemkaputt.de/gbatek.htm) gives the layout: the entry point at `000h`, the 156-byte Nintendo logo at `004h`, the title at `0A0h`, a fixed value that must be `96h` at `0B2h`, and a complement check at `0BDh`. These match the bytes above (`96` at `0xb2`, `6c` at `0xbd`). agb's [entrypoint.s](https://github.com/agbrs/agb/blob/v0.25.0/agb/src/entrypoint.s) leaves this area with the comment "Filled in by gbafix". `.gba` also has no section table, debug information, or symbol names, which is why it is much smaller. When opened in mGBA, the window title became `agb_template`, whereas for the ELF the title was empty.
 
-## Why these files do not open like a text file or a picture
+## Why can Finder open `.rs` and `.png` but not these?
 
 In Finder, a `.rs` file and a `.png` both open with a double click, while `.o`, ELF, and `.gba` do not show anything useful. The reason is not that they are a special kind of file. Every file is a sequence of bytes, as in [article 15](15-rg40xxh-big-picture.md). What differs is whether your Mac has an app that knows how to read those bytes.
 
@@ -236,13 +236,22 @@ $ xxd b.bin      (the number 10 in one byte)
 
 `.rs` is the first kind, so a text editor shows it. A CPU works with the second kind, so programs are stored that way, and a text editor shows them as garbled characters. A `.png` is also the second kind, but every Mac has an image viewer that understands it. `.o`, ELF, and `.gba` have viewers too. They are just tools for programmers rather than apps that come with Finder.
 
-| File | What opens it | What you see |
-|---|---|---|
-| `.rs` | A text editor | The source |
-| `.png` | An image viewer | The picture |
-| `.o` | `llvm-nm`, `llvm-objdump` | Names, unfinished instructions |
-| ELF | `llvm-objdump`, [Ghidra](23-rea-and-ghidra.md) | Sections, addresses, instructions |
-| `.gba` | mGBA, `xxd` | The running game, raw bytes |
+So is there a viewer for each one? Yes.
+
+| File | Viewer | What you see | Tried in this series? |
+|---|---|---|---|
+| `.rs` | A text editor | The source | Yes |
+| `.png` | An image viewer | The picture | Yes |
+| `.o` | `llvm-nm`, `llvm-objdump` | Names, unfinished instructions | Yes |
+| ELF | `llvm-objdump` | Sections, addresses, instructions | Yes |
+| ELF | [Ghidra](https://github.com/NationalSecurityAgency/ghidra) | Disassembly and decompilation, as in [article 23](23-rea-and-ghidra.md) | Not on this ELF |
+| `.gba` | mGBA | The running game | Yes |
+| `.gba` | mGBA's tools, such as "View memory..." and its tile, sprite, palette, and map views | The game's memory and graphics while it runs | No |
+| Any file | `xxd` | Raw bytes in hexadecimal | Yes |
+| Any file | [Hex Fiend](https://hexfiend.com/) | The same, in a Mac app. It is an open source hex editor | No |
+| `.gba` | [YY-CHR](https://www.romhacking.net/utilities/119/) | Graphics inside a ROM. The listed version is for Windows | No |
+
+mGBA's [README](https://github.com/mgba-emu/mgba/blob/0.10.5/README.md) also lists a command-line debugger and GDB remote support, compatible with Ghidra and IDA Pro. This is where the ELF is useful even after you have a `.gba`: it still has the names and debug information that the ROM does not.
 
 The file name's extension is only a label. Programs look at the first bytes, called a magic number, to tell what a file is. The `file` command does this.
 
@@ -266,6 +275,24 @@ The Chinese terms here were selected for their relevance to this article's topic
 | 模拟器 | mónǐqì | Emulator | [模拟器游戏 篇四](https://zhuanlan.zhihu.com/p/703325151) |
 | 内存 | nèicún | Memory | [掌机圈 RG-35XX H](https://zhangjiquan.com/handheld/rg-35xx-h) |
 | 处理器 | chǔlǐqì | Processor (SoC) | [RG-406V](https://zhangjiquan.com/handheld/rg-406v) |
+
+## Check your understanding
+
+**What does the `U` in `U _increment` mean?**
+
+The object needs `_increment`, but it is not defined there. Another part has to provide it.
+
+**Why did `cc game.o -o a` fail?**
+
+Only one part was given, so the linker had nothing to fill in the call to `_increment` with.
+
+**Does an ELF have to become a `.gba` to run in mGBA?**
+
+No. mGBA can load the ELF. The `.gba` is for real hardware, which expects a cartridge image.
+
+**Is a `.gba` unreadable?**
+
+No. It is bytes meant for the GBA, not for a text editor. `xxd` shows them, and the title is readable at `0xa0`.
 
 ## What you can learn
 
