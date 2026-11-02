@@ -1,874 +1,874 @@
-# 初代Switchを、自分のホームブリュー開発機にする
+# Turning an Original Switch into Your Own Homebrew Development Device
 
-[Novaで学ぶAndroid](24-android-nova.md)までは、RG40XXHとAndroidの2系統を見てきました。この記事では、3台目として、初代Nintendo Switch(無印)を扱います。対象は、2018年半ば以前に製造された、ハードウェアの脆弱性(fusée gelée)が残る個体だけです。この脆弱性は、チップ自体の作りに起因するため、ソフトウェアの更新では塞がれません([Switchbrewドキュメント](https://switchbrewdocs.readthedocs.io/en/latest/hacking/rcm.html))。
+Up to [Learning Android with the Nova](24-android-nova.md), we have looked at two lines: the RG40XXH and Android. This article covers a third device, the original Nintendo Switch (the base model). The scope is limited to units manufactured before mid-2018 that still have the hardware vulnerability (fusée gelée). This vulnerability stems from how the chip itself is built, so it cannot be closed by software updates ([Switchbrew documentation](https://switchbrewdocs.readthedocs.io/en/latest/hacking/rcm.html)).
 
-この記事で説明するのは、自分で所有する機体に、自作のホームブリューアプリを動かすための手順です。市販ソフトの吸い出しや違法なコピーの利用は、対象外とします。この境界は、[チートとパススルー](21-cheats-and-passthrough.md)で紹介したガイド集の立場と同じです。
+This article explains the steps for running your own homebrew apps on a unit you own. Dumping commercial software and using illegal copies are out of scope. This boundary is the same as the position of the guide collection introduced in [Cheats and passthrough](21-cheats-and-passthrough.md).
 
-## この記事の構成
+## How this article is organized
 
-前半の「作業手順」では、Macを使って、CFW(カスタムファームウェア)を起動するところまでを、順番どおりに進めます。後半の1〜8章では、各手順の仕組みと背景を説明します。
+The "work steps" in the first half go through, in order, booting CFW (custom firmware) using a Mac. Chapters 1–8 in the second half explain how each step works and its background.
 
-| 部分 | 内容 |
+| Part | Contents |
 |---|---|
-| [作業手順](#作業手順macで進める場合画像つき) | 手順0〜10。道具の準備から、emuMMCでCFWを起動するまで |
-| [1章](#1-個体の確認)〜[2章](#2-準備するもの) | 対象になる個体の見分け方、RCM治具、AutoRCM |
-| [3章](#3-rcmモードに入る)〜[4章](#4-ペイロードを送る) | RCMモードと、ペイロードを送るツール(PCがない場合の方法を含む) |
-| [5章](#5-hekateからの起動)〜[6章](#6-emummcを作る) | hekateの起動項目と、emuMMCの仕組み |
-| [7章](#7-ホームブリューを動かすhbmenu)〜[8b章](#8b-既存ゲームを改造する) | ホームブリュー、自作アプリ、MOD、チート |
+| [Work steps](#work-steps-on-a-mac-with-images) | Steps 0–10. From preparing the tools to booting CFW on emuMMC |
+| [Chapter 1](#1-identifying-your-unit)–[Chapter 2](#2-what-to-prepare) | How to identify eligible units, RCM jigs, AutoRCM |
+| [Chapter 3](#3-entering-rcm-mode)–[Chapter 4](#4-sending-a-payload) | RCM mode and tools for sending payloads (including methods without a PC) |
+| [Chapter 5](#5-booting-from-hekate)–[Chapter 6](#6-creating-emummc) | hekate's boot entries and how emuMMC works |
+| [Chapter 7](#7-running-homebrew-hbmenu)–[Chapter 8b](#8b-modifying-existing-games) | Homebrew, your own apps, mods, cheats |
 
-## 作業手順(Macで進める場合、画像つき)
+## Work steps (on a Mac, with images)
 
-手順は、[Switch Guide](https://switch.hacks.guide/)(Nintendo Homebrewが運営する導入ガイド)の2026年10月時点の内容に基づいています(ソースは[nh-server/switch-guide](https://github.com/nh-server/switch-guide)のコミット `64db3a8`)。この手順は、実機では試していません。作業の前と、うまくいかないときは、Switch Guideの本家のページも確認してください。
+The steps are based on the content of the [Switch Guide](https://switch.hacks.guide/) (an installation guide run by Nintendo Homebrew) as of October 2026 (the source is commit `64db3a8` of [nh-server/switch-guide](https://github.com/nh-server/switch-guide)). These steps have not been tried on a real device. Before working, and when something goes wrong, please also check the original Switch Guide pages.
 
 ```mermaid
 flowchart TD
-  S0[手順0. 道具をそろえる] --> S1[手順1. シリアル番号を確かめる]
-  S1 --> S2[手順2. Macにファイルをダウンロードする]
-  S2 --> S3[手順3. RCMモードに入る]
-  S3 --> S4[手順4. OmniRCMでhekateを送る]
-  S4 --> S5[手順5. hekateのGUIを出す]
-  S5 --> S6[手順6. SDカードを区画分けし、emuMMCを作る]
-  S6 --> S7[手順7. SDカードにファイルを置く]
-  S7 --> S8[手順8. NANDをバックアップする]
-  S8 --> S9[手順9. emuMMCでCFWを起動する]
-  S9 --> S10[手順10. hbmenu・MOD・チートへ]
+  S0[Step 0. Gather the tools] --> S1[Step 1. Check the serial number]
+  S1 --> S2[Step 2. Download files to the Mac]
+  S2 --> S3[Step 3. Enter RCM mode]
+  S3 --> S4[Step 4. Send hekate with OmniRCM]
+  S4 --> S5[Step 5. Bring up the hekate GUI]
+  S5 --> S6[Step 6. Partition the SD card and create emuMMC]
+  S6 --> S7[Step 7. Put files on the SD card]
+  S7 --> S8[Step 8. Back up the NAND]
+  S8 --> S9[Step 9. Boot CFW on emuMMC]
+  S9 --> S10[Step 10. On to hbmenu, mods, and cheats]
 ```
 
-画像のうち、ファイル名が `switch-guide-` で始まるものは、Switch Guideのリポジトリから取ったものです(© Nintendo Homebrew、ISCライセンス。許諾文は[LICENSE-switch-guide.txt](../assets/screenshots/LICENSE-switch-guide.txt))。`github-` と `omnircm-` で始まるものは、この記事のために、2026年10月にChrome(macOS版)で撮影したものです。
+Among the images, those whose file names start with `switch-guide-` were taken from the Switch Guide repository (© Nintendo Homebrew, ISC license. The license text is in [LICENSE-switch-guide.txt](../assets/screenshots/LICENSE-switch-guide.txt)). Those starting with `github-` and `omnircm-` were captured for this article in October 2026 with Chrome (macOS version).
 
-### 手順0. 道具をそろえる
+### Step 0. Gather the tools
 
-| もの | 選び方 | 解説へ |
+| Item | How to choose | Explanation |
 |---|---|---|
-| RCM治具 | 無印Switch用のもの。下の画像の形が、Switch Guideの推奨モデル | [2章](#rcm治具とは何か) |
-| microSDカード | 128GB以上を推奨。FAT32で使う | [2章](#2-準備するもの) |
-| USBケーブル | Macの端子に合わせて、USB-A→USB-C、またはUSB-C同士。データ転送に対応したもの(充電専用のケーブルでは認識されない) | [4章](#4-ペイロードを送る) |
-| Mac | ChromeなどのChromium系ブラウザか、OmniRCMのMac版を使う | [4章](#4-ペイロードを送る) |
+| RCM jig | One for the base-model Switch. The shape in the image below is the model recommended by the Switch Guide | [Chapter 2](#what-an-rcm-jig-is) |
+| microSD card | 128GB or larger recommended. Use with FAT32 | [Chapter 2](#2-what-to-prepare) |
+| USB cable | To match the Mac's port, USB-A to USB-C or USB-C to USB-C. One that supports data transfer (a charge-only cable will not be recognized) | [Chapter 4](#4-sending-a-payload) |
+| Mac | Use a Chromium-based browser such as Chrome, or the Mac version of OmniRCM | [Chapter 4](#4-sending-a-payload) |
 
-![Switch Guideが推奨するRCM治具。赤いプラスチック製で、ONとOFFの刻印があり、先端に2本の金属の接点が付いている](../assets/screenshots/switch-guide-recommended-rcm-jig.jpg)
+![The RCM jig recommended by the Switch Guide. It is made of red plastic, is marked ON and OFF, and has two metal contacts at the tip](../assets/screenshots/switch-guide-recommended-rcm-jig.jpg)
 
-*Switch Guideの推奨モデルのRCM治具。先端の接点を、本体右側のJoy-Conレールに差し込む。画像:[Switch Guide:Entering RCM](https://switch.hacks.guide/user_guide/rcm/entering_rcm)*
+*The RCM jig model recommended by the Switch Guide. Insert the contacts at the tip into the right Joy-Con rail of the console. Image: [Switch Guide: Entering RCM](https://switch.hacks.guide/user_guide/rcm/entering_rcm)*
 
-RCM治具は、Joy-Conレールの10番ピンとGND(グラウンド)をつなぐための部品です。ペーパークリップやアルミホイルで代用すると、5Vの電源が来ている4番ピンに触れて、本体を壊すおそれがあります。Switch Guideも、代用は絶対にしないよう警告しています([Switch Guide:Entering RCM](https://switch.hacks.guide/user_guide/rcm/entering_rcm))。
+An RCM jig is a part for connecting pin 10 of the Joy-Con rail to GND (ground). If you substitute a paperclip or aluminum foil, you may touch pin 4, which carries 5V power, and destroy the console. The Switch Guide also warns never to use substitutes ([Switch Guide: Entering RCM](https://switch.hacks.guide/user_guide/rcm/entering_rcm)).
 
-### 手順1. シリアル番号を確かめる
+### Step 1. Check the serial number
 
-1. Switchを普通に起動し、`設定 → 本体 → シリアル情報` を開く
-2. 表示されたシリアル番号を、[Switch GuideのGetting Started](https://switch.hacks.guide/user_guide/getting_started)の判定フォームに入力する
-3. 「Unpatched(未対策)」なら次に進む。「Patched(対策済み)」なら、この記事の方法は使えない。「Potentially patched(対策済みの可能性あり)」なら、手順4のペイロードテストで確かめる
+1. Boot the Switch normally and open `Settings → System → Serial Information`
+2. Enter the displayed serial number in the checker form on the Switch Guide's [Getting Started](https://switch.hacks.guide/user_guide/getting_started)
+3. If it says "Unpatched," go on to the next step. If it says "Patched," the method in this article cannot be used. If it says "Potentially patched," check with the payload test in step 4
 
-![本体設定の「本体」の画面。Serial Information(シリアル情報)の項目が選ばれている](../assets/screenshots/switch-guide-settings-serial-information.jpg)
+![The System screen in System Settings, with the Serial Information item selected](../assets/screenshots/switch-guide-settings-serial-information.jpg)
 
-*シリアル情報の場所。画像は英語表示だが、日本語表示では「本体」の中の「シリアル情報」にあたる。画像:[Switch Guide](https://switch.hacks.guide/user_guide/getting_started)*
+*Where Serial Information is. The image is in the English display; in the Japanese display, it corresponds to シリアル情報 (Serial Information) inside 本体 (System). Image: [Switch Guide](https://switch.hacks.guide/user_guide/getting_started)*
 
-シリアル番号は本体の底面のラベルにもありますが、Switch Guideは、設定画面の表示を使うほうが確実だとしています。特に中古品では、ラベルが本体と一致しない場合があるためです([Switch Guide:Getting Started](https://switch.hacks.guide/user_guide/getting_started))。判定の仕組みは[1章](#1-個体の確認)で説明しています。
+The serial number is also on a label on the bottom of the console, but the Switch Guide says that using the settings screen's display is more reliable. This is because, especially with used units, the label may not match the console ([Switch Guide: Getting Started](https://switch.hacks.guide/user_guide/getting_started)). How the determination works is explained in [Chapter 1](#1-identifying-your-unit).
 
-### 手順2. Macにファイルをダウンロードする
+### Step 2. Download files to the Mac
 
-次のファイルを、Macにダウンロードしておきます。
+Download the following files to the Mac.
 
-| ファイル | 入手先 | 役目 |
+| File | Where to get it | Role |
 |---|---|---|
-| `OmniRCM-osx.zip` | [OmniRCMのリリースページ](https://github.com/DefenderOfHyrule/OmniRCM/releases/latest) | Macから、Switchにペイロードを送るアプリ |
-| `hekate_ctcaer_(版)_Nyx_(版).zip` | [hekateのリリースページ](https://github.com/CTCaer/hekate/releases/latest) | ブートローダーのhekateと、そのGUI(Nyx) |
-| `atmosphere-(版)-master-…+hbl-…+hbmenu-….zip` | [Atmosphèreのリリースページ](https://github.com/Atmosphere-NX/Atmosphere/releases/latest) | CFW本体と、ホームブリューのランチャー(hbmenu)一式 |
-| `hekate_ipl.ini` | [Switch Guideの配布ファイル](https://switch.hacks.guide/files/emu/hekate_ipl.ini) | hekateの起動メニューの設定 |
-| `emummc.txt` | [Nintendo Homebrewの配布ファイル](https://nintendohomebrew.com/assets/emummc.txt) | emuMMCから任天堂のサーバーへの接続を止める設定 |
-| `bootlogos.zip` | [Switch Guideの配布ファイル](https://switch.hacks.guide/files/bootlogos.zip) | 起動メニューに表示するアイコン画像 |
+| `OmniRCM-osx.zip` | [OmniRCM release page](https://github.com/DefenderOfHyrule/OmniRCM/releases/latest) | App that sends payloads from the Mac to the Switch |
+| `hekate_ctcaer_(version)_Nyx_(version).zip` | [hekate release page](https://github.com/CTCaer/hekate/releases/latest) | The hekate bootloader and its GUI (Nyx) |
+| `atmosphere-(version)-master-…+hbl-…+hbmenu-….zip` | [Atmosphère release page](https://github.com/Atmosphere-NX/Atmosphere/releases/latest) | The CFW itself and the homebrew launcher (hbmenu) set |
+| `hekate_ipl.ini` | [Switch Guide's distributed file](https://switch.hacks.guide/files/emu/hekate_ipl.ini) | Settings for hekate's boot menu |
+| `emummc.txt` | [Nintendo Homebrew's distributed file](https://nintendohomebrew.com/assets/emummc.txt) | Settings that stop emuMMC from connecting to Nintendo's servers |
+| `bootlogos.zip` | [Switch Guide's distributed file](https://switch.hacks.guide/files/bootlogos.zip) | Icon images shown in the boot menu |
 
-([Switch Guide:Sending a Payload](https://switch.hacks.guide/user_guide/rcm/sending_payload)、[SD Preparation](https://switch.hacks.guide/user_guide/all/sd_preparation))
+([Switch Guide: Sending a Payload](https://switch.hacks.guide/user_guide/rcm/sending_payload), [SD Preparation](https://switch.hacks.guide/user_guide/all/sd_preparation))
 
-GitHubのリリースページでは、ページ下部の `Assets` の欄から、ファイル名を選んでダウンロードします。「Source code」は、プログラムのソースなので、選ばないでください。
+On a GitHub release page, choose the file name in the `Assets` section at the bottom of the page and download it. "Source code" is the program's source, so do not choose it.
 
-![OmniRCM v1.1.1のリリースページのAssets欄。OmniRCM-android.apk、iOS用のdeb、Linux用、OmniRCM-osx.zip、OmniRCM-win-x64.exeが並ぶ](../assets/screenshots/github-omnircm-release-assets.jpg)
+![The Assets section of the OmniRCM v1.1.1 release page, listing OmniRCM-android.apk, a deb for iOS, one for Linux, OmniRCM-osx.zip, and OmniRCM-win-x64.exe](../assets/screenshots/github-omnircm-release-assets.jpg)
 
-*OmniRCMのAssets欄。Macでは `OmniRCM-osx.zip` を選ぶ(2026年10月、v1.1.1)*
+*OmniRCM's Assets section. On a Mac, choose `OmniRCM-osx.zip` (October 2026, v1.1.1)*
 
-![hekate v6.5.4のリリースページのAssets欄。hekate_ctcaer_6.5.4.bin、hekate_ctcaer_6.5.4_Nyx_1.9.4.zipなどが並ぶ](../assets/screenshots/github-hekate-release-assets.jpg)
+![The Assets section of the hekate v6.5.4 release page, listing hekate_ctcaer_6.5.4.bin, hekate_ctcaer_6.5.4_Nyx_1.9.4.zip, and others](../assets/screenshots/github-hekate-release-assets.jpg)
 
-*hekateのAssets欄。選ぶのは2番目の `hekate_ctcaer_6.5.4_Nyx_1.9.4.zip`(2026年10月、v6.5.4)*
+*hekate's Assets section. Choose the second one, `hekate_ctcaer_6.5.4_Nyx_1.9.4.zip` (October 2026, v6.5.4)*
 
-![Atmosphère 1.12.0のリリースページのAssets欄。atmosphere-1.12.0-master-28d6a2e11+hbl-2.4.5+hbmenu-3.6.1.zipとfusee.binが並ぶ](../assets/screenshots/github-atmosphere-release-assets.jpg)
+![The Assets section of the Atmosphère 1.12.0 release page, listing atmosphere-1.12.0-master-28d6a2e11+hbl-2.4.5+hbmenu-3.6.1.zip and fusee.bin](../assets/screenshots/github-atmosphere-release-assets.jpg)
 
-*AtmosphèreのAssets欄。選ぶのは1番目のzip。`fusee.bin` は、Atmosphère自身のブートローダーで、この手順では使わない(2026年10月、1.12.0)*
+*Atmosphère's Assets section. Choose the first one, the zip. `fusee.bin` is Atmosphère's own bootloader and is not used in these steps (October 2026, 1.12.0)*
 
-hekateのzipのほかに、`hekate_ctcaer_6.5.4.bin` 単体も並んでいますが、これはペイロードだけのファイルです。この手順では、OmniRCMがhekateのペイロードを自動で取得するので、手で落とす必要はありません。`nyx_usb_max_rate__run_only_once_per_windows_pc.reg` は、Windows用の設定ファイルで、リリースノートにも「Linux/Mac OSでは不要」と書かれています([hekate v6.5.4のリリースノート](https://github.com/CTCaer/hekate/releases/tag/v6.5.4))。
+Besides the hekate zip, `hekate_ctcaer_6.5.4.bin` is also listed on its own, but this is a payload-only file. In these steps, OmniRCM fetches the hekate payload automatically, so there is no need to download it by hand. `nyx_usb_max_rate__run_only_once_per_windows_pc.reg` is a settings file for Windows, and the release notes also say it is "not needed on Linux/Mac OS" ([hekate v6.5.4 release notes](https://github.com/CTCaer/hekate/releases/tag/v6.5.4)).
 
-Atmosphèreには、`fusee` という独自のブートローダーもありますが、Switch Guideは、NANDのバックアップなどの機能が使えるhekateを使う手順にしています([Switch Guide:SD Preparation](https://switch.hacks.guide/user_guide/all/sd_preparation))。
+Atmosphère also has its own bootloader called `fusee`, but the Switch Guide's steps use hekate, which offers functions such as NAND backup ([Switch Guide: SD Preparation](https://switch.hacks.guide/user_guide/all/sd_preparation)).
 
-`hekate_ipl.ini` を開くと、`[Atmosphere PKG3 emuMMC]`・`[Atmosphere PKG3 sysMMC]`・`[Stock sysMMC]` という3つの起動項目が書かれています。`emummcforce=1` はemuMMCを必ず使う、`emummc_force_disable=1` はemuMMCを使わない、`stock=1` はCFWを読み込まずに純正の状態で起動する、という意味です。`icon=` の行は、`bootlogos.zip` に入っている3つのアイコン(`emu_boot.bmp` など)を指しています([hekateのREADME](https://github.com/CTCaer/hekate))。
+If you open `hekate_ipl.ini`, it lists three boot entries: `[Atmosphere PKG3 emuMMC]`, `[Atmosphere PKG3 sysMMC]`, and `[Stock sysMMC]`. `emummcforce=1` means always use emuMMC, `emummc_force_disable=1` means do not use emuMMC, and `stock=1` means boot in the stock state without loading CFW. The `icon=` lines point to the three icons (such as `emu_boot.bmp`) in `bootlogos.zip` ([hekate README](https://github.com/CTCaer/hekate)).
 
-`emummc.txt` を開くと、`127.0.0.1 *nintendo.com` のような行が並んでいます。任天堂のドメインの名前解決を、自分自身(127.0.0.1)に向けることで、通信を止める仕組みです。
+If you open `emummc.txt`, it lists lines such as `127.0.0.1 *nintendo.com`. It stops communication by pointing name resolution for Nintendo's domains at the device itself (127.0.0.1).
 
-### 手順3. RCMモードに入る
+### Step 3. Enter RCM mode
 
-1. Switchの電源を完全に切る(電源ボタン長押し → 電源オプション → 電源OFF。スリープではない)
-2. 右側のJoy-Conを外し、RCM治具を、右側のJoy-Conレールの奥まで差し込む
-3. 音量+ボタンを押したまま、電源ボタンを1回押す
-4. 画面が真っ黒のままなら成功。電源ボタンをもう一度押しても黒いままなら、RCMモードに入っている。音量+から手を離し、治具を抜く
+1. Turn the Switch off completely (hold the power button → Power Options → Power Off. Not sleep)
+2. Remove the right Joy-Con and insert the RCM jig all the way into the right Joy-Con rail
+3. While holding the volume + button, press the power button once
+4. If the screen stays black, it succeeded. If it stays black even after pressing the power button again, you are in RCM mode. Release volume + and pull out the jig
 
-ニンテンドーのロゴが出て普通に起動した場合は、失敗です。電源を切って、もう一度やり直します([Switch Guide:Entering RCM](https://switch.hacks.guide/user_guide/rcm/entering_rcm))。
+If the Nintendo logo appears and the console boots normally, it failed. Turn the power off and try again ([Switch Guide: Entering RCM](https://switch.hacks.guide/user_guide/rcm/entering_rcm)).
 
-RCMは、本体のチップ(Tegra X1)の起動プログラム(BootROM)に組み込まれた、復旧用のモードです。このモードのまま、USB経由で送られたプログラム(ペイロード)を受け取る処理に脆弱性があり、それを使って、hekateを動かします。画面に何も出ないのは、OSが起動する前の段階で止まっているからです。詳しくは[3章](#3-rcmモードに入る)を見てください。
+RCM is a recovery mode built into the boot program (BootROM) of the console's chip (Tegra X1). In this mode, the processing that receives a program (payload) sent over USB has a vulnerability, and that is used to run hekate. Nothing appears on screen because things have stopped at a stage before the OS boots. For details, see [Chapter 3](#3-entering-rcm-mode).
 
-### 手順4. OmniRCMでhekateを送る
+### Step 4. Send hekate with OmniRCM
 
-1. ダウンロードした `OmniRCM-osx.zip` を展開し、`OmniRCM.app` を `アプリケーション` フォルダに移してから、Finderで開く
-2. RCMモードのSwitchを、USBケーブルでMacに繋ぐ
-3. `Payloads` の欄にある `↓ Update` を押して、ペイロードの一覧を取得する
-4. hekate を選び、緑色の `► Inject Payload` を押す
-5. Switchの画面に、黄色い文字で `Update bootloader folder!` などの警告が出れば成功
+1. Extract the downloaded `OmniRCM-osx.zip`, move `OmniRCM.app` to the `Applications` folder, and then open it in Finder
+2. Connect the Switch in RCM mode to the Mac with a USB cable
+3. Press `↓ Update` in the `Payloads` section to fetch the list of payloads
+4. Select hekate and press the green `► Inject Payload`
+5. If a warning such as `Update bootloader folder!` appears in yellow text on the Switch screen, it succeeded
 
-([Switch Guide:Sending a Payload](https://switch.hacks.guide/user_guide/rcm/sending_payload))
+([Switch Guide: Sending a Payload](https://switch.hacks.guide/user_guide/rcm/sending_payload))
 
-アプリを入れずに済ませたい場合は、Chromeで[OmniRCM Web](https://omnircm.nintendohomebrew.com/web/)を開き、`Connect device…` → `APX` を選択 → hekateを選ぶ → `Inject` の順に操作しても同じです。
+If you prefer not to install an app, you can do the same by opening [OmniRCM Web](https://omnircm.nintendohomebrew.com/web/) in Chrome and going through `Connect device…` → select `APX` → select hekate → `Inject`.
 
-![OmniRCM Webの画面。上からConnect device…のボタン、fusee.bin・hekate_ctcaer_6.5.4.bin・TegraExplorer.binのペイロード一覧、Injectのボタンが並ぶ](../assets/screenshots/omnircm-web-injector.jpg)
+![The OmniRCM Web screen. From the top: the Connect device… button, a payload list of fusee.bin, hekate_ctcaer_6.5.4.bin, and TegraExplorer.bin, and the Inject button](../assets/screenshots/omnircm-web-injector.jpg)
 
-*OmniRCM Web。Switchを繋いで「Connect device…」を押すと、ブラウザがUSB機器の選択画面を出すので、`APX` を選ぶ*
+*OmniRCM Web. When you connect the Switch and press "Connect device…," the browser shows a USB device selection screen, so choose `APX`*
 
-1番目の操作で `OmniRCM.app` をアプリケーションフォルダに移すのは、アプリ内の自動更新を使うためです。OmniRCM v1.1.1のリリースノートは、v1.1.0から自動更新を使うには、アプリをアプリケーションフォルダにコピーしておく必要があると書いています([OmniRCM v1.1.1のリリースノート](https://github.com/DefenderOfHyrule/OmniRCM/releases/tag/v1.1.1))。
+The reason for moving `OmniRCM.app` to the Applications folder in the first operation is to use the in-app auto-update. The OmniRCM v1.1.1 release notes say that to use auto-update from v1.1.0, the app must be copied to the Applications folder ([OmniRCM v1.1.1 release notes](https://github.com/DefenderOfHyrule/OmniRCM/releases/tag/v1.1.1)).
 
-`APX` は、RCMモードのSwitchが、USB機器として名乗る名前です。
+`APX` is the name by which a Switch in RCM mode identifies itself as a USB device.
 
-黄色い警告は、SDカードにまだhekateのファイルがないために出るもので、次の手順で解消します。microSDカードを入れていない場合は、`Failed to init or mount SD!` と出ますが、これも気にしなくてかまいません。
+The yellow warning appears because the SD card does not yet have hekate's files, and it is resolved in the next step. If no microSD card is inserted, `Failed to init or mount SD!` appears, but you need not worry about this either.
 
-画面が黒いままの場合は、ペイロードが壊れているか、対策済みの個体です。OmniRCMが「Patched」と表示したなら、対策済みで確定です。詳しくは[4章](#成功失敗の見分け方)を見てください。
+If the screen stays black, either the payload is corrupt or the unit is patched. If OmniRCM shows "Patched," the unit is definitely patched. For details, see [Chapter 4](#telling-success-from-failure).
 
-### 手順5. hekateのGUIを出す
+### Step 5. Bring up the hekate GUI
 
-hekateの画面を出したまま、次の作業をします。**Switchの電源は切りません。** 切ると、手順3からやり直しになります。
+Do the following with the hekate screen left up. **Do not turn off the Switch.** If you do, you have to start over from step 3.
 
-1. SwitchからmicroSDカードを抜き、Macに挿す(hekateの画面のまま抜いても安全)
-2. カードの中の `Nintendo` フォルダ(と、ほかに大事なデータ)を、Macにコピーしてバックアップする
-3. ダウンロードしたhekateのzipを展開し、中の `bootloader` フォルダを、カードのルートにコピーする
-4. カードをSwitchに戻し、音量ボタンか電源ボタンを押して、hekateのメニューに進む
-5. 画面下に `Warning: Nyx is missing!` と出るが、そのまま進む。音量の上下で `load nyx` に合わせ、電源ボタンで選ぶ
-6. 下の画像の画面(Nyx)が出れば成功
+1. Remove the microSD card from the Switch and insert it into the Mac (it is safe to remove it with the hekate screen up)
+2. Copy the `Nintendo` folder on the card (and any other important data) to the Mac as a backup
+3. Extract the downloaded hekate zip and copy the `bootloader` folder inside to the root of the card
+4. Put the card back in the Switch and press a volume button or the power button to proceed to the hekate menu
+5. `Warning: Nyx is missing!` appears at the bottom of the screen, but continue anyway. Use volume up and down to move to `load nyx`, and select it with the power button
+6. If the screen in the image below (Nyx) appears, it succeeded
 
-([Switch Guide:Sending a Payload](https://switch.hacks.guide/user_guide/rcm/sending_payload))
+([Switch Guide: Sending a Payload](https://switch.hacks.guide/user_guide/rcm/sending_payload))
 
-![hekateのGUI(Nyx)のホーム画面。上部にHome・Tools・Console Info・Optionsのタブ、中央にLaunch・More Configs・Payloads・emuMMCのボタンが並ぶ](../assets/screenshots/switch-guide-hekate-nyx-home.png)
+![The home screen of hekate's GUI (Nyx). At the top are the Home, Tools, Console Info, and Options tabs, and in the center are the Launch, More Configs, Payloads, and emuMMC buttons](../assets/screenshots/switch-guide-hekate-nyx-home.png)
 
-*hekateのGUI(Nyx)のホーム画面(画像は撮影当時のv6.1.1)。画像:[Switch Guide](https://switch.hacks.guide/user_guide/rcm/sending_payload)*
+*The home screen of hekate's GUI (Nyx) (the image shows v6.1.1, current when it was captured). Image: [Switch Guide](https://switch.hacks.guide/user_guide/rcm/sending_payload)*
 
-Nyxは、hekateのタッチ操作に対応したGUIです。3番目の操作でカードに置いた `bootloader` フォルダの中に、Nyxの本体が入っています。ここからは、タッチパネルか、左Joy-Conのスティックで操作できます。`Nintendo` フォルダは、Switchがゲームのデータなどを保存するフォルダです。次の手順でカードが初期化されるので、ここで必ず退避しておきます。
+Nyx is hekate's touch-enabled GUI. Nyx itself is inside the `bootloader` folder placed on the card in the third operation. From here, you can operate with the touch panel or the left Joy-Con's stick. The `Nintendo` folder is where the Switch saves data such as game data. The card is initialized in the next step, so be sure to save a copy here.
 
-### 手順6. SDカードを区画分けし、emuMMCを作る
+### Step 6. Partition the SD card and create emuMMC
 
-**この手順で、microSDカードの中身はすべて消えます。** 手順5でバックアップを取ったことを確認してから進めてください。
+**This step erases everything on the microSD card.** Confirm that you made the backup in step 5 before proceeding.
 
-1. `Tools → Partition SD card` を開く
-2. `emuMMC (RAW)` のスライダーを、バーの中央の `29 FULL` に合わせる
-3. 右下の `Next Step` を選び、表示されたメニューで `Start` を選ぶ。初期化と区画分けが始まる
-4. 終わったら、`Home` に戻り、`emuMMC → Create emuMMC → SD Partition → Part 1`(灰色になっていないもの)を選ぶ。作成には時間がかかるので、終わるまで待つ
-5. `Close` で作成メニューを閉じ、`Change emuMMC → SD RAW 1`(灰色になっていないもの)を選ぶ
-6. 右上の `Close` を2回押して、Homeに戻る
+1. Open `Tools → Partition SD card`
+2. Set the `emuMMC (RAW)` slider to `29 FULL` at the center of the bar
+3. Select `Next Step` at the bottom right, and select `Start` in the menu that appears. Initialization and partitioning begin
+4. When finished, go back to `Home` and select `emuMMC → Create emuMMC → SD Partition → Part 1` (the one that is not grayed out). Creation takes time, so wait until it finishes
+5. Close the creation menu with `Close`, and select `Change emuMMC → SD RAW 1` (the one that is not grayed out)
+6. Press `Close` at the top right twice to go back to Home
 
-([Switch Guide:Partitioning the microSD Card](https://switch.hacks.guide/user_guide/all/partitioning_sd))
+([Switch Guide: Partitioning the microSD Card](https://switch.hacks.guide/user_guide/all/partitioning_sd))
 
-![hekateのPartition SD Cardの画面。emuMMC (RAW)のスライダーが29 FULLの位置にあり、右下にNext Stepのボタンがある](../assets/screenshots/switch-guide-hekate-partition-emummc.png)
+![hekate's Partition SD Card screen. The emuMMC (RAW) slider is at the 29 FULL position, and there is a Next Step button at the bottom right](../assets/screenshots/switch-guide-hekate-partition-emummc.png)
 
-*スライダーを29 FULLに合わせたところ。Android・Linuxを入れる予定がなければ、ほかのスライダーは0のままでよい。画像:[Switch Guide](https://switch.hacks.guide/user_guide/all/partitioning_sd)*
+*The slider set to 29 FULL. If you do not plan to install Android or Linux, the other sliders can stay at 0. Image: [Switch Guide](https://switch.hacks.guide/user_guide/all/partitioning_sd)*
 
-emuMMCは、本体の内蔵ストレージ(NAND)を、そっくりmicroSDカードの上に複製したものです。改造した環境はこちらで動かし、本体の内蔵ストレージ(sysMMC)は、オンラインで使う純正の環境として残しておけます。
+emuMMC is an exact copy of the console's internal storage (NAND) on the microSD card. The modified environment runs here, and the console's internal storage (sysMMC) can be kept as a stock environment for online use.
 
-「29 FULL」は、無印Switchの内蔵ストレージを丸ごと複製できる大きさ(約29GB)を確保する、という意味です。残りの容量は、ゲームやホームブリューを置く、普通のFAT32の区画になります。
+"29 FULL" means reserving a size (about 29GB) that can copy the entire internal storage of a base-model Switch. The remaining capacity becomes a normal FAT32 partition for holding games and homebrew.
 
-「SD Partition」は、emuMMC専用の区画に直接書き込む方式です。もう一つの「SD File」方式は、安定性が劣るとされています([ConsoleMods Wiki](https://consolemods.org/wiki/Switch:Creating_and_Using_EmuNAND))。
+"SD Partition" is a method that writes directly to a partition dedicated to emuMMC. The other method, "SD File," is said to be less stable ([ConsoleMods Wiki](https://consolemods.org/wiki/Switch:Creating_and_Using_EmuNAND)).
 
-Part・SD RAWの番号は、画面で灰色になっていないものを選びます。上の手順では1と書きましたが、環境によって違うことがあります。
+For the Part and SD RAW numbers, choose the ones not grayed out on screen. The steps above say 1, but this can differ by environment.
 
-詳しくは[6章](#6-emummcを作る)を見てください。
+For details, see [Chapter 6](#6-creating-emummc).
 
-### 手順7. SDカードにファイルを置く
+### Step 7. Put files on the SD card
 
-区画を作り直したので、カードは空になっています。ここで、CFWの起動に必要なファイルを置きます。カードは抜かずに、hekateのUSB機能を使ってMacに繋ぐのが手軽です。
+Because the partitions were recreated, the card is empty. Here you place the files needed to boot CFW. The easy way is to leave the card in and connect it to the Mac using hekate's USB function.
 
-1. hekateで `Tools → USB Tools → SD Card` を選び、SwitchをUSBケーブルでMacに繋ぐ。Macに、`SWITCH SD` という名前のドライブが出る
-2. Atmosphèreのzipを展開し、中身(`atmosphere` フォルダ、`switch` フォルダ、`hbmenu.nro`)を、`SWITCH SD` のルートにコピーする
-3. hekateのzipの中の `bootloader` フォルダを、ルートにコピーする。「置き換えますか」と聞かれたら、`結合` を選ぶ
-4. `bootlogos.zip` を展開し、中の `bootloader` フォルダを、ルートにコピーする。これも `結合` を選ぶ
-5. `hekate_ipl.ini` を、`bootloader` フォルダの中にコピーする。置き換えるか聞かれたら、置き換える
-6. `atmosphere` フォルダの中に `hosts` フォルダを作り、その中に `emummc.txt` を置く
-7. 手順5でバックアップした `Nintendo` フォルダを、ルートに戻す。さらに、同じものを `emuMMC/RAW1/` の中にもコピーする(`RAW1` の数字は、カードにあるものに合わせる)
-8. Finderで `SWITCH SD` を取り出して(イジェクトして)から、hekateのUSBの画面を閉じる
+1. In hekate, select `Tools → USB Tools → SD Card` and connect the Switch to the Mac with a USB cable. A drive named `SWITCH SD` appears on the Mac
+2. Extract the Atmosphère zip and copy its contents (the `atmosphere` folder, the `switch` folder, and `hbmenu.nro`) to the root of `SWITCH SD`
+3. Copy the `bootloader` folder in the hekate zip to the root. If asked "Replace?", choose `Merge`
+4. Extract `bootlogos.zip` and copy the `bootloader` folder inside to the root. Again, choose `Merge`
+5. Copy `hekate_ipl.ini` into the `bootloader` folder. If asked whether to replace, replace
+6. Create a `hosts` folder inside the `atmosphere` folder and put `emummc.txt` in it
+7. Return the `Nintendo` folder you backed up in step 5 to the root. Also copy the same thing into `emuMMC/RAW1/` (match the number in `RAW1` to what is on the card)
+8. Eject `SWITCH SD` in Finder, and then close hekate's USB screen
 
-([Switch Guide:SD Preparation](https://switch.hacks.guide/user_guide/all/sd_preparation)、[Making Essential Backups](https://switch.hacks.guide/user_guide/all/making_essential_backups))
+([Switch Guide: SD Preparation](https://switch.hacks.guide/user_guide/all/sd_preparation), [Making Essential Backups](https://switch.hacks.guide/user_guide/all/making_essential_backups))
 
-カードのルートは、次の画像のようになっていれば正しい状態です。`Nintendo` フォルダは、Switchが一度もこのカードで起動していなければ、まだありません。`payload.bin` は、modchipを付けた本体向けのファイルなので、この手順では置きません。
+The card's root is correct if it looks like the following image. The `Nintendo` folder will not exist yet if the Switch has never booted with this card. `payload.bin` is a file for consoles with a modchip, so it is not placed in these steps.
 
-![microSDカードのルートの一覧。atmosphere、bootloader、emuMMC、Nintendo、switchの各フォルダと、hbmenu.nro、payload.binのファイルが並ぶ](../assets/screenshots/switch-guide-sd-root-files.png)
+![A listing of the microSD card's root. The atmosphere, bootloader, emuMMC, Nintendo, and switch folders and the hbmenu.nro and payload.bin files are listed](../assets/screenshots/switch-guide-sd-root-files.png)
 
-*Windowsのエクスプローラーで見た、準備後のカードのルート。Macでも同じ構成になる。画像:[Switch Guide](https://switch.hacks.guide/user_guide/all/sd_preparation)*
+*The prepared card's root as seen in Windows Explorer. The structure is the same on a Mac. Image: [Switch Guide](https://switch.hacks.guide/user_guide/all/sd_preparation)*
 
-Atmosphèreのzipは、「zipを展開してできたフォルダごと」ではなく、「中身」をルートに置きます。フォルダごとコピーすると、1階層深くなり、hekateがファイルを見つけられません。
+For the Atmosphère zip, place "the contents" at the root, not "the whole folder created by extracting the zip." If you copy the whole folder, everything is one level deeper and hekate cannot find the files.
 
-Macの「置き換え」に注意します。Finderで同じ名前のフォルダをコピーすると、既定では中身ごと置き換えられ、先に入れたファイルが消えます。Switch Guideも、macOSでは「結合」を明示的に選ぶよう書いています([Switch Guide:SD Preparation](https://switch.hacks.guide/user_guide/all/sd_preparation))。結合の選択肢が出ない場合は、フォルダの中のファイルを、個別にコピーしてください。
+Watch out for "replace" on the Mac. When you copy a folder with the same name in Finder, by default it is replaced along with its contents, and the files you put in earlier disappear. The Switch Guide also says to explicitly choose "Merge" on macOS ([Switch Guide: SD Preparation](https://switch.hacks.guide/user_guide/all/sd_preparation)). If the merge option does not appear, copy the files in the folder individually.
 
-Macのアーカイブビットに注意します。Macでコピーしたファイルには、「アーカイブビット」という属性が付くことがあり、ホームブリューやMODが認識されない原因になります。うまく動かないときは、hekateの `Tools → Arch bit • RCM Touch • Pkg1/2 → Fix Archive Bit` を実行します([Switch Guide:Game modding](https://switch.hacks.guide/extras/game_modding))。
+Watch out for the archive bit on the Mac. Files copied on a Mac may get an attribute called the "archive bit," which causes homebrew and mods not to be recognized. If things do not work, run `Tools → Arch bit • RCM Touch • Pkg1/2 → Fix Archive Bit` in hekate ([Switch Guide: Game modding](https://switch.hacks.guide/extras/game_modding)).
 
-`emummc.txt` を置かないと、emuMMCが任天堂のサーバーに繋がり、BANされる可能性が高くなります。必ず置いてください。詳しくは[6章](#emummcをネットワークから切り離す)を見てください。
+If you do not place `emummc.txt`, emuMMC connects to Nintendo's servers and the chance of a ban becomes high. Be sure to place it. For details, see [Chapter 6](#cutting-emummc-off-from-the-network).
 
-取り出しをせずにUSBの画面を閉じると、書き込みが終わっていないファイルが壊れることがあります。
+If you close the USB screen without ejecting, files that have not finished writing may be corrupted.
 
-### 手順8. NANDをバックアップする
+### Step 8. Back up the NAND
 
-CFWを起動する前に、本体の内蔵ストレージを丸ごとバックアップします。Switch Guideが「絶対に飛ばさないで」と強調している手順です。
+Before booting CFW, back up the console's entire internal storage. This is a step the Switch Guide emphasizes "never skip."
 
-1. hekateの `Tools → Backup eMMC` を開く
-2. `eMMC BOOT0 & BOOT1` を選ぶ(数秒〜1分程度で終わる)
-3. `Close` を押し、続けて `eMMC RAW GPP` を選ぶ(10分〜1時間以上かかる)
-4. 終わったら、右上の `Close → Home` で戻る
-5. `Tools → USB Tools → SD Card` でMacに繋ぎ、カードの `backup` フォルダを、Macの安全な場所にコピーする
-6. コピーが終わったら、カードの `backup` フォルダを消し、Finderで取り出してから、hekateの画面に戻る
+1. Open `Tools → Backup eMMC` in hekate
+2. Select `eMMC BOOT0 & BOOT1` (finishes in a few seconds to about a minute)
+3. Press `Close`, then select `eMMC RAW GPP` (takes 10 minutes to over an hour)
+4. When finished, go back with `Close → Home` at the top right
+5. Connect to the Mac with `Tools → USB Tools → SD Card` and copy the card's `backup` folder to a safe place on the Mac
+6. When the copy is finished, delete the `backup` folder on the card, eject it in Finder, and then return to the hekate screen
 
-([Switch Guide:Making Essential Backups](https://switch.hacks.guide/user_guide/all/making_essential_backups))
+([Switch Guide: Making Essential Backups](https://switch.hacks.guide/user_guide/all/making_essential_backups))
 
-カードの空き容量が足りないと、hekateが途中で止まり、次の画面を出します。
+If the card does not have enough free space, hekate stops partway and shows the next screen.
 
-![hekateのBackup eMMC RAW GPPの画面に、Partial Backup in progress!という案内が重なって表示されている。OKを押してSDカードを外し、ファイルを移してから、同じ項目をもう一度選ぶよう指示している](../assets/screenshots/switch-guide-hekate-nand-backup-partial.png)
+![hekate's Backup eMMC RAW GPP screen with a Partial Backup in progress! notice overlaid. It instructs you to press OK, remove the SD card, move the files, and then select the same item again](../assets/screenshots/switch-guide-hekate-nand-backup-partial.png)
 
-*空き容量が足りないときの画面。画像:[Switch Guide](https://switch.hacks.guide/user_guide/all/making_essential_backups)*
+*The screen when free space runs out. Image: [Switch Guide](https://switch.hacks.guide/user_guide/all/making_essential_backups)*
 
-この場合は、`OK` を押し、`Close → Close → USB Tools → SD Card` でMacに繋いで、`backup` フォルダをMacに移します(結合を聞かれたら結合する)。取り出してから、`Close → Backup eMMC → eMMC RAW GPP` をもう一度選ぶと、続きから再開します。画面の案内にある通り、`partial.idx` というファイルは動かしてはいけません。最後まで終わるまで、これを繰り返します(同上)。
+In this case, press `OK`, connect to the Mac with `Close → Close → USB Tools → SD Card`, and move the `backup` folder to the Mac (if asked about merging, merge). After ejecting, select `Close → Backup eMMC → eMMC RAW GPP` again and it resumes where it left off. As the on-screen notice says, the file called `partial.idx` must not be moved. Repeat this until it finishes completely (same source).
 
-NANDのバックアップは、本体が起動しなくなったときに、元の状態へ戻すための、唯一の手段です。バックアップには本体固有のデータが含まれるので、ほかの本体には使えません。Switch Guideは、容量を節約するため、zipなどに圧縮して保管することを勧めています。
+The NAND backup is the only means of restoring the original state when the console no longer boots. The backup contains data unique to the console, so it cannot be used on other consoles. The Switch Guide recommends compressing it into a zip or similar for storage to save space.
 
-### 手順9. emuMMCでCFWを起動する
+### Step 9. Boot CFW on emuMMC
 
-1. hekateの `Home → Launch` を開く
-2. `Atmosphere PKG3 emuMMC` を選ぶ
-3. 起動したら、`設定 → 本体` を開き、バージョンの表記を確かめる。`AMS` の文字と、末尾の `E` があれば成功
+1. Open `Home → Launch` in hekate
+2. Select `Atmosphere PKG3 emuMMC`
+3. Once booted, open `Settings → System` and check the version notation. It succeeded if there is the text `AMS` and a trailing `E`
 
-([Switch Guide:Launching CFW](https://switch.hacks.guide/user_guide/all/launching_cfw))
+([Switch Guide: Launching CFW](https://switch.hacks.guide/user_guide/all/launching_cfw))
 
-![本体設定の「本体」の画面。Current version: y.y.y|AMS x.x.x|E と表示されている](../assets/screenshots/switch-guide-ams-version-emummc.jpg)
+![The System screen in System Settings, showing Current version: y.y.y|AMS x.x.x|E](../assets/screenshots/switch-guide-ams-version-emummc.jpg)
 
-*`AMS` はAtmosphèreで起動していること、末尾の `E` はemuMMCで起動していることを表す。sysMMCで起動した場合は `S` になる。画像:[Switch Guide](https://switch.hacks.guide/user_guide/all/launching_cfw)*
+*`AMS` indicates booting with Atmosphère, and the trailing `E` indicates booting on emuMMC. When booted on sysMMC, it becomes `S`. Image: [Switch Guide](https://switch.hacks.guide/user_guide/all/launching_cfw)*
 
-**emuMMCでは、任天堂のオンラインサービスを使いません。** オンラインのプレイやeショップは、sysMMC(`Stock sysMMC` で起動した純正の状態)で行います。両方でオンラインに繋ぐと、いずれBANされる可能性が高い、とSwitch Guideは警告しています([Switch Guide:Launching CFW](https://switch.hacks.guide/user_guide/all/launching_cfw))。
+**Do not use Nintendo's online services on emuMMC.** Online play and the eShop are done on sysMMC (the stock state booted with `Stock sysMMC`). The Switch Guide warns that connecting online on both makes an eventual ban likely ([Switch Guide: Launching CFW](https://switch.hacks.guide/user_guide/all/launching_cfw)).
 
-CFWは、電源を完全に切ると消えます。次にCFWで起動するときは、手順3(RCMモード)と手順4(hekateを送る)を繰り返し、Launchから起動します。手順5〜8は、最初の1回だけです。
+CFW disappears when the power is turned off completely. The next time you boot into CFW, repeat step 3 (RCM mode) and step 4 (sending hekate) and boot from Launch. Steps 5–8 are only for the first time.
 
-CFWの状態から再起動すると、hekateに戻ります。これは、`hekate_ipl.ini` の `updater2p=1` という設定が、Atmosphèreの再起動用ペイロードを、hekateに置き換えているためです([hekateのREADME](https://github.com/CTCaer/hekate))。
+Restarting from the CFW state returns you to hekate. This is because the `updater2p=1` setting in `hekate_ipl.ini` replaces Atmosphère's reboot payload with hekate ([hekate README](https://github.com/CTCaer/hekate)).
 
-詳しくは[5章](#起動の選択肢)を見てください。
+For details, see [Chapter 5](#boot-options).
 
-### 手順10. hbmenu・MOD・チートへ
+### Step 10. On to hbmenu, mods, and cheats
 
-ここまでで、CFWの環境ができあがりました。ここから先は、目的に応じて、次の章に進みます。
+The CFW environment is now complete. From here, go on to the following chapters according to your purpose.
 
-| やりたいこと | 操作の入口 | 解説へ |
+| What you want to do | Where the operation starts | Explanation |
 |---|---|---|
-| ホームブリューを動かす | Rボタンを押したまま、任意のゲームを起動して、hbmenuを開く | [7章](#7-ホームブリューを動かすhbmenu) |
-| 自作のアプリを作る | devkitA64とlibnxで `.nro` を作り、`switch` フォルダに置く | [8a章](#8a-自作ゲームを作るlibnx--devkita64) |
-| 既存のゲームにMODを入れる | `atmosphere/contents/<タイトルID>/` にMODを置く | [8b章](#8b-既存ゲームを改造する) |
-| MODをオン・オフする | SimpleModManager(スマブラSPではARCropolisのMod Manager) | [8b章](#modをオンオフするsimplemodmanager) |
-| チートを使う | `cheats/<ビルドID>.txt` を置き、EdiZonやTesla Menuで切り替える | [8b章](#チートコード) |
+| Run homebrew | Hold the R button, launch any game, and open hbmenu | [Chapter 7](#7-running-homebrew-hbmenu) |
+| Make your own apps | Make a `.nro` with devkitA64 and libnx, and put it in the `switch` folder | [Chapter 8a](#8a-making-your-own-games-libnx--devkita64) |
+| Put mods in existing games | Put mods in `atmosphere/contents/<title ID>/` | [Chapter 8b](#8b-modifying-existing-games) |
+| Turn mods on and off | SimpleModManager (for Smash Ultimate, ARCropolis's Mod Manager) | [Chapter 8b](#turning-mods-on-and-off-simplemodmanager) |
+| Use cheats | Place `cheats/<build ID>.txt` and toggle with EdiZon or Tesla Menu | [Chapter 8b](#cheat-codes) |
 
-## 1. 個体の確認
+## 1. Identifying your unit
 
-まず、自分の機体が対象になるかを確認します。
+First, check whether your unit is eligible.
 
-### 型番
+### Model number
 
-本体裏のラベルで、型番を確認してください。
+Check the model number on the label on the back of the console.
 
-| 型番 | 判定 |
+| Model number | Determination |
 |---|---|
-| `HAC-001`(末尾に何も付かない) | 候補になりうる |
-| `HAC-001(-01)` | Mariko版。対象外(別途、ハードウェアの改造が必要) |
-| `HDH-001`(Switch Lite)、`HEG-001`(OLED) | すべて対象外 |
+| `HAC-001` (nothing at the end) | Possible candidate |
+| `HAC-001(-01)` | Mariko version. Not eligible (separate hardware modification needed) |
+| `HDH-001` (Switch Lite), `HEG-001` (OLED) | None eligible |
 
-### シリアル番号
+### Serial number
 
-型番が `HAC-001` でも、2018年半ば以降の製造分は、見た目はそのままで、対策済み(Patched)のBootROMに切り替わっていることがあります。おおよその判定には、シリアル番号を使うのが一般的です。
+Even with model number `HAC-001`, units manufactured from mid-2018 onward may have switched to a patched BootROM while looking the same. It is common to use the serial number for a rough determination.
 
-シリアル番号は、本体の `設定 → 本体 → シリアル情報` で確認できます。本体底面(充電端子の横)のラベルにも書かれていますが、Switch Guideは、特に中古で入手した本体では、ラベルより設定画面の表示を使うほうが確実だとしています([Switch Guide:Getting Started](https://switch.hacks.guide/user_guide/getting_started))。
+The serial number can be checked on the console at `Settings → System → Serial Information`. It is also written on a label on the bottom of the console (next to the charging port), but the Switch Guide says that using the settings screen's display is more reliable than the label, especially for consoles obtained used ([Switch Guide: Getting Started](https://switch.hacks.guide/user_guide/getting_started)).
 
-Switch Guideのページには、シリアル番号を丸ごと入力して判定するフォームと、`XAW1`・`XAJ4` のような先頭4文字ごとに「未対策・対策済みの可能性あり・対策済み」の範囲をまとめた表があります。表に載っていないシリアル番号は、脆弱性の対象外です。表の元データは、[GBAtempのスレッド](https://gbatemp.net/threads/switch-informations-by-serial-number-read-the-first-post-before-asking-questions.481215/)で集められたものです([Switch Guide:Getting Started](https://switch.hacks.guide/user_guide/getting_started))。ほかにも、[Such Meme serial list](https://suchmememanyskill.github.io/guides/switchserials/)や[ReHack](https://rehack.com/gaming/console-gaming/is-my-switch-patched/)が、同様の一覧を公開しています。プレフィックスが `XKJ`、`XJW`、`XKW`、`XWW` のものは、範囲に関係なく、全数Mariko世代とされています([ReHack](https://rehack.com/gaming/console-gaming/is-my-switch-patched/))。
+The Switch Guide page has a form where you enter the whole serial number for a determination, and a table that summarizes the ranges of "unpatched, potentially patched, patched" for each first four characters such as `XAW1` and `XAJ4`. Serial numbers not in the table are not subject to the vulnerability. The table's underlying data was collected in a [GBAtemp thread](https://gbatemp.net/threads/switch-informations-by-serial-number-read-the-first-post-before-asking-questions.481215/) ([Switch Guide: Getting Started](https://switch.hacks.guide/user_guide/getting_started)). In addition, [Such Meme serial list](https://suchmememanyskill.github.io/guides/switchserials/) and [ReHack](https://rehack.com/gaming/console-gaming/is-my-switch-patched/) publish similar lists. Prefixes `XKJ`, `XJW`, `XKW`, and `XWW` are said to be all Mariko generation, regardless of range ([ReHack](https://rehack.com/gaming/console-gaming/is-my-switch-patched/)).
 
-Switch Guideは、この表の傾向に反する個体は知られておらず、「対策済みの可能性あり」の範囲でなければ、表の判定は実態に沿っていると説明しています。ただし、「対策済みの可能性あり」の範囲に入る個体は、表だけでは決まりません。その場合に確認できるのは、次の章のペイロードテストだけです。
+The Switch Guide explains that no units are known to go against the pattern in this table, and that outside the "potentially patched" ranges, the table's determination matches reality. However, units within the "potentially patched" ranges cannot be decided by the table alone. In that case, the only way to check is the payload test in the next chapter.
 
-## 2. 準備するもの
+## 2. What to prepare
 
-| もの | 役目 | 備考 |
+| Item | Role | Notes |
 |---|---|---|
-| RCM治具 | RCMモードに入るための、電気的な橋渡し | 次の節で詳しく説明する |
-| Mac(またはWindows PC、Androidスマホ) | ペイロードを送る | どれでも行ける。詳細は「4. ペイロードを送る」 |
-| USB Type-Cケーブル | SwitchとMacを繋ぐ | |
-| microSDカード(推奨128GB) | hekate、Atmosphère、ホームブリューの保存先 | FAT32推奨(exFATは壊れやすいため非推奨)。32GB以下はホームブリューには使えるが、NANDの完全なバックアップやemuMMCを置けないため非推奨([Switch GuideのFAQ](https://switch.hacks.guide/faq)) |
+| RCM jig | Electrical bridge for entering RCM mode | Explained in detail in the next section |
+| Mac (or a Windows PC or an Android phone) | Sends the payload | Any of them works. Details in "4. Sending a payload" |
+| USB Type-C cable | Connects the Switch and the Mac | |
+| microSD card (128GB recommended) | Storage for hekate, Atmosphère, and homebrew | FAT32 recommended (exFAT not recommended because it corrupts easily). 32GB or less can be used for homebrew but is not recommended because it cannot hold a complete NAND backup or emuMMC ([Switch Guide FAQ](https://switch.hacks.guide/faq)) |
 
-### RCM治具とは何か
+### What an RCM jig is
 
-Switchには、物理的な「ホームボタン」がありません。RCM(Recovery Mode、復旧モード)に入るには、本体の中にある、ホームボタンに相当する接点を、電気的に短絡させる(つなげる)必要があります。この役目を果たす小さな道具が、RCM治具です([Switchbrewのドキュメント](https://switchbrewdocs.readthedocs.io/en/latest/hacking/rcm.html))。
+The Switch has no physical "home button." To enter RCM (Recovery Mode), a contact inside the console equivalent to a home button has to be electrically shorted (connected). The small tool that does this is the RCM jig ([Switchbrew documentation](https://switchbrewdocs.readthedocs.io/en/latest/hacking/rcm.html)).
 
-#### 仕組み
+#### How it works
 
-RCM治具は、本体の右側のJoy-Conを差し込むレール(接点の並び)のうち、10番ピンとGND(グラウンド、電気的な基準点)のピンを、確実に短絡させるための部品です。治具が線材を固定するので、正しいピンの組み合わせを安定してつなげます([Switch Guideの解説](https://switch.hacks.guide/user_guide/rcm/entering_rcm))。
+An RCM jig is a part for reliably shorting pin 10 and the GND (ground, the electrical reference point) pin on the rail (row of contacts) where the console's right Joy-Con attaches. Because the jig holds the wire in place, it can connect the correct pair of pins stably ([Switch Guide's explanation](https://switch.hacks.guide/user_guide/rcm/entering_rcm)).
 
-#### 絶対に避けるべきピン
+#### The pin you must absolutely avoid
 
-同じレールの**4番ピンには、Joy-Conへ送る5Vの電源**が来ています。Switch Guideは、自作の治具が4番ピンに決して触れないようにすること、ショートさせるとレールや本体を恒久的に壊すおそれがあることを警告しています([Switch Guide](https://switch.hacks.guide/user_guide/rcm/entering_rcm))。
+**Pin 4** on the same rail carries **5V power sent to the Joy-Con**. The Switch Guide warns that a homemade jig must never touch pin 4, and that shorting it may permanently destroy the rail or the console ([Switch Guide](https://switch.hacks.guide/user_guide/rcm/entering_rcm)).
 
-もっとも安全なのは、市販の専用治具を使うことです。Switch Guideは、治具を使う方法を、もっとも手軽で、多くの場合ペーパークリップ方式より確実で安全な方法と位置づけています。**ペーパークリップやアルミホイルで代用してはいけません。** Switch Guideは「本体を壊すおそれがある」として明確に禁じており、ペーパークリップを使う設計の治具も同じリスクがあるとしています([Switch Guide](https://switch.hacks.guide/user_guide/rcm/entering_rcm))。治具を自作する場合は、Switch Guideに掲載されているパッドの番号図で、ピン配置を必ず確認してください。
+The safest option is to use a commercially sold dedicated jig. The Switch Guide positions the jig method as the easiest and, in many cases, more reliable and safer than the paperclip method. **Do not substitute a paperclip or aluminum foil.** The Switch Guide clearly prohibits this as something that "may destroy the console," and says that jigs designed to use a paperclip carry the same risk ([Switch Guide](https://switch.hacks.guide/user_guide/rcm/entering_rcm)). If you make your own jig, be sure to check the pin layout with the pad number diagram in the Switch Guide.
 
-#### 入手方法
+#### How to obtain one
 
-RCM治具は、小型の電子部品として、複数のオンラインショップで販売されています。本体の機種(無印/Lite/OLED)によって形が違うので、自分の機種に対応したものを選ぶことが大切です。
+RCM jigs are sold as small electronic components at several online shops. The shape differs by console model (base/Lite/OLED), so it is important to choose one that supports your model.
 
-### AutoRCMという別の方法(上級者向け、リスクが高い)
+### Another method called AutoRCM (for advanced users, high risk)
 
-治具を毎回使わずに済む、AutoRCMという設定もあります。これは、起動時に強制的にRCMへ入るよう、本体に設定を書き込む方法です。
+There is also a setting called AutoRCM that avoids using a jig every time. This is a method that writes a setting to the console so that it is forced into RCM at boot.
 
-#### 仕組み(hekateのソースコードで確認)
+#### How it works (verified in hekate's source code)
 
-AutoRCMは、eMMCのBOOT0領域だけを書き換えます。BOOT1は変更されません(「BOOT0とBOOT1の両方を書き換える」と説明しているガイドも見られますが、hekateの[ソースコード](https://github.com/CTCaer/hekate/blob/45cd81ed08e30a26ba380958c7e20b55c342834b/bdk/storage/emmc.c#L215-L227)を直接確認したところ、実際に書き込まれるのはBOOT0のみでした)。
+AutoRCM rewrites only the BOOT0 area of the eMMC. BOOT1 is not changed (some guides explain that "both BOOT0 and BOOT1 are rewritten," but checking hekate's [source code](https://github.com/CTCaer/hekate/blob/45cd81ed08e30a26ba380958c7e20b55c342834b/bdk/storage/emmc.c#L215-L227) directly showed that only BOOT0 is actually written).
 
-BOOT0内には、BCT(Boot Config Table、起動時の署名検証に使うテーブル)が4つ、一定間隔で格納されています。AutoRCMは、その各コピーにある、RSA公開鍵モジュラスの先頭1バイトを `0x00` に書き換えます。この結果、BootROMの署名検証が必ず失敗するようになり、「正常に起動できない本体」としてRCM(Recovery Mode)へ自動的にフォールバックする、という仕組みです([hekateソース `fe_tools.c`](https://github.com/CTCaer/hekate/blob/45cd81ed08e30a26ba380958c7e20b55c342834b/bootloader/frontend/fe_tools.c#L34-L159))。hekateのメニュー自体にも、「This corrupts BOOT0!」(これはBOOT0を破壊します)という警告が、ツール名としてそのまま表示されます。
+Inside BOOT0, four BCTs (Boot Config Tables, tables used for signature verification at boot) are stored at regular intervals. AutoRCM rewrites the first byte of the RSA public key modulus in each copy to `0x00`. As a result, BootROM's signature verification always fails, and the console automatically falls back to RCM (Recovery Mode) as "a console that cannot boot normally" ([hekate source `fe_tools.c`](https://github.com/CTCaer/hekate/blob/45cd81ed08e30a26ba380958c7e20b55c342834b/bootloader/frontend/fe_tools.c#L34-L159)). The hekate menu itself also shows a warning, "This corrupts BOOT0!", as part of the tool's name.
 
-#### なぜ対策済み(Patched)個体でブリックするのか
+#### Why patched units get bricked
 
-RCMモードへの切り替えは電気的な機能なので、Patched個体でも問題なく入れます。塞がれているのは、RCM経由で送られたペイロード(署名のない自作コード)を実行する部分だけです(2018年のパッチ、BootROMアドレス `0x0010769A` の修正)。
+Switching to RCM mode is an electrical function, so patched units can enter it without problems. What is closed is only the part that executes payloads (unsigned homemade code) sent through RCM (the 2018 patch, a fix at BootROM address `0x0010769A`).
 
-そのため、Patched個体でAutoRCMを有効化すると、通常起動はBCT破損で失敗し、RCMへのフォールバックはペイロードを拒否される、というどちらの経路でも起動できない状態に陥ります。これが、ブリックの実体です。複数のガイドが「絶対に行うな」と強調しているのは、このためです([Homebrew-Guide](https://github.com/noahc3/Homebrew-Guide/blob/master/usingcfw/hekate.rst))。
+So if you enable AutoRCM on a patched unit, normal boot fails because of the corrupted BCT, and the fallback to RCM rejects payloads, leaving a state that cannot boot by either path. This is what the brick actually is. This is why several guides stress "never do this" ([Homebrew-Guide](https://github.com/noahc3/Homebrew-Guide/blob/master/usingcfw/hekate.rst)).
 
-#### 最新のhekateに備わる防止機能
+#### Prevention features in recent hekate
 
-現在のhekate(v6.5.4世代)は、Patched個体を検出すると、AutoRCMの有効化そのものを拒否するようになっています([`fuse.c`](https://github.com/CTCaer/hekate/blob/45cd81ed08e30a26ba380958c7e20b55c342834b/bdk/soc/fuse.c#L487-L515))。クラシックメニューでは「This device is RCM patched and the function is disabled to avoid BRICKS!」と表示されてeMMCには一切触れず、GUI版(Nyx)でも、有効化を試みた直後にPatched状態を検知して書き込みを取り消します。つまり、正規の最新hekateを使う限り、この種のブリックは原理的に起きにくくなっています(古いバージョンや、この機能を回避する改造ツールを使った場合は対象外です)。
+Current hekate (v6.5.4 generation), on detecting a patched unit, refuses to enable AutoRCM at all ([`fuse.c`](https://github.com/CTCaer/hekate/blob/45cd81ed08e30a26ba380958c7e20b55c342834b/bdk/soc/fuse.c#L487-L515)). The classic menu shows "This device is RCM patched and the function is disabled to avoid BRICKS!" and does not touch the eMMC at all, and the GUI version (Nyx) also detects the patched state right after an attempt to enable it and cancels the write. In other words, as long as you use a genuine recent hekate, this kind of brick is in principle unlikely to happen (this does not apply when using old versions or modified tools that bypass this feature).
 
-#### バックアップと、元に戻す方法
+#### Backup and how to undo
 
-有効化する前には、NANDのバックアップ(`Tools → Backup eMMC → eMMC BOOT0 & BOOT1`)を取っておくことが推奨されています。これはAutoRCM専用の対策というより、それ以外の予期しないeMMC破損に備えた、一般的な保険です。
+Before enabling, making a NAND backup (`Tools → Backup eMMC → eMMC BOOT0 & BOOT1`) is recommended. This is less a measure specific to AutoRCM than general insurance against other unexpected eMMC corruption.
 
-Unpatched個体であれば、設定はいつでも元に戻せます。無効化もhekateの同じメニューから行い、バックアップがなくても、hekateが正しいバイトを計算して書き戻します。ただし、無効化の操作をするにも、一度はペイロードを送ってhekateを起動しなければなりません。Patched個体では、この「一度は起動する」こと自体ができないため、バックアップがあっても、ソフトウェアだけでは元に戻せません。
+On an unpatched unit, the setting can be undone at any time. Disabling is also done from the same hekate menu, and even without a backup, hekate calculates the correct byte and writes it back. However, even the disabling operation requires sending a payload and booting hekate at least once. On a patched unit, this "booting at least once" itself is impossible, so even with a backup, it cannot be undone by software alone.
 
-### Patched/Unpatchedの確実な判定方法
+### A reliable way to determine patched or unpatched
 
-[1章](#1-個体の確認)で見たシリアル番号の判定は、「対策済みの可能性あり」の範囲に入る個体では、決め手になりません。もっとも確実な判定は、hekateが本体のFuse(ヒューズ、製造時に焼き込まれる情報)を読み取って表示する、Console Info画面です。緑文字で「This unit is exploitable to the RCM bug!」、オレンジ文字で「This unit is patched to the RCM bug!」と表示されます([`gui_info.c`](https://github.com/CTCaer/hekate/blob/45cd81ed08e30a26ba380958c7e20b55c342834b/nyx/nyx_gui/frontend/gui_info.c#L1281-L1286))。ただし、この画面を見るには、そもそも一度ペイロードが通ってhekateが起動している必要があるため、実質的には「4章のペイロードが通るかどうか」自体が、最終的な判定にほかなりません。
+The serial number determination seen in [Chapter 1](#1-identifying-your-unit) is not decisive for units within the "potentially patched" ranges. The most reliable determination is the Console Info screen, where hekate reads and displays the console's fuses (information burned in at manufacture). It shows "This unit is exploitable to the RCM bug!" in green text, or "This unit is patched to the RCM bug!" in orange text ([`gui_info.c`](https://github.com/CTCaer/hekate/blob/45cd81ed08e30a26ba380958c7e20b55c342834b/nyx/nyx_gui/frontend/gui_info.c#L1281-L1286)). However, seeing this screen requires that a payload has already gone through and hekate has booted, so in practice "whether the payload in Chapter 4 goes through" is itself the final determination.
 
-この記事では、最初はAutoRCMを使わず、毎回治具でRCMに入る方法を前提とします。AutoRCMは、治具を使う手順に十分慣れてから選ぶ、発展的な選択肢として紹介しました。
+This article assumes not using AutoRCM at first and entering RCM with a jig every time. AutoRCM was introduced as an advanced option to choose once you are thoroughly used to the jig procedure.
 
-## 3. RCMモードに入る
+## 3. Entering RCM mode
 
-操作は[手順3](#手順3-rcmモードに入る)の通りです。RCMモードでは画面に何も表示されないため、成功したかどうかは「画面が黒いままか」で判断します。ニンテンドーのロゴが出て通常起動した場合や、点いていた画面が黒くなった場合は、RCMモードに入れていません([Switch Guide](https://switch.hacks.guide/user_guide/rcm/entering_rcm))。
+The operation is as in [step 3](#step-3-enter-rcm-mode). Nothing is displayed on screen in RCM mode, so success is judged by "whether the screen stays black." If the Nintendo logo appears and the console boots normally, or if a screen that was on goes black, you have not entered RCM mode ([Switch Guide](https://switch.hacks.guide/user_guide/rcm/entering_rcm)).
 
-対策済み(Patched)の個体でも、RCMモードには入れます。塞がれているのは、ペイロードを実行する部分だけです([Switch Guide](https://switch.hacks.guide/user_guide/rcm/entering_rcm))。また、RCMは、音量+・音量-・電源ボタンを押して入る「メンテナンスモード」とは別のモードです(同上)。
+Even patched units can enter RCM mode. What is closed is only the part that executes payloads ([Switch Guide](https://switch.hacks.guide/user_guide/rcm/entering_rcm)). Also, RCM is a different mode from "maintenance mode," which is entered by pressing volume +, volume -, and the power button (same source).
 
-## 4. ペイロードを送る
+## 4. Sending a payload
 
-Mac(またはWindows PC、Androidスマホ)とUSBケーブルで繋いだ状態で、ペイロード注入ツールを使います。
+With the Mac (or a Windows PC or an Android phone) connected by USB cable, use a payload injection tool.
 
-現在のSwitch Guideが、すべてのOSで第一に案内しているのは、[OmniRCM](https://github.com/DefenderOfHyrule/OmniRCM) です。GPL-3.0のオープンソースで、2026年8月にv1.1.1が出ており、開発が続いています([Switch Guide:Sending a Payload](https://switch.hacks.guide/user_guide/rcm/sending_payload))。
+What the current Switch Guide points to first on all operating systems is [OmniRCM](https://github.com/DefenderOfHyrule/OmniRCM). It is GPL-3.0 open source, v1.1.1 came out in August 2026, and development continues ([Switch Guide: Sending a Payload](https://switch.hacks.guide/user_guide/rcm/sending_payload)).
 
-| 環境 | ツール | 備考 |
+| Environment | Tool | Notes |
 |---|---|---|
-| Mac | OmniRCM(`OmniRCM-osx.zip`) | 代わりに、ブラウザ版(OmniRCM Web)も使える |
-| Windows | OmniRCM(`OmniRCM-win-x64.exe`) | ドライバーの導入が必要。代わりの方法として、[TegraRcmGUI](https://github.com/eliboa/TegraRcmGUI)とZadig(libusbK)も案内されている。TegraRcmGUIの最終リリースは2019年 |
-| Linux | OmniRCM | udevルールの設定が必要 |
-| Android | OmniRCM(`OmniRCM-android.apk`) | root化は不要。詳しくは後述 |
-| iOS | OmniRCM(Sileoリポジトリから入れる) | 脱獄済みのiPhoneに限る |
-| ChromeOS | OmniRCM Web | USB-C同士のケーブルでは動かない |
+| Mac | OmniRCM (`OmniRCM-osx.zip`) | Alternatively, the browser version (OmniRCM Web) can be used |
+| Windows | OmniRCM (`OmniRCM-win-x64.exe`) | Driver installation required. As an alternative, [TegraRcmGUI](https://github.com/eliboa/TegraRcmGUI) and Zadig (libusbK) are also suggested. TegraRcmGUI's last release was in 2019 |
+| Linux | OmniRCM | udev rules must be set |
+| Android | OmniRCM (`OmniRCM-android.apk`) | No root required. Details below |
+| iOS | OmniRCM (installed from a Sileo repository) | Jailbroken iPhones only |
+| ChromeOS | OmniRCM Web | Does not work with USB-C to USB-C cables |
 
-([Switch Guide:Sending a Payload](https://switch.hacks.guide/user_guide/rcm/sending_payload))
+([Switch Guide: Sending a Payload](https://switch.hacks.guide/user_guide/rcm/sending_payload))
 
-Macでの操作は[手順4](#手順4-omnircmでhekateを送る)にまとめました。OmniRCMには、アプリ版のほかに、ブラウザで動く[OmniRCM Web](https://omnircm.nintendohomebrew.com/web/)があります。ブラウザのWebUSB機能を使うため、ChromeなどのChromium系ブラウザでだけ動き、Firefox・Safariでは動きません。Windowsは、Chromium系ブラウザがあっても非対応と明記されています。
+The Mac operations are collected in [step 4](#step-4-send-hekate-with-omnircm). Besides the app version, OmniRCM has [OmniRCM Web](https://omnircm.nintendohomebrew.com/web/), which runs in a browser. It uses the browser's WebUSB feature, so it works only in Chromium-based browsers such as Chrome and does not work in Firefox or Safari. Windows is explicitly stated as unsupported even with a Chromium-based browser.
 
-### 成功・失敗の見分け方
+### Telling success from failure
 
-注入に成功すると、Switchの画面に、hekateの黄色い文字(ライブラリが足りないという警告と、`Update bootloader folder!`)が出ます。microSDカードを入れていない場合の表示は `Failed to init or mount SD!` です。どちらの警告も、次の章でSDカードを準備すれば消えるので、この時点では無視してかまいません([Switch Guide:Sending a Payload](https://switch.hacks.guide/user_guide/rcm/sending_payload))。
+When injection succeeds, hekate's yellow text (a warning about missing libraries and `Update bootloader folder!`) appears on the Switch screen. If no microSD card is inserted, the display is `Failed to init or mount SD!`. Both warnings disappear once the SD card is prepared in the next chapter, so they can be ignored at this point ([Switch Guide: Sending a Payload](https://switch.hacks.guide/user_guide/rcm/sending_payload)).
 
-この結果が、実際の動作確認になります。ペイロードを送っても画面が黒いままなら、ペイロードが壊れているか、対策済み(Patched)の個体です。Switch Guideは、注入ツールが「Patched」と表示した場合は、一時的な不具合ではなく、確実に対策済みだとしています([Switch Guide:Sending a Payload](https://switch.hacks.guide/user_guide/rcm/sending_payload))。OmniRCM Webのページによると、ツールは転送が止まった位置(オフセット `0xF000` で止まれば対策済みの初代、`0x10000` ならMariko)や、デバイスIDから、個体を判定しています。シリアル番号の判定より、こちらのほうが確実です。
+This result is the actual operational check. If the screen stays black after sending a payload, either the payload is corrupt or the unit is patched. The Switch Guide says that if the injection tool shows "Patched," this is not a temporary glitch and the unit is definitely patched ([Switch Guide: Sending a Payload](https://switch.hacks.guide/user_guide/rcm/sending_payload)). According to the OmniRCM Web page, the tool determines the unit from the position where the transfer stopped (stopping at offset `0xF000` means a patched original model, `0x10000` means Mariko) and from the device ID. This is more reliable than the serial number determination.
 
-#### 以前の定番だったfusee-launcherについて
+#### About fusee-launcher, formerly the standard tool
 
-以前は、Macでペイロードを送るツールとして、Pythonスクリプトの fusee-launcher が紹介されていました。ただし、開発は2018年で止まっており、開発者自身によるリポジトリは、現在GitHub上に存在しません。有志によるミラー版([mid-kidによるもの](https://github.com/mid-kid/fusee-launcher)など)が残っているだけです。今からMacで始めるなら、OmniRCMを使うほうが確実です。
+Formerly, the Python script fusee-launcher was introduced as the tool for sending payloads on a Mac. However, development stopped in 2018, and the developer's own repository no longer exists on GitHub. Only volunteer mirrors ([the one by mid-kid](https://github.com/mid-kid/fusee-launcher) and others) remain. If you start on a Mac now, OmniRCM is the more reliable choice.
 
-### PCがなくてもいいのか
+### Can you go without a PC?
 
-ペイロードを送る役目は、PCでなくても代わりが務まります。ただし、「何らかの機器がUSBホスト役を務める」という条件そのものは、どの方法を選んでも変わりません。
+Something other than a PC can take over the role of sending the payload. However, the condition itself that "some device must act as the USB host" does not change whichever method you choose.
 
-#### Androidスマホを使う方法
+#### Using an Android phone
 
-現在のSwitch Guideが案内しているのは、OmniRCMのAndroid版です。root化は不要です。
+What the current Switch Guide points to is the Android version of OmniRCM. No root is required.
 
-1. `OmniRCM-android.apk` をインストールして開く
-2. RCMモードのSwitchを、USBケーブルでAndroid端末に繋ぐ(端末がUSB-Cなら、C-Cケーブルでよい。micro USBの端末では、OTGアダプタとA-Cケーブルが必要)
-3. OmniRCMに、`APX` デバイスへのアクセスを許可する
-4. `Fetch Payloads` でペイロードの一覧を取得し、hekateを選んで `Inject` を押す
+1. Install and open `OmniRCM-android.apk`
+2. Connect the Switch in RCM mode to the Android device with a USB cable (if the device has USB-C, a C-to-C cable is fine. A micro USB device needs an OTG adapter and an A-to-C cable)
+3. Allow OmniRCM to access the `APX` device
+4. Fetch the list of payloads with `Fetch Payloads`, select hekate, and press `Inject`
 
-([Switch Guide:Sending a Payload](https://switch.hacks.guide/user_guide/rcm/sending_payload))
+([Switch Guide: Sending a Payload](https://switch.hacks.guide/user_guide/rcm/sending_payload))
 
-以前からある [NXLoader](https://github.com/DavidBuchanan314/NXLoader) というアプリも、同じようにUSB-OTG経由でペイロードを送れます([NXLoaderのREADME](https://github.com/DavidBuchanan314/NXLoader))。ただし、最新リリースは2018年のalpha-0.3のままで、開発者自身が「アルファ版、実験的」と明記しています。また、Android端末のUSBコントローラーがEHCI方式の場合、「SUBMITURB Failed」というエラーで動作しない、という制限が報告されています([SXTools、NXLoaderの派生版のREADME](https://github.com/annson24/SXTools))。
+The older app [NXLoader](https://github.com/DavidBuchanan314/NXLoader) can likewise send payloads over USB-OTG ([NXLoader README](https://github.com/DavidBuchanan314/NXLoader)). However, the latest release is still alpha-0.3 from 2018, and the developer explicitly states it is "alpha, experimental." Also, a limitation has been reported in which it fails with a "SUBMITURB Failed" error when the Android device's USB controller is EHCI ([SXTools, README of a fork of NXLoader](https://github.com/annson24/SXTools)).
 
-iPhoneでは、脱獄済みの端末に限って、OmniRCMをSileo(脱獄端末向けのパッケージマネージャー)から入れて使えます。脱獄していないiPhoneで使える方法は、Switch Guideには載っていません([Switch Guide:Sending a Payload](https://switch.hacks.guide/user_guide/rcm/sending_payload))。
+On an iPhone, only on jailbroken devices, OmniRCM can be installed and used from Sileo (a package manager for jailbroken devices). The Switch Guide lists no method usable on a non-jailbroken iPhone ([Switch Guide: Sending a Payload](https://switch.hacks.guide/user_guide/rcm/sending_payload)).
 
-#### スタンドアロンのRCM注入ドングル
+#### Standalone RCM injection dongles
 
-「RCM Loader」などの名前で販売されている、USB-C型の小型ドングルもあります。治具が「RCMモードに入れるだけ」なのに対し、こちらは内蔵のフラッシュメモリにペイロードそのものを保存しておき、PCもスマホも使わずに、挿すだけでペイロードを送る仕組みです。
+There are also small USB-C dongles sold under names such as "RCM Loader." Whereas a jig "only lets you enter RCM mode," these store the payload itself in built-in flash memory and send it just by being plugged in, without a PC or phone.
 
-オープンソースの設計としては、SAMD Fusee Payload Launcher V2 というDIY基板がコミュニティで共有されています([GBAtempのスレッド](https://gbatemp.net/goto/post?id=8273176))。ペイロードの書き込み自体は、最初にPC経由で行う必要がありますが、以降は単体で使えます。
+As an open source design, a DIY board called SAMD Fusee Payload Launcher V2 is shared in the community ([GBAtemp thread](https://gbatemp.net/goto/post?id=8273176)). Writing the payload itself must first be done through a PC, but after that it can be used on its own.
 
-市販品の多くは、AliExpressやeBay経由で売られている、様々なリブランド品・模倣品です。2026年6月のGBAtempのスレッドでは、PCに繋いでも認識されない、という相談に対して、元の製品はすでに手に入らず、今出回っているのは機能を削った模倣品ばかりだ、という回答が付いています([GBAtempのトラブル報告スレッド](https://gbatemp.net/threads/rcm-loader-not-being-detected-on-pc.682629/))。
+Many commercial products are assorted rebranded goods and imitations sold through AliExpress and eBay. In a June 2026 GBAtemp thread, in response to a question about a device not being recognized when connected to a PC, a reply says that the original product is no longer available and that what circulates now is all imitations with reduced functions ([GBAtemp troubleshooting thread](https://gbatemp.net/threads/rcm-loader-not-being-detected-on-pc.682629/)).
 
-この種のデバイスには、固有の法的リスクがあります。任天堂は、アメリカで「RCM Loader」という名称のデバイスの販売者に対し、差止命令(injunction)を得ています。裁判所は「このデバイスの唯一の目的は、保護機構の回避である」と判断しました([TorrentFreak](https://torrentfreak.com/nintendo-wins-us-wide-injunction-against-seller-of-rcm-loader-piracy-device-210416/))。これは機器の販売に対する訴訟ですが、購入を検討する場合は知っておくべき事情です。
+This kind of device carries its own legal risk. Nintendo obtained an injunction in the United States against a seller of a device named "RCM Loader." The court determined that "the sole purpose of this device is circumventing protection mechanisms" ([TorrentFreak](https://torrentfreak.com/nintendo-wins-us-wide-injunction-against-seller-of-rcm-loader-piracy-device-210416/)). This is a lawsuit over selling the device, but it is something you should know if you are considering buying one.
 
-##### 具体的な使い方
+##### Concrete usage
 
-GBAtempの報告を読むと、「RCM Loader」と呼ばれる製品には、使い方がまったく違う2つの世代があります。買う前に、どちらの世代かを確かめる必要があります。
+Reading the GBAtemp reports, products called "RCM Loader" come in two generations used in entirely different ways. Before buying, you need to confirm which generation it is.
 
-| | 初期の製品(本家) | 現在出回っている製品(模倣品) |
+| | Early product (the original) | Product now circulating (imitation) |
 |---|---|---|
-| PCとの接続 | PCに繋ぐとUSBメモリとして認識され、ペイロードを書き換えられる | PCに繋いでも認識されない。書き換えも更新もできない |
-| 送るペイロード | フォルダごとに置いた `payload.bin`。LEDの色で、どのフォルダのものを送るかを選ぶ(青=Atmosphère、という説明がある) | hekateが本体に固定で書き込まれている |
-| ボタン | ペイロードの切り替えや、ファームウェア更新に使う | 押している間、青く光るだけ |
-| 最新版への追従 | 自分で `payload.bin` を差し替える | hekateの `update.bin` の仕組みに頼る(下記) |
+| Connection to a PC | Recognized as a USB drive when connected to a PC, and the payload can be rewritten | Not recognized when connected to a PC. Cannot be rewritten or updated |
+| Payload sent | `payload.bin` placed in each folder. The LED color selects which folder's payload is sent (there is an explanation that blue = Atmosphère) | hekate is fixed-written into the device |
+| Button | Used to switch payloads and update firmware | Only glows blue while pressed |
+| Keeping up with the latest version | Replace `payload.bin` yourself | Relies on hekate's `update.bin` mechanism (below) |
 
-([GBAtemp:not being detected on PC](https://gbatemp.net/threads/rcm-loader-not-being-detected-on-pc.682629/)、[GBAtemp:OneB Update Firmware](https://gbatemp.net/threads/rcm-loader-oneb-update-firmware.594251/))
+([GBAtemp: not being detected on PC](https://gbatemp.net/threads/rcm-loader-not-being-detected-on-pc.682629/), [GBAtemp: OneB Update Firmware](https://gbatemp.net/threads/rcm-loader-oneb-update-firmware.594251/))
 
-模倣品が固定のhekateで動き続けられるのは、hekate自体に、SDカードの `bootloader/update.bin` が自分より新しければ、そちらを読み込み直す機能があるためです。hekateのREADMEは、この仕組みを「主にmodchip向け」と説明しています([hekateのREADME](https://github.com/CTCaer/hekate))。つまり、模倣品のドングルを使う場合でも、SDカード側に最新のhekateを入れておく必要があります。
+Imitations can keep working with a fixed hekate because hekate itself has a function that, if `bootloader/update.bin` on the SD card is newer than itself, reloads from that. The hekate README describes this mechanism as "mainly for modchips" ([hekate README](https://github.com/CTCaer/hekate)). In other words, even when using an imitation dongle, you need to put the latest hekate on the SD card.
 
-使い方の流れは、どちらの世代も同じです。Switchの電源を完全に切り、右Joy-ConレールにRCM治具を挿してから、ドングルをUSB-C端子に挿し、音量+を押しながら電源ボタンを押します。ドングルのLEDが点滅すれば、注入を試みています。点灯したままの青い光は、充電中という意味で、RCMモードに入れていれば本来は起きないはずだ、という説明があります([GBAtemp](https://gbatemp.net/threads/rcm-loader-not-being-detected-on-pc.682629/))。
+The flow of use is the same for both generations. Turn the Switch off completely, insert the RCM jig into the right Joy-Con rail, plug the dongle into the USB-C port, and press the power button while holding volume +. If the dongle's LED blinks, it is attempting injection. There is an explanation that a steady blue light means charging, which should not normally happen if you have entered RCM mode ([GBAtemp](https://gbatemp.net/threads/rcm-loader-not-being-detected-on-pc.682629/)).
 
-初期の製品のファームウェア更新は、ボタンを押しながら(ほぼ同時に)PCに繋ぎ、販売元の更新ソフトで書き込む、という手順が報告されています。ただし、ファームウェア v2.02は白い箱の製品だけが対象で、透明な箱の製品には当てはまらない、という指摘もあります([GBAtemp](https://gbatemp.net/threads/rcm-loader-oneb-update-firmware.594251/))。
+For firmware updates on the early products, a procedure is reported of connecting to a PC while holding the button (almost simultaneously) and writing with the seller's update software. However, it is also pointed out that firmware v2.02 applies only to products in white boxes and not to products in clear boxes ([GBAtemp](https://gbatemp.net/threads/rcm-loader-oneb-update-firmware.594251/)).
 
-##### よくある不具合
+##### Common problems
 
-PCにUSBメモリとして認識されない場合は、そもそも書き換えのできない、新しい模倣品である可能性が高いです([GBAtemp](https://gbatemp.net/threads/rcm-loader-not-being-detected-on-pc.682629/))。初期の製品でも、内蔵バッテリーが劣化して、充電を保持できなくなったという報告があります(同上)。
+If it is not recognized as a USB drive on a PC, it is likely a new imitation that cannot be rewritten in the first place ([GBAtemp](https://gbatemp.net/threads/rcm-loader-not-being-detected-on-pc.682629/)). Even with early products, there are reports of the built-in battery degrading and no longer holding a charge (same source).
 
-Switch側のCFWを更新した後に、画面がノイズ(砂嵐)状態になったという報告もあります。ドングル内のペイロードが古いか、内蔵フラッシュが壊れている可能性があり、初期の製品ならペイロードの書き直しや、底面の小さな穴の中にあるリセットボタンを押す、といった対処が挙がっています([GBAtemp](https://gbatemp.net/threads/rcm-loader-bootup-showing-static-on-switch.638508/))。
+There are also reports of the screen showing noise (static) after updating the CFW on the Switch side. The payload in the dongle may be old or the built-in flash may be broken, and for early products, suggested remedies include rewriting the payload or pressing the reset button inside a small hole on the bottom ([GBAtemp](https://gbatemp.net/threads/rcm-loader-bootup-showing-static-on-switch.638508/)).
 
-初期の製品では、正しいフォルダに `payload.bin` という名前で置かないと、何も起きません([GBAtemp](https://gbatemp.net/threads/rcm-loader-oneb-update-firmware.594251/))。
+With early products, nothing happens unless the file is placed in the correct folder under the name `payload.bin` ([GBAtemp](https://gbatemp.net/threads/rcm-loader-oneb-update-firmware.594251/)).
 
-##### SX OSという、もう一つの選択肢との違い
+##### How this differs from another option, SX OS
 
-この種のドングルは、Atmosphère用のペイロードだけでなく、SX OS(Team Xecuterが開発していた商用CFW)のペイロードも同時に保存できる製品が多く、「双系统(デュアルシステム)対応」としてうたわれています。
+Many dongles of this kind can store not only a payload for Atmosphère but also a payload for SX OS (a commercial CFW that was developed by Team Xecuter) at the same time, and are advertised as supporting "双系统 (dual system)."
 
 | | SX OS | Atmosphère |
 |---|---|---|
-| 開発元・性質 | Team Xecuter(商用・有料) | コミュニティ・switchbrew(無料・オープンソース) |
-| 開発状況 | 事実上停止。Team Xecuterのメンバーは、2021年にアメリカでDMCA(デジタルミレニアム著作権法)違反の共謀罪などについて有罪を認め、2022年に懲役刑と賠償が言い渡されました([TorrentFreak](https://torrentfreak.com/team-xecuters-gary-bowser-pleads-guilty-to-criminal-charges-211101/)、[GeekWire](https://www.geekwire.com/2022/switch-hacker-gary-w-bowser-given-40-month-sentence-owes-nintendo-14-5m/)) | 現在も活発に開発が続いています |
-| 対応ファームウェア | HOS 11.0.0で止まっているとされ、最新の本体バージョンでは動作しない可能性が高いです(コミュニティの複数の報告による。公式な終了声明は確認できていません) | 最新のHOSまで継続して対応しています |
-| 代表的な機能 | 市販ゲームのバックアップデータを直接読み込んで起動する機能が、有料版の目玉でした。この機能が、海賊版利用との結びつきが強いとされた理由です | この記事で扱っている、ホームブリュー開発・MOD・emuMMCなどの基盤です |
+| Developer and nature | Team Xecuter (commercial, paid) | Community, switchbrew (free, open source) |
+| Development status | Effectively stopped. Members of Team Xecuter pleaded guilty in 2021 in the United States to charges including conspiracy to violate the DMCA (Digital Millennium Copyright Act), and in 2022 were sentenced to prison and ordered to pay restitution ([TorrentFreak](https://torrentfreak.com/team-xecuters-gary-bowser-pleads-guilty-to-criminal-charges-211101/), [GeekWire](https://www.geekwire.com/2022/switch-hacker-gary-w-bowser-given-40-month-sentence-owes-nintendo-14-5m/)) | Still under active development |
+| Supported firmware | Said to have stopped at HOS 11.0.0, and is likely not to work on the latest system versions (based on several community reports. No official end-of-life statement could be confirmed) | Continues to support up to the latest HOS |
+| Representative features | The highlight of the paid version was a feature that directly loaded and launched backup data of commercial games. This feature is why it was said to be strongly tied to piracy | The foundation for homebrew development, mods, emuMMC, and so on, as covered in this article |
 
-この記事の方針(自己所有ハードウェア・自作ホームブリュー・自己ダンプデータに限る、海賊版利用は対象外)からは、SX OS側の機能は対象外です。「双系统対応」をうたうドングルを購入しても、Atmosphère側のペイロードだけを選んで使う、という前提になります。
+Under this article's policy (limited to self-owned hardware, your own homebrew, and self-dumped data, with piracy out of scope), the SX OS side's features are out of scope. Even if you buy a dongle advertising "双系统 support," the premise is that you choose and use only the Atmosphère payload.
 
-#### 毎回の注入が要らない方法(この記事の範囲外)
+#### Methods that need no injection each time (out of scope for this article)
 
-ここまでの方法はいずれも、電源を入れるたびに、何らかの機器からペイロードを送る必要があります。これを完全になくすには、ハードウェアのmodchip(改造チップ)を基板にハンダ付けするしかありません。SDカードから直接CFWを読み込んで起動するため、外部機器が毎回不要になります。
+All the methods so far require sending a payload from some device each time the power is turned on. The only way to eliminate this completely is to solder a hardware modchip to the board. Because it loads and boots CFW directly from the SD card, no external device is needed each time.
 
-Switch Guideがサポート対象とするのは、ファームウェアからマイコン(RP2040)まで完全にオープンソースの Picofly だけです。hwfly・SX Core/Liteのような商用チップについては、「出自が不明瞭」として、入手・取り付けの支援を行わないと明言しています(すでに取り付け済みのチップへのファームウェア書き込みに限っては手伝う、としています)([Switch Guideのmodchipページ](https://switch.hacks.guide/user_guide/modchip/))。ハンダ付けを要するハードウェア改造であり、この記事で扱う非破壊的な手順の範囲を超えるため、ここで紹介するのは名称だけです。
+The only one the Switch Guide supports is Picofly, which is fully open source from the firmware to the microcontroller (RP2040). For commercial chips such as hwfly and SX Core/Lite, it states that it will not help with obtaining or installing them, calling them of "unclear origin" (it says it will help only with writing firmware to chips already installed) ([Switch Guide modchip page](https://switch.hacks.guide/user_guide/modchip/)). This is a hardware modification requiring soldering, which goes beyond the non-destructive procedures covered in this article, so only the names are introduced here.
 
-## 5. hekateからの起動
+## 5. Booting from hekate
 
-hekateのGUI(Nyx)を出す操作は[手順5](#手順5-hekateのguiを出す)、SDカードにファイルを置く操作は[手順7](#手順7-sdカードにファイルを置く)にまとめました。ペイロードを送った後、hekateの画面を出したままSDカードを抜いても安全です。電源を切らなければ、ペイロードを送り直す手間も省けます([Switch Guide:Sending a Payload](https://switch.hacks.guide/user_guide/rcm/sending_payload))。
+The operation for bringing up hekate's GUI (Nyx) is collected in [step 5](#step-5-bring-up-the-hekate-gui), and the operation for putting files on the SD card is collected in [step 7](#step-7-put-files-on-the-sd-card). After sending a payload, it is safe to remove the SD card with the hekate screen left up. If you do not turn the power off, you also save the trouble of resending the payload ([Switch Guide: Sending a Payload](https://switch.hacks.guide/user_guide/rcm/sending_payload)).
 
-### 起動の選択肢
+### Boot options
 
-Switch Guideの `hekate_ipl.ini` を使うと、hekateの `Launch` メニューに、次の3つが並びます。
+With the Switch Guide's `hekate_ipl.ini`, the following three appear in hekate's `Launch` menu.
 
-| 項目 | 起動するもの |
+| Item | What it boots |
 |---|---|
-| `Atmosphere PKG3 emuMMC` | emuMMC上で、Atmosphère(CFW)を起動する。この記事の基本 |
-| `Atmosphere PKG3 sysMMC` | 本体の内蔵ストレージ上で、Atmosphèreを起動する(sysCFW) |
-| `Stock sysMMC` | 改造なしの、純正の状態で起動する |
+| `Atmosphere PKG3 emuMMC` | Boots Atmosphère (CFW) on emuMMC. The default in this article |
+| `Atmosphere PKG3 sysMMC` | Boots Atmosphère on the console's internal storage (sysCFW) |
+| `Stock sysMMC` | Boots in the unmodified, stock state |
 
-正しく起動できたかは、[手順9](#手順9-emummcでcfwを起動する)の通り、本体設定のバージョン表記に `AMS` と、emuMMCを表す `E` があるかで確かめます([Switch Guide:Launching CFW](https://switch.hacks.guide/user_guide/all/launching_cfw))。
+Whether it booted correctly is checked, as in [step 9](#step-9-boot-cfw-on-emummc), by whether the version notation in System Settings has `AMS` and the `E` indicating emuMMC ([Switch Guide: Launching CFW](https://switch.hacks.guide/user_guide/all/launching_cfw)).
 
-AtmosphèreのCFWは、電源を完全に切ると消えます。もう一度CFWで起動するには、RCMモードに入ってペイロードを送り直す必要があります。CFWを起動した状態からhekateに戻るには、電源ボタン長押しのメニューから `再起動` を選ぶか、hbmenuの「reboot to payload」アプリを使います([Switch Guide:Launching CFW](https://switch.hacks.guide/user_guide/all/launching_cfw))。
+Atmosphère CFW disappears when the power is turned off completely. To boot into CFW again, you need to enter RCM mode and resend the payload. To return to hekate from the CFW state, select `Restart` from the menu shown by holding the power button, or use the "reboot to payload" app in hbmenu ([Switch Guide: Launching CFW](https://switch.hacks.guide/user_guide/all/launching_cfw)).
 
-## 6. emuMMCを作る
+## 6. Creating emuMMC
 
-本体の内蔵ストレージ(sysNAND)を、そのままCFWで使うこともできますが、emuMMC(SDカード上の仮想NAND)を使う方法が、広く勧められています([Switch Guide](https://switch.hacks.guide/user_guide/all/cfw_environment))。
+You can also use the console's internal storage (sysNAND) as is with CFW, but using emuMMC (a virtual NAND on the SD card) is widely recommended ([Switch Guide](https://switch.hacks.guide/user_guide/all/cfw_environment)).
 
 | | sysNAND | emuMMC |
 |---|---|---|
-| 置き場所 | 本体の内蔵ストレージ | SDカード上 |
-| 任天堂のサーバーへの接続 | 繋がる | 自動では遮断されない。`emummc.txt` を置いて、自分で遮断する(下記) |
-| オンライン利用 | 純正の状態を保てば可能 | 使わない。常にオフラインにしておく |
-| 必要な容量 | — | SDカード上に32GB(有機ELモデルは64GB)が確保される。快適に使うには128GB以上が必要([Switch Guide](https://switch.hacks.guide/user_guide/all/cfw_environment)) |
+| Location | The console's internal storage | On the SD card |
+| Connection to Nintendo's servers | Connects | Not blocked automatically. Place `emummc.txt` and block it yourself (below) |
+| Online use | Possible if kept in the stock state | Not used. Always keep offline |
+| Required capacity | — | 32GB (64GB for the OLED model) is reserved on the SD card. 128GB or more is needed for comfortable use ([Switch Guide](https://switch.hacks.guide/user_guide/all/cfw_environment)) |
 
-Atmosphèreは、本体に恒久的にインストールされるものではありません。電源を切るたびに、脆弱性を使って再度起動し直す必要があります(ハードウェア改造[modchip]を追加しない限り)。
+Atmosphère is not permanently installed on the console. Each time the power is turned off, it must be booted again using the vulnerability (unless you add a hardware modification [modchip]).
 
-### emuMMCをネットワークから切り離す
+### Cutting emuMMC off from the network
 
-emuMMCは、SDカード上にあるというだけで、それ自体がネットワークから切り離されるわけではありません。Switch Guideは、emuMMCは決して任天堂のサーバーに繋がないこと、オンラインでのプレイやeショップは、sysMMC(本体の内蔵ストレージ)のほうで行うことを求めています。emuMMCとsysMMCの両方でオンラインに繋ぐと、いずれBANされる可能性が高い、とも警告しています([Switch Guide:Launching CFW](https://switch.hacks.guide/user_guide/all/launching_cfw))。
+Being on the SD card does not by itself cut emuMMC off from the network. The Switch Guide requires that emuMMC never connect to Nintendo's servers, and that online play and the eShop be done on sysMMC (the console's internal storage). It also warns that connecting online on both emuMMC and sysMMC makes an eventual ban likely ([Switch Guide: Launching CFW](https://switch.hacks.guide/user_guide/all/launching_cfw)).
 
-そのための設定が、[手順7](#手順7-sdカードにファイルを置く)で `atmosphere/hosts/` に置く `emummc.txt` です。AtmosphèreのDNS.MITMという機能が、このファイルの内容に従って、emuMMCから任天堂のサーバーへの名前解決を止めます。**このファイルを置かないと、BANされる可能性が高い**とされています([Switch Guide:SD Preparation](https://switch.hacks.guide/user_guide/all/sd_preparation))。さらに念を入れる方法として、Switch Guideは、90DNSというDNSサーバーの設定も案内しています。
+The setting for that is the `emummc.txt` placed in `atmosphere/hosts/` in [step 7](#step-7-put-files-on-the-sd-card). A feature of Atmosphère called DNS.MITM follows this file's contents and stops name resolution from emuMMC to Nintendo's servers. **It is said that without this file, the chance of a ban is high** ([Switch Guide: SD Preparation](https://switch.hacks.guide/user_guide/all/sd_preparation)). As an extra precaution, the Switch Guide also describes setting up a DNS server called 90DNS.
 
-### 区画分けとemuMMCの作成
+### Partitioning and creating emuMMC
 
-操作は[手順6](#手順6-sdカードを区画分けしemummcを作る)の通りです。区画を作り直すとカードの中身は消えますが、hekateが自動でバックアップするのは、データが1GB未満のときだけです([ConsoleMods Wiki:Creating and Using EmuNAND](https://consolemods.org/wiki/Switch:Creating_and_Using_EmuNAND))。スライダーの値は、無印Switchでは `29 FULL`、有機ELモデルでは `58 FULL` です([Switch Guide](https://switch.hacks.guide/user_guide/all/partitioning_sd))。
+The operation is as in [step 6](#step-6-partition-the-sd-card-and-create-emummc). Recreating the partitions erases the card's contents, but hekate automatically backs up only when the data is under 1GB ([ConsoleMods Wiki: Creating and Using EmuNAND](https://consolemods.org/wiki/Switch:Creating_and_Using_EmuNAND)). The slider value is `29 FULL` for the base-model Switch and `58 FULL` for the OLED model ([Switch Guide](https://switch.hacks.guide/user_guide/all/partitioning_sd)).
 
-emuMMCの作り方には、2つの方式があります。
+There are two methods of creating emuMMC.
 
-| 方式 | 選び方 | 特徴 |
+| Method | How to choose | Characteristics |
 |---|---|---|
-| SD Partition(パーティション方式) | emuMMC → Create emuMMC → SD Partition | 専用の区画に直接書き込む。Switch Guideの手順はこちら |
-| SD File(ファイル方式) | emuMMC → Create emuMMC → SD File | 通常の区画内のフォルダに、ファイルとして作る。ConsoleMods Wikiは、こちらの方式は安定性が劣るとしている([ConsoleMods Wiki:Creating and Using EmuNAND](https://consolemods.org/wiki/Switch:Creating_and_Using_EmuNAND)) |
+| SD Partition (partition method) | emuMMC → Create emuMMC → SD Partition | Writes directly to a dedicated partition. This is the Switch Guide's procedure |
+| SD File (file method) | emuMMC → Create emuMMC → SD File | Created as files in a folder within a normal partition. ConsoleMods Wiki says this method is less stable ([ConsoleMods Wiki: Creating and Using EmuNAND](https://consolemods.org/wiki/Switch:Creating_and_Using_EmuNAND)) |
 
-### Windowsでの注意
+### Caution on Windows
 
-作成後、WindowsにSDカードをつなぐと、「カードが読めません。フォーマットしますか」という警告が出ることがあります。**フォーマットしないでください。** これはemuMMC用の区画です。区画を作った後のカードは、PCから2つのドライブとして見えるので、`SWITCH SD` という名前の、読み書きできるほうを使います([Switch Guide](https://switch.hacks.guide/user_guide/all/partitioning_sd))。
+After creation, connecting the SD card to Windows may bring up a warning like "The card cannot be read. Format it?" **Do not format it.** This is the partition for emuMMC. A card with partitions created appears on a PC as two drives, so use the readable and writable one named `SWITCH SD` ([Switch Guide](https://switch.hacks.guide/user_guide/all/partitioning_sd)).
 
-### バックアップと復元の対象
+### Targets of backup and restore
 
-hekateの `Tools → Backup eMMC` と `Restore eMMC` の画面には、操作の対象を、本体の内蔵ストレージ(sysNAND)からemuMMCに切り替える「SD emuMMC Raw Partition」というトグルがある、と個人のガイドが説明しています([参考ガイド](https://gist.github.com/nicholemattera/47174b4cfd583820e312039927a304be))。[手順8](#手順8-nandをバックアップする)でバックアップするのは本体の内蔵ストレージなので、Switch Guideの手順には、このトグルを切り替える操作はありません。特に復元は、対象を間違えると、残したい側のデータを上書きしてしまいます。実行する前に、画面で対象を必ず確かめてください。
+A personal guide explains that hekate's `Tools → Backup eMMC` and `Restore eMMC` screens have a toggle called "SD emuMMC Raw Partition" that switches the operation's target from the console's internal storage (sysNAND) to emuMMC ([reference guide](https://gist.github.com/nicholemattera/47174b4cfd583820e312039927a304be)). What is backed up in [step 8](#step-8-back-up-the-nand) is the console's internal storage, so the Switch Guide's steps include no operation of switching this toggle. Restore in particular will overwrite the data you want to keep if you get the target wrong. Before running it, be sure to check the target on screen.
 
-### 試せていないこと(この章)
+### What has not been tested (this chapter)
 
-区画作成とemuMMC作成のメニュー名・スライダーの値は、[switch.hacks.guideの該当ページ](https://switch.hacks.guide/user_guide/all/partitioning_sd)の原文(2026年10月時点)と照合済みです。ただし、実機での作成手順は、この記事ではまだ確認していません。メニューの名称は、hekateの版によって変わることがあります。作業前に、同じページで現在の手順を必ず確認してください。
+The menu names for creating partitions and emuMMC and the slider values have been checked against the original text of the [relevant switch.hacks.guide page](https://switch.hacks.guide/user_guide/all/partitioning_sd) (as of October 2026). However, the creation procedure on a real device has not yet been confirmed in this article. Menu names can change with the hekate version. Before working, be sure to check the current procedure on the same page.
 
-SD File方式の安定性と、自動バックアップの条件についての記述は、[ConsoleMods Wikiの該当ページ](https://consolemods.org/wiki/Switch:Creating_and_Using_EmuNAND)の原文(2026年10月時点)と照合済みです。上の「バックアップと復元の対象」の節のトグルの名前は、個人のガイド(GitHub Gist)を出典としており、hekateの画面での確認はできていません。
+The statements about the stability of the SD File method and the conditions for automatic backup have been checked against the original text of the [relevant ConsoleMods Wiki page](https://consolemods.org/wiki/Switch:Creating_and_Using_EmuNAND) (as of October 2026). The name of the toggle in the "Targets of backup and restore" section above has a personal guide (GitHub Gist) as its source and could not be confirmed on hekate's screen.
 
-## 7. ホームブリューを動かす(hbmenu)
+## 7. Running homebrew (hbmenu)
 
-Atmosphèreで起動したら、hbmenu(Homebrew Menu)を開けます。これは、SDカードの `switch` フォルダに置かれた `.nro` ファイルを、一覧表示して実行するランチャーです。開き方は2つあります([Switch Guide:Launching CFW](https://switch.hacks.guide/user_guide/all/launching_cfw))。
+Once booted with Atmosphère, you can open hbmenu (Homebrew Menu). This is a launcher that lists and runs `.nro` files placed in the `switch` folder on the SD card. There are two ways to open it ([Switch Guide: Launching CFW](https://switch.hacks.guide/user_guide/all/launching_cfw)).
 
-| 開き方 | 操作 | 特徴 |
+| How to open | Operation | Characteristics |
 |---|---|---|
-| タイトルオーバーライド(推奨) | Rボタンを押したまま、任意のゲーム(体験版・カートリッジも可)やアプリを起動する | ゲームのメモリをそのまま使えるので、制限が少ない。Rを押さなければ、ゲームは普通に起動する |
-| アプレットモード | ホーム画面の「アルバム」を開く | 使えるメモリがずっと少なく、フル機能のWebブラウザも動かせない |
+| Title override (recommended) | Hold the R button and launch any game (demos and cartridges are also fine) or app | Can use the game's memory as is, so there are few restrictions. If you do not hold R, the game launches normally |
+| Applet mode | Open "Album" on the home screen | Much less memory is available, and even a full-featured web browser cannot run |
 
-Rボタンという割り当ては、`sd:/atmosphere/config/override_config.ini` の `override_any_app_key` などで変えられます([Atmosphère公式ドキュメント:configurations.md](https://github.com/Atmosphere-NX/Atmosphere/blob/master/docs/features/configurations.md))。
+The R button assignment can be changed with `override_any_app_key` and others in `sd:/atmosphere/config/override_config.ini` ([official Atmosphère documentation: configurations.md](https://github.com/Atmosphere-NX/Atmosphere/blob/master/docs/features/configurations.md)).
 
 ```
-sdカード/
+sd card/
   switch/
     my_game.nro
     retroarch.nro
 ```
 
-## 8a. 自作ゲームを作る(libnx + devkitA64)
+## 8a. Making your own games (libnx + devkitA64)
 
-ここから、[記事14](14-making-games.md)の自作ゲーム作りの延長として、Switch向けの開発に進めます。
+From here, you can go on to development for the Switch as an extension of making your own games in [article 14](14-making-games.md).
 
-| ツール | 役目 |
+| Tool | Role |
 |---|---|
-| [devkitA64](https://devkitpro.org/) | ARM64向けのコンパイラ・ツールチェーン |
-| [libnx](https://github.com/switchbrew/libnx) | グラフィック・入力・ファイルI/Oなどを扱う、C言語のSDK |
-| [switch-examples](https://github.com/switchbrew/switch-examples) | 公式のサンプル集。グラフィック表示や音声出力の最小例が入っている |
+| [devkitA64](https://devkitpro.org/) | Compiler and toolchain for ARM64 |
+| [libnx](https://github.com/switchbrew/libnx) | C SDK that handles graphics, input, file I/O, and so on |
+| [switch-examples](https://github.com/switchbrew/switch-examples) | Official sample collection. Contains minimal examples of graphics display and audio output |
 
-devkitA64でlibnxベースのコードをビルドすると、`.nro` ファイルが生成され、SDカードの `switch` フォルダに置くとhbmenuから実行される仕組みです。
+Building libnx-based code with devkitA64 generates a `.nro` file, which runs from hbmenu when placed in the `switch` folder on the SD card.
 
-### レトロエミュレーターという選択肢
+### The option of retro emulators
 
-同じ `.nro` の仕組みを使えば、RetroArchのSwitch移植版のような、レトロゲーム機のエミュレーターも入れられます。構造は、[記事16](16-emulator-and-menu.md)で見たRG40XXHのRetroArchと同じで、違いは下で動くOSがHorizon(+Atmosphère)になるだけです。Switch本体をエミュレートするのではなく、別のレトロゲーム機のエミュレーターを、Switchの上で動かす形になります。
+Using the same `.nro` mechanism, you can also install emulators of retro game consoles, such as the Switch port of RetroArch. The structure is the same as RetroArch on the RG40XXH seen in [article 16](16-emulator-and-menu.md), and the only difference is that the OS underneath becomes Horizon (+ Atmosphère). Rather than emulating the Switch itself, this runs emulators of other retro game consoles on top of the Switch.
 
-## 8b. 既存ゲームを改造する
+## 8b. Modifying existing games
 
-自作ゲームとは別の方向性として、所有しているカートリッジのゲームを、CFW環境で改造する方法があります。Atmosphèreには、LayeredFSという機能が組み込まれており、ゲーム本体のファイルを書き換えずに、読み込み時に差し替える仕組みになっています([Atmosphère公式ドキュメント:loader.md](https://github.com/Atmosphere-NX/Atmosphere/blob/master/docs/components/modules/loader.md))。
+As a different direction from making your own games, there is a way to modify cartridge games you own in a CFW environment. Atmosphère has a built-in feature called LayeredFS that swaps files at load time without rewriting the game's own files ([official Atmosphère documentation: loader.md](https://github.com/Atmosphere-NX/Atmosphere/blob/master/docs/components/modules/loader.md)).
 
-### 仕組みとフォルダ構成
+### How it works and folder structure
 
-MODファイルは、ゲームごとのタイトルID(16桁の16進数)で区別されたフォルダに置きます。
+Mod files are placed in folders distinguished by each game's title ID (16-digit hexadecimal number).
 
 ```
-sdカード/
+sd card/
   atmosphere/
     contents/
-      0100000000010000/   # タイトルIDごとのフォルダ
-        romfs/             # グラフィック・音声・テキストなどのアセット差し替え
-        exefs/             # 実行コードのパッチ
-        cheats/            # チートコード(後述)
+      0100000000010000/   # Folder for each title ID
+        romfs/             # Replacement of assets such as graphics, audio, and text
+        exefs/             # Patches to executable code
+        cheats/            # Cheat codes (described later)
 ```
 
-`romfs` フォルダに入れたファイルは、ゲーム本体の対応するファイルを、起動時に上書きする形で読み込まれます。`exefs` フォルダは、実行コード自体へのパッチに使うフォルダです。Atmosphère 0.9.4より前のバージョンでは、`contents` ではなく `titles` という名前のフォルダが使われていました。使っている版に合わせてください([Atmosphère公式のchangelog](https://github.com/Atmosphere-NX/Atmosphere/blob/master/docs/changelog.md))。
+Files placed in the `romfs` folder are loaded at launch in a way that overrides the corresponding files of the game itself. The `exefs` folder is used for patches to the executable code itself. In versions before Atmosphère 0.9.4, a folder named `titles` was used instead of `contents`. Match the version you are using ([official Atmosphère changelog](https://github.com/Atmosphere-NX/Atmosphere/blob/master/docs/changelog.md)).
 
-### 配布されたMODの入れ方
+### How to install distributed mods
 
-配布されているMODのzipを開いて、中のフォルダ構成を見ると、どこに置けばいいかが分かります。Switch Guideは、次の3つの場合に分けて説明しています([Switch Guide:Game modding](https://switch.hacks.guide/extras/game_modding))。
+If you open a distributed mod's zip and look at the folder structure inside, you can tell where to place it. The Switch Guide explains by dividing into the following three cases ([Switch Guide: Game modding](https://switch.hacks.guide/extras/game_modding)).
 
-| zipの中身 | 置き方 |
+| Zip contents | How to place |
 |---|---|
-| `atmosphere/contents/<タイトルID>/romfs` まで、全部そろっている | `atmosphere` フォルダごと、SDカードのルートにコピーする。聞かれたら結合(Merge)する |
-| `contents` フォルダから始まっている | `contents` フォルダを、`sd:/atmosphere/` にコピーする。聞かれたら結合する |
-| `romfs`(や `exefs`)だけが入っている | `sd:/atmosphere/contents/<タイトルID>/` を自分で作り、その中に置く |
+| Complete, down to `atmosphere/contents/<title ID>/romfs` | Copy the whole `atmosphere` folder to the root of the SD card. Merge if asked |
+| Starts from a `contents` folder | Copy the `contents` folder to `sd:/atmosphere/`. Merge if asked |
+| Contains only `romfs` (or `exefs`) | Create `sd:/atmosphere/contents/<title ID>/` yourself and place it inside |
 
-### タイトルIDの調べ方
+### How to look up a title ID
 
-MODを入れる前に、対象ゲームのタイトルIDを確かめます。ホームブリューのEdiZon(またはEdiZon-SE)を使うと、チートのメニューにタイトルID(TID)とビルドID(BID)が表示されます(下の画像)。[Switchbrewのタイトル一覧](https://switchbrew.org/wiki/Title_list/Games)や、[nswdb](https://nswdb.com/)のようなデータベースでも調べられます([Switch Guide:EdiZon](https://switch.hacks.guide/homebrew/edizon))。
+Before installing a mod, check the target game's title ID. Using the homebrew EdiZon (or EdiZon-SE), the title ID (TID) and build ID (BID) are shown in the cheat menu (image below). You can also look them up in the [Switchbrew title list](https://switchbrew.org/wiki/Title_list/Games) or databases such as [nswdb](https://nswdb.com/) ([Switch Guide: EdiZon](https://switch.hacks.guide/homebrew/edizon)).
 
-![EdiZonのチート画面。左上にDead CellsのTID: 0100646009FBE000とBID: 0b9a75586bc1a6c6が表示され、その下にチートの一覧がチェックボックス付きで並ぶ](../assets/screenshots/switch-guide-edizon-tid-bid.jpg)
+![EdiZon's cheat screen. At the top left, TID: 0100646009FBE000 and BID: 0b9a75586bc1a6c6 for Dead Cells are shown, and below them a list of cheats with checkboxes](../assets/screenshots/switch-guide-edizon-tid-bid.jpg)
 
-*EdiZonで、Dead Cellsを起動中に開いたチート画面。この例では、チートは `sd:/atmosphere/contents/0100646009FBE000/cheats/0B9A75586BC1A6C6.txt` から読み込まれる。画像:[Switch Guide](https://github.com/nh-server/switch-guide)*
+*The cheat screen opened in EdiZon while Dead Cells is running. In this example, cheats are loaded from `sd:/atmosphere/contents/0100646009FBE000/cheats/0B9A75586BC1A6C6.txt`. Image: [Switch Guide](https://github.com/nh-server/switch-guide)*
 
-### 導入時によくある問題
+### Common problems during installation
 
-ゲームが起動直後に落ちる場合は、Lボタンを押したまま起動して、MODを全部止めた状態で起動できるか試します。起動できるなら、最後に入れたMODを消します([Switch Guide:Game modding](https://switch.hacks.guide/extras/game_modding))。
+If a game crashes right after launch, hold the L button while launching and try whether it boots with all mods stopped. If it boots, delete the mod you installed last ([Switch Guide: Game modding](https://switch.hacks.guide/extras/game_modding)).
 
-MODが反映されない場合、特にMacを使っているなら、Macでコピーしたファイルにアーカイブビットが付いている可能性があります。hekateの `Tools → Arch bit • RCM Touch • Pkg1/2 → Fix Archive Bit` で直します(同上)。
+If a mod is not taking effect, especially if you use a Mac, the files copied on the Mac may have the archive bit set. Fix it with `Tools → Arch bit • RCM Touch • Pkg1/2 → Fix Archive Bit` in hekate (same source).
 
-LayeredFSだけでは足りないゲームもあり、Switch Guideは次の例を挙げています(同上)。
+Some games need more than LayeredFS, and the Switch Guide gives the following examples (same source).
 
-| ゲーム | 必要なもの |
+| Game | What is needed |
 |---|---|
-| 大乱闘スマッシュブラザーズ SPECIAL | [ARCropolis](https://github.com/Raytwo/ARCropolis)と[Skyline](https://github.com/skyline-dev/skyline)。後述の「MODの具体例」で説明する |
-| ブレス オブ ザ ワイルド | 複数のMODを組み合わせるには、PC用のMODマネージャー [BCML](https://github.com/NiceneNerd/BCML) か [UKMM](https://github.com/NiceneNerd/UKMM)(推奨) |
-| ティアーズ オブ ザ キングダム | 同じく、PC用の [TKMM](https://github.com/TKMM-Team/Tkmm) |
-| あつまれ どうぶつの森 | フォルダ名を `romfs` ではなく `romFs` にし、`atmosphere/contents/01006F8002326000/romFs/System/Resource/` に、`ResourceSizeTable.srsizetable` という空のファイルを作る |
+| Super Smash Bros. Ultimate | [ARCropolis](https://github.com/Raytwo/ARCropolis) and [Skyline](https://github.com/skyline-dev/skyline). Explained below in "Concrete example of mods" |
+| Breath of the Wild | To combine multiple mods, the PC mod manager [BCML](https://github.com/NiceneNerd/BCML) or [UKMM](https://github.com/NiceneNerd/UKMM) (recommended) |
+| Tears of the Kingdom | Likewise, [TKMM](https://github.com/TKMM-Team/Tkmm) for PC |
+| Animal Crossing: New Horizons | Name the folder `romFs` instead of `romfs`, and create an empty file named `ResourceSizeTable.srsizetable` in `atmosphere/contents/01006F8002326000/romFs/System/Resource/` |
 
-### MODが反映されているかの確認
+### Checking whether a mod has taken effect
 
-Atmosphèreの公式ドキュメント([loader.md](https://github.com/Atmosphere-NX/Atmosphere/blob/master/docs/components/modules/loader.md))には、MODの適用状態を画面に表示する機能の記載はありません。基本的には、ゲームを普通に起動して、見た目や挙動の変化を、自分の目で確認することになります。MODローダーによっては、独自の確認方法を持つものもあります(たとえばARCropolisは、タイトル画面に自身のバージョンを表示します。後述)。
+Atmosphère's official documentation ([loader.md](https://github.com/Atmosphere-NX/Atmosphere/blob/master/docs/components/modules/loader.md)) has no mention of a feature that shows the mod application state on screen. Basically, you launch the game normally and check changes in appearance and behavior with your own eyes. Some mod loaders have their own way of checking (for example, ARCropolis shows its own version on the title screen; see below).
 
-反映されない場合によくある原因の1つ目は、ゲームを完全に終了してから起動し直していないことです。LayeredFSは、プロセスの起動時にだけ適用されるため、スリープ状態からの復帰や、ホームボタンでの中断からの再開では反映されません。
+The first common cause when a mod does not take effect is not fully quitting the game and launching it again. LayeredFS is applied only when a process starts, so it does not take effect when returning from sleep or resuming after suspending with the home button.
 
-2つ目は、タイトルIDのフォルダが、本体のものと一致していないことです。フォルダ名には、アップデート版のIDではなく、ベースゲームのIDを使う必要があります。
+The second is that the title ID folder does not match the one on the console. The folder name must use the base game's ID, not the update's ID.
 
-3つ目は、MODの対応バージョンと、実際にインストールされているゲームの版のずれです。ファイルの配置先が、その版のromfs構成と合っていないと、無反応、または不安定な動作になります。
+The third is a mismatch between the version the mod supports and the version of the game actually installed. If the file placement does not match that version's romfs structure, the result is no reaction or unstable behavior.
 
-### MODをオン・オフする(SimpleModManager)
+### Turning mods on and off (SimpleModManager)
 
-LayeredFSは、`atmosphere/contents/` に置いたものを、すべて読み込みます。MODを試しに外したいとき、毎回PCでフォルダを移動するのは手間です。そこで、MODの置き場所と、LayeredFSの読み込み先を分けて管理する、[SimpleModManager](https://github.com/nadrino/SimpleModManager) というホームブリューアプリがあります。MODを個別にオン・オフしたり、大きなMODの組み合わせを切り替えたりできます([Switch Guide:SimpleModManager](https://switch.hacks.guide/homebrew/simplemodmanager))。
+LayeredFS loads everything placed in `atmosphere/contents/`. When you want to remove a mod to try things out, moving folders on a PC every time is a hassle. So there is a homebrew app, [SimpleModManager](https://github.com/nadrino/SimpleModManager), that manages the place where mods are kept separately from where LayeredFS loads. You can turn mods on and off individually and switch between combinations of large mods ([Switch Guide: SimpleModManager](https://switch.hacks.guide/homebrew/simplemodmanager)).
 
-1. [リリースページ](https://github.com/nadrino/SimpleModManager/releases)から `SimpleModManager.nro` を入手し、SDカードの `switch` フォルダに置く
-2. SDカードのルートに、`mods/<ゲーム名>/<MOD名>/` というフォルダを作る。ゲーム名・MOD名は、好きな名前でよい
-3. `<MOD名>` フォルダの中に、MODのフォルダ構成を、`atmosphere` フォルダを省いて置く(つまり `contents/<タイトルID>/romfs/…` から始める)
-4. hbmenuからSimpleModManagerを起動すると、ゲームの一覧が出る。ゲームを選んでAボタンを押すと、使えるMODの一覧が出る
+1. Get `SimpleModManager.nro` from the [release page](https://github.com/nadrino/SimpleModManager/releases) and put it in the `switch` folder on the SD card
+2. Create a folder `mods/<game name>/<mod name>/` at the root of the SD card. The game name and mod name can be whatever you like
+3. Inside the `<mod name>` folder, place the mod's folder structure with the `atmosphere` folder omitted (that is, starting from `contents/<title ID>/romfs/…`)
+4. Launching SimpleModManager from hbmenu shows a list of games. Select a game and press the A button to show a list of available mods
 
-([Switch Guide:SimpleModManager](https://switch.hacks.guide/homebrew/simplemodmanager))
+([Switch Guide: SimpleModManager](https://switch.hacks.guide/homebrew/simplemodmanager))
 
-![SimpleModManagerのGame Browser画面。Splatoon 3が「1 mod(s) available.」と表示されている](../assets/screenshots/switch-guide-simplemodmanager-games.jpg)
+![SimpleModManager's Game Browser screen. Splatoon 3 is shown with "1 mod(s) available."](../assets/screenshots/switch-guide-simplemodmanager-games.jpg)
 
-![SimpleModManagerのMod Browser画面。Lucky Seven Splatana WiperというMODがINACTIVEと表示され、下部にX Disable・B Back・A Applyのボタン案内がある](../assets/screenshots/switch-guide-simplemodmanager-mods.jpg)
+![SimpleModManager's Mod Browser screen. A mod called Lucky Seven Splatana Wiper is shown as INACTIVE, with X Disable, B Back, and A Apply button hints at the bottom](../assets/screenshots/switch-guide-simplemodmanager-mods.jpg)
 
-*上:ゲームの一覧。下:MODの一覧。Aボタンで適用(Apply)、Xボタンで無効化(Disable)する。左側の「Mod Presets」で、MODの組み合わせを保存できる。画像:[Switch Guide](https://github.com/nh-server/switch-guide)*
+*Top: the list of games. Bottom: the list of mods. The A button applies (Apply), and the X button disables (Disable). "Mod Presets" on the left lets you save combinations of mods. Image: [Switch Guide](https://github.com/nh-server/switch-guide)*
 
-ただし、Switch Guideは、スマブラSP、ブレス オブ ザ ワイルド、ティアーズ オブ ザ キングダムには、SimpleModManagerを使わないようにと注意しています。これらのゲームは、MODの扱い方がほかと違うためです(同上)。スマブラSPでは、次の節のARCropolisに内蔵されたMod Managerを使います。
+However, the Switch Guide cautions against using SimpleModManager for Smash Ultimate, Breath of the Wild, and Tears of the Kingdom. These games handle mods differently from others (same source). For Smash Ultimate, use the Mod Manager built into ARCropolis, covered in the next section.
 
-### MODの具体例(大乱闘スマッシュブラザーズ SPECIAL)
+### Concrete example of mods (Super Smash Bros. Ultimate)
 
-具体例として、MODの仕組みが公式ドキュメントで詳しく公開されている、大乱闘スマッシュブラザーズ SPECIAL(以下スマブラSP、タイトルID `01006A800016E000`)を取り上げます。Switch Guideも、emuMMCの代表的な用途の一つに「あらゆるゲームでのMOD・チート」を挙げています([Switch Guide](https://switch.hacks.guide/user_guide/all/cfw_environment))。
+As a concrete example, I take up Super Smash Bros. Ultimate (Smash Ultimate from here on, title ID `01006A800016E000`), whose mod mechanisms are published in detail in official documentation. The Switch Guide also lists "mods and cheats in any game" as one of the representative uses of emuMMC ([Switch Guide](https://switch.hacks.guide/user_guide/all/cfw_environment)).
 
-#### 土台になるARCropolis
+#### ARCropolis, the foundation
 
-スマブラSPのMODの多くは、[ARCropolis](https://github.com/Raytwo/ARCropolis)というMODフレームワークを前提にしています。[Skyline](https://github.com/skyline-dev/skyline)の上で動く、スマブラSP専用のMODローダー兼マネージャーです。動作の前提は、最新のAtmosphère(他のCFWは非対応)と、最新版に更新したスマブラSP(カートリッジ版・ダウンロード版のどちらでもよい)です([ARCropolis Wiki:Setup](https://github.com/Raytwo/ARCropolis/wiki/Setup-(Getting-Started)))。
+Many Smash Ultimate mods assume a mod framework called [ARCropolis](https://github.com/Raytwo/ARCropolis). It is a mod loader and manager dedicated to Smash Ultimate that runs on [Skyline](https://github.com/skyline-dev/skyline). Its prerequisites are the latest Atmosphère (other CFWs are not supported) and Smash Ultimate updated to the latest version (either the cartridge or download version) ([ARCropolis Wiki: Setup](https://github.com/Raytwo/ARCropolis/wiki/Setup-(Getting-Started))).
 
-導入後のファイル配置は、次の通りです([同上](https://github.com/Raytwo/ARCropolis/wiki/Setup-(Getting-Started)))。
+The file layout after installation is as follows ([same source](https://github.com/Raytwo/ARCropolis/wiki/Setup-(Getting-Started))).
 
 ```
-sdカード/
+sd card/
   atmosphere/
     contents/
       01006A800016E000/
         exefs/
-          subsdk9                      # Skyline本体(skyline.zipから)
+          subsdk9                      # Skyline itself (from skyline.zip)
         romfs/
           skyline/
             plugins/
-              libarcropolis.nro        # ARCropolis(release.zipから)
+              libarcropolis.nro        # ARCropolis (from release.zip)
   ultimate/
     mods/
-      <MODごとのフォルダ>/            # 個々のMODを置く場所
+      <folder for each mod>/            # Where individual mods go
 ```
 
-Skylineの `subsdk9` は、[LayeredFSの仕組み](#仕組みとフォルダ構成)のうち、`exefs` による実行コードの差し替えで読み込まれます。Atmosphèreのloaderは、プロセスを作るときに `rtld`・`main`・`subsdk0`〜`subsdk9`・`sdk` という名前のファイルを探し、SDカード上に同名のファイルがあればそちらを使います([Atmosphère公式ドキュメント:loader.md](https://github.com/Atmosphere-NX/Atmosphere/blob/master/docs/components/modules/loader.md))。
+Skyline's `subsdk9` is loaded through the replacement of executable code by `exefs`, part of [the LayeredFS mechanism](#how-it-works-and-folder-structure). When creating a process, Atmosphère's loader looks for files named `rtld`, `main`, `subsdk0`–`subsdk9`, and `sdk`, and if a file with the same name exists on the SD card, it uses that one ([official Atmosphère documentation: loader.md](https://github.com/Atmosphere-NX/Atmosphere/blob/master/docs/components/modules/loader.md)).
 
-ARCropolisが動いているかは、ゲームのタイトル画面で確認できます。正しく導入できていれば、ARCropolisのバージョンが表示されます([ARCropolis Wiki:Setup](https://github.com/Raytwo/ARCropolis/wiki/Setup-(Getting-Started)))。
+Whether ARCropolis is running can be checked on the game's title screen. If installed correctly, the ARCropolis version is displayed ([ARCropolis Wiki: Setup](https://github.com/Raytwo/ARCropolis/wiki/Setup-(Getting-Started))).
 
-#### MODの置き場所と、Mod Managerの使い方
+#### Where mods go, and how to use the Mod Manager
 
-ARCropolisがMODを探す場所は、2つあります。どちらも、自分で作る必要があります([ARCropolis Wiki:Usage](https://github.com/Raytwo/ARCropolis/wiki/Usage-(Getting-Started)))。
+ARCropolis looks for mods in two places. You have to create both yourself ([ARCropolis Wiki: Usage](https://github.com/Raytwo/ARCropolis/wiki/Usage-(Getting-Started))).
 
-| 場所 | 用途 |
+| Location | Use |
 |---|---|
-| `sd:/ultimate/mods/<MODごとのフォルダ>/` | 推奨。MODごとにフォルダを分けて置き、ゲーム内のMod Managerでオン・オフを切り替えられる。[GameBananaのスマブラSPのページ](https://gamebanana.com/games/6498)で配布されているMODの多くは、ここにドラッグ&ドロップするだけで入る |
-| `sd:/atmosphere/contents/01006A800016E000/romfs/arc/` | 古い方式。中身はゲームのデータアーカイブ(`data.arc`)のルートとして扱われる。MODを整理できないので、土台にする「ベースのMODパック」を置く場合に限られる |
+| `sd:/ultimate/mods/<folder for each mod>/` | Recommended. Each mod is placed in its own folder, and it can be turned on and off with the in-game Mod Manager. Many mods distributed on [GameBanana's Smash Ultimate page](https://gamebanana.com/games/6498) are installed just by dragging and dropping them here |
+| `sd:/atmosphere/contents/01006A800016E000/romfs/arc/` | The old method. The contents are treated as the root of the game's data archive (`data.arc`). Mods cannot be organized here, so this is limited to placing a "base mod pack" to build on |
 
-たとえば、`sd:/ultimate/mods/My Cool Mod/ui/message/msg_melee.msbt` のように置くと、`My Cool Mod` というMODとして扱われます。
+For example, placing a file at `sd:/ultimate/mods/My Cool Mod/ui/message/msg_melee.msbt` treats it as a mod called `My Cool Mod`.
 
-Mod Managerの入口は、スマブラSPのメインメニューの右下にある、ニンテンドーeショップのボタンです。そこで「Mod Manager(ARCadia-RS)」を選ぶと、MODの一覧が出て、Aボタンで1つずつオン・オフを切り替えられます。メニューを閉じると、ゲームを再起動するかを聞く画面になります。「はい」を選べば、その場で変更が反映される仕組みです。また、Switchのホーム画面からスマブラSPを起動するとき、読み込み画面の右下のJoy-Conのアニメーションが終わったころに `+` ボタンを押し続けると、ゲームの起動前にMod Managerを開けます。この方法なら、変更後に再起動する必要がありません([ARCropolis Wiki:Mod Manager](https://github.com/Raytwo/ARCropolis/wiki/Mod-Manager-(Features)))。
+The entry point to the Mod Manager is the Nintendo eShop button at the bottom right of Smash Ultimate's main menu. Selecting "Mod Manager (ARCadia-RS)" there shows the list of mods, and the A button toggles them on and off one at a time. Closing the menu brings up a screen asking whether to restart the game. Choosing "Yes" applies the changes on the spot. Also, when launching Smash Ultimate from the Switch home screen, holding the `+` button around when the Joy-Con animation at the bottom right of the loading screen ends opens the Mod Manager before the game starts. With this method, no restart is needed after making changes ([ARCropolis Wiki: Mod Manager](https://github.com/Raytwo/ARCropolis/wiki/Mod-Manager-(Features))).
 
-![ARCropolisのMod Manager。左にMODの一覧がチェック付きで並び、右に選択中のMOD「Mario 64 Victory」のプレビュー画像と説明が表示されている](https://user-images.githubusercontent.com/57608398/163076831-f23cb96f-3c91-4b05-a402-ba19e9c61eee.png)
+![ARCropolis's Mod Manager. A list of mods with checkmarks is on the left, and a preview image and description of the selected mod "Mario 64 Victory" are on the right](https://user-images.githubusercontent.com/57608398/163076831-f23cb96f-3c91-4b05-a402-ba19e9c61eee.png)
 
-*ARCropolisのMod Manager。画像は[ARCropolis Wiki:Mod Manager](https://github.com/Raytwo/ARCropolis/wiki/Mod-Manager-(Features))に掲載されているもの(このリポジトリには複製せず、元の場所を参照している)*
+*ARCropolis's Mod Manager. The image is the one posted on [ARCropolis Wiki: Mod Manager](https://github.com/Raytwo/ARCropolis/wiki/Mod-Manager-(Features)) (it is not copied into this repository; the original location is referenced)*
 
-一覧に出る名前・説明・プレビュー画像は、MODのフォルダに `info.toml` と `preview.webp` を置くと設定できます。どちらも任意で、なくてもMODは動きます。`info.toml` には、`display_name`(表示名)、`authors`、`version`、`description`、`category`(Fighter・Stage・Effects・UI・Param・Audio・Miscのどれか1つ)を書きます(同上)。
+The name, description, and preview image shown in the list can be set by placing `info.toml` and `preview.webp` in the mod's folder. Both are optional, and the mod works without them. In `info.toml`, you write `display_name` (the display name), `authors`, `version`, `description`, and `category` (one of Fighter, Stage, Effects, UI, Param, Audio, or Misc) (same source).
 
 ```toml
 display_name = "My Cool Mod"
-authors = "自分の名前"
+authors = "Your name"
 version = "1.0"
 description = """
-メニューの文言を差し替えるMOD
+A mod that replaces menu text
 """
 category = "UI"
 ```
 
-ARCropolis 3.0.0以降では、2つのMODが同じファイルを置き換えようとすると、起動時に「ファイルの競合」として知らせてくれます。競合しているファイルの一覧は、`sd:/ultimate/arcropolis/conflicts.json` で確認できます([ARCropolis Wiki:Usage](https://github.com/Raytwo/ARCropolis/wiki/Usage-(Getting-Started))、[FAQ](https://github.com/Raytwo/ARCropolis/wiki/FAQ-(Troubleshooting)))。
+In ARCropolis 3.0.0 and later, if two mods try to replace the same file, you are notified at launch of a "file conflict." The list of conflicting files can be checked at `sd:/ultimate/arcropolis/conflicts.json` ([ARCropolis Wiki: Usage](https://github.com/Raytwo/ARCropolis/wiki/Usage-(Getting-Started)), [FAQ](https://github.com/Raytwo/ARCropolis/wiki/FAQ-(Troubleshooting))).
 
-#### 分類1:見た目の差し替え(スキン)
+#### Category 1: Replacing appearance (skins)
 
-もっとも多いのが、ファイターの見た目(モデル・テクスチャ)を差し替えるスキンMODです。スマブラSPでは、各ファイターのカラーバリエーション(スロット)ごとにファイルが分かれていますが、一部のファイルはスロット間で共有されています。そのため、古い環境では、あるスロットのスキンを入れると、ほかのスロットの見た目まで崩れることがありました。ARCropolis 2.0.0以降は、1つのスロットだけに効くスキンMOD・ボイスMODに対応しています([ARCropolis Wiki:FAQ](https://github.com/Raytwo/ARCropolis/wiki/FAQ-(Troubleshooting))、[よくある問題](https://github.com/Raytwo/ARCropolis/wiki/Common-Issues-and-How-To-Fix-Them-(Troubleshooting)))。
+The most common are skin mods that replace a fighter's appearance (models and textures). In Smash Ultimate, files are separated for each fighter's color variation (slot), but some files are shared between slots. So in older environments, installing a skin for one slot could break the appearance of other slots too. ARCropolis 2.0.0 and later support skin and voice mods that affect only one slot ([ARCropolis Wiki: FAQ](https://github.com/Raytwo/ARCropolis/wiki/FAQ-(Troubleshooting)), [Common issues](https://github.com/Raytwo/ARCropolis/wiki/Common-Issues-and-How-To-Fix-Them-(Troubleshooting))).
 
-「他のゲームのキャラクターで遊べる」と紹介されるMODも、この分類に入ります。スキンMODは、既存のファイターのスロットの見た目を置き換えるもので、技・AIを含めた新しいファイターを追加するものではありません。技の性能や動きのデータは、`param`(パラメータ)や `motion_list` といった別のファイルにあり、これらを書き換えるのは、次の分類2のような、ゲームプレイを変えるMODです([ARCropolis Wiki:Param Patching](https://github.com/Raytwo/ARCropolis/wiki/Param-Patching-(Features))、[MotionList Patching](https://github.com/Raytwo/ARCropolis/wiki/MotionList-Patching-(Features)))。
+Mods introduced as "letting you play as characters from other games" also fall into this category. A skin mod replaces the appearance of an existing fighter's slot and does not add a new fighter including moves and AI. Data on move performance and motion is in separate files such as `param` (parameters) and `motion_list`, and rewriting these is a mod that changes gameplay, like category 2 next ([ARCropolis Wiki: Param Patching](https://github.com/Raytwo/ARCropolis/wiki/Param-Patching-(Features)), [MotionList Patching](https://github.com/Raytwo/ARCropolis/wiki/MotionList-Patching-(Features))).
 
-実例として、2019年に話題になった「マスターチーフ(Haloの主人公)のMOD」があります。TheGamerの記事によると、これはスネークのスキンとして作られたもので、見た目はマスターチーフでも、技はスネークのものをそのまま使っています。作者がスネークを選んだのは、マスターチーフに近い技を持つファイターだからだろう、と記事は推測しています([TheGamer、2019年6月](https://www.thegamer.com/new-mod-master-chief-smash-ultimate/))。
+As a real example, there is the "Master Chief (the protagonist of Halo) mod" that drew attention in 2019. According to a TheGamer article, it was made as a skin for Snake, and although it looks like Master Chief, it uses Snake's moves as they are. The article speculates that the creator chose Snake because he is a fighter with moves close to Master Chief's ([TheGamer, June 2019](https://www.thegamer.com/new-mod-master-chief-smash-ultimate/)).
 
-スキン系の一例として、[Smash Minecraft Skins](https://github.com/jam1garner/smash-minecraft-skins)というSkylineプラグインがあります。Minecraftのユーザー名を入力すると、そのスキンを取得してゲーム内で使えるようにするものです。PNG形式のスキンを `sd:/atmosphere/contents/01006A800016E000/romfs/minecraft_skins/` に置いて使うこともできます。動作には、SkylineとARCropolis 0.9.3以降が必要です([READMEで確認](https://github.com/jam1garner/smash-minecraft-skins))。TechRaptorの2020年10月の記事は、このMODを、キャラクター選択画面に追加されたメニューから、Java版Minecraftのスキンを取り込めるものとして紹介しています([TechRaptor](https://techraptor.net/gaming/news/super-smash-bros-ultimate-steve-mod-custom-skins))。
+One example of the skin type is a Skyline plugin called [Smash Minecraft Skins](https://github.com/jam1garner/smash-minecraft-skins). When you enter a Minecraft username, it fetches that skin and makes it usable in the game. You can also use it by placing PNG skins in `sd:/atmosphere/contents/01006A800016E000/romfs/minecraft_skins/`. It requires Skyline and ARCropolis 0.9.3 or later ([confirmed in the README](https://github.com/jam1garner/smash-minecraft-skins)). An October 2020 TechRaptor article introduces this mod as one that lets you import Java edition Minecraft skins from a menu added to the character selection screen ([TechRaptor](https://techraptor.net/gaming/news/super-smash-bros-ultimate-steve-mod-custom-skins)).
 
-#### 分類2:コンテンツの追加・ゲームプレイの変更
+#### Category 2: Adding content and changing gameplay
 
-見た目だけでなく、ゲームの中身そのものを変えるMODもあります。ARCropolisのREADMEが代表例として挙げている[HewDraw Remix(HDR)](https://github.com/HDR-Development/HDR-Releases)は、ゲームプレイの大規模な作り直しに加えて、選び抜いたスキン、独自のメニュー、新しい音楽などを含むMODです([ARCropolisのREADME](https://github.com/Raytwo/ARCropolis))。HDRの公式READMEによると、導入は配布されている `switch-release.zip` をSDカードに展開するだけで、アンインストールは `/ultimate/mods` にある `hdr` で始まるフォルダを削除します([HDR-ReleasesのREADME](https://github.com/HDR-Development/HDR-Releases))。
+There are also mods that change not just the appearance but the content of the game itself. [HewDraw Remix (HDR)](https://github.com/HDR-Development/HDR-Releases), which the ARCropolis README gives as a representative example, is a mod that includes a large-scale rework of gameplay plus carefully selected skins, its own menus, new music, and more ([ARCropolis README](https://github.com/Raytwo/ARCropolis)). According to HDR's official README, installing is just extracting the distributed `switch-release.zip` to the SD card, and uninstalling is deleting the folders starting with `hdr` in `/ultimate/mods` ([HDR-Releases README](https://github.com/HDR-Development/HDR-Releases)).
 
-この種のMODについて、ARCropolisのFAQは、オンラインで有利になるファイル(パラメータの調整や技の変更など)を改造しないことを、コミュニティの一般的な合意として挙げています([ARCropolis Wiki:FAQ](https://github.com/Raytwo/ARCropolis/wiki/FAQ-(Troubleshooting)))。ARCropolis 3.2.0以降の「ワークスペース」機能を使うと、MODの組み合わせをプリセットとして保存し、たとえば「スキンだけのオンライン向け構成」と「ゲームプレイを変える構成」を、ゲーム内のメニューから切り替えられます([ARCropolis Wiki:Workspaces](https://github.com/Raytwo/ARCropolis/wiki/Workspaces-and-Workspace-Selector-(Features)))。
+For this kind of mod, the ARCropolis FAQ cites as a general community agreement not to modify files that give an advantage online (such as parameter adjustments and move changes) ([ARCropolis Wiki: FAQ](https://github.com/Raytwo/ARCropolis/wiki/FAQ-(Troubleshooting))). With the "workspaces" feature in ARCropolis 3.2.0 and later, you can save combinations of mods as presets and switch from an in-game menu between, for example, "a skins-only configuration for online" and "a configuration that changes gameplay" ([ARCropolis Wiki: Workspaces](https://github.com/Raytwo/ARCropolis/wiki/Workspaces-and-Workspace-Selector-(Features))).
 
-#### 別のゲームの例:マリオカート8 デラックスのCTGP Deluxe
+#### An example from another game: CTGP Deluxe for Mario Kart 8 Deluxe
 
-スマブラSP以外の例として、マリオカート8 デラックスに独自のコースを追加する CTGP Deluxe があります。Wii版の「CTGP Revolution」、3DS版の「CTGP-7」の流れをくむMODです。GameBrewのページ(2025年6月更新)によると、版は1.1.1で、前提はCFWの入ったSwitchと、最新版(3.0.3)に更新したマリオカート8 デラックスです。導入するときは、ほかのマリオカート8 デラックスのMOD(古い版のCTGP Deluxeを含む)をすべて消してから、zipの中身をSDカードのルートに展開します。emuMMCで遊ぶことが強く推奨されています([GameBrew:CTGP Deluxe Switch](https://www.gamebrew.org/wiki/CTGP_Deluxe_Switch))。
+As an example other than Smash Ultimate, there is CTGP Deluxe, which adds original courses to Mario Kart 8 Deluxe. It is a mod in the lineage of the Wii "CTGP Revolution" and the 3DS "CTGP-7." According to the GameBrew page (updated June 2025), the version is 1.1.1, and the prerequisites are a Switch with CFW and Mario Kart 8 Deluxe updated to the latest version (3.0.3). When installing, delete all other Mario Kart 8 Deluxe mods (including older versions of CTGP Deluxe), and then extract the contents of the zip to the root of the SD card. Playing on emuMMC is strongly recommended ([GameBrew: CTGP Deluxe Switch](https://www.gamebrew.org/wiki/CTGP_Deluxe_Switch)).
 
-クレジットと更新履歴には、Skyline(スマブラSPのARCropolisと同じ、実行コードに手を入れるための基盤)の名前があり、v1.1.0では「Skyline patch」の追加が記録されています。
+The credits and update history include the name Skyline (the same foundation for modifying executable code as Smash Ultimate's ARCropolis), and v1.1.0 records the addition of a "Skyline patch."
 
-#### 分類3:チートとの併用
+#### Category 3: Combining with cheats
 
-ARCropolisのMODと、Atmosphèreのチートは、置き場所が別です。ARCropolis関連のファイルは `exefs`・`romfs` と `sd:/ultimate/` に、チートは同じタイトルIDフォルダの `cheats` に置かれます(チートの置き場所は、次の「チートコード」節を参照)。ファイルの置き場所としては共存できますが、ARCropolisの公式ドキュメントには、Atmosphèreのチートと同時に使った場合の動作についての記載は見当たりません。両者を同時に有効にした場合の動作は未確認です。
+ARCropolis mods and Atmosphère cheats are placed in different locations. ARCropolis-related files go in `exefs`, `romfs`, and `sd:/ultimate/`, and cheats go in `cheats` in the same title ID folder (for the cheat location, see the next section, "Cheat codes"). As far as file locations go they can coexist, but ARCropolis's official documentation has no statement on behavior when used together with Atmosphère cheats. Behavior with both enabled at the same time is unconfirmed.
 
-一時的にすべて止めたいときは、ゲーム起動時にLボタンを押し続けます。HDRのREADMEも、Lボタンを押しながら起動すれば、メニューの設定にかかわらず、すべてのMODが一時的に無効になると説明しています([HDR-ReleasesのREADME](https://github.com/HDR-Development/HDR-Releases))。
+To stop everything temporarily, hold the L button when launching the game. HDR's README also explains that launching while holding the L button temporarily disables all mods, regardless of the menu settings ([HDR-Releases README](https://github.com/HDR-Development/HDR-Releases)).
 
-### チートコード
+### Cheat codes
 
-チートコードは、LayeredFSとは別の仕組みで、Atmosphèreのメモリ内チートエンジンが読み込みます。
+Cheat codes are loaded by Atmosphère's in-memory cheat engine, a mechanism separate from LayeredFS.
 
 ```
-sdカード/
+sd card/
   atmosphere/
     contents/
-      <タイトルID>/
+      <title ID>/
         cheats/
-          <ビルドID>.txt
+          <build ID>.txt
 ```
 
-ビルドIDは、ゲームの版(アップデート)ごとに変わるため、チートファイルは完全に一致するビルドIDのものを使う必要があります。合っていないと、チートが効きません(または、適用先がずれて不安定になります)。
+The build ID changes with each version (update) of the game, so you must use a cheat file with an exactly matching build ID. If it does not match, the cheat has no effect (or the target of application is shifted and things become unstable).
 
-チートやMODを一時的に止めたい場合は、ゲーム起動時にLボタンを押し続けると、適用を無効化できます([Switch Guide:EdiZon](https://switch.hacks.guide/homebrew/edizon))。Atmosphèreのドキュメントでは、チートは「Lが押されていなければ読み込む」という条件で動いており、このボタンは `sd:/atmosphere/config/override_config.ini` の `cheat_enable_key`(MODの差し替えは `override_key`)で変えられる、と説明されています。どちらも既定値は `!L`(Lを押していないとき有効)です([Atmosphère公式ドキュメント:cheats.md](https://github.com/Atmosphere-NX/Atmosphere/blob/master/docs/features/cheats.md)、[configurations.md](https://github.com/Atmosphere-NX/Atmosphere/blob/master/docs/features/configurations.md))。
+To stop cheats and mods temporarily, hold the L button when launching the game to disable their application ([Switch Guide: EdiZon](https://switch.hacks.guide/homebrew/edizon)). Atmosphère's documentation explains that cheats operate under the condition "load if L is not pressed," and that this button can be changed with `cheat_enable_key` (for mod replacement, `override_key`) in `sd:/atmosphere/config/override_config.ini`. Both default to `!L` (enabled when L is not pressed) ([official Atmosphère documentation: cheats.md](https://github.com/Atmosphere-NX/Atmosphere/blob/master/docs/features/cheats.md), [configurations.md](https://github.com/Atmosphere-NX/Atmosphere/blob/master/docs/features/configurations.md)).
 
-チートを、最初から全部オフの状態で読み込みたい場合は、`system_settings.ini` を使います(次の節)。
+To load cheats with all of them off from the start, use `system_settings.ini` (next section).
 
-#### チートコードの種類
+#### Types of cheat codes
 
-Atmosphèreのチートは、「どの命令(コードタイプ)を、どんな順番で並べるか」という、専用の仮想マシン(VM)形式のテキストで書かれています。単純なメモリ書き換えから、条件分岐・ループまで表現できる、プログラムに近い仕組みです。主なコードタイプは、[Atmosphère公式ドキュメント](https://github.com/Atmosphere-NX/Atmosphere/blob/master/docs/features/cheats.md)で、次のように定義されています。
+Atmosphère cheats are written in text in a dedicated virtual machine (VM) format of "which instructions (code types) to line up in what order." It is a program-like mechanism that can express everything from simple memory rewriting to conditional branches and loops. The main code types are defined as follows in the [official Atmosphère documentation](https://github.com/Atmosphere-NX/Atmosphere/blob/master/docs/features/cheats.md).
 
-| コードタイプ | 名称(公式表記) | 役割 |
+| Code type | Name (official notation) | Role |
 |---|---|---|
-| 0x0 | Store Static Value to Memory | メモリに、固定の値を書き込む |
-| 0x1 / 0x2 | Begin / End Conditional Block | 条件分岐の開始・終了 |
-| 0x3 | Start/End Loop | ループの開始・終了 |
-| 0x4 / 0x5 | Load Register with Static Value / Memory Value | レジスタ(作業用の一時領域)に、値を読み込む |
-| 0x6 | Store Static Value to Register Memory Address | レジスタが指すアドレスに、値を書き込む |
-| 0x9 | Perform Arithmetic | 演算を行う(0x7の「Legacy Arithmetic」は、名称上は別の古い命令として区別されています) |
-| 0x8 / 0xC4 | Begin Keypress Conditional Block / Begin Extended Keypress Conditional Block | 特定のボタンが押されている間だけ、処理を有効にする |
-| 0xFF0 / 0xFF1 | Pause Process / Resume Process | ゲームの処理を一時停止・再開する |
-| 0xFFF | Debug Log | SDカードの `/atmosphere/cheat_vm_logs/` に、動作ログを書き出す |
+| 0x0 | Store Static Value to Memory | Writes a fixed value to memory |
+| 0x1 / 0x2 | Begin / End Conditional Block | Start and end of a conditional branch |
+| 0x3 | Start/End Loop | Start and end of a loop |
+| 0x4 / 0x5 | Load Register with Static Value / Memory Value | Loads a value into a register (a temporary work area) |
+| 0x6 | Store Static Value to Register Memory Address | Writes a value to the address the register points to |
+| 0x9 | Perform Arithmetic | Performs arithmetic (0x7, "Legacy Arithmetic," is distinguished by name as a separate old instruction) |
+| 0x8 / 0xC4 | Begin Keypress Conditional Block / Begin Extended Keypress Conditional Block | Enables processing only while specific buttons are pressed |
+| 0xFF0 / 0xFF1 | Pause Process / Resume Process | Pauses and resumes the game's processing |
+| 0xFFF | Debug Log | Writes an operation log to `/atmosphere/cheat_vm_logs/` on the SD card |
 
-この中で、0xFFF(Debug Log)は、チートが実際に実行されたことを確認できる、ほぼ唯一の仕組みです。それ以外は、画面上の分かりやすい「読み込み成功」のような表示がないため、期待した効果(体力無限など)が実際に出ているかどうかを、目で見て確かめるのが基本になります。
+Among these, 0xFFF (Debug Log) is almost the only mechanism that can confirm a cheat was actually executed. Otherwise, there is no clear on-screen indication like "loaded successfully," so the basic approach is to check with your own eyes whether the expected effect (such as infinite health) actually appears.
 
-また、ソースコード([dmnt_cheat_api.cpp](https://github.com/Atmosphere-NX/Atmosphere/blob/master/stratosphere/dmnt/source/cheat/impl/dmnt_cheat_api.cpp))を確認したところ、スロット0番は「マスターチート」として予約されており、常に有効な扱いになっています。これが、チートの上限が128個ではなく、実質127個とされる理由です。
+Also, checking the source code ([dmnt_cheat_api.cpp](https://github.com/Atmosphere-NX/Atmosphere/blob/master/stratosphere/dmnt/source/cheat/impl/dmnt_cheat_api.cpp)) showed that slot 0 is reserved as the "master cheat" and is always treated as enabled. This is why the cheat limit is said to be effectively 127 rather than 128.
 
-#### プレイ中に個別のチートをオン・オフする
+#### Turning individual cheats on and off during play
 
-`.txt` ファイル内のチートは、そのままではすべてが同時に有効になります。これは、`system_settings.ini` の `[atmosphere]` セクションにある `dmnt_cheats_enabled_by_default`(既定値は `u8!0x1`)という設定によるもので、`u8!0x0` にすると、すべて無効の状態から起動するようになります([Atmosphère公式ドキュメント](https://github.com/Atmosphere-NX/Atmosphere/blob/master/docs/features/cheats.md))。具体的には、`sd:/atmosphere/config_templates/system_settings.ini` を `sd:/atmosphere/config/` にコピーし、`; dmnt_cheats_enabled_by_default = u8!0x1` の行を、先頭の `; ` を消したうえで `dmnt_cheats_enabled_by_default = u8!0x0` に書き換えます([Switch Guide:EdiZon](https://switch.hacks.guide/homebrew/edizon))。
+The cheats in a `.txt` file are, as they stand, all enabled at once. This is due to a setting called `dmnt_cheats_enabled_by_default` (default `u8!0x1`) in the `[atmosphere]` section of `system_settings.ini`; setting it to `u8!0x0` makes the game start with all of them disabled ([official Atmosphère documentation](https://github.com/Atmosphere-NX/Atmosphere/blob/master/docs/features/cheats.md)). Specifically, copy `sd:/atmosphere/config_templates/system_settings.ini` to `sd:/atmosphere/config/`, remove the leading `; ` from the line `; dmnt_cheats_enabled_by_default = u8!0x1`, and rewrite it to `dmnt_cheats_enabled_by_default = u8!0x0` ([Switch Guide: EdiZon](https://switch.hacks.guide/homebrew/edizon)).
 
-個別にオン・オフしたい場合は、Atmosphère自体ではなく、別のホームブリューアプリを使います。方法は2つあります。
+To turn them on and off individually, use a separate homebrew app, not Atmosphère itself. There are two ways.
 
-1つ目は、EdiZon(アプリ版)です。上の画像のように、ゲームの起動中にhbmenuからEdiZonを開くと、チートの一覧がチェックボックス付きで表示され、オン・オフを切り替えられます。新しいチートのダウンロードも可能です。Switch Guideは、元のEdiZonより、更新が続いていて機能も多い [EdiZon-SE](https://github.com/tomvita/EdiZon-SE) を勧めています。EdiZon-SEは、zipの中身をSDカードのルートにコピーして入れます。正しく入っていれば、`sd:/atmosphere/contents/054e4f4558454000` フォルダと、`sd:/switch/EdiZon/EdiZon.nro` ができています([Switch Guide:EdiZon](https://switch.hacks.guide/homebrew/edizon))。
+The first is EdiZon (the app version). As in the image above, opening EdiZon from hbmenu while a game is running shows the list of cheats with checkboxes, and you can toggle them on and off. Downloading new cheats is also possible. The Switch Guide recommends [EdiZon-SE](https://github.com/tomvita/EdiZon-SE), which is still being updated and has more features than the original EdiZon. EdiZon-SE is installed by copying the contents of the zip to the root of the SD card. If installed correctly, the folder `sd:/atmosphere/contents/054e4f4558454000` and `sd:/switch/EdiZon/EdiZon.nro` will exist ([Switch Guide: EdiZon](https://switch.hacks.guide/homebrew/edizon)).
 
-2つ目は、ゲームをプレイしたまま呼び出せる「オーバーレイ」です。オーバーレイは、本体のクイック設定のように、ゲームの上に重ねて開くメニュー型のホームブリューです。`nx-ovlloader` というシステムモジュールが、オーバーレイのメニュー(Tesla Menu、または、より新しくカスタマイズ性の高いUltrahand)を読み込みます([ConsoleMods Wiki:Overlay Apps](https://consolemods.org/wiki/Switch:Overlay_Apps))。Switch Guideの手順は、次の通りです([Switch Guide:Tesla-Menu](https://switch.hacks.guide/homebrew/tesla-menu))。
+The second is an "overlay" that can be called up while playing the game. An overlay is menu-type homebrew opened on top of the game, like the console's quick settings. A system module called `nx-ovlloader` loads the overlay menu (Tesla Menu, or the newer and more customizable Ultrahand) ([ConsoleMods Wiki: Overlay Apps](https://consolemods.org/wiki/Switch:Overlay_Apps)). The Switch Guide's steps are as follows ([Switch Guide: Tesla-Menu](https://switch.hacks.guide/homebrew/tesla-menu)).
 
-1. [nx-ovlloader](https://github.com/DefenderOfHyrule/nx-ovlloader/releases)の `nx-ovlloader.zip` の中身を、SDカードのルートにコピーする
-2. [Tesla-Menu](https://github.com/DefenderOfHyrule/Tesla-Menu/releases)の `ovlmenu.ovl` を、`sd:/switch/.overlays/` にコピーする
-3. 正しく入っていれば、`sd:/atmosphere/contents/420000000007E51A`(nx-ovlloader)フォルダと、`sd:/switch/.overlays/ovlmenu.ovl` ができている
-4. CFWで起動し、L+右スティック押し込み+十字キー下を同時に押すと、Tesla Menuが開く
-5. 使いたいオーバーレイ(`.ovl` ファイル)も、同じ `sd:/switch/.overlays/` に置く。チートの切り替えには、[EdiZon-Overlay](https://github.com/proferabg/EdiZon-Overlay)を使う
+1. Copy the contents of `nx-ovlloader.zip` from [nx-ovlloader](https://github.com/DefenderOfHyrule/nx-ovlloader/releases) to the root of the SD card
+2. Copy `ovlmenu.ovl` from [Tesla-Menu](https://github.com/DefenderOfHyrule/Tesla-Menu/releases) to `sd:/switch/.overlays/`
+3. If installed correctly, the folder `sd:/atmosphere/contents/420000000007E51A` (nx-ovlloader) and `sd:/switch/.overlays/ovlmenu.ovl` will exist
+4. Boot into CFW, and press L + right stick click + D-pad down at the same time to open Tesla Menu
+5. Also place the overlays you want to use (`.ovl` files) in the same `sd:/switch/.overlays/`. For switching cheats, use [EdiZon-Overlay](https://github.com/proferabg/EdiZon-Overlay)
 
-![Tesla Menuを開いた画面。左側にQuickNTP、SimpleModManager、Status Monitor、emuiibo、ldn_mitm、TriPlayer、sys-clkといったオーバーレイの一覧が重なって表示されている](../assets/screenshots/switch-guide-tesla-menu.jpg)
+![Tesla Menu opened. On the left, a list of overlays such as QuickNTP, SimpleModManager, Status Monitor, emuiibo, ldn_mitm, TriPlayer, and sys-clk is displayed on top of the screen](../assets/screenshots/switch-guide-tesla-menu.jpg)
 
-*Tesla Menuを、ホーム画面の上に開いたところ。一覧からオーバーレイを選んでAボタンで開く。画像:[Switch Guide](https://github.com/nh-server/switch-guide)*
+*Tesla Menu opened on top of the home screen. Select an overlay from the list and open it with the A button. Image: [Switch Guide](https://github.com/nh-server/switch-guide)*
 
-公式のEdiZonオーバーレイはメンテナンスが止まっており、本体バージョン16.0.0以降で使おうとすると、Atmosphère自体がクラッシュします。メンテナンスが続いているのが、上の[EdiZon-Overlay](https://github.com/proferabg/EdiZon-Overlay)です([Switch GuideのEdiZonページ](https://switch.hacks.guide/homebrew/edizon))。呼び出すボタンの組み合わせは、`sd:/config/tesla/config.ini` の `[tesla]` セクションに `key_combo=L+R+RS` のように書いて変えられます(libtesla公式ソースコードの[tesla.hpp](https://github.com/WerWolv/libtesla/blob/master/include/tesla.hpp)と、[Switch GuideのTesla Menuページ](https://switch.hacks.guide/homebrew/tesla-menu)で確認)。
+The official EdiZon overlay is no longer maintained, and trying to use it on system version 16.0.0 or later crashes Atmosphère itself. The one still maintained is the [EdiZon-Overlay](https://github.com/proferabg/EdiZon-Overlay) above ([Switch Guide EdiZon page](https://switch.hacks.guide/homebrew/edizon)). The button combination for calling it up can be changed by writing something like `key_combo=L+R+RS` in the `[tesla]` section of `sd:/config/tesla/config.ini` (confirmed in [tesla.hpp](https://github.com/WerWolv/libtesla/blob/master/include/tesla.hpp) in libtesla's official source code and on the [Switch Guide Tesla Menu page](https://switch.hacks.guide/homebrew/tesla-menu)).
 
-うまく動かないときの対処は、Switch Guideに2つ載っています([Switch Guide:Tesla-Menu](https://switch.hacks.guide/homebrew/tesla-menu))。起動時やオーバーレイを開いたときに、エラーコード `2001-0123 (0xf601)`、タイトルID `420000000007E51A` で落ちる場合は、Tesla Menuか、開こうとしたオーバーレイが古い版なので、最新版に入れ替えます。テレビに繋いでいるとき、Tesla Menuがホーム画面でしか出ない場合は、本体設定の「テレビ出力 → 画面サイズ」を100%にします。
+The Switch Guide lists two remedies for when things do not work ([Switch Guide: Tesla-Menu](https://switch.hacks.guide/homebrew/tesla-menu)). If it crashes at launch or when opening an overlay with error code `2001-0123 (0xf601)` and title ID `420000000007E51A`, Tesla Menu or the overlay you tried to open is an old version, so replace it with the latest version. If Tesla Menu appears only on the home screen when connected to a TV, set "TV Output → Screen Size" in System Settings to 100%.
 
-チートコードの文法が正しいかどうかを、画面上で確認する標準的な方法はありません。実際には、期待通りの効果(体力無限、アイテム解放など)が出るかどうかを、目で見て確認するのが一般的なやり方です。
+There is no standard way to check on screen whether cheat code syntax is correct. In practice, the common approach is to check with your own eyes whether the expected effect (infinite health, item unlocks, and so on) appears.
 
-#### 複数のチート・MODを組み合わせる
+#### Combining multiple cheats and mods
 
-Atmosphèreは、1つのビルドIDにつき1つのチートファイルしか読み込みません。複数の配布元のチートを使いたい場合は、1つのファイルに手動でまとめる必要があります。チートの数の上限は、「チートコードの種類」の節で説明した通り実質127個で、超えた分は警告なく無視されます。
+Atmosphère loads only one cheat file per build ID. To use cheats from multiple sources, you have to combine them into one file by hand. As explained in the "Types of cheat codes" section, the limit on the number of cheats is effectively 127, and anything beyond that is ignored without warning.
 
-複数のMODフォルダが、同じファイルパスを上書きし合う場合の優先順位は、公式な記載が見つかりませんでした。未確認の情報として扱ってください。
+No official statement could be found on the priority when multiple mod folders override the same file path. Treat this as unconfirmed information.
 
-### exefs_patches(別の仕組み)
+### exefs_patches (a separate mechanism)
 
-`cheats` フォルダのテキストファイルとは別に、`.ips` 形式のバイナリパッチを当てる`exefs_patches`という仕組みもあります。
+Apart from the text files in the `cheats` folder, there is also a mechanism called `exefs_patches` that applies binary patches in `.ips` format.
 
 ```
-sdカード/
+sd card/
   atmosphere/
     exefs_patches/
-      <任意の名前のフォルダ>/
-        <ビルドIDに対応する .ipsファイル>
+      <folder with any name>/
+        <.ips file matching the build ID>
 ```
 
-これも、対象の実行ファイルのビルドIDと、パッチファイルが一致している必要があります。
+This also requires the patch file to match the build ID of the target executable.
 
-### 自己所有カートリッジの吸い出しについて
+### About dumping cartridges you own
 
-MODやチートとは別の話として、「自分で買ったカートリッジのデータを、吸い出して保存できるか」という疑問を持つ人もいるはずです。技術的な事実と、その扱いについて、分けて書いておきます。
+Apart from mods and cheats, some people probably wonder, "Can I dump and keep the data of a cartridge I bought myself?" I will write about the technical facts and how they are treated separately.
 
-技術的には可能です。ホームブリューアプリの [nxdumptool](https://github.com/DarkMatterCore/nxdumptool) を使うと、挿したカートリッジを、丸ごとXCI形式でSDカードに書き出せます。ただし、データは暗号化されているため、先に本体固有の鍵を取り出す [Lockpick_RCM](https://github.com/s1204IT/Lockpick_RCM) というツールが必要です(このリポジトリはアーカイブ済みで、最後の更新は2023年です)。
+Technically, it is possible. With the homebrew app [nxdumptool](https://github.com/DarkMatterCore/nxdumptool), you can write an inserted cartridge in full to the SD card in XCI format. However, the data is encrypted, so a tool called [Lockpick_RCM](https://github.com/s1204IT/Lockpick_RCM) that first extracts console-unique keys is needed (this repository is archived, and its last update was in 2023).
 
-この記事では、具体的な操作手順(どの画面で何を選ぶか)までは書きません。1つ目の理由は、確立された手順がまだないことです。nxdumptoolの、以前からあった安定版は開発が止まっており、現在メインで開発が続いているのは書き直し版だけです。その書き直し版は、開発者自身が公式README上で「現時点ではまともなUIがなく、実験的なコードだ」と明記しています([公式GitHub](https://github.com/DarkMatterCore/nxdumptool))。新しいUI(borealisという基盤を使用)は、開発チェックリスト上「一部実装」の段階で、完成はしていません。
+This article does not go as far as specific operating steps (what to select on which screen). The first reason is that no established procedure exists yet. nxdumptool's older stable version has stopped development, and only a rewritten version is now under main development. The developer of that rewritten version states explicitly in the official README that "at this time it has no proper UI and is experimental code" ([official GitHub](https://github.com/DarkMatterCore/nxdumptool)). The new UI (using a foundation called borealis) is at the "partially implemented" stage on the development checklist and is not complete.
 
-2つ目の理由は、法的な位置づけが、見た目ほど単純ではないためです。日本の著作権法30条1項は、個人・家庭内の複製(私的複製)を認めていますが、コピープロテクト(技術的保護手段)を回避して複製する行為は、この例外の対象外になりうる、という法律家の見解があります。カートリッジの吸い出しには、CFWによる保護回避が前提として絡むため、「所有物だから複製していい」と単純には言えません。アメリカのDMCAにも、個人のバックアップ目的で保護回避を認める一般的な例外はありません(光学ドライブの修理など、ごく限定的な例外に限られます)。
+The second reason is that the legal position is not as simple as it looks. Article 30(1) of Japan's Copyright Act permits copying within a personal or home setting (private copying), but there is a legal expert's opinion that copying by circumventing copy protection (technological protection measures) can fall outside this exception. Since dumping a cartridge involves circumvention of protection through CFW as a prerequisite, you cannot simply say "it is my property, so I may copy it." The US DMCA also has no general exception permitting circumvention for personal backup purposes (exceptions are limited to very narrow cases such as optical drive repair).
 
-日本・アメリカいずれについても、Switchのカートリッジ吸い出しそのものを扱った判例や行政判断は見つけられませんでした。「個人の吸い出しが実際に摘発された例をほとんど聞かない」ことと、「合法である」ことは、別の話として扱うべきです。
+For both Japan and the United States, no court precedents or administrative decisions dealing with dumping Switch cartridges themselves could be found. "Hardly ever hearing of personal dumping actually being prosecuted" and "being legal" should be treated as separate matters.
 
-さらに、「吸い出した後、カートリッジを使わずに遊び続ける」という運用は、所有権の有無に関わらず、この記事の対象外とします。吸い出したデータを使って、物理メディアを介さずにゲームを動かし続けることは、一般に海賊版利用として理解されている使い方のパターンと、技術的に区別がつきません。この記事が一貫して置いてきた「自作のホームブリューアプリと、自己所有の素材に限る。海賊版利用は対象外」という境界線は、吸い出し機能についても同じように適用します。
+Furthermore, the practice of "continuing to play without using the cartridge after dumping" is out of scope for this article, regardless of ownership. Continuing to run a game from dumped data without physical media is technically indistinguishable from the pattern of use generally understood as piracy. The line this article has consistently drawn, "limited to your own homebrew apps and materials you own; piracy is out of scope," applies equally to the dumping function.
 
-### 試せていないこと(この章)
+### What has not been tested (this chapter)
 
-この環境には、改造可能な実機カートリッジがないため、LayeredFSによる差し替えや、チート・exefs_patchesの実際の動作は確認していません。ARCropolis・HDR・Smash Minecraft Skins・SimpleModManager・EdiZon・Tesla Menuについては、公式リポジトリ、Wiki、Switch Guideの記載を確認しましたが、実機での導入と動作は未確認です。導入前には、使いたいMOD・チートの配布元が示す、個別の手順を必ず確認してください。
+This environment has no moddable real cartridge, so the actual behavior of replacement via LayeredFS and of cheats and exefs_patches has not been confirmed. For ARCropolis, HDR, Smash Minecraft Skins, SimpleModManager, EdiZon, and Tesla Menu, the descriptions in the official repositories, wikis, and the Switch Guide were checked, but installation and behavior on a real device are unconfirmed. Before installing, be sure to check the individual steps given by the distributor of the mod or cheat you want to use.
 
-この章のConsoleMods Wiki・TheGamer・TechRaptor・GameBrewを出典とする記述は、2026年10月に原文と照合しました。ConsoleMods Wikiのオーバーレイの説明は、[Overlay Appsのページ](https://consolemods.org/wiki/Switch:Overlay_Apps)によります。
+The statements in this chapter sourced to ConsoleMods Wiki, TheGamer, TechRaptor, and GameBrew were checked against the original text in October 2026. The ConsoleMods Wiki explanation of overlays is from its [Overlay Apps page](https://consolemods.org/wiki/Switch:Overlay_Apps).
 
-## 試せていないこと
+## What has not been tested
 
-この記事は、公開されているガイドとドキュメントの内容を、出典つきでまとめたものです。実機のSwitchがないため、作業手順の0〜10、8a章の自作アプリのビルド、RetroArchの移植版、8b章のMOD・チート・ARCropolisの導入は、どれも実機では確かめていません。
+This article summarizes, with sources, the content of public guides and documents. Because there is no real Switch at hand, work steps 0–10, the building of your own app in Chapter 8a, the RetroArch port, and the installation of mods, cheats, and ARCropolis in Chapter 8b have all not been verified on a real device.
 
-出典との照合の状況は、2026年10月時点で次の通りです。
+The status of checking against sources, as of October 2026, is as follows.
 
-| 出典 | 照合の状況 |
+| Source | Status of checking |
 |---|---|
-| switch.hacks.guide | 公式ソース([nh-server/switch-guide](https://github.com/nh-server/switch-guide)、コミット `64db3a8`)の原文と照合済み |
-| hekate・Atmosphère・OmniRCM・ARCropolis | 各リポジトリのソース、README、リリースページ、Wikiと照合済み |
-| GBAtemp(RCM注入ドングル) | 各スレッドの投稿と照合済み。ただし、どれも個人の投稿で、製品ごとに違いがある |
-| ConsoleMods Wiki・TheGamer・TechRaptor・GameBrew | 原文と照合済み |
-| 6章の「バックアップと復元の対象」のトグルの名前 | 個人のGistのみが出典で、照合できていない |
-| SX OSの対応ファームウェア | コミュニティの報告のみが出典で、照合できていない |
+| switch.hacks.guide | Checked against the original text in the official source ([nh-server/switch-guide](https://github.com/nh-server/switch-guide), commit `64db3a8`) |
+| hekate, Atmosphère, OmniRCM, ARCropolis | Checked against each repository's source, README, release pages, and wiki |
+| GBAtemp (RCM injection dongles) | Checked against the posts in each thread. However, all are personal posts, and products differ |
+| ConsoleMods Wiki, TheGamer, TechRaptor, GameBrew | Checked against the original text |
+| Name of the toggle in Chapter 6's "Targets of backup and restore" | The only source is a personal Gist, and it could not be checked |
+| SX OS supported firmware | The only source is community reports, and it could not be checked |
 
-出典ごとの要約と確認日は、[出典ノート](../sources/switch-community.md)にまとめています。実機を入手し次第、1つずつ確かめます。
+Summaries for each source and the dates checked are collected in the [source notes](../sources/switch-community.md). I will verify these one at a time as soon as I obtain a real device.
 
-## 守ること
+## Ground rules
 
-- 対象は、自分が所有する機体だけです
-- 動かすのは、自作のホームブリューアプリと、自分が所有するレトロゲームのROM(自分で吸い出したもの)に限ります。市販ソフトの吸い出しや、違法な入手は対象外です
-- Switchのゲームカートリッジについては、吸い出し自体が技術的保護手段の回避にあたるため、私的複製の例外の対象外になりえます。また、吸い出したデータでカートリッジなしに遊び続ける運用は、所有の有無に関わらず、この記事の対象外です
-- 治具の自作は、ピンを間違えると本体を破損させる危険があります。確実な情報源の手順に従ってください
-- emuMMCを使うことで、改造した環境と、オンラインで使う純正の環境を、分けておくことができます
+- The target is only a unit you own
+- What you run is limited to your own homebrew apps and retro game ROMs you own (dumped yourself). Dumping commercial software and illegal acquisition are out of scope
+- For Switch game cartridges, dumping itself amounts to circumventing technological protection measures, so it can fall outside the private copying exception. Also, the practice of continuing to play from dumped data without the cartridge is out of scope for this article, regardless of ownership
+- Making your own jig carries the risk of damaging the console if you get the pins wrong. Follow steps from reliable information sources
+- Using emuMMC lets you keep the modified environment and the stock environment for online use separate
 
-## この記事で出てくる用語
+## Terms in this article
 
-| 用語 | 意味 | 出典 |
+| Term | Meaning | Source |
 |---|---|---|
-| fusée gelée | Tegra X1のBootROMにある、ハードウェアレベルの脆弱性 | [Switchbrewドキュメント](https://switchbrewdocs.readthedocs.io/en/latest/hacking/rcm.html) |
-| RCM | Recovery Mode。USB経由でペイロードを受け取れる、起動前のモード | 同上 |
-| CFW | Custom Firmware。標準OSにメモリ上でパッチを当てる仕組み | [Atmosphère](https://github.com/Atmosphere-NX/Atmosphere) |
-| emuMMC | SDカード上に作る、仮想のNAND(内蔵ストレージ) | [Switch Guide](https://switch.hacks.guide/user_guide/all/cfw_environment) |
-| LayeredFS | ゲーム本体のファイルを書き換えずに、読み込み時に差し替える、Atmosphèreの機能 | [Atmosphère公式ドキュメント:loader.md](https://github.com/Atmosphere-NX/Atmosphere/blob/master/docs/components/modules/loader.md) |
-| タイトルID / ビルドID | ゲームを識別する16桁のID(タイトルID)と、そのゲームの版を識別するID(ビルドID) | [Switchbrewのタイトル一覧](https://switchbrew.org/wiki/Title_list) |
-| XCI / NSP | カートリッジの生データ形式(XCI)と、インストール済みタイトルの配布・保存形式(NSP) | [nxdumptool](https://github.com/DarkMatterCore/nxdumptool) |
+| fusée gelée | A hardware-level vulnerability in the Tegra X1's BootROM | [Switchbrew documentation](https://switchbrewdocs.readthedocs.io/en/latest/hacking/rcm.html) |
+| RCM | Recovery Mode. A pre-boot mode that can receive payloads over USB | Same source |
+| CFW | Custom Firmware. A mechanism that patches the standard OS in memory | [Atmosphère](https://github.com/Atmosphere-NX/Atmosphere) |
+| emuMMC | A virtual NAND (internal storage) created on the SD card | [Switch Guide](https://switch.hacks.guide/user_guide/all/cfw_environment) |
+| LayeredFS | An Atmosphère feature that swaps files at load time without rewriting the game's own files | [official Atmosphère documentation: loader.md](https://github.com/Atmosphere-NX/Atmosphere/blob/master/docs/components/modules/loader.md) |
+| Title ID / build ID | A 16-digit ID that identifies a game (title ID), and an ID that identifies that game's version (build ID) | [Switchbrew title list](https://switchbrew.org/wiki/Title_list) |
+| XCI / NSP | The raw data format of a cartridge (XCI), and the distribution and storage format of an installed title (NSP) | [nxdumptool](https://github.com/DarkMatterCore/nxdumptool) |
 
-## 学べること
+## What you can learn
 
-初代Switchは、ソフトウェアの更新では塞がれない、ハードウェアレベルの脆弱性が残る、数少ない現行機です。この記事で見た流れ(BootROM脆弱性→ペイロード注入→メモリ上でのOSパッチ)は、[記事19](19-boot.md)で学んだ起動チェーンの話を、より厳格な環境で体験するものです。個体の見極めには、シリアル番号という手がかりがありますが、複数の情報源を突き合わせても断定はできず、最終的な確認は実機でのペイロードテストに頼ることになります。emuMMCを使えば、改造した環境と、オンラインで使う純正の環境を分けられるため、安心して試行できるというメリットもあります。ここから先は、libnxでの自作アプリ開発と、LayeredFSによる既存ゲームの改造という、2つの異なる方向性に分かれますが、どちらも[記事22](22-rea-hands-on.md)・[記事23](23-rea-and-ghidra.md)で使ったREA/Ghidraでの、実機ファームウェアの解析という先に続く道です。
+The original Switch is one of the few current consoles that retain a hardware-level vulnerability that cannot be closed by software updates. The flow seen in this article (BootROM vulnerability → payload injection → OS patching in memory) lets you experience, in a stricter environment, the boot chain topic learned in [article 19](19-boot.md). For identifying a unit there is the clue of the serial number, but even cross-checking multiple information sources does not allow a definite conclusion, and final confirmation relies on a payload test on the real device. Using emuMMC also has the benefit of separating the modified environment from the stock environment for online use, so you can experiment with peace of mind. From here, the path splits into two different directions, developing your own apps with libnx and modifying existing games with LayeredFS, but both lead onward to analyzing real device firmware with the REA/Ghidra used in [article 22](22-rea-hands-on.md) and [article 23](23-rea-and-ghidra.md).
