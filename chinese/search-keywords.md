@@ -1,39 +1,39 @@
-# 検索キーワード
+# Search Keywords
 
-実際に検索して、結果を確認した語を挙げます。検索のサイトは、百度(baidu.com)と、CNFans(cnfans.com)です。
+These are terms that were actually searched, with the results checked. The search sites are Baidu (baidu.com) and CNFans (cnfans.com).
 
-## CNFansの検索
+## Searching on CNFans
 
-CNFansは、`https://cnfans.com/search?keywords=<中国語>&searchType=keywords` の形で検索できます。短い語のほうが、関係のある商品が出ます。
+CNFans can be searched in the form `https://cnfans.com/search?keywords=<Chinese>&searchType=keywords`. Shorter terms bring up more relevant products.
 
-| 目的 | 語 | 結果 |
+| Purpose | Term | Result |
 |---|---|---|
-| RP5の本体 | `RP5掌机 骁龙865` | RP5の本体の出品が3件 |
-| RP5の別名 | `沙雕RP5掌机` | RP5の本体と周辺の部品が並ぶ |
-| 天馬G入り | `RP5预装天马` | RP5の本体2件と、メモリーカード1件 |
-| RG40XXHの本体 | `RG40XXH掌机` | 本体が9件 |
-| ゲーム用カード | `RG40XX游戏卡` | 本体2件とカード3件 |
-| RG406Vの本体 | `安伯尼克RG406V` | 本体と部品が多数 |
-| RG556の本体 | `安伯尼克RG556` | 本体1件と周辺の部品 |
+| RP5 device | `RP5掌机 骁龙865` | 3 listings for the RP5 device |
+| RP5 alias | `沙雕RP5掌机` | RP5 devices and related parts |
+| With Tianma G | `RP5预装天马` | 2 RP5 devices and 1 memory card |
+| RG40XXH device | `RG40XXH掌机` | 9 devices |
+| Game card | `RG40XX游戏卡` | 2 devices and 3 cards |
+| RG406V device | `安伯尼克RG406V` | Many devices and parts |
+| RG556 device | `安伯尼克RG556` | 1 device and related parts |
 
-語を足しすぎると、無関係な商品が出ました。たとえば、`安伯尼克 256G 游戏内存卡` は、ドライブレコーダーのSDカードやカードリーダーばかりになりました。
+Adding too many terms brought up unrelated products. For example, `安伯尼克 256G 游戏内存卡` returned almost nothing but dashcam SD cards and card readers.
 
-## 百度の検索
+## Searching on Baidu
 
-| 目的 | 語 |
+| Purpose | Term |
 |---|---|
-| 機種のレビュー | `RG40XXH 实测`、`RG406V 评测`、`RP4 Pro 实测` |
-| 機種の比較 | `RG556 RP5 RG406V 怎么选`、`开源掌机红黑榜` |
-| 天馬Gの意味 | `天马G 前端 是什么` |
-| 天馬Gの手順 | `天马G 添加游戏`、`天马G 主题包 配置` |
-| 掲示板の投稿 | `给RG40XXH改造散热 开源掌机吧` |
-| ポケモンの改造 | `口袋妖怪 改版 制作 教程`、`HexManiacAdvance` |
-| ROM hack | `GBA HACK 制作教程`、`街机游戏HACK ROM制作` |
+| Device reviews | `RG40XXH 实测`, `RG406V 评测`, `RP4 Pro 实测` |
+| Device comparisons | `RG556 RP5 RG406V 怎么选`, `开源掌机红黑榜` |
+| Meaning of Tianma G | `天马G 前端 是什么` |
+| Tianma G steps | `天马G 添加游戏`, `天马G 主题包 配置` |
+| Forum posts | `给RG40XXH改造散热 开源掌机吧` |
+| Pokémon mods | `口袋妖怪 改版 制作 教程`, `HexManiacAdvance` |
+| ROM hacks | `GBA HACK 制作教程`, `街机游戏HACK ROM制作` |
 
-## 英語の検索
+## Searching in English
 
-| 目的 | 語 |
+| Purpose | Term |
 |---|---|
-| OSの対応 | `ROCKNIX Retroid Pocket 5` |
-| root化 | `Retroid Pocket 4 Pro custom ROM LineageOS bootloader unlock` |
-| ポケモンの改造 | `pokeemerald decompilation`、`Porymap`、`HexManiacAdvance` |
+| OS support | `ROCKNIX Retroid Pocket 5` |
+| Rooting | `Retroid Pocket 4 Pro custom ROM LineageOS bootloader unlock` |
+| Pokémon mods | `pokeemerald decompilation`, `Porymap`, `HexManiacAdvance` |
