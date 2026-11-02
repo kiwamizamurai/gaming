@@ -177,7 +177,7 @@ emuMMC is an exact copy of the console's internal storage (NAND) on the microSD 
 
 "29 FULL" reserves enough space to copy the entire internal storage of a base-model Switch. The Switch Guide uses the slider value 29 (58 for the OLED model) in its steps and describes the reserved size as 32GB (64GB for the OLED model) on another page, without explaining the difference. The remaining capacity becomes a normal FAT32 partition for holding games and homebrew.
 
-"SD Partition" is a method that writes directly to a partition dedicated to emuMMC. The other method, "SD File," is said to be less stable ([ConsoleMods Wiki](https://consolemods.org/wiki/Switch:Creating_and_Using_EmuNAND)).
+"SD Partition" is a method that writes directly to a partition dedicated to emuMMC.
 
 For the Part and SD RAW numbers, choose the ones not grayed out on screen. The steps above say 1, but this can differ by environment.
 
@@ -501,14 +501,9 @@ The setting for that is the `emummc.txt` placed in `atmosphere/hosts/` in [step 
 
 ### Partitioning and creating emuMMC
 
-The operation is as in [step 6](#step-6-partition-the-sd-card-and-create-emummc). Recreating the partitions erases the card's contents, but hekate automatically backs up only when the data is under 1GB ([ConsoleMods Wiki: Creating and Using EmuNAND](https://consolemods.org/wiki/Switch:Creating_and_Using_EmuNAND)). The slider value is `29 FULL` for the base-model Switch and `58 FULL` for the OLED model ([Switch Guide](https://switch.hacks.guide/user_guide/all/partitioning_sd)).
+The operation is as in [step 6](#step-6-partition-the-sd-card-and-create-emummc). Recreating the partitions erases the card's contents. The slider value is `29 FULL` for the base-model Switch and `58 FULL` for the OLED model ([Switch Guide](https://switch.hacks.guide/user_guide/all/partitioning_sd)).
 
-There are two methods of creating emuMMC.
-
-| Method | How to choose | Characteristics |
-|---|---|---|
-| SD Partition (partition method) | emuMMC → Create emuMMC → SD Partition | Writes directly to a dedicated partition. This is the Switch Guide's procedure |
-| SD File (file method) | emuMMC → Create emuMMC → SD File | Created as files in a folder within a normal partition. ConsoleMods Wiki says this method is less stable ([ConsoleMods Wiki: Creating and Using EmuNAND](https://consolemods.org/wiki/Switch:Creating_and_Using_EmuNAND)) |
+The Switch Guide's procedure uses SD Partition (`emuMMC → Create emuMMC → SD Partition`), which writes directly to a dedicated partition.
 
 ### Caution on Windows
 
@@ -522,7 +517,7 @@ A personal guide explains that hekate's `Tools → Backup eMMC` and `Restore eMM
 
 The menu names for creating partitions and emuMMC and the slider values have been checked against the original text of the [relevant switch.hacks.guide page](https://switch.hacks.guide/user_guide/all/partitioning_sd) (as of October 2026). However, the creation procedure on a real device has not yet been confirmed in this article. Menu names can change with the hekate version. Before working, be sure to check the current procedure on the same page.
 
-The statements about the stability of the SD File method and the conditions for automatic backup have been checked against the original text of the [relevant ConsoleMods Wiki page](https://consolemods.org/wiki/Switch:Creating_and_Using_EmuNAND) (as of October 2026). The name of the toggle in the "Targets of backup and restore" section above has a personal guide (GitHub Gist) as its source and could not be confirmed on hekate's screen.
+The name of the toggle in the "Targets of backup and restore" section above has a personal guide (GitHub Gist) as its source and could not be confirmed on hekate's screen.
 
 ## 7. Running homebrew (hbmenu)
 
@@ -776,7 +771,7 @@ To turn them on and off individually, use a separate homebrew app, not Atmosphè
 
 The first is EdiZon (the app version). As in the image above, opening EdiZon from hbmenu while a game is running shows the list of cheats with checkboxes, and you can toggle them on and off. Downloading new cheats is also possible. The Switch Guide recommends [EdiZon-SE](https://github.com/tomvita/EdiZon-SE), which is still being updated and has more features than the original EdiZon. EdiZon-SE is installed by copying the contents of the zip to the root of the SD card. If installed correctly, the folder `sd:/atmosphere/contents/054e4f4558454000` and `sd:/switch/EdiZon/EdiZon.nro` will exist ([Switch Guide: EdiZon](https://switch.hacks.guide/homebrew/edizon)).
 
-The second is an "overlay" that can be called up while playing the game. An overlay is menu-type homebrew opened on top of the game, like the console's quick settings. A system module called `nx-ovlloader` loads the overlay menu (Tesla Menu, or the newer and more customizable Ultrahand) ([ConsoleMods Wiki: Overlay Apps](https://consolemods.org/wiki/Switch:Overlay_Apps)). The Switch Guide's steps are as follows ([Switch Guide: Tesla-Menu](https://switch.hacks.guide/homebrew/tesla-menu)).
+The second is an "overlay" that can be called up while playing the game. An overlay is menu-type homebrew opened on top of the game, like the console's quick settings. A system module called `nx-ovlloader` is installed for this. The Switch Guide's steps are as follows ([Switch Guide: Tesla-Menu](https://switch.hacks.guide/homebrew/tesla-menu)).
 
 1. Copy the contents of `nx-ovlloader.zip` from [nx-ovlloader](https://github.com/DefenderOfHyrule/nx-ovlloader/releases) to the root of the SD card
 2. Copy `ovlmenu.ovl` from [Tesla-Menu](https://github.com/DefenderOfHyrule/Tesla-Menu/releases) to `sd:/switch/.overlays/`
@@ -832,7 +827,7 @@ Furthermore, the practice of "continuing to play without using the cartridge aft
 
 This environment has no moddable real cartridge, so the actual behavior of replacement via LayeredFS and of cheats and exefs_patches has not been confirmed. For ARCropolis, HDR, Smash Minecraft Skins, SimpleModManager, EdiZon, and Tesla Menu, the descriptions in the official repositories, wikis, and the Switch Guide were checked, but installation and behavior on a real device are unconfirmed. Before installing, be sure to check the individual steps given by the distributor of the mod or cheat you want to use.
 
-The statements in this chapter sourced to ConsoleMods Wiki, TheGamer, TechRaptor, and GameBrew were checked against the original text in October 2026. The ConsoleMods Wiki explanation of overlays is from its [Overlay Apps page](https://consolemods.org/wiki/Switch:Overlay_Apps).
+The statements in this chapter sourced to TheGamer, TechRaptor, and GameBrew were checked against the original text in October 2026.
 
 ## What has not been tested
 
@@ -845,7 +840,7 @@ The status of checking against sources, as of October 2026, is as follows.
 | switch.hacks.guide | Checked against the original text in the official source ([nh-server/switch-guide](https://github.com/nh-server/switch-guide), commit `64db3a8`) |
 | hekate, Atmosphère, OmniRCM, ARCropolis | Checked against each repository's source, README, release pages, and wiki |
 | GBAtemp (RCM injection dongles) | Checked against the posts in each thread. However, all are personal posts, and products differ |
-| ConsoleMods Wiki, TheGamer, TechRaptor, GameBrew | Checked against the original text |
+| TheGamer, TechRaptor, GameBrew | Checked against the original text |
 | Name of the toggle in Chapter 6's "Targets of backup and restore" | The only source is a personal Gist, and it could not be checked |
 | SX OS supported firmware | The only source is community reports, and it could not be checked |
 

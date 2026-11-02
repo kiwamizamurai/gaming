@@ -13,12 +13,6 @@ The type is the source of an installation guide run by Nintendo Homebrew. The UR
 - [Game modding](https://switch.hacks.guide/extras/game_modding): It describes where to place mod zips according to their structure, disabling with the L button, the archive bit problem on Macs and how to fix it, and special steps for Super Smash Bros. Ultimate, BotW/TotK, and Animal Crossing: New Horizons
 - [SimpleModManager](https://switch.hacks.guide/homebrew/simplemodmanager), [Tesla-Menu](https://switch.hacks.guide/homebrew/tesla-menu), [EdiZon](https://switch.hacks.guide/homebrew/edizon): Installation and use of each homebrew app
 
-## ConsoleMods Wiki
-
-The type is a volunteer wiki on console modding. The URL is https://consolemods.org . Reliability is aggregated. An earlier version of article 25 cited a page called `Switch:Mods` as a source, but this page did not exist. The pages in the Switch namespace were listed and checked with Special:AllPages.
-
-- [Creating and Using EmuNAND](https://consolemods.org/wiki/Switch:Creating_and_Using_EmuNAND): It describes the NAND backup steps (RAW GPP after BOOT0 & BOOT1), that file-based emuMMC is less stable, and that hekate automatically backs up the SD card only when the data is under 1GB. There was no description of the "Type" field on hekate's emuMMC screen
-- [Overlay Apps](https://consolemods.org/wiki/Switch:Overlay_Apps): It describes that nx-ovlloader loads Tesla Menu or Ultrahand, and that overlays are in `.ovl` format and placed in `switch/.overlays`. There was no description of Zing
 
 ## GBAtemp
 

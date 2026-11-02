@@ -427,18 +427,11 @@ For input, `coin-love` accepts the gamepad's D-pad (`dpleft`, `dpright`) as well
 
 ## Stage 4: Reading the source of Switch emulators
 
-The Nova's Snapdragon 8 Gen 2-equivalent chip is much newer than the Tegra X1 of the original Switch. Even so, not every game runs on a Switch emulator. That is because an emulator is an interpreter.
-
-| Component | Original Switch | Nova |
-|---|---|---|
-| CPU | ARM Cortex-A57 and A53 | High-performance ARM cores |
-| GPU | NVIDIA Maxwell, 256 cores | Qualcomm Adreno 740 |
-
-The sources for the table are an [explanation of the Switch's chip](https://guru3d.com/story/nintendo-switch-houses-a-nvidia-tegra-x1-soc) and the [Nova page on 掌机圈](https://zhangjiquan.com/handheld/retroid-pocket-nova).
+The Nova's chip is a Snapdragon 8 Gen 2 equivalent, and the original Switch uses a Tegra X1 ([Switch Guide](https://switch.hacks.guide/user_guide/rcm/entering_rcm)). Even so, not every game runs on a Switch emulator. That is because an emulator is an interpreter.
 
 Both CPUs belong to the ARM family. The Switch emulator [Eden](https://github.com/eden-emulator/mirror) has a method on Android called NCE (Native Code Execution). It is a method that runs the game's CPU instructions as they are, with almost no translation.
 
-The GPUs differ in both company and design, so drawing methods for NVIDIA have to be retranslated for Adreno. Eden's [documentation](https://github.com/eden-emulator/mirror/blob/10bcd2d849843b146a79c61a21df615e1bdcfcde/docs/user/Architectures.md) also says that when NCE is available, the GPU tends to become the performance limit. In particular, on Android, Adreno, Mali, and others are weak compared with the CPU.
+The Nova's GPU is Qualcomm's Adreno 740 ([掌机圈](https://zhangjiquan.com/handheld/retroid-pocket-nova)), so drawing work has to be translated for it. Eden's [documentation](https://github.com/eden-emulator/mirror/blob/10bcd2d849843b146a79c61a21df615e1bdcfcde/docs/user/Architectures.md) also says that when NCE is available, the GPU tends to become the performance limit. In particular, on Android, Adreno, Mali, and others are weak compared with the CPU.
 
 The ROCKNIX [Nova page](https://rocknix.org/devices/retroid/retroid-pocket-nova/) lists Freedreno and Turnip as GPU drivers. A driver is the component that passes translated instructions to the GPU. Adreno has the same kind of difference as the Panfrost and libMali topic seen in stage 3.
 
@@ -463,7 +456,6 @@ Switch emulator repositories have disappeared or moved because of takedown reque
 |---|---|---|
 | Eden | [GitHub mirror](https://github.com/eden-emulator/mirror) | GPLv3 or later. Includes Android. Contains yuzu's history up to March 3, 2024 |
 | Ryujinx | [Archival copy on GitLab](https://gitlab.com/dragonloverlord/ryujinxbackup) | MIT license. GitLab gives the project's creation date as October 3, 2024 |
-| Kenji-NX | [GitLab](https://gitlab.com/kenji-nx/Ryujinx) | MIT license. Contains Ryujinx's history from 2018. On November 2, 2026, opening it without logging in showed GitLab's sign-in page |
 
 yuzu ended development in March 2024 in a settlement with Nintendo ([The Sixth Axis](https://www.thesixthaxis.com/2024/03/05/switch-emulator-yuzu-shuts-down-in-2-4-million-settlement-with-nintendo/)). In the Eden repository, switching to `c280f95b1a4b2a415a26a7db9f2b9823042f2781` lets you read the source from just before the end.
 
