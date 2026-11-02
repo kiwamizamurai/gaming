@@ -462,8 +462,8 @@ Switch emulator repositories have disappeared or moved because of takedown reque
 | Item | Location | What was checked |
 |---|---|---|
 | Eden | [GitHub mirror](https://github.com/eden-emulator/mirror) | GPLv3 or later. Includes Android. Contains yuzu's history up to March 3, 2024 |
-| Ryujinx | [Archival copy on GitLab](https://gitlab.com/dragonloverlord/ryujinxbackup) | MIT license. A copy made on October 1, 2024 |
-| Kenji-NX | [GitLab](https://gitlab.com/kenji-nx/Ryujinx) | MIT license. Contains Ryujinx's history from 2018 |
+| Ryujinx | [Archival copy on GitLab](https://gitlab.com/dragonloverlord/ryujinxbackup) | MIT license. GitLab gives the project's creation date as October 3, 2024 |
+| Kenji-NX | [GitLab](https://gitlab.com/kenji-nx/Ryujinx) | MIT license. Contains Ryujinx's history from 2018. On November 2, 2026, opening it without logging in showed GitLab's sign-in page |
 
 yuzu ended development in March 2024 in a settlement with Nintendo ([The Sixth Axis](https://www.thesixthaxis.com/2024/03/05/switch-emulator-yuzu-shuts-down-in-2-4-million-settlement-with-nintendo/)). In the Eden repository, switching to `c280f95b1a4b2a415a26a7db9f2b9823042f2781` lets you read the source from just before the end.
 
@@ -473,7 +473,7 @@ Using a Switch emulator requires keys, firmware, and games taken from your own S
 
 I will swap between the Nova manufacturer's Android and LineageOS and compare them. LineageOS is an Android whose source code is public, and the Nova is an officially supported device (code name `RPN`). The preparation in the [installation instructions](https://wiki.lineageos.org/devices/RPN/install/) says that the model number must match `RPN`, that the original OS must be booted at least once, and that the Google account must be removed.
 
-Because the official page could not be opened directly, a summary obtained through search was used for the body of the instructions. When doing the work, please read the official page from the beginning.
+The official page could not be opened directly when this was first written, so a summary obtained through search was used. On November 2, 2026, the page could be opened, its requirements matched the above, and it stated that the instructions are for LineageOS 24.0. When doing the work, please read the official page from the beginning.
 
 This stage is left for the very end. Replacing the OS is work that writes to the inside of the device, and unlike the RG40XXH, you cannot go back just by swapping an SD card. I will do it only after finishing stages 1 to 4 on the original Android. There are three things I want to compare.
 
@@ -509,7 +509,7 @@ When the device arrives, I will fill in "what has not been tested" in the follow
 
 ## What has not been tested
 
-Since I do not have one yet, all behavior on a real Nova is unconfirmed. Specifically, this means the version of the stock Android, the four adb commands, the behavior of the Android version of LÖVE, gamepad input, and the save location of `best.sav`. The full text of the LineageOS installation steps has also not been verified, because the official page could not be opened directly.
+Since I do not have one yet, all behavior on a real Nova is unconfirmed. Specifically, this means the version of the stock Android, the four adb commands, the behavior of the Android version of LÖVE, gamepad input, and the save location of `best.sav`. Of the LineageOS installation steps, only the requirements section has been read; the steps have not been tried.
 
 On the reading side, I only read the Android APK of LÖVE without running it. REA did not perform signature verification. The APK's actual behavior has not been verified. Whether REA's Android commands can run on a Mac is also unconfirmed. This reading was done on Linux (Ubuntu on x86_64).
 
