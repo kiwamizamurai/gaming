@@ -1,25 +1,25 @@
-# ROCKNIX公式Wiki
+# ROCKNIX Official Wiki
 
-種類は、携帯ゲーム機向けLinuxの公式Wikiです。URLは https://rocknix.org/ で、ソースは https://github.com/ROCKNIX/distribution です。信頼度は公式で、Retroid Pocket 5のページはスクリーンショットを撮りました。
+The type is the official wiki of a Linux for handheld game consoles. The URL is https://rocknix.org/ and the source is at https://github.com/ROCKNIX/distribution . Reliability is official, and a screenshot was taken of the Retroid Pocket 5 page.
 
-![ROCKNIX WikiのRetroid Pocket 5のページ](../assets/screenshots/rocknix-retroid-pocket-5.jpg)
+![Retroid Pocket 5 page on the ROCKNIX wiki](../assets/screenshots/rocknix-retroid-pocket-5.jpg)
 
-## トップページ
+## Top page
 
-ROCKNIXを、携帯ゲーム機のレトロゲームのエミュレーションに向けた、イミュータブルなLinuxディストリビューションと説明しています。開発は、小さな愛好家のコミュニティです。機能として、ローカルとリモートのマルチプレイ、対応機種でのタッチ操作、電力と性能のプロファイル、音楽と動画の再生、Bluetoothの音声とコントローラー、HDMIとUSBの出力、SyncthingとrcloneによるクラウドとLANの同期、WireGuardとTailscaleとZeroTierのVPN、RetroAchievementsとゲーム情報の自動取得が挙がっています。ライセンスは、GPL v2の部分と、各部品が持つライセンスが混在し、非営利のみの部品も含まれます。GitHubのREADMEの記述は、ROCKNIXがJELOSのフォークだというものです。
+It describes ROCKNIX as an immutable Linux distribution aimed at retro game emulation on handheld game consoles. Development is by a small community of enthusiasts. Listed features include local and remote multiplayer, touch controls on supported devices, power and performance profiles, music and video playback, Bluetooth audio and controllers, HDMI and USB output, cloud and LAN sync through Syncthing and rclone, VPNs through WireGuard, Tailscale, and ZeroTier, and RetroAchievements and automatic fetching of game information. The license is a mix of GPL v2 parts and the licenses of individual components, including non-commercial-only components. The GitHub README states that ROCKNIX is a fork of JELOS.
 
-## 対応機種
+## Supported devices
 
-メニューの機種の一覧には、Anbernic(RG351P/M/V、RG353P/M/V/VS、RG503、RG552、RG ARC、RG35XX 2024、Plus、Pro、H、SP、RG28XX、RG40XX V、RG40XX H、RG CubeXX)、AYANEO(Pocket ACE、DMG、EVO、DS、S2)、AYN(Odin 2、Odin 2 Mini、Odin 2 Portal、Thor、Odin 3)、GameForce(Ace)、Hardkernel(Odroid Go Advance、Super、Ultra)、MagicX(XU Mini M)、Mangmi(Air X)、Powkiddy(RGB10、RGB10 Max 3 Pro、RGB10 Max 3、RGB10X、RK2023、RGB20SX、RGB20 Pro、RGB30、X35S、X35H、X55、XU10)、Retroid(Pocket 5、6、Flip2、Mini、Nova)、名前のない機種(R33S、R35S/R36S、EEクローン)があります。
+The device list in the menu includes Anbernic (RG351P/M/V, RG353P/M/V/VS, RG503, RG552, RG ARC, RG35XX 2024, Plus, Pro, H, SP, RG28XX, RG40XX V, RG40XX H, RG CubeXX), AYANEO (Pocket ACE, DMG, EVO, DS, S2), AYN (Odin 2, Odin 2 Mini, Odin 2 Portal, Thor, Odin 3), GameForce (Ace), Hardkernel (Odroid Go Advance, Super, Ultra), MagicX (XU Mini M), Mangmi (Air X), Powkiddy (RGB10, RGB10 Max 3 Pro, RGB10 Max 3, RGB10X, RK2023, RGB20SX, RGB20 Pro, RGB30, X35S, X35H, X55, XU10), Retroid (Pocket 5, 6, Flip2, Mini, Nova), and unnamed devices (R33S, R35S/R36S, EE clone).
 
-## 導入、アップデート、ゲームの追加
+## Installation, updates, and adding games
 
-[導入](https://rocknix.org/play/install/)のページは、Windows用のImage Burnerと、手動の書き込みの2つの方法を書き、書き込み後の起動までを説明します。OS領域はext4で、Windowsからは直接読めません。[H700の導入ガイド](https://rocknix.org/configure/h700-installation/)は、H700のAnbernic機で、起動前にDTBファイルをコピーして `dtb.img` に名前を変える手順を、15機種分のファイル名とともに載せています。RG35XX系のDTBは、基板のリビジョンで2種類です。
+The [installation](https://rocknix.org/play/install/) page describes two methods, the Image Burner for Windows and manual writing, and explains everything through booting after writing. The OS area is ext4 and cannot be read directly from Windows. The [H700 installation guide](https://rocknix.org/configure/h700-installation/) gives the steps for copying a DTB file and renaming it to `dtb.img` before booting on H700 Anbernic devices, along with the file names for 15 devices. RG35XX series DTBs come in two kinds depending on board revision.
 
-[ゲームの追加](https://rocknix.org/play/add-games/)は、ストレージの考え方(外部SDとの統合の「Merged Storage」と、外部SDだけを使う「Simple Storage」)から始まり、ネットワーク転送(HTTP、SMB、SFTP)、USBガジェット、SDカード、リカバリーモード、USBドライブ、Linuxパソコン、NFSの方法を順に説明しています。ネットワーク接続のユーザー名は `root`、パスワードの初期値は `rocknix` です。[アップデート](https://rocknix.org/play/update/)のページの方法は、OTA、手動の `.tar` ファイル、開発ビルドの3つです。
+[Adding games](https://rocknix.org/play/add-games/) starts with the storage concepts ("Merged Storage", which merges with the external SD, and "Simple Storage", which uses only the external SD), and then explains in order the methods of network transfer (HTTP, SMB, SFTP), USB gadget, SD card, recovery mode, USB drive, Linux PC, and NFS. The username for network connections is `root` and the default password is `rocknix`. The methods on the [update](https://rocknix.org/play/update/) page are three: OTA, a manual `.tar` file, and development builds.
 
-## 機種のページ
+## Device pages
 
-[RG40XX H](https://rocknix.org/devices/anbernic/rg40xx-h/)は、H700(Cortex-A53の4コア1.4GHz、Mali G31)、4インチ640×480、1GB LPDDR4、Wi-FiとBluetoothを持つと書かれ、設定でオーバークロックして1.5GHzにできます。[R35S/R36S](https://rocknix.org/devices/unbranded/game-console-r35s-r36s/)は、RK3326(Cortex-A35の4コア1.3GHz、Mali G31)、3.5インチ640×480、1GB DDR3で、2024年のR36Sに新しい画面があるときは、パネル用のオーバーレイファイルを置く手順があります。
+The [RG40XX H](https://rocknix.org/devices/anbernic/rg40xx-h/) is listed as having an H700 (quad-core 1.4GHz Cortex-A53, Mali G31), a 4-inch 640×480 screen, 1GB of LPDDR4, and Wi-Fi and Bluetooth, and it can be overclocked to 1.5GHz in the settings. The [R35S/R36S](https://rocknix.org/devices/unbranded/game-console-r35s-r36s/) has an RK3326 (quad-core 1.3GHz Cortex-A35, Mali G31), a 3.5-inch 640×480 screen, and 1GB of DDR3, and there are steps for placing a panel overlay file when a 2024 R36S has a new screen.
 
-[Retroid Pocket 5](https://rocknix.org/devices/retroid/retroid-pocket-5/)は、Snapdragon 865(SM8250)、メインラインLinux、Freedreno、Turnip、SwayとEmulationStationを使うとの記載です。ホットキー、N64、PSP、GC/Wii、PS2(AetherSX2)、Xbox、PS1、3DS、Atari Jaguarの操作、ABLの書き込みの手順、デュアルスクリーンの設定があります。Retroid Pocket 6とAYN Odin 2のページにも、同じABLの手順があり、SoCはSnapdragon 8 Gen 2(SM8550)です。
+The [Retroid Pocket 5](https://rocknix.org/devices/retroid/retroid-pocket-5/) is listed as using a Snapdragon 865 (SM8250), mainline Linux, Freedreno, Turnip, Sway, and EmulationStation. There are hotkeys, controls for N64, PSP, GC/Wii, PS2 (AetherSX2), Xbox, PS1, 3DS, and Atari Jaguar, steps for writing the ABL, and dual-screen settings. The Retroid Pocket 6 and AYN Odin 2 pages also have the same ABL steps, and their SoC is the Snapdragon 8 Gen 2 (SM8550).
