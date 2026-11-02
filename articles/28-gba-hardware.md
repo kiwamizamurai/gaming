@@ -46,13 +46,14 @@ Here is the log again.
 ```
 counter = 3 KEYINPUT = 0b1111111110   (A held)
 counter = 2 KEYINPUT = 0b1111111101   (B held)
+counter = 0 KEYINPUT = 0b1111110111   (START held)
 ```
 
-All 10 button bits are 1 except the one being pressed. A is the lowest bit and B is the next. A pressed button reads as 0, which is the opposite of what you might expect.
+All 10 button bits are 1 except the one being pressed. A is bit 0, B is bit 1, and START is bit 3. A pressed button reads as 0, which is the opposite of what you might expect.
 
 ## What has not been tested
 
-The other 8 button bits were not checked one by one. Writing to registers directly was not tried in this series.
+The other 7 button bits were not checked one by one. Writing to registers directly was not tried in this series.
 
 ## What you can learn
 

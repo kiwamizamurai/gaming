@@ -110,7 +110,15 @@ counter = 3 KEYINPUT = 0b1111111110
 counter = 2 KEYINPUT = 0b1111111101
 ```
 
-The second column is explained in [article 28](28-gba-hardware.md). START was not pressed in this run, so reset was checked only by the test.
+In a second run, A twice and then START (the Return key) gave this.
+
+```
+counter = 1 KEYINPUT = 0b1111111110
+counter = 2 KEYINPUT = 0b1111111110
+counter = 0 KEYINPUT = 0b1111110111
+```
+
+The second column is explained in [article 28](28-gba-hardware.md).
 
 ## What you can learn
 
