@@ -1,140 +1,140 @@
-# チートとパススルー
+# Cheats and Passthrough
 
-[CPUと機械語](20-cpu.md)までの連載では、ゲームのファイルとプログラムを、止まった状態で読んできました。この記事では、動いているゲームのメモリを、外から読んだり書き換えたりする話を扱います。前半はチート、後半はパススルーと呼ばれる改造です。どちらも、遊んでいる最中のゲームの数字に、外から手を伸ばす技術です。
+The series up to [CPUs and machine code](20-cpu.md) read game files and programs in a stopped state. This article is about reading and rewriting the memory of a running game from outside. The first half covers cheats, and the second half covers the mods called passthrough. Both are techniques for reaching in from outside to the numbers of a game while it is being played.
 
-最後には、RG40XXHとMacの間で、同じ考え方を小さく試す方法を考えます。
+At the end, it considers how to try the same idea on a small scale between the RG40XXH and a Mac.
 
-## この記事の出典
+## Sources for this article
 
-説明は、次のソースコードとガイドを、コミットを固定して確かめながら進めます。用語の説明には、Wikipediaなどの解説ページへのリンクも本文の中に置きました。
+The explanation proceeds by checking the following source code and guides at fixed commits. Links to explanatory pages such as Wikipedia are also placed in the body for explaining terms.
 
-| 出典 | コミット | 使う場所 |
+| Source | Commit | Where it is used |
 |---|---|---|
-| [pokeemerald-expansion](https://github.com/rh-hideout/pokeemerald-expansion) | `dfb0f84` | GBAのメモリの地図、エメラルドの書き換え対策 |
-| [mGBA](https://github.com/mgba-emu/mgba) | `3a5e34b` | GBAの番地の一覧、チートコードの形式 |
-| [libretro/mgba](https://github.com/libretro/mgba) | `e31759b` | ROCKNIXが使うmGBAのコア(RetroArch向けの部品) |
-| [RetroArch](https://github.com/libretro/RetroArch) | `015298c` | チートの機能、外から命令を送る機能 |
-| [ROCKNIX](https://github.com/ROCKNIX/distribution) | `ae41127` | RG40XXHでの標準の設定 |
-| [ai-game-modding-guides](https://github.com/trevaintdead/ai-game-modding-guides) | `54a9809` | パススルーの改造の進め方、守るべきこと |
-| [SkyCraft](https://github.com/chasmlol/SkyCraft) | `bfcaf17` | パススルーの改造の設計 |
+| [pokeemerald-expansion](https://github.com/rh-hideout/pokeemerald-expansion) | `dfb0f84` | GBA memory map, Emerald's protections against rewriting |
+| [mGBA](https://github.com/mgba-emu/mgba) | `3a5e34b` | List of GBA addresses, cheat code formats |
+| [libretro/mgba](https://github.com/libretro/mgba) | `e31759b` | The mGBA core used by ROCKNIX (a component for RetroArch) |
+| [RetroArch](https://github.com/libretro/RetroArch) | `015298c` | Cheat features, the feature for sending commands from outside |
+| [ROCKNIX](https://github.com/ROCKNIX/distribution) | `ae41127` | Default settings on the RG40XXH |
+| [ai-game-modding-guides](https://github.com/trevaintdead/ai-game-modding-guides) | `54a9809` | How to proceed with passthrough mods, rules to follow |
+| [SkyCraft](https://github.com/chasmlol/SkyCraft) | `bfcaf17` | Design of a passthrough mod |
 
-## 3種類の調べ方
+## Three ways of investigating
 
-AIでゲームを改造する人向けのガイド集 ai-game-modding-guides の13章([13-reverse-engineering-and-the-law.md](https://github.com/trevaintdead/ai-game-modding-guides/blob/54a980970606f71996e6f25723d42fb9a95aaae5/guides/13-reverse-engineering-and-the-law.md))は、ゲームの調べ方を3つに分けています。
+Chapter 13 ([13-reverse-engineering-and-the-law.md](https://github.com/trevaintdead/ai-game-modding-guides/blob/54a980970606f71996e6f25723d42fb9a95aaae5/guides/13-reverse-engineering-and-the-law.md)) of ai-game-modding-guides, a collection of guides for people modding games with AI, divides ways of investigating a game into three.
 
-| 調べ方 | 中身の見え方 | このリポジトリでの例 |
+| Method | How much of the inside you see | Example in this repository |
 |---|---|---|
-| ブラックボックス | 中は見ない。入れたものと出てきたものだけを見る | 遊んで試す。[セーブのファイル](17-save-data.md)を覗く |
-| グレーボックス | 動いているときのデータだけを見る | この記事のチートと、メモリの読み取り |
-| ホワイトボックス | プログラムの中身をすべて読む | ポケモンの復元プロジェクト、[逆アセンブル](20-cpu.md) |
+| Black box | You do not look inside. You see only what goes in and what comes out | Trying things by playing. Looking at [save files](17-save-data.md) |
+| Gray box | You see only the data while it is running | The cheats and memory reading in this article |
+| White box | You read everything inside the program | The Pokémon reconstruction projects, [disassembly](20-cpu.md) |
 
-ガイドは、できる限りブラックボックスを選ぶよう勧めています。何も写さないので、著作権の問題が起きないからです。この記事の話は、その次のグレーボックスにあたります。プログラムそのものは読まず、動いているゲームの数字だけを見ます。
+The guide recommends choosing black box whenever possible. Because nothing is copied, no copyright problems arise. The subject of this article falls in the next category, gray box. It does not read the program itself, and looks only at the numbers of a running game.
 
-## GBAのメモリの地図
+## The GBA memory map
 
-チートを理解する出発点は、ゲーム機のメモリのどこに何があるかです。番地は、メモリの中の住所です。GBAの番地の割り当ては、mGBAのソース([memory.h](https://github.com/mgba-emu/mgba/blob/3a5e34be33dc7f8f707e5bc9db69e8a430046f21/include/mgba/internal/gba/memory.h)の `GBA_BASE_`)で次のように定義されています。
+The starting point for understanding cheats is what is where in the console's memory. An address is a location in memory. The GBA's address assignments are defined as follows in the mGBA source (`GBA_BASE_` in [memory.h](https://github.com/mgba-emu/mgba/blob/3a5e34be33dc7f8f707e5bc9db69e8a430046f21/include/mgba/internal/gba/memory.h)).
 
-| 始まりの番地 | 名前 | 中身 |
+| Start address | Name | Contents |
 |---|---|---|
-| `0x00000000` | BIOS | GBA本体に入っている小さなプログラム |
-| `0x02000000` | EWRAM | 大きな作業台(256KB) |
-| `0x03000000` | IWRAM | 小さくて速い作業台(32KB) |
-| `0x04000000` | IO | ボタンや画面などの部品とやり取りするための領域 |
-| `0x05000000` | PALETTE_RAM | 画面用の記憶(色の表) |
-| `0x06000000` | VRAM | 画面用の記憶 |
-| `0x07000000` | OAM | 画面用の記憶 |
-| `0x08000000` | ROM0 | カートリッジのゲーム本体 |
-| `0x0E000000` | SRAM | カートリッジのセーブ用の記憶 |
+| `0x00000000` | BIOS | A small program inside the GBA itself |
+| `0x02000000` | EWRAM | Large workbench (256KB) |
+| `0x03000000` | IWRAM | Small, fast workbench (32KB) |
+| `0x04000000` | IO | Area for communicating with components such as buttons and the screen |
+| `0x05000000` | PALETTE_RAM | Memory for the screen (color tables) |
+| `0x06000000` | VRAM | Memory for the screen |
+| `0x07000000` | OAM | Memory for the screen |
+| `0x08000000` | ROM0 | The game itself on the cartridge |
+| `0x0E000000` | SRAM | The cartridge's save memory |
 
-ROMの領域は書き換えられません。チートが書き換えるのは、EWRAMやIWRAMの作業台の数字です。[セーブの仕組み](17-save-data.md)で見たセーブ用の記憶は、`0x0E000000` からの領域にあたります。
+The ROM area cannot be rewritten. What cheats rewrite are the numbers on the EWRAM and IWRAM workbenches. The save memory seen in [How saves work](17-save-data.md) corresponds to the area starting at `0x0E000000`.
 
-pokeemerald-expansionのリンカの設定([ld_script_modern.ld](https://github.com/rh-hideout/pokeemerald-expansion/blob/dfb0f84374230f4d462191601179b742f9f077df/ld_script_modern.ld))も、EWRAMを `0x2000000` から256K、IWRAMを `0x3000000` から32K、ROMを `0x8000000` から32Mと定めていて、mGBAの定義と一致します。
+The linker settings of pokeemerald-expansion ([ld_script_modern.ld](https://github.com/rh-hideout/pokeemerald-expansion/blob/dfb0f84374230f4d462191601179b742f9f077df/ld_script_modern.ld)) also define EWRAM as 256K from `0x2000000`, IWRAM as 32K from `0x3000000`, and ROM as 32M from `0x8000000`, matching the mGBA definitions.
 
-### 自分でビルドしたゲームなら、番地が分かる
+### If you built the game yourself, you can find the addresses
 
-自分でビルドしたエメラルドなら、プログラムの記号の一覧からデータの番地を調べられ、この調査のビルドでは次のとおりでした。番地は、ビルドの設定や改造の内容で変わります。
+With an Emerald you built yourself, you can look up data addresses from the program's symbol list, and for the build in this research they were as follows. Addresses change with the build settings and the content of the mods.
 
-| 記号 | 番地 | 領域 | 中身 |
+| Symbol | Address | Area | Contents |
 |---|---|---|---|
-| `gSaveblock1` | `0x0200fea4` | EWRAM | セーブするデータの元(お金、かばんなど) |
-| `gSaveblock2` | `0x02013bf4` | EWRAM | セーブするデータの元(暗号化の鍵など) |
-| `gSaveBlock1Ptr` | `0x030051c4` | IWRAM | `gSaveblock1` の今の置き場所を指す番地 |
-| `gMain` | `0x030066c0` | IWRAM | ゲーム全体の管理 |
+| `gSaveblock1` | `0x0200fea4` | EWRAM | Source of the data that gets saved (money, bag, and so on) |
+| `gSaveblock2` | `0x02013bf4` | EWRAM | Source of the data that gets saved (encryption key, and so on) |
+| `gSaveBlock1Ptr` | `0x030051c4` | IWRAM | Address pointing to the current location of `gSaveblock1` |
+| `gMain` | `0x030066c0` | IWRAM | Management of the game as a whole |
 
-`gSaveBlock1Ptr` のように、別のデータの置き場所を記録した変数を、ポインターと呼びます。ポインターが必要な理由は、後のエメラルドの節で見ていく話です。
+A variable such as `gSaveBlock1Ptr`, which records where other data is located, is called a pointer. Why a pointer is needed will be seen in the Emerald section below.
 
-## チートの正体
+## What cheats really are
 
-### チートコードは小さなプログラム
+### A cheat code is a small program
 
-チートの機器は、ゲームのメモリの数字を書き換えるための製品でした。GBA向けには、[GameShark](https://en.wikipedia.org/wiki/GameShark)、[Code Breaker](https://en.wikipedia.org/wiki/Code_Breaker)、[Action Replay](https://en.wikipedia.org/wiki/Action_replay_max_gba/ds)がありました。中国語圏では、チートコードを金手指と呼びます([ポケモンのROM hack](08-pokemon-hacking.md))。
+Cheat devices were products for rewriting numbers in a game's memory. For the GBA there were [GameShark](https://en.wikipedia.org/wiki/GameShark), [Code Breaker](https://en.wikipedia.org/wiki/Code_Breaker), and [Action Replay](https://en.wikipedia.org/wiki/Action_replay_max_gba/ds). In the Chinese-speaking world, cheat codes are called 金手指 ([Pokémon ROM hacks](08-pokemon-hacking.md)).
 
-GBAのエミュレーターのmGBAは、4種類のチートコードの形式を読めます([cheats.h](https://github.com/mgba-emu/mgba/blob/3a5e34be33dc7f8f707e5bc9db69e8a430046f21/include/mgba/internal/gba/cheats.h)の `enum GBACheatType`)。
+The GBA emulator mGBA can read four cheat code formats (`enum GBACheatType` in [cheats.h](https://github.com/mgba-emu/mgba/blob/3a5e34be33dc7f8f707e5bc9db69e8a430046f21/include/mgba/internal/gba/cheats.h)).
 
-| 形式(`GBA_CHEAT_`) | 由来 |
+| Format (`GBA_CHEAT_`) | Origin |
 |---|---|
 | `CODEBREAKER` | Code Breaker |
 | `GAMESHARK` | GameShark |
 | `PRO_ACTION_REPLAY` | Pro Action Replay |
-| `VBA` | エミュレーターのVisualBoyAdvance |
+| `VBA` | The emulator VisualBoyAdvance |
 
-Code Breakerの命令の一覧(同じファイルの `CB_`)を見ると、チートコードが小さなプログラムであることが分かります。
+The list of Code Breaker instructions (`CB_` in the same file) shows that a cheat code is a small program.
 
-| 命令 | していること |
+| Instruction | What it does |
 |---|---|
-| `CB_ASSIGN_1`、`CB_ASSIGN_2` | 決まった番地に、決まった値を書く |
-| `CB_FILL` | 決まった範囲を、同じ値で埋める |
-| `CB_OR_2`、`CB_AND_2` | 番地の値の一部のビットを立てる、消す |
-| `CB_IF_EQ`、`CB_IF_NE`、`CB_IF_GT`、`CB_IF_LT` | 番地の値が条件に合うときだけ、次の命令を実行する |
+| `CB_ASSIGN_1`, `CB_ASSIGN_2` | Writes a set value to a set address |
+| `CB_FILL` | Fills a set range with the same value |
+| `CB_OR_2`, `CB_AND_2` | Sets or clears some bits of the value at an address |
+| `CB_IF_EQ`, `CB_IF_NE`, `CB_IF_GT`, `CB_IF_LT` | Executes the next instruction only when the value at an address meets the condition |
 
-いちばん単純なチートは、「この番地に、この値を書き続ける」というものです。お金が入っている番地に大きな値を書き続ければ、お金が減らなくなります。条件の命令を組み合わせれば、「この番地の値が10より小さいときだけ書く」のように、場面を選んで書き換えることもできます。
+The simplest cheat is "keep writing this value to this address." If you keep writing a large value to the address holding your money, your money stops going down. By combining conditional instructions, you can also rewrite selectively, such as "write only when the value at this address is less than 10."
 
-### RetroArchのチートの機能
+### RetroArch's cheat feature
 
-[RetroArch](https://github.com/libretro/RetroArch)にも、チートの機能があります([cheat_manager.h](https://github.com/libretro/RetroArch/blob/015298c2e3bb7361207fc1098d3757f645e58595/cheat_manager.h))。チートの種類(`CHEAT_TYPE_`)は、チートの機器と同じ考え方です。
+[RetroArch](https://github.com/libretro/RetroArch) also has a cheat feature ([cheat_manager.h](https://github.com/libretro/RetroArch/blob/015298c2e3bb7361207fc1098d3757f645e58595/cheat_manager.h)). The cheat types (`CHEAT_TYPE_`) follow the same idea as cheat devices.
 
-| 種類 | していること |
+| Type | What it does |
 |---|---|
-| `SET_TO_VALUE` | 決まった値にする |
-| `INCREASE_VALUE`、`DECREASE_VALUE` | 値を増やす、減らす |
-| `RUN_NEXT_IF_EQ`、`RUN_NEXT_IF_NEQ`、`RUN_NEXT_IF_LT`、`RUN_NEXT_IF_GT` | 条件に合うときだけ、次のチートを実行する |
+| `SET_TO_VALUE` | Sets to a set value |
+| `INCREASE_VALUE`, `DECREASE_VALUE` | Increases or decreases the value |
+| `RUN_NEXT_IF_EQ`, `RUN_NEXT_IF_NEQ`, `RUN_NEXT_IF_LT`, `RUN_NEXT_IF_GT` | Runs the next cheat only when the condition is met |
 
-RetroArchが書き換えてよいメモリは、エミュレーターのコアが知らせます。ROCKNIXが使うmGBAのコア([mgba-lrのpackage.mk](https://github.com/ROCKNIX/distribution/blob/ae41127cee7e3e81b1ab3b17b676d91be5165e61/projects/ROCKNIX/packages/emulators/libretro/mgba-lr/package.mk)で `libretro/mgba` の `e31759b` を指定)は、IWRAMとEWRAMに `RETRO_MEMDESC_SYSTEM_RAM` という印を付けています。ソースのコメントは、その目的を「RetroArchがチートのためにこのメモリを触れるようにする」と書いています([libretro.c](https://github.com/libretro/mgba/blob/e31759b24e7a4e3899285ff720d7b573ac328ae7/src/platform/libretro/libretro.c))。ROMの領域には、書き換えられないことを表す `RETRO_MEMDESC_CONST` が付いています。
+The emulator core tells RetroArch which memory it may rewrite. The mGBA core used by ROCKNIX (`e31759b` of `libretro/mgba` is specified in [mgba-lr package.mk](https://github.com/ROCKNIX/distribution/blob/ae41127cee7e3e81b1ab3b17b676d91be5165e61/projects/ROCKNIX/packages/emulators/libretro/mgba-lr/package.mk)) marks IWRAM and EWRAM with `RETRO_MEMDESC_SYSTEM_RAM`. A comment in the source gives the purpose as "letting RetroArch touch this memory for cheats" ([libretro.c](https://github.com/libretro/mgba/blob/e31759b24e7a4e3899285ff720d7b573ac328ae7/src/platform/libretro/libretro.c)). The ROM area has `RETRO_MEMDESC_CONST`, which indicates it cannot be rewritten.
 
-### メモリを検索してチートを作る
+### Searching memory to make cheats
 
-RetroArchには、チートを自分で探すための、メモリの検索の機能もあります。検索の種類(`CHEAT_SEARCH_TYPE_`)は9つです。
+RetroArch also has a memory search feature for finding cheats yourself. There are nine search types (`CHEAT_SEARCH_TYPE_`).
 
-| 種類 | 残す番地 |
+| Type | Addresses kept |
 |---|---|
-| `EXACT` | ちょうど指定した値の番地 |
-| `LT`、`LTE`、`GT`、`GTE` | 前回より小さい、以下、大きい、以上になった番地 |
-| `EQ`、`NEQ` | 前回と同じ、違う番地 |
-| `EQPLUS`、`EQMINUS` | 前回よりちょうどいくつ増えた、減った番地 |
+| `EXACT` | Addresses with exactly the specified value |
+| `LT`, `LTE`, `GT`, `GTE` | Addresses that became less than, at most, greater than, or at least the previous value |
+| `EQ`, `NEQ` | Addresses the same as, or different from, the previous value |
+| `EQPLUS`, `EQMINUS` | Addresses that increased or decreased by exactly a given amount from the previous value |
 
-お金の番地を探す場合、考え方は次のようになります。
+To find the address of your money, the idea is as follows.
 
 ```mermaid
 flowchart TD
-    A[お金が1000円のときに<br>1000が入っている番地をすべて探す] --> B[候補がたくさん見つかる]
-    B --> C[買い物をして、お金を800円にする]
-    C --> D[候補の中から<br>800になった番地だけを残す]
-    D --> E{候補が1つに<br>しぼれたか}
-    E -->|まだ多い| C
-    E -->|1つになった| F[その番地をチートに登録する]
+    A[When you have 1000 yen,<br>find all addresses holding 1000] --> B[Many candidates are found]
+    B --> C[Buy something, bringing your money to 800 yen]
+    C --> D[Among the candidates, keep<br>only the addresses that became 800]
+    D --> E{Narrowed down<br>to one candidate?}
+    E -->|Still many| C
+    E -->|Down to one| F[Register that address as a cheat]
 ```
 
-値を変えるたびに候補を減らしていき、最後に残った番地が、お金の番地です。ゲームのプログラムは読まず、動いているときの数字の変化だけを見ています。グレーボックスの典型です。
+Each time the value changes, the candidates shrink, and the address left at the end is the address of your money. It does not read the game's program, and looks only at how numbers change while it runs. This is the typical gray box approach.
 
-ゲームの実績を集める[RetroAchievements](https://retroachievements.org/)も、同じ考え方で作られています。公式の説明([How RA Works](https://docs.retroachievements.org/general/how-ra-works.html))によると、実績は、ゲームのメモリの値と、作者が書いた条件を比べて判定されます。実績の作者は、遊んでいる最中のメモリを調べて、使う番地を探すという説明です。同じゲームでも版によって番地が違うことがある、という注意もあります([Rom versions](https://retroachievements.org/forums/topic/3481?comment=24755))。ROCKNIXのH700向けのRetroArchの設定では、RetroAchievementsは標準で切ってあります([retroarch.cfg](https://github.com/ROCKNIX/distribution/blob/ae41127cee7e3e81b1ab3b17b676d91be5165e61/projects/ROCKNIX/packages/emulators/libretro/retroarch/sources/H700/retroarch.cfg)の `cheevos_enable = "false"`)。
+[RetroAchievements](https://retroachievements.org/), which collects game achievements, is built on the same idea. According to its official description ([How RA Works](https://docs.retroachievements.org/general/how-ra-works.html)), achievements are judged by comparing values in the game's memory with conditions written by the author. It explains that achievement authors examine memory during play to find the addresses to use. There is also a caution that addresses may differ between versions of the same game ([Rom versions](https://retroachievements.org/forums/topic/3481?comment=24755)). In the RetroArch settings for H700 in ROCKNIX, RetroAchievements is off by default (`cheevos_enable = "false"` in [retroarch.cfg](https://github.com/ROCKNIX/distribution/blob/ae41127cee7e3e81b1ab3b17b676d91be5165e61/projects/ROCKNIX/packages/emulators/libretro/retroarch/sources/H700/retroarch.cfg)).
 
-## エメラルドの書き換え対策
+## Emerald's protections against rewriting
 
-この検索の手順は、多くのゲームで通用します。ところが、エメラルドでは、そのままでは通用しにくい作りになっていました。pokeemerald-expansionのソースには、メモリの書き換えに備えた仕組みが3つあります。
+This search procedure works for many games. Emerald, however, was built so that it is hard to apply as is. The pokeemerald-expansion source has three mechanisms that guard against rewriting of memory.
 
-### 1. お金は鍵で混ぜてある
+### 1. Money is mixed with a key
 
-お金を読む処理と書く処理([money.c](https://github.com/rh-hideout/pokeemerald-expansion/blob/dfb0f84374230f4d462191601179b742f9f077df/src/money.c))は、次のとおりです。
+The code that reads and writes money ([money.c](https://github.com/rh-hideout/pokeemerald-expansion/blob/dfb0f84374230f4d462191601179b742f9f077df/src/money.c)) is as follows.
 
 ```c
 return *moneyPtr ^ gSaveBlock2Ptr->encryptionKey;
@@ -142,24 +142,24 @@ return *moneyPtr ^ gSaveBlock2Ptr->encryptionKey;
 *moneyPtr = gSaveBlock2Ptr->encryptionKey ^ newValue;
 ```
 
-`^` は、[排他的論理和](https://ja.wikipedia.org/wiki/%E6%8E%92%E4%BB%96%E7%9A%84%E8%AB%96%E7%90%86%E5%92%8C)(XOR)という計算です。2つの数字を、ビットごとに混ぜます。同じ鍵でもう一度XORすると、元に戻る性質があります。
+`^` is a calculation called [exclusive OR](https://ja.wikipedia.org/wiki/%E6%8E%92%E4%BB%96%E7%9A%84%E8%AB%96%E7%90%86%E5%92%8C) (XOR). It mixes two numbers bit by bit. It has the property that XORing again with the same key restores the original.
 
-説明のために鍵を `0x5A3C9E17` として計算した結果が、次の表です。
+The following table shows the result of a calculation using `0x5A3C9E17` as the key for the sake of explanation.
 
-| | 16進数 | 10進数 |
+| | Hexadecimal | Decimal |
 |---|---|---|
-| 本当の金額 | `0x000003E8` | 1000 |
-| 鍵 | `0x5A3C9E17` | |
-| メモリに置かれる数字(金額 XOR 鍵) | `0x5A3C9DFF` | 1513922047 |
-| もう一度鍵でXORした結果 | `0x000003E8` | 1000 |
+| Actual amount | `0x000003E8` | 1000 |
+| Key | `0x5A3C9E17` | |
+| Number placed in memory (amount XOR key) | `0x5A3C9DFF` | 1513922047 |
+| Result of XORing with the key again | `0x000003E8` | 1000 |
 
-メモリには、1000ではなく、1513922047という数字が入っています。だから、1000を探しても、お金の番地は見つかりません。
+Memory holds the number 1513922047, not 1000. So searching for 1000 will not find the address of your money.
 
-鍵で混ぜてあるのは、お金だけではありません。鍵を新しくする処理(`ApplyNewEncryptionKeyToAllEncryptedData`)が対象にしているのは、ゲームの記録(`GameStats`)、かばんの道具(`BagItems`)、きのみのこな(`BerryPowder`)、お金(`money`)、カジノのコイン(`coins`)の5つです([load_save.c](https://github.com/rh-hideout/pokeemerald-expansion/blob/dfb0f84374230f4d462191601179b742f9f077df/src/load_save.c))。
+Money is not the only thing mixed with the key. The code that renews the key (`ApplyNewEncryptionKeyToAllEncryptedData`) targets five things: game records (`GameStats`), items in the bag (`BagItems`), Berry Powder (`BerryPowder`), money (`money`), and casino coins (`coins`) ([load_save.c](https://github.com/rh-hideout/pokeemerald-expansion/blob/dfb0f84374230f4d462191601179b742f9f077df/src/load_save.c)).
 
-### 2. データの置き場所が動く
+### 2. The data's location moves
 
-セーブするデータの元の置き場所も、固定されていません。同じload_save.cの `SetSaveBlocksPointers` は、次のように置き場所を決めています。
+The location of the source of the data that gets saved is not fixed either. `SetSaveBlocksPointers` in the same load_save.c decides the location as follows.
 
 ```c
 // Offset is the sum of the trainer id bytes
@@ -173,9 +173,9 @@ void SetSaveBlocksPointers(u16 offset)
     gPokemonStoragePtr = (void *)(&gPokemonStorage) + offset;
 ```
 
-トレーナーのIDのバイトの合計に乱数を足し、その結果からずらす量を決めています。[load_save.h](https://github.com/rh-hideout/pokeemerald-expansion/blob/dfb0f84374230f4d462191601179b742f9f077df/include/load_save.h)では `SAVEBLOCK_MOVE_RANGE` が128なので、`& (128 - 4)` の計算により、ずらす量は0から124までの4の倍数、32通りのどれかです。ずらすための余白を確保する構造体には、`SaveBlock1ASLR` という名前が付けられていました。[ASLR](https://ja.wikipedia.org/wiki/%E3%82%A2%E3%83%89%E3%83%AC%E3%82%B9%E7%A9%BA%E9%96%93%E9%85%8D%E7%BD%AE%E3%81%AE%E3%83%A9%E3%83%B3%E3%83%80%E3%83%A0%E5%8C%96)は、パソコンのOSが攻撃を防ぐために、データの位置をランダムに置く技術の名前です。
+It adds a random number to the sum of the trainer ID bytes, and determines the amount to shift from the result. In [load_save.h](https://github.com/rh-hideout/pokeemerald-expansion/blob/dfb0f84374230f4d462191601179b742f9f077df/include/load_save.h), `SAVEBLOCK_MOVE_RANGE` is 128, so through the calculation `& (128 - 4)`, the shift is a multiple of 4 from 0 to 124, one of 32 possibilities. The struct that reserves the margin for shifting was named `SaveBlock1ASLR`. [ASLR](https://ja.wikipedia.org/wiki/%E3%82%A2%E3%83%89%E3%83%AC%E3%82%B9%E7%A9%BA%E9%96%93%E9%85%8D%E7%BD%AE%E3%81%AE%E3%83%A9%E3%83%B3%E3%83%80%E3%83%A0%E5%8C%96) is the name of a technique in which PC operating systems place data at random positions to prevent attacks.
 
-ずらす処理(`MoveSaveBlocks_ResetHeap`)は、地図を読み込む処理([overworld.c](https://github.com/rh-hideout/pokeemerald-expansion/blob/dfb0f84374230f4d462191601179b742f9f077df/src/overworld.c)の `ResetMirageTowerAndSaveBlockPtrs`)と、戦闘を始める処理([battle_main.c](https://github.com/rh-hideout/pokeemerald-expansion/blob/dfb0f84374230f4d462191601179b742f9f077df/src/battle_main.c)の `CB2_InitBattle`)から呼ばれます。同じ処理の最後では、鍵も新しく作り直しています。
+The code that does the shifting (`MoveSaveBlocks_ResetHeap`) is called from the code that loads a map (`ResetMirageTowerAndSaveBlockPtrs` in [overworld.c](https://github.com/rh-hideout/pokeemerald-expansion/blob/dfb0f84374230f4d462191601179b742f9f077df/src/overworld.c)) and the code that starts a battle (`CB2_InitBattle` in [battle_main.c](https://github.com/rh-hideout/pokeemerald-expansion/blob/dfb0f84374230f4d462191601179b742f9f077df/src/battle_main.c)). At the end of the same code, the key is also created anew.
 
 ```c
 // create a new encryption key
@@ -184,233 +184,233 @@ ApplyNewEncryptionKeyToAllEncryptedData(encryptionKey);
 gSaveBlock2Ptr->encryptionKey = encryptionKey;
 ```
 
-つまり、町を移動したり戦闘を始めたりするたびに、データの番地と、お金を混ぜる鍵の両方が変わる可能性があるわけです。前の表で、鍵を `0x13579BDF` に変えて計算し直すと、同じ1000円がメモリでは `0x13579837`(324507703)になります。一度見つけた番地や数字が、次の場面では使えなくなることがある、ということです。
+In other words, each time you move between towns or start a battle, both the data's address and the key that mixes your money may change. Recalculating the earlier table with the key changed to `0x13579BDF`, the same 1000 yen becomes `0x13579837` (324507703) in memory. This means that an address or number you found once may become unusable in the next scene.
 
-ゲームの中のプログラムは、ずれた後の置き場所を、`gSaveBlock1Ptr` などのポインターで追いかけています。外からデータを読むときも、先にポインターを読んで今の置き場所を知る必要があります。
+The program in the game follows the shifted location through pointers such as `gSaveBlock1Ptr`. When reading data from outside, too, you first need to read the pointer to learn the current location.
 
-### 3. ポケモンのデータは、混ぜて、並べ替えて、検算してある
+### 3. Pokémon data is mixed, reordered, and verified
 
-ポケモン1匹のデータも守られています([pokemon.c](https://github.com/rh-hideout/pokeemerald-expansion/blob/dfb0f84374230f4d462191601179b742f9f077df/src/pokemon.c))。大事な部分(`secure`)は、4つの区画に分かれています。pokeemerald-expansionの定義([pokemon.h](https://github.com/rh-hideout/pokeemerald-expansion/blob/dfb0f84374230f4d462191601179b742f9f077df/include/pokemon.h))では、区画ごとに次の情報が入ります。
+The data for one Pokémon is also protected ([pokemon.c](https://github.com/rh-hideout/pokeemerald-expansion/blob/dfb0f84374230f4d462191601179b742f9f077df/src/pokemon.c)). The important part (`secure`) is divided into four sections. In the pokeemerald-expansion definitions ([pokemon.h](https://github.com/rh-hideout/pokeemerald-expansion/blob/dfb0f84374230f4d462191601179b742f9f077df/include/pokemon.h)), each section holds the following information.
 
-| 区画 | 入っている主な情報 |
+| Section | Main information held |
 |---|---|
-| `PokemonSubstruct0` | ポケモンの種類、持ち物、経験値、なつき度 |
-| `PokemonSubstruct1` | 覚えている技 |
-| `PokemonSubstruct2` | 努力値 |
-| `PokemonSubstruct3` | ポケルス、出会った場所、出会ったときのレベルなど |
+| `PokemonSubstruct0` | Pokémon species, held item, experience, friendship |
+| `PokemonSubstruct1` | Moves known |
+| `PokemonSubstruct2` | Effort values |
+| `PokemonSubstruct3` | Pokérus, met location, level when met, and so on |
 
-この4つの区画を守る方法は、3つです。
+There are three ways these four sections are protected.
 
-| 守り方 | ソースの該当箇所 | 内容 |
+| Protection | Where in the source | Description |
 |---|---|---|
-| 混ぜる | `EncryptBoxMon`、`DecryptBoxMon` | 大事な部分を、トレーナーのID(`otId`)と個性値(`personality`)でXORする |
-| 並べ替える | `GetSubstruct` の `personality % 24` | 4つの区画の並び順を、個性値で決める。4つの並べ方は24通り |
-| 検算する | `CalculateBoxMonChecksum`、`IsBadEgg` | 区画の数字を足し合わせた値が、記録されたチェックサムと合うかを確かめる |
+| Mixing | `EncryptBoxMon`, `DecryptBoxMon` | XORs the important part with the trainer ID (`otId`) and the personality value (`personality`) |
+| Reordering | `personality % 24` in `GetSubstruct` | Decides the order of the four sections by the personality value. There are 24 orders of four items |
+| Verifying | `CalculateBoxMonChecksum`, `IsBadEgg` | Checks whether the sum of the sections' numbers matches the recorded checksum |
 
 ```mermaid
 flowchart LR
-    A[ポケモンの大事なデータ] --> B[4つの区画に分ける]
-    B --> C[個性値で並び順を決める<br>24通り]
-    C --> D[トレーナーのIDと個性値で<br>XORして混ぜる]
-    D --> E[メモリに置く]
-    E --> F{読むときに検算}
-    F -->|合う| G[ふつうのポケモン]
-    F -->|合わない| H[ダメタマゴにする]
+    A[A Pokémon's important data] --> B[Divide into four sections]
+    B --> C[Decide the order by personality value<br>24 possibilities]
+    C --> D[XOR with the trainer ID<br>and personality value to mix]
+    D --> E[Place in memory]
+    E --> F{Verify on reading}
+    F -->|Matches| G[Normal Pokémon]
+    F -->|Does not match| H[Make it a Bad Egg]
 ```
 
-検算が合わないと、`IsBadEgg` はそのポケモンに「ダメタマゴ」の印を付け、タマゴとして扱います。ポケモンの百科事典Bulbapediaの[Bad Egg](https://bulbapedia.bulbagarden.net/wiki/Bad_Egg)の項目も、ダメタマゴ(英語版では Bad EGG)を、データの検算が合わないポケモンを扱う仕組みとして説明しています。挙がっている原因は、データの破損と、チートや外部の道具で検算をし直さずにデータを書き換えたことです。
+If verification fails, `IsBadEgg` marks the Pokémon as a "Bad Egg" and treats it as an egg. The [Bad Egg](https://bulbapedia.bulbagarden.net/wiki/Bad_Egg) entry on Bulbapedia, the Pokémon encyclopedia, also describes the Bad Egg (Bad EGG in the English version) as a mechanism for handling Pokémon whose data fails verification. The causes it lists are data corruption and rewriting data with cheats or external tools without redoing the checksum.
 
-### 対策から分かること
+### What the protections tell us
 
-これらの仕組みが、どこまでチートを防ぐ目的で入れられたのかは、ソースからは分かりません。確かなのは、固定の番地に固定の値を書くだけの単純なチートが、エメラルドでは効きにくい作りになっていることです。
+How far these mechanisms were included for the purpose of preventing cheats cannot be determined from the source. What is certain is that the design makes simple cheats, which only write a fixed value to a fixed address, less effective on Emerald.
 
-| チートの手順 | エメラルドで起きること |
+| Cheat step | What happens on Emerald |
 |---|---|
-| 1000円のときに1000を探す | お金は鍵で混ぜてあるので、見つからない |
-| 見つけた番地に書き続ける | 地図の読み込みや戦闘のたびに、番地と鍵が変わり得る |
-| ポケモンのデータを書き換える | 検算が合わなくなり、ダメタマゴになる |
+| Search for 1000 when you have 1000 yen | Money is mixed with the key, so it is not found |
+| Keep writing to the address you found | The address and key may change at each map load or battle |
+| Rewrite a Pokémon's data | Verification no longer matches, and it becomes a Bad Egg |
 
-## RetroArchを外から操作する
+## Operating RetroArch from outside
 
-ここからは、メモリを読む考え方を、RG40XXHとMacの間で使う話です。
+From here on, the idea of reading memory is used between the RG40XXH and a Mac.
 
-### ネットワークの命令の仕組み
+### How network commands work
 
-RetroArchには、ネットワーク越しに命令を受け取る機能があります([command.c](https://github.com/libretro/RetroArch/blob/015298c2e3bb7361207fc1098d3757f645e58595/command.c))。受け付ける方式は[UDP](https://ja.wikipedia.org/wiki/UDP)です。標準の番号(ポート)は55355で、機能そのものはRetroArchの標準では切ってあります([config.def.h](https://github.com/libretro/RetroArch/blob/015298c2e3bb7361207fc1098d3757f645e58595/config.def.h)の `DEFAULT_NETWORK_CMD_ENABLE false`)。ROCKNIXのH700向けの設定でも、`network_cmd_enable = "false"`、`network_cmd_port = "55355"` です([retroarch.cfg](https://github.com/ROCKNIX/distribution/blob/ae41127cee7e3e81b1ab3b17b676d91be5165e61/projects/ROCKNIX/packages/emulators/libretro/retroarch/sources/H700/retroarch.cfg))。
+RetroArch has a feature for receiving commands over a network ([command.c](https://github.com/libretro/RetroArch/blob/015298c2e3bb7361207fc1098d3757f645e58595/command.c)). It accepts them over [UDP](https://ja.wikipedia.org/wiki/UDP). The default number (port) is 55355, and the feature itself is off by default in RetroArch (`DEFAULT_NETWORK_CMD_ENABLE false` in [config.def.h](https://github.com/libretro/RetroArch/blob/015298c2e3bb7361207fc1098d3757f645e58595/config.def.h)). The ROCKNIX settings for H700 likewise have `network_cmd_enable = "false"` and `network_cmd_port = "55355"` ([retroarch.cfg](https://github.com/ROCKNIX/distribution/blob/ae41127cee7e3e81b1ab3b17b676d91be5165e61/projects/ROCKNIX/packages/emulators/libretro/retroarch/sources/H700/retroarch.cfg)).
 
-命令の一覧は [command.h](https://github.com/libretro/RetroArch/blob/015298c2e3bb7361207fc1098d3757f645e58595/command.h) にあります。この記事に関係するのは、次の4つです。
+The list of commands is in [command.h](https://github.com/libretro/RetroArch/blob/015298c2e3bb7361207fc1098d3757f645e58595/command.h). The following four are relevant to this article.
 
-| 命令 | 内容 |
+| Command | Description |
 |---|---|
-| `GET_STATUS` | 遊んでいるか止まっているかと、ゲームの機種、名前、CRC32を返す |
-| `READ_CORE_MEMORY <番地> <バイト数>` | ゲーム機のメモリを読む |
-| `WRITE_CORE_MEMORY <番地> <値>...` | ゲーム機のメモリに書く。ソースでは「破壊的」(`CMD_INFO_DESTRUCTIVE`)な命令に分類されている |
-| `SHOW_MSG <文章>` | 画面にメッセージを出す |
+| `GET_STATUS` | Returns whether it is playing or paused, and the game's system, name, and CRC32 |
+| `READ_CORE_MEMORY <address> <bytes>` | Reads the console's memory |
+| `WRITE_CORE_MEMORY <address> <value>...` | Writes to the console's memory. The source classifies it as a "destructive" (`CMD_INFO_DESTRUCTIVE`) command |
+| `SHOW_MSG <text>` | Shows a message on the screen |
 
-### メモリを読む命令の細かい決まり
+### The details of the memory read command
 
-`READ_CORE_MEMORY` の処理(command.c の `command_read_memory`)を読むと、次の決まりが分かります。
+Reading the processing of `READ_CORE_MEMORY` (`command_read_memory` in command.c) reveals the following rules.
 
-- 番地は16進数、バイト数は10進数で書く
-- 1回に読めるのは16384バイトまで(`COMMAND_READ_NBYTES_MAX`)
-- 返事は、`READ_CORE_MEMORY` の後ろに番地を16進数で書き、読んだバイトを2桁の16進数で並べた1行
-- コアがメモリの地図を知らせていなければ `-1 no memory map defined`、番地がどの領域にも当たらなければ `-1 no descriptor for address` と返す
-- 返事は、命令を送ってきた相手に送り返す
+- The address is written in hexadecimal and the byte count in decimal
+- At most 16384 bytes can be read at once (`COMMAND_READ_NBYTES_MAX`)
+- The reply is one line: `READ_CORE_MEMORY`, followed by the address in hexadecimal and the bytes read as 2-digit hexadecimal values
+- If the core has not reported a memory map, it returns `-1 no memory map defined`, and if the address does not fall in any region, it returns `-1 no descriptor for address`
+- The reply is sent back to whoever sent the command
 
-たとえば、この調査のビルドの `gSaveBlock1Ptr` を読むなら、やり取りの形は次のようになります。返事の `XX` の部分が、読んだ4バイトです。
+For example, to read `gSaveBlock1Ptr` in the build from this research, the exchange takes the following form. The `XX` part of the reply is the 4 bytes read.
 
 ```
-送る:   READ_CORE_MEMORY 30051c4 4
-返事:   READ_CORE_MEMORY 30051c4 XX XX XX XX
+Send:   READ_CORE_MEMORY 30051c4 4
+Reply:  READ_CORE_MEMORY 30051c4 XX XX XX XX
 ```
 
-この命令の番地は、ゲーム機の番地です。command.h の説明も、実績用の番地を使う別の命令(`READ_CORE_RAM`)と区別して、`READ_CORE_MEMORY` は「system address」を使うと書いています。前の節で見たとおり、ROCKNIXが使うmGBAのコアは、IWRAMを `0x03000000`、EWRAMを `0x02000000` として、GBAの番地のままRetroArchに知らせています。そのため、GBAの番地で読める作りになっているはずです。実機での動作は、まだ確かめていません。
+The address in this command is a console address. The description in command.h also distinguishes it from another command that uses achievement addresses (`READ_CORE_RAM`), saying `READ_CORE_MEMORY` uses a "system address." As seen in an earlier section, the mGBA core used by ROCKNIX reports IWRAM as `0x03000000` and EWRAM as `0x02000000`, passing GBA addresses as they are to RetroArch. It should therefore be built so that it can be read with GBA addresses. Behavior on the actual device has not yet been checked.
 
-## パススルーの改造
+## Passthrough mods
 
-### 2つのゲームを1つにする
+### Making two games into one
 
-パススルーの改造は、2つのゲームを同時に動かし、つないで1つのゲームのように見せる改造です。代表例の[SkyCraft](https://github.com/chasmlol/SkyCraft)は、スカイリムの中でマインクラフトを遊べるようにしています。設計書([DESIGN.md](https://github.com/chasmlol/SkyCraft/blob/bfcaf178524b92c2cdeb88e4ce0f13ef9ded6f32/docs/DESIGN.md))の最初の方針は、「どちらのゲームも作り直さない」です。マインクラフトは、自分の移動、当たり判定、戦闘の計算を、改造せずにそのまま動かします。
+A passthrough mod runs two games at the same time and connects them so that they look like one game. The representative example, [SkyCraft](https://github.com/chasmlol/SkyCraft), lets you play Minecraft inside Skyrim. The first principle in its design document ([DESIGN.md](https://github.com/chasmlol/SkyCraft/blob/bfcaf178524b92c2cdeb88e4ce0f13ef9ded6f32/docs/DESIGN.md)) is "don't rebuild either game." Minecraft runs its own movement, collision detection, and combat calculations as they are, unmodified.
 
-| 役割 | 担当するゲーム |
+| Role | Game in charge |
 |---|---|
-| 画面に描く、壁の当たり判定、NPC | スカイリム |
-| プレイヤーの位置と物理の計算 | マインクラフト(窓は隠して、裏で動かす) |
-| プレイヤーの体力 | マインクラフト |
+| Drawing to the screen, wall collision, NPCs | Skyrim |
+| Player position and physics calculations | Minecraft (window hidden, running in the background) |
+| Player health | Minecraft |
 
-ガイド集の2章([02-passthrough-mods.md](https://github.com/trevaintdead/ai-game-modding-guides/blob/54a980970606f71996e6f25723d42fb9a95aaae5/guides/02-passthrough-mods.md))は、ふつうの改造が「1つのゲームの中に、もう1つのゲームの中身を入れる」ものであるのに対し、パススルーは「どちらも、もう一方が動いていないと成り立たない」ものだという説明です。2つのゲームが同時に動くので、遊ぶ人は両方のゲームを持っている必要があります。
+Chapter 2 of the guide collection ([02-passthrough-mods.md](https://github.com/trevaintdead/ai-game-modding-guides/blob/54a980970606f71996e6f25723d42fb9a95aaae5/guides/02-passthrough-mods.md)) explains that whereas an ordinary mod "puts the contents of another game inside one game," passthrough is something where "neither works unless the other is running." Because two games run at the same time, the player needs to own both.
 
-### 2つのゲームの話し方
+### How the two games talk
 
-2つのゲームは、[共有メモリ](https://ja.wikipedia.org/wiki/%E5%85%B1%E6%9C%89%E3%83%A1%E3%83%A2%E3%83%AA)でつながっています。2つのプログラムが、同じメモリの区画を同時に開いて読み書きする方法です。片方が書けば、もう片方からすぐに見えます。同じ機械の中でしか使えません。
+The two games are connected by [shared memory](https://ja.wikipedia.org/wiki/%E5%85%B1%E6%9C%89%E3%83%A1%E3%83%A2%E3%83%AA). This is a method in which two programs open the same block of memory at the same time and read and write it. When one writes, the other can see it immediately. It can be used only within the same machine.
 
-SkyCraftの設計書によると、共有メモリの名前は `Local\SkyCraft_v1` で、中は次のように区切られています。
+According to SkyCraft's design document, the shared memory is named `Local\SkyCraft_v1`, and is divided as follows.
 
-| 区画 | 中身 | たとえ |
+| Section | Contents | Analogy |
 |---|---|---|
-| 見出し(header) | 目印の数字、取り決めの版、両方のプロセスの番号、心拍 | 交換日記の表紙 |
-| 最新の値の欄 | `PlayerState`(プレイヤー)、`CameraState`(カメラ)、`FrameSync`(何コマ目か) | ホワイトボード |
-| 2本のリングバッファ | スカイリムからマインクラフトへ、マインクラフトからスカイリムへの出来事 | 片道ずつの連絡帳 |
-| 名前付きのイベント | 待っている側を起こす合図 | 呼び鈴 |
+| Header | Marker number, protocol version, both process numbers, heartbeat | Cover of an exchange diary |
+| Latest-value fields | `PlayerState` (player), `CameraState` (camera), `FrameSync` (which frame) | Whiteboard |
+| Two ring buffers | Events from Skyrim to Minecraft, and from Minecraft to Skyrim | One-way message books |
+| Named events | Signals that wake the waiting side | Doorbell |
 
-### ホワイトボードとseqlock
+### The whiteboard and seqlock
 
-最新の値の欄は、[seqlock](https://en.wikipedia.org/wiki/Seqlock)という方法で守られています。Wikipediaの説明によると、書く側の決まりは、書き始めと書き終わりに番号を1つずつ進めることです。読む側は、読む前と読んだ後の番号を比べ、違っていたら、途中で書き換えられたと分かるので読み直します。ホワイトボードを読んでいる最中に書き換えられても、気づける仕組みです。
+The latest-value fields are protected by a method called [seqlock](https://en.wikipedia.org/wiki/Seqlock). According to the Wikipedia explanation, the writer's rule is to advance a number by one at the start and at the finish of writing. The reader compares the number before and after reading, and if they differ, knows it was rewritten in the middle and reads again. This lets you notice if the whiteboard is rewritten while you are reading it.
 
 ```mermaid
 sequenceDiagram
-    participant W as 書く側
-    participant M as 最新の値の欄
-    participant R as 読む側
-    W->>M: 番号を進める(書き始め)
-    R->>M: 番号を読む
-    W->>M: 値を書く
-    R->>M: 値を読む
-    W->>M: 番号を進める(書き終わり)
-    R->>M: もう一度番号を読む
-    R->>R: 番号が違うので読み直す
+    participant W as Writer
+    participant M as Latest-value fields
+    participant R as Reader
+    W->>M: Advance the number (starting to write)
+    R->>M: Read the number
+    W->>M: Write the values
+    R->>M: Read the values
+    W->>M: Advance the number (finished writing)
+    R->>M: Read the number again
+    R->>R: The number differs, so read again
 ```
 
-同じWikipediaの項目は、seqlockが、ポインターを含むデータには使えないとも書いています。書く側がポインターの指す先を変えてしまうと、読む側がすでに辿ったポインターが、意味を失うためです。
+The same Wikipedia entry also says that seqlock cannot be used for data containing pointers. This is because if the writer changes what a pointer points to, a pointer the reader has already followed loses its meaning.
 
-### 連絡帳とリングバッファ
+### Message books and ring buffers
 
-1回だけ起きる出来事(ブロックを置いた、攻撃が当たった)は、ホワイトボードに書くと、次の書き込みで消えてしまいます。そこで、[リングバッファ](https://ja.wikipedia.org/wiki/%E3%83%AA%E3%83%B3%E3%82%B0%E3%83%90%E3%83%83%E3%83%95%E3%82%A1)に順番に書きます。リングバッファは、端と端をつないで輪の形にして使う、データの一時的な置き場です。書く位置が最後まで行くと、先頭に戻ります。SkyCraftの2本のリングバッファは、どちらも書く側と読む側が1つずつの、SPSC(single producer, single consumer)という形です。
+An event that happens only once (a block was placed, an attack landed) would be erased by the next write if it were written on the whiteboard. So events are written in order to a [ring buffer](https://ja.wikipedia.org/wiki/%E3%83%AA%E3%83%B3%E3%82%B0%E3%83%90%E3%83%83%E3%83%95%E3%82%A1). A ring buffer is a temporary place for data, used by joining its two ends into a ring. When the write position reaches the end, it returns to the start. SkyCraft's two ring buffers are both of the SPSC (single producer, single consumer) form, with one writer and one reader each.
 
-### 設計の3つの決まり
+### Three design rules
 
-ガイド集の2章は、書き始める前にエージェントに伝えるべき決まりを3つ挙げています。
+Chapter 2 of the guide collection lists three rules to tell the agent before starting to write.
 
-1. 取り決めは1か所で定義し、両方の言語のコードをそこから作る。SkyCraftは、取り決めからC++とJavaの両方のコードを作り、両方の並び方を自動のテストで確かめている
-2. すべて決まった大きさで、リトルエンディアンで並べる
-3. 片方が落ちても、もう片方は生き残る。心拍で相手の停止に気づき、マインクラフトが落ちたらスカイリムの操作をプレイヤーに返し、スカイリムが落ちたらマインクラフトを止める
+1. Define the protocol in one place and generate the code for both languages from it. SkyCraft generates both C++ and Java code from the protocol and checks both layouts with automated tests
+2. Lay everything out in fixed sizes and little-endian
+3. If one side crashes, the other survives. A heartbeat notices that the other side has stopped; if Minecraft crashes, control of Skyrim returns to the player, and if Skyrim crashes, Minecraft is stopped
 
-これらは、連載で見てきた仕組みと同じ考え方です。[ELFの先頭の目印](20-cpu.md)、[MBRのリトルエンディアンの数字](19-boot.md)、[エメラルドのセーブの目印と2つの枠](17-save-data.md)は、どれも、おかしくなったデータを使わないための工夫でした。
+These are the same ideas as the mechanisms seen in the series. The [marker at the start of an ELF](20-cpu.md), the [little-endian numbers in the MBR](19-boot.md), and [the marker and two slots of Emerald's save](17-save-data.md) are all devices for not using data that has gone wrong.
 
-### 作る順番
+### The order of building
 
-ガイド集の9章([09-worked-example-passthrough-mod.md](https://github.com/trevaintdead/ai-game-modding-guides/blob/54a980970606f71996e6f25723d42fb9a95aaae5/guides/09-worked-example-passthrough-mod.md))は、最初から最後までの流れを、エージェントへの指示文つきで説明しています。
+Chapter 9 of the guide collection ([09-worked-example-passthrough-mod.md](https://github.com/trevaintdead/ai-game-modding-guides/blob/54a980970606f71996e6f25723d42fb9a95aaae5/guides/09-worked-example-passthrough-mod.md)) explains the flow from start to finish, with prompts for the agent.
 
-1. 組み合わせを選ぶ。画面を担当するゲームには改造を読み込む道具(mod loader)が、裏で動くゲームには改造のための仕組み(mod API)が必要
-2. どちらのゲームが、何の値の持ち主かを先に決める。SkyCraftでは、画面を描くスカイリムではなく、マインクラフトがプレイヤーの位置の持ち主
-3. 値を1つだけ送る。プレイヤーの位置を毎コマ送り、送った値と受け取った値を、両方の記録に残して比べる
-4. 逆向きにも1つ送る
-5. 機能を1つずつ足し、そのたびに遊んで確かめてから記録する
-6. カクつきを直す。2つのゲームを動かすので、メモリもおよそ2倍要る
-7. セーブと読み込みを合わせる。2つのゲームに、それぞれのセーブがあるため
+1. Choose a combination. The game in charge of the screen needs a tool that loads mods (mod loader), and the game running in the background needs a mechanism for modding (mod API)
+2. Decide first which game owns which values. In SkyCraft, the owner of the player's position is Minecraft, not Skyrim, which draws the screen
+3. Send just one value. Send the player's position every frame, and record the sent and received values on both sides and compare them
+4. Send one value in the reverse direction too
+5. Add features one at a time, each time testing by playing and then recording
+6. Fix stutter. Because two games run, about twice the memory is needed
+7. Align saving and loading, because each of the two games has its own save
 
-9章は、うまくいく組み合わせとして、スカイリム、Fallout 4、Outer Wildsとマインクラフトの組み合わせなどを挙げています。時間がかかる原因として挙がっているのは、ゲームの版が変わって改造が動かなくなること、2つのゲームの座標の決め方の違い、2つのセーブ、画面とコマの時計の取り合いの4つです。
+Chapter 9 lists as combinations that work the pairing of Skyrim, Fallout 4, or Outer Wilds with Minecraft, among others. The causes of lost time it lists are four: mods breaking when a game's version changes, differences in how the two games define coordinates, the two saves, and the screen and frame clocks competing with each other.
 
-### うまくいかない考え
+### Ideas that do not work
 
-ガイド集の2章には、うまくいかない考えの表もあります。
+Chapter 2 of the guide collection also has a table of ideas that do not work.
 
-| 考え | 理由 |
+| Idea | Reason |
 |---|---|
-| オンラインのゲームを、裏で動く側に使う | 範囲外。ガイドの6章の決まりに反する |
-| 改造の土台もソースもないゲームを、画面を担当する側に使う | 先にエンジン全体を解析することになる |
-| 裏で動くゲームを、画面に何も描かずに動かす | 画面を重ねることが要なので、描かなければ成り立たない |
-| LinuxやmacOSで動く改造にする | 改造の土台がWindows向けの道具だから |
-| 2つ目のゲームの素材を一緒に配る | 配るのはコードと準備の手順だけ。ゲームは遊ぶ人が用意する |
+| Using an online game as the side running in the background | Out of scope. Goes against the rules in chapter 6 of the guide |
+| Using a game with neither a modding base nor source as the side in charge of the screen | You end up having to analyze the whole engine first |
+| Running the background game without drawing anything to the screen | Layering screens is the key, so it does not work without drawing |
+| Making the mod run on Linux or macOS | The modding bases are tools for Windows |
+| Distributing the second game's assets along with the mod | Distribute only the code and setup steps. The player provides the games |
 
-## RG40XXHでの小さなパススルー
+## A small passthrough on the RG40XXH
 
-SkyCraftのような改造は、Windows版の大きなゲームを2つ同時に動かす前提です。メモリ1GBのLinuxの機械であるRG40XXHには向きません。ただ、2つのプログラムが数字をやり取りする考え方は、RG40XXHとMacの組み合わせにも当てはまります。
+Mods like SkyCraft assume two large Windows games running at the same time. They are not suited to the RG40XXH, a Linux machine with 1GB of memory. Still, the idea of two programs exchanging numbers also applies to the combination of the RG40XXH and a Mac.
 
-| | SkyCraft | RG40XXHとMac |
+| | SkyCraft | RG40XXH and Mac |
 |---|---|---|
-| つなぎ方 | 同じ機械の共有メモリ | Wi-Fi越しのUDP(RetroArchの命令) |
-| 値の持ち主 | プレイヤーの位置はマインクラフト | ゲームの状態は、RG40XXHのエミュレーター |
-| 見出しの確認 | 目印と版の番号 | `GET_STATUS` で、ゲームの名前とCRC32を確かめる |
-| 相手の停止の検知 | 心拍 | 一定の間隔で `GET_STATUS` を送り、返事が来るかを見る |
-| 最初の1歩 | プレイヤーの位置を1つ送る | 番地を1つ読み、Macの画面に表示する |
+| Connection | Shared memory on the same machine | UDP over Wi-Fi (RetroArch commands) |
+| Owner of values | Minecraft owns the player's position | The RG40XXH's emulator owns the game state |
+| Header check | Marker and version number | Check the game's name and CRC32 with `GET_STATUS` |
+| Detecting that the other side stopped | Heartbeat | Send `GET_STATUS` at regular intervals and see whether a reply comes |
+| First step | Send one player position | Read one address and display it on the Mac's screen |
 
-### 考えられる手順
+### Possible steps
 
-ここから先は、ソースで確かめた仕組みを組み合わせた手順の案です。実機では、まだ試していません。
+What follows is a proposed procedure combining mechanisms checked in the source. It has not yet been tried on the actual device.
 
-1. RG40XXHのRetroArchの設定で、ネットワークの命令を有効にする
-2. Macから `GET_STATUS` を送り、自分でビルドしたエメラルドが動いていることを確かめる
-3. `READ_CORE_MEMORY` で `gSaveBlock1Ptr` を読み、今の置き場所を知る
-4. その置き場所から、知りたいデータの番地を計算して読む
-5. もう一度 `gSaveBlock1Ptr` を読み、手順3と同じ値かを確かめる。違っていれば、途中で置き場所が動いたので読み直す
+1. Enable network commands in the RG40XXH's RetroArch settings
+2. Send `GET_STATUS` from the Mac and confirm that the Emerald you built yourself is running
+3. Read `gSaveBlock1Ptr` with `READ_CORE_MEMORY` to learn the current location
+4. From that location, calculate the address of the data you want and read it
+5. Read `gSaveBlock1Ptr` again and check that it has the same value as in step 3. If it differs, the location moved in the meantime, so read again
 
-UDPは、送ったデータが届くことを保証しない方式です([UDP](https://ja.wikipedia.org/wiki/UDP))。返事が来なかったときは、命令を送り直す作りにします。
+UDP is a method that does not guarantee that sent data arrives ([UDP](https://ja.wikipedia.org/wiki/UDP)). Build it to resend the command when no reply comes.
 
-手順5は、seqlockの読む側と同じ発想です。エメラルドは、地図の読み込みや戦闘の開始でデータの置き場所を動かすので、ポインターを読んでから本体を読むまでの間に、置き場所が変わることがあり得ます。前後で同じ値かを確かめれば、そのずれに気づけます。
+Step 5 is the same idea as the reader side of a seqlock. Because Emerald moves the data's location on map loads and at the start of battles, the location may change between reading the pointer and reading the data itself. Checking that the value is the same before and after lets you notice that shift.
 
-読みたいデータがお金のように鍵で混ぜてある場合は、鍵も読んでXORで戻すことが必要です。ポケモンのデータを読む場合は、個性値で並べ替えて、IDと個性値で混ぜてあることを考えて、元に戻す必要があります。
+If the data you want to read is mixed with a key, as money is, you also need to read the key and undo the XOR. To read Pokémon data, you need to take into account that it is reordered by personality value and mixed with the ID and personality value, and restore it.
 
-## 守ること
+## Rules to follow
 
-ガイド集の6章([06-rules-legal-and-publishing.md](https://github.com/trevaintdead/ai-game-modding-guides/blob/54a980970606f71996e6f25723d42fb9a95aaae5/guides/06-rules-legal-and-publishing.md))には、改造全般の決まりが書かれています。チートとパススルーに関係するものは、次のとおりです。
+Chapter 6 of the guide collection ([06-rules-legal-and-publishing.md](https://github.com/trevaintdead/ai-game-modding-guides/blob/54a980970606f71996e6f25723d42fb9a95aaae5/guides/06-rules-legal-and-publishing.md)) sets out rules for modding in general. Those relevant to cheats and passthrough are as follows.
 
-- 1人用のゲームか、オフラインのゲームだけを対象にする。オンラインのゲームや、チート対策(アンチチート)のあるゲームには手を出さない。アンチチートを回避する道具、設定、手順は、決して公開しない
-- 長い自動の操作を始める前や、ゲームのフォルダに何かを入れる前には、使っている人に確かめる
-- リポジトリにゲームのファイルを入れない
+- Target only single-player or offline games. Do not touch online games or games with anti-cheat. Never publish tools, settings, or steps for bypassing anti-cheat
+- Check with the person using it before starting long automated operations or placing anything in a game folder
+- Do not put game files in the repository
 
-RetroArchのネットワークの命令については、ソースのコメント(command.c の `command_network_new`)が注意を書いています。待ち受ける場所を指定しないと、すべてのネットワークの入り口で命令を受け付けるので、同じネットワークにいる誰でも、コアの読み込みやメモリの書き込みの命令を送れてしまいます。同じ機械からしか使わないなら、`network_cmd_bind_address = "127.0.0.1"` を設定できる、という説明です。MacからRG40XXHを操作する場合は、自宅のような信頼できるネットワークだけで有効にし、使い終わったら切るのが安全です。
+Regarding RetroArch's network commands, a comment in the source (`command_network_new` in command.c) gives a caution. If you do not specify where to listen, commands are accepted on all network interfaces, so anyone on the same network can send commands to load cores or write memory. It explains that if you use it only from the same machine, you can set `network_cmd_bind_address = "127.0.0.1"`. When operating the RG40XXH from a Mac, it is safest to enable it only on a trusted network such as your home network, and to turn it off when you are done.
 
-この記事の範囲では、次の点も加えておきます。
+Within the scope of this article, the following points are also added.
 
-- チートや `WRITE_CORE_MEMORY` で書き換える前に、[セーブのファイル](17-save-data.md)を保存しておく。エメラルドでは、書き換え方を間違えると、ポケモンがダメタマゴになります
-- 自分でビルドしたROMや、吸い出したROMを配らない([ROMとBIOSの扱い方](12-roms-and-bios.md))
+- Before rewriting with cheats or `WRITE_CORE_MEMORY`, keep a copy of your [save file](17-save-data.md). On Emerald, rewriting the wrong way turns a Pokémon into a Bad Egg
+- Do not distribute ROMs you built yourself or dumped ([Handling ROMs and BIOS](12-roms-and-bios.md))
 
-## この記事で出てくる中国語
+## Chinese terms in this article
 
-中国語は、このリポジトリのほかの記事で出典を確認した語から、この記事の話題に関わるものを選びました。
+The Chinese terms here were selected for their relevance to this article's topic from words whose sources were confirmed in other articles in this repository.
 
-| 中国語 | ピンイン | 日本語の意味 | 出典 |
+| Chinese | Pinyin | Meaning | Source |
 |---|---|---|---|
-| 金手指 | jīn shǒu zhǐ | チートコード | [口袋改版资源吧](https://tieba.baidu.com/f?kw=%E5%8F%A3%E8%A2%8B%E6%94%B9%E7%89%88%E8%B5%84%E6%BA%90) |
-| 模拟器 | mónǐqì | エミュレーター | [模拟器游戏 篇四](https://zhuanlan.zhihu.com/p/703325151) |
-| 内存 | nèicún | メモリ | [掌机圈 RG-35XX H](https://zhangjiquan.com/handheld/rg-35xx-h) |
-| 口袋妖怪 | kǒudài yāoguài | ポケモン | [口袋妖怪改版吧](https://tieba.baidu.com/f?kw=%E5%8F%A3%E8%A2%8B%E5%A6%96%E6%80%AA%E6%94%B9%E7%89%88) |
-| 备份 | bèifèn | バックアップ | [百度の検索結果](https://www.baidu.com/s?wd=RG40XXH%20%E5%88%B7%E6%9C%BA%20%E5%9B%BA%E4%BB%B6%20Knulli%20%E6%95%99%E7%A8%8B) |
-| 配置 | pèizhì | 設定 | [天马G前端的使用](https://blog.csdn.net/fanged/article/details/152960565) |
+| 金手指 | jīn shǒu zhǐ | Cheat code | [口袋改版资源吧](https://tieba.baidu.com/f?kw=%E5%8F%A3%E8%A2%8B%E6%94%B9%E7%89%88%E8%B5%84%E6%BA%90) |
+| 模拟器 | mónǐqì | Emulator | [模拟器游戏 篇四](https://zhuanlan.zhihu.com/p/703325151) |
+| 内存 | nèicún | Memory | [掌机圈 RG-35XX H](https://zhangjiquan.com/handheld/rg-35xx-h) |
+| 口袋妖怪 | kǒudài yāoguài | Pokémon | [口袋妖怪改版吧](https://tieba.baidu.com/f?kw=%E5%8F%A3%E8%A2%8B%E5%A6%96%E6%80%AA%E6%94%B9%E7%89%88) |
+| 备份 | bèifèn | Backup | [Baidu search results](https://www.baidu.com/s?wd=RG40XXH%20%E5%88%B7%E6%9C%BA%20%E5%9B%BA%E4%BB%B6%20Knulli%20%E6%95%99%E7%A8%8B) |
+| 配置 | pèizhì | Settings | [天马G前端的使用](https://blog.csdn.net/fanged/article/details/152960565) |
 
-## 学べること
+## What you learn
 
-チートは、動いているゲームのメモリの番地を見つけて、数字を書き換える技術です。チートコードは「この番地にこの値」と条件を組み合わせた小さなプログラムで、RetroArchのメモリの検索を使えば、プログラムを読まずに番地を探せます。エメラルドは、お金を鍵で混ぜ、データの置き場所を動かし、ポケモンのデータを混ぜて並べ替えて検算するので、単純なチートが効きにくい作りでした。
+A cheat is a technique for finding addresses in the memory of a running game and rewriting the numbers. A cheat code is a small program combining "this value at this address" with conditions, and with RetroArch's memory search you can find addresses without reading the program. Emerald mixes money with a key, moves the data's location, and mixes, reorders, and verifies Pokémon data, so simple cheats are less effective on it.
 
-パススルーの改造は、2つのプログラムの間で数字をやり取りする技術で、目印、版、心拍、相手が止まったときの備えという、連載で見てきた考え方の組み合わせでできています。RG40XXHでは、RetroArchのネットワークの命令と、GBAの番地を知らせるmGBAのコアを使えば、Wi-Fi越しに同じ考え方を小さく試せる作りになっています。試すときは、信頼できるネットワークで、セーブを保存してから始めるのが安全です。
+A passthrough mod is a technique for exchanging numbers between two programs, made up of a combination of ideas seen in the series: markers, versions, heartbeats, and preparation for the other side stopping. On the RG40XXH, RetroArch's network commands and the mGBA core that reports GBA addresses are built so that the same idea can be tried on a small scale over Wi-Fi. When you try it, it is safest to start on a trusted network, after keeping a copy of your save.
