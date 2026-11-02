@@ -6,7 +6,7 @@ This continues [The big picture of the RG40XXH](15-rg40xxh-big-picture.md). This
 
 The RG40XXH contains no GBA parts. What runs GBA games is software called an emulator.
 
-The commands in a game file are written in the language of that console's CPU. The GBA's CPU is the ARM7TDMI, and [pokeemerald-expansion](https://github.com/rh-hideout/pokeemerald-expansion/blob/dfb0f84374230f4d462191601179b742f9f077df/Makefile) is also set to build for this CPU. The RG40XXH's H700 is a Cortex-A53 ([H700 options](https://github.com/ROCKNIX/distribution/blob/ae41127cee7e3e81b1ab3b17b676d91be5165e61/projects/ROCKNIX/devices/H700/options)). Both are in the ARM family, but their generations differ and so do their command languages. As it stands, the H700 cannot read GBA commands.
+The commands in a game file are written in the language of that console's CPU. The GBA's CPU is the ARM7TDMI, and [pokeemerald-expansion](https://github.com/rh-hideout/pokeemerald-expansion/blob/dfb0f84374230f4d462191601179b742f9f077df/Makefile) is also set to build for this CPU. The RG40XXH's H700 is a Cortex-A53 ([H700 options](https://github.com/ROCKNIX/distribution/blob/ae41127cee7e3e81b1ab3b17b676d91be5165e61/projects/ROCKNIX/devices/H700/options)). Both are in the ARM family, but their generations differ. Under ROCKNIX the H700 runs in 64-bit mode (AArch64), whose command language differs from the GBA's. A game's commands also assume the GBA's screen, sound, and button parts at fixed memory positions, and the RG40XXH does not have those parts. So the game file cannot simply be run as it is.
 
 The emulator acts as a simultaneous interpreter between them.
 

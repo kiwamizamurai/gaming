@@ -165,7 +165,7 @@ The DTB is made from a text called DTS. The DTS for the RG40XX H ([sun50i-h700-a
 | `&leds` | The line the RGB LEDs are connected to (PI7) |
 | `&panel` | The type of screen component (`anbernic,rg40xx-panel`) |
 
-The DTS for the newer version of the screen ([v2-panel](https://github.com/ROCKNIX/distribution/blob/ae41127cee7e3e81b1ab3b17b676d91be5165e61/projects/ROCKNIX/devices/H700/linux/dts/allwinner/sun50i-h700-anbernic-rg40xx-h-v2-panel.dts)) is even shorter, at 14 lines. It only loads the RG40XX H floor plan and changes the type of screen component to `anbernic,rg40xx-v2-panel`. This shows that the only difference between the two DTBs is the screen component. If the screen is garbled, it seems you would try the other one. Which one fits is to be checked on the device.
+The DTS for the newer version of the screen ([v2-panel](https://github.com/ROCKNIX/distribution/blob/ae41127cee7e3e81b1ab3b17b676d91be5165e61/projects/ROCKNIX/devices/H700/linux/dts/allwinner/sun50i-h700-anbernic-rg40xx-h-v2-panel.dts)) is even shorter, at 14 lines. It only loads the RG40XX H floor plan, sets its own `rocknix-dt-id`, and changes the type of screen component to `anbernic,rg40xx-v2-panel`. This shows that, apart from that identifying name, the only difference between the two DTBs is the screen component. If the screen is garbled, it seems you would try the other one. Which one fits is to be checked on the device.
 
 ### Why a person copies dtb.img
 

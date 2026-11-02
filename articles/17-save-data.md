@@ -111,6 +111,7 @@ The contents of a save file are also a sequence of numbers. Here are two example
 #define SAVE_MAGIC 0x4B
 
 static void save_best(void) {
+    SWITCH_RAM(0);
     ENABLE_RAM;
     *(uint8_t *)0xA000 = SAVE_MAGIC;
     *(uint8_t *)0xA001 = best;
@@ -120,6 +121,7 @@ static void save_best(void) {
 
 | Line | What it does |
 |---|---|
+| `SWITCH_RAM(0)` | Selects RAM bank 0 |
 | `ENABLE_RAM` | Allows writing to save RAM |
 | `SAVE_MAGIC` to `0xA000` | Writes the marker `0x4B` (75) to the first byte |
 | `best` to `0xA001` | Writes the high score to the second byte |
